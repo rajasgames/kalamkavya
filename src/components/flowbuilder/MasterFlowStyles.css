@@ -1,0 +1,555 @@
+/* ============================================================
+   Master Flow Canvas — scoped CSS
+   All selectors are prefixed with .master-flow- to avoid
+   collision with the existing reactflow v11 styles used by
+   the Cast RelationshipFlowchart.
+   ============================================================ */
+
+/* ── Imports ─────────────────────────────────────────────── */
+@import '@xyflow/react/dist/style.css';
+
+/* ── Canvas background ────────────────────────────────────── */
+.master-flow-canvas-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: var(--bg-canvas);
+}
+
+.master-flow-canvas-wrapper .react-flow__background {
+  background: var(--bg-canvas);
+}
+
+.master-flow-canvas-wrapper .react-flow__background-pattern circle {
+  fill: var(--border-subtle);
+}
+
+.master-flow-canvas-wrapper .react-flow__pane {
+  cursor: crosshair !important;
+}
+
+/* ── Controls override ────────────────────────────────────── */
+.master-flow-canvas-wrapper .react-flow__controls {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  bottom: 24px;
+  left: 24px;
+}
+
+.master-flow-canvas-wrapper .react-flow__controls-button {
+  background: var(--bg-surface);
+  border: none;
+  border-bottom: 1px solid var(--border-subtle);
+  fill: var(--text-secondary);
+  transition: background 0.15s;
+}
+
+.master-flow-canvas-wrapper .react-flow__controls-button:last-child {
+  border-bottom: none;
+}
+
+.master-flow-canvas-wrapper .react-flow__controls-button:hover {
+  background: var(--bg-deep);
+}
+
+.master-flow-canvas-wrapper .react-flow__controls-button svg {
+  fill: var(--text-secondary);
+}
+
+/* ── MiniMap override ─────────────────────────────────────── */
+.master-flow-canvas-wrapper .react-flow__minimap {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+  bottom: 24px;
+  right: 24px;
+}
+
+/* ── Custom Node ──────────────────────────────────────────── */
+.master-flow-node {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 10px;
+  width: 190px;
+  padding: 10px 12px 8px;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+  font-family: var(--font-sans, 'Inter', sans-serif);
+}
+
+.master-flow-node:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.master-flow-node--selected {
+  border-width: 2px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--border-subtle) 30%, transparent),
+              var(--shadow-hover);
+}
+
+/* Master entity gets a slightly more prominent treatment */
+.master-flow-node--master {
+  border-style: solid;
+}
+
+/* Top color accent bar */
+.master-flow-node__accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Type badge */
+.master-flow-node__badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  border-radius: 100px;
+  padding: 2px 7px 2px 5px;
+  width: fit-content;
+}
+
+.master-flow-node__icon {
+  font-size: 10px;
+}
+
+.master-flow-node__type {
+  font-size: 9px;
+}
+
+.master-flow-node__master-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin-left: 2px;
+}
+
+/* Node body / name */
+.master-flow-node__body {
+  margin-bottom: 4px;
+}
+
+.master-flow-node__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: text;
+  word-break: break-word;
+  transition: background 0.15s;
+  line-height: 1.3;
+}
+
+.master-flow-node__name:hover {
+  background: var(--bg-deep);
+}
+
+.master-flow-node__input {
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid var(--terracotta);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+  width: 100%;
+  text-align: center;
+  padding: 2px 4px;
+}
+
+/* Connection count */
+.master-flow-node__connections {
+  font-size: 10px;
+  text-align: center;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
+/* Action buttons */
+.master-flow-node__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 6px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.master-flow-node:hover .master-flow-node__actions,
+.master-flow-node--selected .master-flow-node__actions {
+  opacity: 1;
+}
+
+.master-flow-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-canvas);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.master-flow-action-btn:hover {
+  background: var(--btn-color, var(--terracotta));
+  border-color: var(--btn-color, var(--terracotta));
+  color: #fff;
+}
+
+.master-flow-action-btn--danger:hover {
+  background: var(--destructive);
+  border-color: var(--destructive);
+  color: #fff;
+}
+
+/* ── Handles ──────────────────────────────────────────────── */
+.master-flow-handle {
+  width: 8px !important;
+  height: 8px !important;
+  background: var(--bg-surface) !important;
+  border: 1.5px solid var(--text-ghost) !important;
+  transition: border-color 0.15s, background 0.15s !important;
+}
+
+.master-flow-handle:hover {
+  border-color: var(--terracotta) !important;
+  background: var(--terracotta) !important;
+}
+
+/* ── Custom Edge ──────────────────────────────────────────── */
+.master-flow-edge-path {
+  stroke-width: 1.5;
+  fill: none;
+  cursor: pointer;
+  transition: stroke-width 0.2s;
+}
+
+.master-flow-edge-path--selected {
+  stroke-width: 2.5;
+}
+
+.master-flow-edge-path:hover {
+  stroke-width: 2.5;
+}
+
+/* Edge label wrapper */
+.master-flow-edge-label {
+  position: absolute;
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.master-flow-edge-text {
+  background: var(--bg-surface);
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--font-sans, sans-serif);
+  white-space: nowrap;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  cursor: pointer;
+  letter-spacing: 0.03em;
+}
+
+.master-flow-edge-add {
+  background: var(--bg-deep);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 10px;
+  color: var(--text-ghost);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.master-flow-edge-add:hover {
+  border-color: var(--terracotta);
+  color: var(--terracotta);
+}
+
+.master-flow-edge-input {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--terracotta);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-family: inherit;
+  color: var(--text-primary);
+  outline: none;
+  min-width: 60px;
+}
+
+/* ── Context Menu ─────────────────────────────────────────── */
+.master-flow-context-menu {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  min-width: 190px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 5px 0;
+  overflow: visible;
+}
+
+.master-flow-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+  position: relative;
+  width: 100%;
+}
+
+.master-flow-menu-item:hover {
+  background: var(--bg-deep);
+}
+
+.master-flow-menu-item--danger {
+  color: var(--destructive);
+}
+
+.master-flow-menu-item--danger:hover {
+  background: rgba(220, 38, 38, 0.06);
+}
+
+.master-flow-menu-chevron {
+  margin-left: auto;
+  color: var(--text-ghost);
+}
+
+.master-flow-menu-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 4px 0;
+}
+
+.master-flow-submenu {
+  position: absolute;
+  left: 100%;
+  top: -4px;
+  z-index: 1001;
+  min-width: 170px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  padding: 5px 0;
+}
+
+/* ── Toolbar ──────────────────────────────────────────────── */
+.master-flow-toolbar {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 100px;
+  box-shadow: var(--shadow-soft);
+  white-space: nowrap;
+  max-width: calc(100vw - 80px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.master-flow-toolbar::-webkit-scrollbar { display: none; }
+
+.master-flow-toolbar__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.master-flow-toolbar__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.master-flow-toolbar__count {
+  font-size: 11px;
+  color: var(--text-ghost);
+  background: var(--bg-deep);
+  border-radius: 100px;
+  padding: 1px 8px;
+}
+
+.master-flow-toolbar__center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.master-flow-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.master-flow-toolbar__group {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.master-flow-toolbar-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.master-flow-toolbar-btn:hover:not(:disabled) {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+}
+
+.master-flow-toolbar-btn--active {
+  background: var(--bg-surface);
+  color: var(--terracotta);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.master-flow-toolbar-btn--disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Legend */
+.master-flow-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.master-flow-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: default;
+}
+
+.master-flow-legend__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.master-flow-legend__label {
+  font-size: 10px;
+  color: var(--text-ghost);
+}
+
+/* Export button */
+.master-flow-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--terracotta);
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 100px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.master-flow-export-btn:hover { opacity: 0.85; }
+
+/* ── Empty state ──────────────────────────────────────────── */
+.master-flow-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.master-flow-empty__icon {
+  font-size: 48px;
+  opacity: 0.2;
+}
+
+.master-flow-empty__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.master-flow-empty__hint {
+  font-size: 13px;
+  color: var(--text-ghost);
+  text-align: center;
+  max-width: 280px;
+  line-height: 1.5;
+}

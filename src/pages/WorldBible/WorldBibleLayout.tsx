@@ -226,7 +226,10 @@ export function WorldBibleLayout() {
               </div>
             ) : displayView === 'relationships' ? (
               <div className="flex-1 min-h-[600px] border border-subtle rounded-xl overflow-hidden flex flex-col mb-8">
-                <WorldMap />
+                <WorldMap
+                  onEntitySelect={setActiveEntityId}
+                  onRequestAddEntity={(defaultType) => openCreationForTab(defaultType)}
+                />
               </div>
             ) : (
               <div className="flex-1">
