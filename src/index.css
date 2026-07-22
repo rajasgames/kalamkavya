@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-base: #FAF7F2;
+    --bg-surface: #F2EBE0;
+    --bg-elevated: #FFFFFF;
+    --bg-glass: rgba(250, 247, 242, 0.82);
+    --border-subtle: rgba(160, 125, 90, 0.14);
+    --text-primary: #231E18;
+    --text-secondary: #63564A;
+    --text-ghost: #A09181;
+
+    /* Accents (universal) */
+    --amber-from: #D4995A;
+    --amber-to: #E8A85C;
+    --amber-grad: linear-gradient(135deg, var(--amber-from), var(--amber-to));
+    --amber-glow: rgba(212, 153, 90, 0.22);
+    --sage: #7C8F74;
+    --clay: #C66B5E;
+  }
+
+  [data-theme="dark"] {
+    --bg-base: #14120E;
+    --bg-surface: #1B1814;
+    --bg-elevated: #24201A;
+    --bg-glass: rgba(27, 24, 20, 0.84);
+    --border-subtle: rgba(224, 159, 86, 0.12);
+    --text-primary: #EDE6DA;
+    --text-secondary: #A3998A;
+    --text-ghost: #635A4D;
+  }
+
+  body {
+    @apply bg-base text-primary font-sans;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  *:focus, *:focus-visible,
+  select:focus, select:focus-visible,
+  button:focus, button:focus-visible,
+  input:focus, input:focus-visible,
+  textarea:focus, textarea:focus-visible,
+  [role="combobox"]:focus,
+  [role="option"]:focus {
+    outline: 0 !important;
+    outline-offset: 0 !important;
+  }
+
+  /* Custom Minimal Cozy Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(160, 125, 90, 0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--amber-from);
+  }
+}
+
+@keyframes modalOverlayShow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalContentShow {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 16px)); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+.animate-modal-overlay {
+  animation: modalOverlayShow 300ms ease-out forwards;
+}
+
+.animate-modal-content {
+  animation: modalContentShow 300ms ease-out forwards;
+}
+
+@keyframes toastSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.ProseMirror {
+  font-family: 'Crimson Pro', serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-primary);
+  outline: none !important;
+  box-shadow: none !important;
+  min-height: 100%;
+}
+
+.ProseMirror:focus,
+.ProseMirror:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+::selection {
+  background: var(--amber-glow);
+  color: inherit;
+}
+
+
+.ProseMirror p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.tiptap-active-line {
+  border-left: 2px solid var(--amber-from);
+  padding-left: 12px;
+  background: rgba(212, 153, 90, 0.04);
+  /* Slight negative margin to offset padding so text stays aligned */
+  margin-left: -14px;
+}
+
+@keyframes toastHide {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes toastSwipeOut {
+  from { transform: translateX(var(--radix-toast-swipe-end-x)); }
+  to { transform: translateX(100%); }
+}
+
+.animate-toast-slide-in {
+  animation: toastSlideIn 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-toast-hide {
+  animation: toastHide 100ms ease-in forwards;
+}
+
+.animate-toast-swipe-out {
+  animation: toastSwipeOut 100ms ease-out forwards;
+}
+
+@keyframes drawerSlideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes drawerSlideOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlayFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.animate-drawer-in {
+  animation: drawerSlideIn 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-drawer-out {
+  animation: drawerSlideOut 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-overlay-fade-in {
+  animation: overlayFadeIn 300ms ease-out forwards;
+}
+
+.animate-overlay-fade-out {
+  animation: overlayFadeOut 300ms ease-out forwards;
+}
+
+/* TipTap Placeholder */
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: var(--text-ghost);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
