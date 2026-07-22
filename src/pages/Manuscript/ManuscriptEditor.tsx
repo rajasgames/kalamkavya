@@ -149,14 +149,6 @@ export function ManuscriptEditor() {
             >
               <Timer size={16} className="shrink-0" />
             </button>
-            <div className="w-[1px] h-4 bg-subtle mx-0.5 sm:mx-1" />
-            <button
-              onClick={() => useUIStore.getState().setOpenModal('ghostwriter')}
-              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg text-terracotta bg-terracotta/10 hover:bg-terracotta/20 border border-terracotta/30 transition-all shadow-sm font-medium text-xs"
-            >
-              <Feather size={14} className="shrink-0" />
-              <span className="font-bold uppercase tracking-wider hidden sm:inline">Ghostwriter</span>
-            </button>
           </div>
         </div>
       )}
@@ -165,7 +157,17 @@ export function ManuscriptEditor() {
       <div className={`flex-1 overflow-y-auto px-6 sm:px-12 scrollbar-hide ${isFocusMode ? 'py-32' : 'py-16'}`}>
         <div className="max-w-[720px] mx-auto h-full relative">
           
-          <h1 className="text-4xl sm:text-5xl font-serif font-bold text-primary mb-12 outline-none">
+          <div className="absolute top-0 right-0 z-20">
+            <button
+              onClick={() => useUIStore.getState().setOpenModal('ghostwriter')}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full text-white bg-terracotta hover:bg-terracotta/90 transition-all shadow-md font-medium text-xs tracking-wider uppercase"
+            >
+              <Feather size={14} className="shrink-0" />
+              <span className="hidden sm:inline">Ghostwriter</span>
+            </button>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl font-display font-bold text-primary mb-12 outline-none pt-4">
             {activeScene.title}
           </h1>
 
@@ -185,7 +187,7 @@ export function ManuscriptEditor() {
 
       {/* Floating Word Count Pill */}
       {!isFocusMode && (
-        <div className="fixed bottom-6 right-8 bg-surface border border-subtle px-4 py-2 rounded-full shadow-soft flex items-center gap-3 text-xs font-medium text-secondary z-20 transition-all hover:shadow-hover hover:-translate-y-0.5">
+        <div className="fixed bottom-6 right-8 bg-surface/80 backdrop-blur-md border border-subtle px-4 py-2 rounded-full shadow-soft flex items-center gap-3 text-xs font-medium text-secondary z-20 transition-all hover:shadow-hover hover:-translate-y-0.5">
           <span className="flex items-center gap-1.5 text-primary">
             <div className="w-2 h-2 rounded-full bg-terracotta" />
             {wordCount} words

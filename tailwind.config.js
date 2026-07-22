@@ -30,9 +30,9 @@ export default {
         destructive: 'var(--destructive)',
       },
       fontFamily: {
-        sans: ['"Inter"', '"Outfit"', 'sans-serif'],
-        serif: ['"Merriweather"', '"Lora"', 'serif'],
-        display: ['"Cinzel"', '"Playfair Display"', 'serif'],
+        sans: ['"Inter"', '"Geist"', 'sans-serif'],
+        serif: ['"Lora"', '"Merriweather"', 'serif'],
+        display: ['"Playfair Display"', 'serif'],
         mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
       },
       boxShadow: {

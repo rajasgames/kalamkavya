@@ -70,6 +70,9 @@ export interface CultureData {
 }
 
 export interface CharacterData {
+  castType: 'Protagonist' | 'Antagonist' | 'Supporting' | 'Commoner' | 'Other' | '';
+  rank: 'Supreme' | 'Divine' | 'Immortal' | 'Mortal' | '';
+  species: string;
   role: string;
   status: 'Alive' | 'Dead' | 'Unknown' | 'Transformed' | '';
   goals: {

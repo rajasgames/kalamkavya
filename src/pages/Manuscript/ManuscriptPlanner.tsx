@@ -200,7 +200,7 @@ export function ManuscriptPlanner() {
   }
 
   return (
-    <div className="h-full flex bg-base overflow-hidden relative">
+    <div className="h-full flex bg-canvas overflow-hidden relative">
       <div className="flex-1 flex flex-col min-w-0">
         <div className="px-4 sm:px-8 py-4 sm:py-6 shrink-0 bg-surface border-b border-subtle shadow-soft z-10">
           <h1 className="text-2xl sm:text-3xl font-serif text-primary">Plot Board</h1>

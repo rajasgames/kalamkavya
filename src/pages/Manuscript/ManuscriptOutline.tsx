@@ -17,16 +17,13 @@ import {
   useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical } from 'lucide-react';
+import { GripVertical, ChevronDown, ChevronRight, Plus } from 'lucide-react';
 import { Chapter, Scene } from '@/types';
 
 function SortableChapterItem({ chapter, scenes }: { chapter: Chapter; scenes: Scene[] }) {
+  const [isExpanded, setIsExpanded] = useState(true);
   const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
+    attributes, listeners, setNodeRef, transform, transition,
   } = useSortable({ id: chapter.id });
 
   const style = {
@@ -35,24 +32,31 @@ function SortableChapterItem({ chapter, scenes }: { chapter: Chapter; scenes: Sc
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="bg-surface border border-subtle rounded-xl p-4 mb-4 shadow-soft transition-all duration-300 hover:shadow-hover hover:border-terracotta/30">
-      <div className="flex items-center gap-3 mb-2">
-        <button {...attributes} {...listeners} className="text-ghost hover:text-primary cursor-grab">
-          <GripVertical size={18} />
+    <div ref={setNodeRef} style={style} className="group flex flex-col w-full">
+      <div className="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors group/row cursor-pointer">
+        <button {...attributes} {...listeners} className="text-ghost opacity-0 group-hover/row:opacity-100 hover:text-primary cursor-grab transition-opacity shrink-0">
+          <GripVertical size={16} />
         </button>
-        <h3 className="font-serif text-xl text-primary">{chapter.title || 'Untitled Chapter'}</h3>
+        <button onClick={() => setIsExpanded(!isExpanded)} className="text-ghost hover:text-primary shrink-0 transition-colors">
+          {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+        </button>
+        <h3 className="font-serif text-lg text-primary flex-1 font-semibold">{chapter.title || 'Untitled Chapter'}</h3>
+        <button className="text-ghost hover:text-terracotta opacity-0 group-hover/row:opacity-100 transition-all">
+          <Plus size={16} />
+        </button>
       </div>
-      <p className="text-secondary text-sm mb-4 pl-8"></p>
       
-      <div className="pl-8 space-y-2">
-        {scenes.sort((a,b) => a.order - b.order).map(scene => (
-          <div key={scene.id} className="bg-canvas border border-subtle rounded-xl p-3 text-sm font-sans text-secondary flex items-center justify-between shadow-sm hover:border-terracotta/30 transition-colors">
-            <span>{scene.title || 'Untitled Scene'}</span>
-            <span className="text-xs text-ghost">{scene.wordCount} words</span>
-          </div>
-        ))}
-        {scenes.length === 0 && <div className="text-xs text-ghost italic">No scenes in this chapter.</div>}
-      </div>
+      {isExpanded && (
+        <div className="ml-[34px] pl-4 border-l border-subtle/60 space-y-0.5 mt-1 mb-3 flex flex-col">
+          {scenes.sort((a,b) => a.order - b.order).map(scene => (
+            <div key={scene.id} className="group/scene py-1.5 px-3 rounded-lg flex items-center justify-between text-sm font-sans text-secondary hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer">
+              <span className="group-hover/scene:text-primary transition-colors">{scene.title || 'Untitled Scene'}</span>
+              <span className="text-xs text-ghost">{scene.wordCount} words</span>
+            </div>
+          ))}
+          {scenes.length === 0 && <div className="text-xs text-ghost italic py-1.5 px-3">No scenes in this chapter.</div>}
+        </div>
+      )}
     </div>
   );
 }
@@ -90,38 +94,40 @@ export function ManuscriptOutline() {
   };
 
   return (
-    <div className="h-full flex bg-base overflow-hidden relative">
+    <div className="h-full flex bg-canvas overflow-hidden relative">
       <div className="flex-1 flex flex-col min-w-0 max-w-4xl mx-auto w-full">
-        <div className="px-4 sm:px-8 py-4 sm:py-6 shrink-0 bg-surface border-b border-subtle shadow-soft z-10">
+        <div className="px-4 sm:px-8 py-6 shrink-0 z-10">
           <h1 className="text-2xl sm:text-3xl font-serif text-primary">Manuscript Outline</h1>
-          <p className="text-secondary mt-1 text-xs sm:text-sm">Drag and drop to reorganize your chapters.</p>
+          <p className="text-secondary mt-1 text-xs sm:text-sm">Structure your story hierarchically.</p>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8 scrollbar-hide">
-          <DndContext 
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext 
-              items={localChapters.map(c => c.id)}
-              strategy={verticalListSortingStrategy}
+        <div className="flex-1 overflow-y-auto px-4 sm:px-8 pb-12 scrollbar-hide">
+          <div className="bg-surface border border-subtle shadow-soft rounded-2xl p-4 sm:p-6">
+            <DndContext 
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
             >
-              {localChapters.map(chapter => (
-                <SortableChapterItem 
-                  key={chapter.id} 
-                  chapter={chapter} 
-                  scenes={scenes.filter(s => s.chapterId === chapter.id)} 
-                />
-              ))}
-            </SortableContext>
-          </DndContext>
-          
-          {localChapters.length === 0 && (
-            <div className="text-center text-ghost p-12 border-2 border-dashed border-subtle rounded-xl">
-              No chapters yet. Add chapters in the Editor or Planner to see them here.
-            </div>
-          )}
+              <SortableContext 
+                items={localChapters.map(c => c.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {localChapters.map(chapter => (
+                  <SortableChapterItem 
+                    key={chapter.id} 
+                    chapter={chapter} 
+                    scenes={scenes.filter(s => s.chapterId === chapter.id)} 
+                  />
+                ))}
+              </SortableContext>
+            </DndContext>
+            
+            {localChapters.length === 0 && (
+              <div className="text-center text-ghost p-12 border border-dashed border-subtle rounded-xl">
+                No chapters yet. Add chapters in the Editor or Planner to see them here.
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

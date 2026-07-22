@@ -66,7 +66,7 @@ export function ManuscriptLayout() {
   }, [isDraggingP1, isDraggingP2, handleMouseMove, handleMouseUp]);
 
   return (
-    <div className="h-full w-full bg-base overflow-hidden relative flex flex-col">
+    <div className="h-full w-full bg-canvas overflow-hidden relative flex flex-col">
       {/* Mobile View Switcher (Visible only on screens below md) */}
       <div className="md:hidden shrink-0 menu-bar-graded px-3 py-2 flex items-center justify-around z-20 shadow-sm">
         <button
@@ -125,7 +125,7 @@ export function ManuscriptLayout() {
         {/* Desktop View Render (3-Column Resizable Grid) */}
         <div 
           ref={containerRef}
-          className="hidden md:grid h-full w-full bg-base overflow-hidden relative select-none"
+          className="hidden md:grid h-full w-full bg-canvas overflow-hidden relative select-none"
           style={{
             gridTemplateColumns: `${panel1Width}px ${panel2Width}px 1fr`,
           }}

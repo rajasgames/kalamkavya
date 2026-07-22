@@ -3,30 +3,18 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useStoryStore } from '@/stores/storyStore';
 import { EntityGrid } from '@/components/shared';
 import { Button } from '@/components/ui';
-import { Plus, User, Image, Sparkles } from 'lucide-react';
-import { CharacterDetail } from '@/components/cast/CharacterDetail';
+import { Plus, User, Image, Sparkles, Users } from 'lucide-react';
 import { MasterEntityCreationModal } from '@/components/world-bible/MasterEntityCreationModal';
+import { CharacterData } from '@/types';
 
 export function CastLayout() {
   const { view } = useParams();
   const navigate = useNavigate();
   const activeSubView = view || 'characters';
 
-  const [selectedEntityId, setSelectedEntityId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('character');
   const { entities } = useStoryStore();
-
-  const selectedEntity = selectedEntityId ? entities.find(e => e.id === selectedEntityId) : null;
-
-  if (selectedEntity) {
-    return (
-      <CharacterDetail 
-        entity={selectedEntity} 
-        onBack={() => setSelectedEntityId(null)} 
-      />
-    );
-  }
 
   const handleCreateNew = () => {
     if (activeSubView === 'art') {
@@ -35,6 +23,48 @@ export function CastLayout() {
       setModalType('character');
     }
     setIsModalOpen(true);
+  };
+
+  const handleCharacterClick = (id: string) => {
+    navigate(`/world-bible?entityId=${id}`);
+  };
+
+  const characters = entities.filter(e => e.type === 'character' || e.type === 'CHARACTER' || e.type === 'GOD');
+  
+  const protagonists = characters.filter(c => (c.data as unknown as CharacterData).castType === 'Protagonist');
+  const antagonists = characters.filter(c => (c.data as unknown as CharacterData).castType === 'Antagonist');
+  const supporting = characters.filter(c => (c.data as unknown as CharacterData).castType === 'Supporting');
+  const commoners = characters.filter(c => (c.data as unknown as CharacterData).castType === 'Commoner');
+  const others = characters.filter(c => !['Protagonist', 'Antagonist', 'Supporting', 'Commoner'].includes((c.data as unknown as CharacterData).castType as string));
+
+  const renderCharacterGroup = (title: string, group: typeof characters) => {
+    if (group.length === 0) return null;
+    return (
+      <div className="flex flex-col gap-4 mb-8">
+        <h3 className="text-lg font-serif font-bold text-primary border-b border-subtle pb-2">{title}</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {group.map((entity) => (
+            <div 
+              key={entity.id}
+              onClick={() => handleCharacterClick(entity.id)}
+              className="group flex flex-col bg-surface border border-subtle p-4 rounded-xl cursor-pointer glass-card-hover shadow-soft"
+            >
+              <div className="flex items-start justify-between mb-2">
+                <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center border border-subtle group-hover:bg-terracotta/10 group-hover:border-terracotta/30 transition-colors">
+                  <User size={18} className="text-amber-from" />
+                </div>
+              </div>
+              <h3 className="font-serif font-bold text-primary text-lg leading-tight group-hover:text-terracotta transition-colors line-clamp-2">
+                {entity.name}
+              </h3>
+              <p className="text-xs text-ghost mt-1 uppercase tracking-wider font-bold truncate">
+                {(entity.data as unknown as CharacterData).role || 'Unknown Role'}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -53,7 +83,7 @@ export function CastLayout() {
                   : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
               }`}
             >
-              <User size={15} className="shrink-0" /> Characters
+              <Users size={15} className="shrink-0" /> Cast Roster
             </button>
             <button
               onClick={() => navigate('/cast/art')}
@@ -89,18 +119,36 @@ export function CastLayout() {
               <div className="flex-1">
                 <EntityGrid
                   typeFilters={['ARTIFACT', 'object', 'CULTURE']}
-                  onEntityClick={setSelectedEntityId}
+                  onEntityClick={handleCharacterClick}
                 />
               </div>
             </div>
           ) : (
             <div className="flex-1 flex flex-col">
-              <p className="text-secondary mb-6">
-                Manage your world's inhabitants. Click any character to open their detailed Bento Grid.
-              </p>
+              <div className="bg-surface border border-subtle p-6 rounded-2xl flex flex-col gap-3 mb-6">
+                 <div className="flex items-center gap-2 text-terracotta font-serif text-lg font-bold">
+                   <Users size={20} /> The Cast Roster
+                 </div>
+                 <p className="text-secondary text-sm leading-relaxed">
+                   View and manage the actors in your story. Click any character to open their complete profile in the World Bible Character Creator.
+                 </p>
+               </div>
               
               <div className="flex-1">
-                <EntityGrid typeFilters={['character', 'CHARACTER', 'GOD']} onEntityClick={setSelectedEntityId} />
+                {characters.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center h-64 text-ghost border-2 border-dashed border-subtle rounded-xl">
+                    <User size={32} className="mb-2 opacity-50" />
+                    <p>No characters created yet.</p>
+                  </div>
+                ) : (
+                  <>
+                    {renderCharacterGroup('Protagonists', protagonists)}
+                    {renderCharacterGroup('Antagonists', antagonists)}
+                    {renderCharacterGroup('Supporting Cast', supporting)}
+                    {renderCharacterGroup('Commoners & Extras', commoners)}
+                    {renderCharacterGroup('Other Entities', others)}
+                  </>
+                )}
               </div>
             </div>
           )}
@@ -111,7 +159,7 @@ export function CastLayout() {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         defaultType={modalType}
-        onCreated={(id) => setSelectedEntityId(id)}
+        onCreated={(id) => handleCharacterClick(id)}
       />
     </div>
   );

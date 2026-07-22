@@ -26,11 +26,11 @@ export function KanbanCard({ scene }: KanbanCardProps) {
           ref={setNodeRef}
           style={style}
           onClick={() => setActiveSceneId(scene.id)}
-          className={`group bg-canvas border rounded-xl p-3 cursor-pointer transition-all duration-300 ${
+          className={`group bg-surface border rounded-xl p-3 cursor-pointer transition-all duration-300 ${
             activeSceneId === scene.id
               ? 'border-terracotta bg-surface ring-1 ring-terracotta/30'
               : 'border-subtle hover:border-terracotta/30'
-          } ${isDragging ? 'shadow-[0_20px_40px_rgba(0,0,0,0.25)] ring-2 ring-terracotta/50 opacity-95 scale-[1.02] rotate-[5deg] z-50' : 'shadow-soft glass-card-hover'}`}
+          } ${isDragging ? 'shadow-2xl ring-2 ring-terracotta border-terracotta opacity-95 scale-[1.02] rotate-[3deg] z-50' : 'shadow-soft glass-card-hover'}`}
         >
           <div className="flex items-start gap-2">
             <button

@@ -82,8 +82,8 @@ export function KanbanColumn({ column, scenes, onRename, onDelete }: KanbanColum
             />
           </form>
         ) : (
-          <h3 className="text-sm font-bold text-primary tracking-widest uppercase truncate pr-2">
-            {column.name} <span className="text-ghost font-normal text-xs ml-1">({scenes.length})</span>
+          <h3 className="text-xs font-bold text-terracotta tracking-widest uppercase truncate pr-2">
+            {column.name} <span className="text-terracotta/70 font-normal ml-1">({scenes.length})</span>
           </h3>
         )}
 

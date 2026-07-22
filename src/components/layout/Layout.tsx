@@ -69,9 +69,9 @@ export const Layout = () => {
       <div className="flex flex-1 overflow-hidden relative">
         {/* Desktop Sidebar */}
         <div 
-          className={`hidden md:flex flex-col border-r border-subtle bg-surface relative z-20 overflow-hidden transition-all duration-300 ease-in-out ${isFocusMode ? 'w-0 opacity-0 pointer-events-none' : 'opacity-100'}`} 
+          className={`hidden md:flex flex-col border-r border-subtle bg-surface relative z-20 overflow-hidden transition-all duration-200 ease-in-out ${isFocusMode ? 'w-0 opacity-0 pointer-events-none' : 'opacity-100'}`} 
           style={{
-            width: isFocusMode ? '0px' : (isSidebarExpanded ? '250px' : '68px'),
+            width: isFocusMode ? '0px' : (isSidebarExpanded ? '240px' : '64px'),
           }}
         >
           <Sidebar />

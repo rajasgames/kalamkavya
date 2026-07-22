@@ -108,7 +108,7 @@ export function ScenePanel() {
 
   if (!activeChapterId || !activeChapter) {
     return (
-      <div className="flex flex-col h-full bg-base border-r border-subtle opacity-50">
+      <div className="flex flex-col h-full bg-surface border-r border-subtle opacity-50">
         <div className="p-4 border-b border-subtle shrink-0">
           <h2 className="text-sm font-bold text-primary tracking-widest uppercase">Scenes</h2>
         </div>
@@ -117,7 +117,7 @@ export function ScenePanel() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-base border-r border-subtle">
+    <div className="flex flex-col h-full bg-surface border-r border-subtle">
       <div className="p-4 flex items-center justify-between border-b border-subtle shrink-0">
         <h2 className="text-sm font-bold text-primary tracking-widest uppercase truncate pr-2">
           {activeChapter.title}
@@ -163,7 +163,7 @@ export function ScenePanel() {
                           activeSceneId === scene.id 
                             ? 'bg-amber-from/5 border-amber-from/30' 
                             : 'border-transparent text-secondary hover:bg-black/5 dark:hover:bg-white/5 hover:text-primary hover:border-subtle'
-                        } ${isDragging ? 'shadow-md ring-1 ring-amber-from/50 bg-base' : ''}`}
+                        } ${isDragging ? 'shadow-md ring-1 ring-amber-from/50 bg-surface' : ''}`}
                         onClick={() => {
                           if (editingId !== scene.id) setActiveSceneId(scene.id);
                         }}

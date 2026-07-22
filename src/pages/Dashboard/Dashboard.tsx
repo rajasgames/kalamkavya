@@ -153,7 +153,12 @@ export function Dashboard() {
     <div className="p-4 sm:p-8 md:p-12 h-full flex flex-col overflow-y-auto max-w-7xl mx-auto w-full">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4">
-        <h1 className="text-xl sm:text-2xl font-serif italic text-primary">{getGreeting()}</h1>
+        {/* We moved the greeting into the main hero block when there's no project */}
+        {activeProject ? (
+          <h1 className="text-xl sm:text-2xl font-serif italic text-primary">{getGreeting()}</h1>
+        ) : (
+          <div></div>
+        )}
         <div className="flex items-center gap-3">
           <Button
             variant="ghost"
@@ -168,47 +173,43 @@ export function Dashboard() {
 
       {/* Hero Section */}
       {!activeProject ? (
-        <Card className="p-6 text-center flex flex-col items-center mb-10 bg-surface shadow-soft border-subtle">
-          {/* Icon: strokeWidth 1.25 — readable at 64px, not hairline-thin */}
-          <div className="text-terracotta/20 mb-5 drop-shadow-sm">
-            <PenTool size={64} strokeWidth={1.25} />
-          </div>
-          <h2 className="text-2xl font-serif font-bold text-primary mb-2">Start Your Story</h2>
-          <p className="text-secondary mb-7 max-w-lg">
-            Inkwell Pro works for any genre — from Vedic epics to rom-coms to sci-fi mysteries.
+        <div className="text-center flex flex-col items-center mb-16 pt-8">
+          <h2 className="text-4xl sm:text-5xl font-serif text-primary mb-4">{getGreeting()}</h2>
+          <p className="text-secondary mb-8 max-w-lg text-lg">
+            Inkwell works for any genre — from Vedic epics to rom-coms to sci-fi mysteries.
             Create a new project or jump in with a sample world.
           </p>
 
-          <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-7">
-            <PlusCircle size={18} />
+          <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-12 bg-terracotta text-white hover:bg-terracotta/90 px-6 py-5 text-base rounded-xl font-semibold shadow-soft">
+            <PlusCircle size={20} />
             New Project
           </Button>
 
-          <div className="w-full border-t border-subtle pt-5">
-            <p className="text-xs font-bold uppercase tracking-wider text-ghost mb-4 flex items-center justify-center gap-2">
+          <div className="w-full max-w-3xl mx-auto">
+            <p className="text-xs font-bold uppercase tracking-wider text-ghost mb-5 flex items-center justify-center gap-2">
               <Sparkles size={13} /> Or explore a sample world
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {sampleOptions.map(opt => (
                 <button
                   key={opt.key}
                   onClick={() => handleLoadSample(opt.key)}
                   disabled={loadingSample !== null}
-                  className="flex flex-col items-start gap-1.5 p-4 bg-canvas border border-subtle rounded-xl shadow-soft glass-card-hover text-left disabled:opacity-50 group"
+                  className="flex flex-col items-start gap-2 p-5 bg-surface border border-subtle rounded-xl glass-card-hover text-left disabled:opacity-50 group hover:border-terracotta transition-colors"
                 >
-                  <div className="p-2 rounded-lg bg-terracotta/10 text-terracotta mb-1 group-hover:scale-110 transition-transform">
-                    <opt.Icon size={22} />
+                  <div className="p-2.5 rounded-xl bg-terracotta/10 text-terracotta mb-1 group-hover:scale-110 transition-transform">
+                    <opt.Icon size={24} />
                   </div>
-                  <span className="font-bold text-sm text-primary">{opt.label}</span>
-                  <span className="text-xs text-ghost leading-snug">{opt.desc}</span>
+                  <span className="font-bold text-base text-primary">{opt.label}</span>
+                  <span className="text-sm text-[#A1A1AA] leading-relaxed">{opt.desc}</span>
                   {loadingSample === opt.key && (
-                    <span className="text-xs text-terracotta font-bold uppercase tracking-wider animate-pulse mt-0.5">Loading…</span>
+                    <span className="text-xs text-terracotta font-bold uppercase tracking-wider animate-pulse mt-1">Loading…</span>
                   )}
                 </button>
               ))}
             </div>
           </div>
-        </Card>
+        </div>
       ) : (
         // ── Active project hero — condensed: text-2xl, p-6, tighter premise margin ──
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -354,9 +355,9 @@ export function Dashboard() {
             })}
           </div>
         ) : (
-          <div className="py-12 text-center text-secondary border border-dashed border-subtle rounded-xl">
-            <BookOpen size={32} className="mx-auto mb-3 opacity-30" />
-            <p>No projects yet. Create one above or load a sample world.</p>
+          <div className="py-16 text-center text-ghost border-2 border-dashed border-subtle rounded-2xl flex flex-col items-center justify-center bg-surface/50">
+            <BookOpen size={48} className="mb-4 opacity-30 text-primary" strokeWidth={1} />
+            <p className="text-base text-secondary font-medium">No projects yet. Create your first manuscript.</p>
           </div>
         )}
       </div>

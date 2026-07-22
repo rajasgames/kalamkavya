@@ -103,8 +103,8 @@ export const Sidebar = () => {
       {/* Desktop Sidebar (Inside floating container) */}
       <aside className="hidden md:flex flex-col h-full w-full bg-transparent overflow-hidden font-sans">
         <div className="flex-1 flex overflow-hidden">
-          {/* Icons Column (52px wide) */}
-          <div className="w-[52px] flex-shrink-0 flex flex-col items-center py-4 justify-between border-r border-subtle relative z-10">
+          {/* Icons Column (64px wide) */}
+          <div className="w-[64px] flex-shrink-0 flex flex-col items-center py-4 justify-between border-r border-subtle relative z-10">
             {/* Top Navigation Group */}
             <div className="flex flex-col items-center gap-3 w-full">
               {PILLARS.map(pillar => {
@@ -123,10 +123,10 @@ export const Sidebar = () => {
                   >
                     <button
                       onClick={() => handlePillarClick(pillar)}
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 relative group active:scale-95 ${
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 relative group active:scale-[0.98] ${
                         isActive 
-                          ? 'text-terracotta font-semibold bg-deep shadow-[inset_0_1px_3px_rgba(0,0,0,0.1)]' 
-                          : 'text-ghost hover:text-primary hover:bg-deep'
+                          ? 'text-terracotta font-semibold bg-terracotta/10' 
+                          : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
                       }`}
                     >
                       {isActive && (

@@ -4,26 +4,29 @@
 
 @layer base {
   :root {
-    /* Backgrounds — Warm Parchment (Light Mode) */
-    --bg-canvas: #FBF9F4;        /* Main page background */
-    --bg-surface: #FFFFFF;       /* Cards, sidebar */
+    /* Backgrounds — Warm Paper (Light Mode) */
+    --bg-canvas: #FDFBF7;        /* Main page background */
+    --bg-surface: #F4F1EA;       /* Cards, sidebar */
     --bg-deep: #EBE6DF;          /* Input fields, nested surfaces */
     --bg-ink: #111111;           /* Deep ink for dark mode text or accents */
     
     /* Text */
-    --text-primary: #18181B;     /* Very dark, high contrast */
-    --text-secondary: #52525B;   /* Zinc-600 equivalent */
-    --text-ghost: #A1A1AA;       /* Zinc-400 equivalent */
+    --text-primary: #2C2C2C;     /* Soft Ink */
+    --text-secondary: #71717A;   /* Medium Grey */
+    --text-ghost: #A1A1AA;       /* Lighter grey */
 
     /* Accents & Semantics */
-    --terracotta: #D97706;       /* Warm Amber Gold (Primary Accent) */
+    --terracotta: #D97706;       /* Burnt Orange / Amber */
     --sage: #10B981;             /* Success */
     --dusty-blue: #6366F1;       /* Info */
-    --destructive: #EF4444;      /* Error/Destructive */
-    --cream-border: rgba(24, 24, 27, 0.08);
+    --destructive: #DC2626;      /* Error/Destructive */
+    --cream-border: rgba(44, 44, 44, 0.08);
 
     /* Borders */
-    --border-subtle: #E5E0D8;
+    --border-subtle: #E5E0D8;    /* Warm Grey */
+
+    /* Scrollbar */
+    --scrollbar-thumb: #D4D4D8;
 
     /* Focus Ring — keyboard-only, never shown on mouse click */
     --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
@@ -38,22 +41,23 @@
   }
 
   [data-theme="dark"] {
-    --bg-canvas: #09090B;        /* Deep Obsidian (Zinc-950) */
-    --bg-surface: #18181B;       /* Slate Charcoal (Zinc-900) */
-    --bg-deep: #27272A;          /* Dark Steel (Zinc-800) */
+    --bg-canvas: #09090B;        /* Deep Canvas */
+    --bg-surface: #1C1C24;       /* Elevated Grey */
+    --bg-deep: #27272A;          /* Dark Steel */
     --bg-ink: #FAFAFA;           
-    --text-primary: #FAFAFA;     /* High contrast white */
-    --text-secondary: #A1A1AA;   /* Zinc-400 */
+    --text-primary: #F4F4F5;     /* Off-White */
+    --text-secondary: #A1A1AA;   /* Muted Grey */
     --text-ghost: #52525B;       /* Zinc-600 */
-    --terracotta: #F59E0B;       /* Brighter Amber for dark mode contrast */
+    --terracotta: #F59E0B;       /* Bright Amber */
     --sage: #10B981;             /* Success */
     --dusty-blue: #6366F1;       /* Info */
     --destructive: #EF4444;      /* Error/Destructive */
     --cream-border: rgba(250, 250, 250, 0.06);
-    --border-subtle: #3F3F46;    /* Zinc-700 */
+    --border-subtle: #272730;    /* Subtle Grey */
+    --scrollbar-thumb: #3F3F46;
     --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
     --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
-    --surface-glass: rgba(24, 24, 27, 0.88);
+    --surface-glass: rgba(28, 28, 36, 0.88);
   }
 
   body {
@@ -95,11 +99,17 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(45, 42, 38, 0.15);
-    border-radius: 9999px;
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: var(--terracotta);
+  }
+  /* Show scrollbar on hover of a scrollable area */
+  *:hover::-webkit-scrollbar-thumb {
+    opacity: 1;
   }
 }
 
@@ -220,6 +230,42 @@
   color: var(--text-ghost);
   pointer-events: none;
   height: 0;
+}
+
+/* ─── Quill Editor (Seamless Canvas) ─────────────────────────────────────── */
+
+.ql-editor {
+  font-family: 'Lora', 'Merriweather', serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  padding: 0;
+}
+
+.ql-editor p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.ql-container.ql-snow {
+  border: none !important;
+  outline: none !important;
+}
+
+.ql-editor:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.ql-container:focus-within {
+  outline: none !important;
+}
+
+.ql-toolbar.ql-snow {
+  border: none !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 0 !important;
 }
 
 /* ─── Text Selection ─────────────────────────────────────────────────────── */
