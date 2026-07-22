@@ -76,7 +76,11 @@ export function GhostwriterDrawer() {
 
   const handleInsert = () => {
     if (!editor || !streamedText) return;
-    editor.chain().focus().insertContentAt(editor.state.selection.anchor, streamedText).run();
+    const quill = editor.getEditor();
+    const selection = quill.getSelection();
+    const index = selection ? selection.index : quill.getLength();
+    quill.insertText(index, streamedText);
+    quill.setSelection(index + streamedText.length, 0);
     setOpenModal(null);
   };
 

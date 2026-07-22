@@ -1,17 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
-import { useEditor, EditorContent, BubbleMenu, FloatingMenu } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import CharacterCount from '@tiptap/extension-character-count';
-import Placeholder from '@tiptap/extension-placeholder';
-import Underline from '@tiptap/extension-underline';
-import { ActiveLine } from '@/components/editor/extensions/ActiveLine';
+import { useEffect, useRef, useState, useMemo } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { useStoryStore } from '@/stores/storyStore';
 import { db } from '@/lib/db/database';
 import { useManuscriptEditor } from '@/hooks/useManuscriptEditor';
 import { 
-  PenTool, Feather, Maximize, Minimize, Timer, 
-  Bold, Italic, Strikethrough, Underline as UnderlineIcon,
-  Heading1, Heading2, List, Quote, ChevronRight
+  PenTool, Feather, Maximize, Minimize, Timer, ChevronRight
 } from 'lucide-react';
 import { useUIStore } from '@/stores/uiStore';
 import { GhostwriterDrawer } from '@/components/editor/GhostwriterDrawer';
@@ -19,10 +13,13 @@ import { GhostwriterDrawer } from '@/components/editor/GhostwriterDrawer';
 export function ManuscriptEditor() {
   const { scenes, activeSceneId, updateScene } = useStoryStore();
   const { setEditor } = useManuscriptEditor();
+  const quillRef = useRef<ReactQuill>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const [isFocusMode, setIsFocusMode] = useState(false);
   const [focusTime, setFocusTime] = useState(0);
+  const [wordCount, setWordCount] = useState(0);
+  const [charCount, setCharCount] = useState(0);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -44,57 +41,55 @@ export function ManuscriptEditor() {
 
   const activeScene = scenes.find((s) => s.id === activeSceneId);
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      CharacterCount,
-      ActiveLine,
-      Underline,
-      Placeholder.configure({
-        placeholder: "Type '/' for commands or start writing...",
-        emptyEditorClass: 'is-editor-empty',
-      })
-    ],
-    content: activeScene ? activeScene.content : '',
-    editorProps: {
-      attributes: {
-        class: 'inkwell-editor outline-none focus:outline-none min-h-[60vh] pb-32 text-lg font-serif leading-relaxed text-primary [&>p]:mb-4 [&>h1]:text-3xl [&>h1]:font-bold [&>h1]:mb-6 [&>h1]:mt-8 [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mb-4 [&>h2]:mt-6 [&>ul]:list-disc [&>ul]:ml-6 [&>ul]:mb-4 [&>blockquote]:border-l-4 [&>blockquote]:border-amber-from/50 [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-4',
-      },
-    },
-    onUpdate: ({ editor }) => {
-      if (!activeScene) return;
-
-      const html = editor.getHTML();
-      const wordCount = editor.storage.characterCount.words();
-
-      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
-      
-      saveTimeoutRef.current = setTimeout(async () => {
-        const updatedScene = {
-          ...activeScene,
-          content: html,
-          wordCount,
-          updatedAt: Date.now(),
-        };
-        await db.scenes.put(updatedScene);
-        updateScene(updatedScene);
-      }, 500);
-    },
-  });
-
   useEffect(() => {
-    setEditor(editor);
+    setEditor(quillRef.current);
     return () => setEditor(null);
-  }, [editor, setEditor]);
+  }, [quillRef.current, setEditor]);
+
+  // Compute word and char counts based on current text
+  const updateCounts = (text: string) => {
+    const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+    const chars = text.length - 1; // subtract trailing newline quill adds
+    setWordCount(words);
+    setCharCount(Math.max(0, chars));
+    return words;
+  };
 
   useEffect(() => {
-    if (editor && activeScene) {
-      const currentHtml = editor.getHTML();
-      if (currentHtml !== activeScene.content) {
-        editor.commands.setContent(activeScene.content);
-      }
+    if (quillRef.current && activeScene) {
+      const quill = quillRef.current.getEditor();
+      updateCounts(quill.getText());
     }
-  }, [editor, activeScene]);
+  }, [activeScene?.id]);
+
+  const handleEditorChange = (content: string, _delta: unknown, _source: string, editor: any) => {
+    if (!activeScene) return;
+
+    const text = editor.getText();
+    const currentWordCount = updateCounts(text);
+
+    if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+    
+    saveTimeoutRef.current = setTimeout(async () => {
+      const updatedScene = {
+        ...activeScene,
+        content: content,
+        wordCount: currentWordCount,
+        updatedAt: Date.now(),
+      };
+      await db.scenes.put(updatedScene);
+      updateScene(updatedScene);
+    }, 500);
+  };
+
+  const modules = useMemo(() => ({
+    toolbar: [
+      [{ 'header': [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{'list': 'ordered'}, {'list': 'bullet'}],
+      ['clean']
+    ],
+  }), []);
 
   if (!activeScene) {
     return (
@@ -158,85 +153,17 @@ export function ManuscriptEditor() {
             {activeScene.title}
           </h1>
 
-          {editor && (
-            <>
-              {/* Bubble Menu for Formatting */}
-              <BubbleMenu 
-                editor={editor} 
-                tippyOptions={{ duration: 100 }}
-                className="flex items-center bg-surface border border-subtle shadow-2xl rounded-xl overflow-hidden p-1.5 backdrop-blur-xl gap-0.5"
-              >
-                <button
-                  onClick={() => editor.chain().focus().toggleBold().run()}
-                  className={`p-1.5 rounded-lg transition-colors ${editor.isActive('bold') ? 'text-amber-from bg-amber-from/15' : 'text-primary hover:bg-black/5 dark:hover:bg-white/10'}`}
-                >
-                  <Bold size={16} />
-                </button>
-                <button
-                  onClick={() => editor.chain().focus().toggleItalic().run()}
-                  className={`p-1.5 rounded-lg transition-colors ${editor.isActive('italic') ? 'text-amber-from bg-amber-from/15' : 'text-primary hover:bg-black/5 dark:hover:bg-white/10'}`}
-                >
-                  <Italic size={16} />
-                </button>
-                <button
-                  onClick={() => editor.chain().focus().toggleUnderline().run()}
-                  className={`p-1.5 rounded-lg transition-colors ${editor.isActive('underline') ? 'text-amber-from bg-amber-from/15' : 'text-primary hover:bg-black/5 dark:hover:bg-white/10'}`}
-                >
-                  <UnderlineIcon size={16} />
-                </button>
-                <button
-                  onClick={() => editor.chain().focus().toggleStrike().run()}
-                  className={`p-1.5 rounded-lg transition-colors ${editor.isActive('strike') ? 'text-amber-from bg-amber-from/15' : 'text-primary hover:bg-black/5 dark:hover:bg-white/10'}`}
-                >
-                  <Strikethrough size={16} />
-                </button>
-                <div className="w-[1px] h-4 bg-subtle mx-1" />
-                <button
-                  onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                  className={`p-1.5 rounded-lg transition-colors ${editor.isActive('heading', { level: 1 }) ? 'text-amber-from bg-amber-from/15' : 'text-primary hover:bg-black/5 dark:hover:bg-white/10'}`}
-                >
-                  <Heading1 size={16} />
-                </button>
-                <button
-                  onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                  className={`p-1.5 rounded-lg transition-colors ${editor.isActive('heading', { level: 2 }) ? 'text-amber-from bg-amber-from/15' : 'text-primary hover:bg-black/5 dark:hover:bg-white/10'}`}
-                >
-                  <Heading2 size={16} />
-                </button>
-              </BubbleMenu>
-
-              {/* Floating Menu for Blocks */}
-              <FloatingMenu 
-                editor={editor} 
-                tippyOptions={{ duration: 100, placement: 'left' }}
-                className="flex items-center flex-col gap-1 bg-surface/90 border border-subtle shadow-xl rounded-xl p-1.5 backdrop-blur-xl translate-y-[-50%] -ml-4"
-              >
-                <button
-                  onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                  className="p-1.5 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-ghost hover:text-primary transition-colors"
-                  title="Heading 1"
-                >
-                  <Heading1 size={16} />
-                </button>
-                <button
-                  onClick={() => editor.chain().focus().toggleBulletList().run()}
-                  className="p-1.5 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-ghost hover:text-primary transition-colors"
-                  title="Bullet List"
-                >
-                  <List size={16} />
-                </button>
-                <button
-                  onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                  className="p-1.5 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-ghost hover:text-primary transition-colors"
-                  title="Quote"
-                >
-                  <Quote size={16} />
-                </button>
-              </FloatingMenu>
-            </>
-          )}
-
-          <EditorContent editor={editor} className="h-full" />
+          <div className="inkwell-editor-container">
+            <ReactQuill 
+              ref={quillRef}
+              theme="snow"
+              value={activeScene.content}
+              onChange={handleEditorChange}
+              modules={modules}
+              placeholder="Start writing..."
+              className="min-h-[60vh] pb-32"
+            />
+          </div>
         </div>
       </div>
 
@@ -245,10 +172,10 @@ export function ManuscriptEditor() {
         <div className="fixed bottom-6 right-8 bg-surface/90 backdrop-blur-xl border border-subtle px-4 py-2 rounded-full shadow-2xl flex items-center gap-3 text-xs font-semibold text-secondary z-20 transition-all hover:scale-105">
           <span className="flex items-center gap-1.5">
             <div className="w-2 h-2 rounded-full bg-amber-from shadow-[0_0_6px_rgba(212,153,90,0.8)]" />
-            {editor?.storage.characterCount.words() || 0} words
+            {wordCount} words
           </span>
           <span className="w-[1px] h-3 bg-subtle" />
-          <span>{editor?.storage.characterCount.characters() || 0} chars</span>
+          <span>{charCount} chars</span>
         </div>
       )}
 
@@ -261,7 +188,7 @@ export function ManuscriptEditor() {
               {formatTime(focusTime)}
             </span>
             <span>•</span>
-            <span>{editor?.storage.characterCount.words() || 0} words</span>
+            <span>{wordCount} words</span>
           </div>
           <button 
             onClick={() => setIsFocusMode(false)} 

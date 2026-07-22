@@ -105,18 +105,22 @@
   to { transform: translateX(0); opacity: 1; }
 }
 
-.ProseMirror {
+.ql-container {
   font-family: 'Crimson Pro', serif;
   font-size: 18px;
   line-height: 1.8;
   color: var(--text-primary);
+  border: none !important;
+}
+
+.ql-editor {
   outline: none !important;
   box-shadow: none !important;
   min-height: 100%;
 }
 
-.ProseMirror:focus,
-.ProseMirror:focus-visible {
+.ql-editor:focus,
+.ql-editor:focus-visible {
   outline: none !important;
   box-shadow: none !important;
 }
@@ -126,18 +130,28 @@
   color: inherit;
 }
 
-
-.ProseMirror p {
+.ql-editor p {
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-.tiptap-active-line {
-  border-left: 2px solid var(--amber-from);
-  padding-left: 12px;
-  background: rgba(212, 153, 90, 0.04);
-  /* Slight negative margin to offset padding so text stays aligned */
-  margin-left: -14px;
+.ql-toolbar {
+  border: none !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+  background: var(--bg-surface);
+  border-radius: 8px 8px 0 0;
+}
+
+.ql-toolbar button:hover .ql-stroke,
+.ql-toolbar button:focus .ql-stroke,
+.ql-toolbar button.ql-active .ql-stroke {
+  stroke: var(--amber-from) !important;
+}
+
+.ql-toolbar button:hover .ql-fill,
+.ql-toolbar button:focus .ql-fill,
+.ql-toolbar button.ql-active .ql-fill {
+  fill: var(--amber-from) !important;
 }
 
 @keyframes toastHide {
@@ -198,11 +212,8 @@
   animation: overlayFadeOut 300ms ease-out forwards;
 }
 
-/* TipTap Placeholder */
-.ProseMirror p.is-editor-empty:first-child::before {
+/* Quill Placeholder */
+.ql-editor.ql-blank::before {
   color: var(--text-ghost);
-  content: attr(data-placeholder);
-  float: left;
-  height: 0;
-  pointer-events: none;
+  font-style: normal;
 }

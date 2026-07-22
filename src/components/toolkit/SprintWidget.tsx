@@ -14,7 +14,11 @@ export function SprintWidget({ onClose }: SprintWidgetProps) {
   // Track words for WPM calculation
   const { editor } = useManuscriptEditor();
   const [startWordCount, setStartWordCount] = useState(0);
-  const currentWordCount = editor?.storage.characterCount.words() || 0;
+  const currentWordCount = (() => {
+    if (!editor) return 0;
+    const text = editor.getEditor().getText();
+    return text.trim().split(/\s+/).filter(w => w.length > 0).length;
+  })();
   
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;

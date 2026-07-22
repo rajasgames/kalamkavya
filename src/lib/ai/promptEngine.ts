@@ -1,11 +1,11 @@
-import { Editor } from '@tiptap/react';
+import ReactQuill from 'react-quill';
 import { db } from '../db';
 import { useStoryStore } from '@/stores/storyStore';
 import { Entity } from '@/types';
 import { AIAction } from './actions';
 
 export interface PromptEngineParams {
-  editorInstance: Editor;
+  editorInstance: ReactQuill;
   projectId: string;
   actionType: AIAction;
   userInstruction?: string;
@@ -77,9 +77,12 @@ export async function buildPrompt({
 }: PromptEngineParams): Promise<PromptEngineResult> {
   const t0 = performance.now();
 
-  const selection = editorInstance.state.selection;
-  const startPos = Math.max(0, selection.from - 2500);
-  const extractedText = editorInstance.state.doc.textBetween(startPos, selection.from, " ");
+  const quill = editorInstance.getEditor();
+  const selection = quill.getSelection();
+  const index = selection ? selection.index : quill.getLength();
+  const startPos = Math.max(0, index - 2500);
+  const length = index - startPos;
+  const extractedText = quill.getText(startPos, length);
   const textLower = extractedText.toLowerCase();
 
   let allEntities = useStoryStore.getState().entities;

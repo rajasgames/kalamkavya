@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, PenTool, BookOpen, Users, Wrench, PanelLeftClose, PanelLeftOpen, Search, LucideIcon, Sparkles, Settings, HelpCircle } from 'lucide-react';
+import { Home, PenTool, BookOpen, Users, Wrench, PanelLeftClose, PanelLeftOpen, Search, LucideIcon, Sparkles, Settings, HelpCircle, Sliders } from 'lucide-react';
 import { useUIStore } from '@/stores/uiStore';
 import { useSearchStore } from '@/stores/searchStore';
 import { Pillar } from '@/types';
@@ -23,9 +23,14 @@ const PILLARS: PillarDef[] = [
     subViews: [
       { id: 'editor', label: 'Editor', href: '/manuscript/editor' },
       { id: 'planner', label: 'Planner', href: '/manuscript/planner' },
-      { id: 'outline', label: 'Outline', href: '/manuscript/outline' },
-      { id: 'core', label: 'Project Core', href: '/manuscript/core' },
-      { id: 'templates', label: 'Templates & Schemas', href: '/manuscript/templates' }
+      { id: 'outline', label: 'Outline', href: '/manuscript/outline' }
+    ]
+  },
+  {
+    id: 'project', label: 'Project Setup', icon: Sliders, defaultHref: '/project/core',
+    subViews: [
+      { id: 'core', label: 'Project Core', href: '/project/core' },
+      { id: 'templates', label: 'Templates & Schemas', href: '/project/templates' }
     ]
   },
   { 

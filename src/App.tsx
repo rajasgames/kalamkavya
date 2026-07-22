@@ -9,8 +9,7 @@ import { Dashboard } from '@/pages/Dashboard/Dashboard';
 import { ManuscriptLayout } from '@/pages/Manuscript/ManuscriptLayout';
 import { ManuscriptPlanner } from '@/pages/Manuscript/ManuscriptPlanner';
 import { ManuscriptOutline } from '@/pages/Manuscript/ManuscriptOutline';
-import { ProjectCore } from '@/pages/Manuscript/ProjectCore';
-import { ProjectTemplates } from '@/pages/Manuscript/ProjectTemplates';
+import { ProjectLayout } from '@/pages/Project/ProjectLayout';
 import { CastLayout } from '@/pages/Cast/CastLayout';
 import { ToolkitLayout } from '@/pages/Toolkit/ToolkitLayout';
 
@@ -29,8 +28,7 @@ function App() {
                 <Route path="manuscript/editor" element={<ManuscriptLayout />} />
                 <Route path="manuscript/planner" element={<ManuscriptPlanner />} />
                 <Route path="manuscript/outline" element={<ManuscriptOutline />} />
-                <Route path="manuscript/core" element={<ProjectCore />} />
-                <Route path="manuscript/templates" element={<ProjectTemplates />} />
+                <Route path="project/:view" element={<ProjectLayout />} />
                 <Route path="world-bible" element={<WorldBibleLayout />} />
                 <Route path="cast/:view" element={<CastLayout />} />
                 <Route path="toolkit/:view" element={<ToolkitLayout />} />

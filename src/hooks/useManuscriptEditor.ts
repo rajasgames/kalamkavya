@@ -1,12 +1,12 @@
-import { Editor } from '@tiptap/react';
+import ReactQuill from 'react-quill';
 
 // Global singleton reference to the active manuscript editor
-const editorRef: { current: Editor | null } = { current: null };
+const editorRef: { current: ReactQuill | null } = { current: null };
 
 export const useManuscriptEditor = () => {
   return {
     editor: editorRef.current,
-    setEditor: (editor: Editor | null) => {
+    setEditor: (editor: ReactQuill | null) => {
       editorRef.current = editor;
     }
   };

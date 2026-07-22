@@ -44,7 +44,7 @@ export interface StoryState {
   addGenerationLog: (log: import('./story.types').GenerationLog) => Promise<void>;
 }
 
-export type Pillar = 'home' | 'manuscript' | 'worldbible' | 'cast' | 'toolkit';
+export type Pillar = 'home' | 'manuscript' | 'project' | 'worldbible' | 'cast' | 'toolkit';
 export type Theme = 'light' | 'dark';
 
 export interface UIState {
