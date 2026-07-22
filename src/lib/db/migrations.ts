@@ -1,4 +1,4 @@
-import { कalam काvyaDatabase } from './database';
+import { KalamKavyaDatabase } from './database';
 
 /**
  * Apply database migrations and define the schema versions.
@@ -7,7 +7,7 @@ import { कalam काvyaDatabase } from './database';
  * The primary key is always the first specified property.
  * We do not define every column here, only the properties that need to be indexed.
  */
-export function applyMigrations(db: कalam काvyaDatabase) {
+export function applyMigrations(db: KalamKavyaDatabase) {
   db.version(1).stores({
     projects: 'id, title',
     entities: 'id, projectId, type, entityClass, [projectId+type], [projectId+entityClass], name, hasAIRule',

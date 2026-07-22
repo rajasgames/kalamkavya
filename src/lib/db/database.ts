@@ -2,7 +2,7 @@ import Dexie, { Table } from 'dexie';
 import { Entity, Relationship, AiSettings, Project, Chapter, Scene } from '@/types';
 import { applyMigrations } from './migrations';
 
-export class कalam काvyaDatabase extends Dexie {
+export class KalamKavyaDatabase extends Dexie {
   projects!: Table<Project, string>;
   entities!: Table<Entity, string>;
   relationships!: Table<Relationship, string>;
@@ -22,4 +22,4 @@ export class कalam काvyaDatabase extends Dexie {
 }
 
 // Export singleton instance
-export const db = new कalam काvyaDatabase();
+export const db = new KalamKavyaDatabase();
