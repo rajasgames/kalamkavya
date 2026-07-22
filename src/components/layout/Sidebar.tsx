@@ -100,13 +100,13 @@ export const Sidebar = () => {
 
   return (
     <>
-      {/* Desktop Sidebar (Inside floating container) */}
-      <aside className="hidden md:flex flex-col h-full w-full bg-transparent overflow-hidden font-sans">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex flex-col h-full w-full bg-surface overflow-hidden font-sans">
         <div className="flex-1 flex overflow-hidden">
-          {/* Icons Column (52px wide) */}
-          <div className="w-[52px] flex-shrink-0 flex flex-col items-center py-4 justify-between border-r border-subtle relative z-10">
+          {/* Icons Column */}
+          <div className="w-[56px] flex-shrink-0 flex flex-col items-center py-3 justify-between border-r border-subtle relative z-10">
             {/* Top Navigation Group */}
-            <div className="flex flex-col items-center gap-3 w-full">
+            <div className="flex flex-col items-center gap-2 w-full">
               {PILLARS.map(pillar => {
                 const isActive = activePillar === pillar.id;
                 return (
@@ -114,20 +114,17 @@ export const Sidebar = () => {
                     key={pillar.id}
                     onClick={() => handlePillarClick(pillar)}
                     title={isSidebarExpanded ? undefined : pillar.label}
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 relative group ${
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors relative group ${
                       isActive 
-                        ? 'text-amber-from bg-amber-from/15 shadow-[0_0_15px_rgba(212,153,90,0.25)] scale-105 font-bold' 
-                        : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95'
+                        ? 'text-amber-from bg-amber-from/10 font-semibold' 
+                        : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
                     }`}
                   >
-                    {isActive && (
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-amber-from/20 to-transparent opacity-50 blur-sm pointer-events-none" />
-                    )}
-                    <pillar.icon size={20} className="relative z-10 shrink-0" />
+                    <pillar.icon size={18} className="shrink-0" />
                     
                     {/* Tooltip on hover (when collapsed) */}
                     {!isSidebarExpanded && (
-                      <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
+                      <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-surface border border-subtle text-primary text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none z-50 shadow-md font-medium">
                         {pillar.label}
                       </div>
                     )}
@@ -135,17 +132,17 @@ export const Sidebar = () => {
                 );
               })}
 
-              <div className="w-6 h-[1px] bg-subtle my-1" />
+              <div className="w-5 h-[1px] bg-subtle my-1" />
 
               {/* AI Assistant Quick Icon */}
               <button
                 onClick={() => setAIDrawerOpen(true)}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-amber-from hover:bg-amber-from/15 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-amber-from hover:bg-amber-from/10 transition-colors relative group"
                 title={isSidebarExpanded ? undefined : "Ask AI"}
               >
-                <Sparkles size={20} className="shrink-0" />
+                <Sparkles size={18} className="shrink-0" />
                 {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
+                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-surface border border-subtle text-primary text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none z-50 shadow-md font-medium">
                     Ask AI Assistant
                   </div>
                 )}
@@ -154,26 +151,26 @@ export const Sidebar = () => {
               {/* AI Settings Quick Icon */}
               <button
                 onClick={() => setAISettingsOpen(true)}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-colors relative group"
                 title={isSidebarExpanded ? undefined : "AI Settings"}
               >
-                <Settings size={20} className="shrink-0" />
+                <Settings size={18} className="shrink-0" />
                 {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
+                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-surface border border-subtle text-primary text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none z-50 shadow-md font-medium">
                     AI Settings
                   </div>
                 )}
               </button>
 
-              {/* User Guide & Onboarding Tour Icon */}
+              {/* User Guide Icon */}
               <button
                 onClick={() => setOnboardingOpen(true)}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-amber-from hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-ghost hover:text-amber-from hover:bg-black/5 dark:hover:bg-white/5 transition-colors relative group"
                 title={isSidebarExpanded ? undefined : "User Guide & Tour"}
               >
-                <HelpCircle size={20} className="shrink-0" />
+                <HelpCircle size={18} className="shrink-0" />
                 {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
+                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-surface border border-subtle text-primary text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none z-50 shadow-md font-medium">
                     User Guide & Tour
                   </div>
                 )}
@@ -181,111 +178,94 @@ export const Sidebar = () => {
             </div>
 
             {/* Bottom Actions Group */}
-            <div className="flex flex-col items-center gap-3 w-full">
+            <div className="flex flex-col items-center gap-2 w-full">
               {/* Global Search */}
               <button 
                 onClick={openSearch}
-                className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
+                className="w-9 h-9 flex items-center justify-center text-ghost hover:text-primary transition-colors rounded-lg hover:bg-black/5 dark:hover:bg-white/5 relative group"
                 title={isSidebarExpanded ? undefined : "Global Search (Cmd/Ctrl + K)"}
               >
-                <Search size={18} className="shrink-0" />
+                <Search size={17} className="shrink-0" />
                 {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
+                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-surface border border-subtle text-primary text-xs py-1 px-2 rounded whitespace-nowrap pointer-events-none z-50 shadow-md font-medium">
                     Search (Cmd + K)
                   </div>
                 )}
               </button>
 
               {/* Theme Toggle Icon Slot */}
-              <div className="w-10 h-10 flex items-center justify-center relative group">
+              <div className="w-9 h-9 flex items-center justify-center relative group">
                 <ThemeToggle />
-                {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
-                    Toggle Theme
-                  </div>
-                )}
               </div>
 
               {/* Collapse/Expand Toggle */}
               <button 
                 onClick={() => setSidebarExpanded(!isSidebarExpanded)}
-                className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
+                className="w-9 h-9 flex items-center justify-center text-ghost hover:text-primary transition-colors rounded-lg hover:bg-black/5 dark:hover:bg-white/5 relative group"
                 title={isSidebarExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
               >
-                {isSidebarExpanded ? <PanelLeftClose size={18} className="shrink-0" /> : <PanelLeftOpen size={18} className="shrink-0" />}
-                {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
-                    Expand Sidebar
-                  </div>
-                )}
+                {isSidebarExpanded ? <PanelLeftClose size={17} className="shrink-0" /> : <PanelLeftOpen size={17} className="shrink-0" />}
               </button>
             </div>
           </div>
 
-          {/* Sub-views & Labels Drawer */}
+          {/* Sub-views Drawer */}
           <div 
-            className="flex-1 flex flex-col transition-all duration-300 ease-out overflow-hidden"
+            className="flex-1 flex flex-col transition-all duration-200 ease-in-out overflow-hidden"
             style={{ 
               opacity: isSidebarExpanded ? 1 : 0,
-              transform: isSidebarExpanded ? 'translateX(0)' : 'translateX(-10px)',
+              transform: isSidebarExpanded ? 'translateX(0)' : 'translateX(-8px)',
               pointerEvents: isSidebarExpanded ? 'auto' : 'none'
             }}
           >
             {currentPillarDef && currentPillarDef.subViews.length > 0 ? (
-              <div className="p-4 flex-1 overflow-y-auto no-scrollbar">
-                <h3 className="text-[10px] font-bold tracking-widest text-ghost/80 uppercase mb-4 px-2">
+              <div className="p-3 flex-1 overflow-y-auto">
+                <h3 className="text-[11px] font-semibold text-ghost uppercase tracking-wider mb-3 px-2">
                   {currentPillarDef.label}
                 </h3>
-                <nav className="flex flex-col gap-1.5">
+                <nav className="flex flex-col gap-1">
                   {currentPillarDef.subViews.map(sub => {
                     const isSubActive = activeSubView === sub.id;
                     return (
                       <Link
                         key={sub.id}
                         to={sub.href}
-                        className={`px-3 py-2 text-sm rounded-xl transition-all duration-200 border border-transparent flex items-center gap-2 group ${
+                        className={`px-2.5 py-1.5 text-xs rounded-md transition-colors flex items-center gap-2 ${
                           isSubActive
-                            ? 'bg-amber-from/10 text-amber-from border-amber-from/20 shadow-sm font-semibold'
+                            ? 'bg-amber-from/10 text-amber-from font-medium'
                             : 'text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
                         }`}
                       >
-                        {isSubActive && <div className="w-1.5 h-1.5 rounded-full bg-amber-from shadow-[0_0_6px_rgba(212,153,90,0.8)] shrink-0" />}
-                        <span className={isSubActive ? 'translate-x-0 transition-transform' : 'group-hover:translate-x-1 transition-transform'}>{sub.label}</span>
+                        {isSubActive && <div className="w-1.5 h-1.5 rounded-full bg-amber-from shrink-0" />}
+                        <span>{sub.label}</span>
                       </Link>
                     );
                   })}
                 </nav>
               </div>
             ) : (
-              <div className="p-4 flex-1 flex flex-col justify-center items-center text-center opacity-60">
+              <div className="p-3 flex-1 flex flex-col justify-center items-center text-center opacity-60">
                 {currentPillarDef && (
-                  <h2 className="text-base font-serif text-secondary font-medium">{currentPillarDef.label}</h2>
+                  <h2 className="text-sm font-medium text-secondary">{currentPillarDef.label}</h2>
                 )}
               </div>
             )}
             
-            {/* Drawer Bottom Action Text Labels */}
-            <div className="border-t border-subtle p-3 flex flex-col gap-1.5 bg-surface/40">
+            {/* Drawer Bottom Actions */}
+            <div className="border-t border-subtle p-2 flex flex-col gap-1 bg-surface">
               <button 
                 onClick={() => setAIDrawerOpen(true)}
-                className="w-full flex items-center h-10 px-3 rounded-lg text-amber-from hover:bg-amber-from/10 font-medium text-xs transition-colors group"
+                className="w-full flex items-center h-8 px-2 rounded text-amber-from hover:bg-amber-from/10 font-medium text-xs transition-colors"
               >
-                <Sparkles size={16} className="shrink-0 mr-2.5" />
-                <span className="truncate">Ask AI Assistant</span>
+                <Sparkles size={15} className="shrink-0 mr-2" />
+                <span className="truncate">Ask AI</span>
               </button>
               <button
                 onClick={() => setAISettingsOpen(true)}
-                className="w-full flex items-center h-10 px-3 rounded-lg text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 font-medium text-xs transition-colors group"
+                className="w-full flex items-center h-8 px-2 rounded text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 text-xs transition-colors"
               >
-                <Settings size={16} className="shrink-0 mr-2.5" />
-                <span className="truncate">AI Provider Settings</span>
-              </button>
-              <button
-                onClick={() => setOnboardingOpen(true)}
-                className="w-full flex items-center h-10 px-3 rounded-lg text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 font-medium text-xs transition-colors group"
-              >
-                <HelpCircle size={16} className="shrink-0 mr-2.5 text-amber-from" />
-                <span className="truncate">User Guide & Tour</span>
+                <Settings size={15} className="shrink-0 mr-2" />
+                <span className="truncate">AI Settings</span>
               </button>
             </div>
           </div>

@@ -112,44 +112,44 @@ export function ManuscriptEditor() {
       
       {/* Top Breadcrumb & Actions */}
       {!isFocusMode && (
-        <div className="h-14 px-4 sm:px-8 flex items-center justify-between shrink-0 sticky top-0 z-10 menu-bar-graded transition-colors">
-          <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-ghost min-w-0">
-            <span className="cursor-default shrink-0">Manuscript</span>
-            <ChevronRight size={14} className="opacity-50 shrink-0" />
-            <span className="text-primary truncate max-w-[120px] sm:max-w-[220px] font-semibold">{activeScene.title}</span>
+        <div className="h-12 px-6 flex items-center justify-between shrink-0 sticky top-0 z-10 bg-surface border-b border-subtle">
+          <div className="flex items-center gap-2 text-xs font-medium text-ghost min-w-0">
+            <span className="shrink-0">Manuscript</span>
+            <ChevronRight size={13} className="opacity-40 shrink-0" />
+            <span className="text-primary truncate font-semibold">{activeScene.title}</span>
           </div>
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 shrink-0">
             <button 
               onClick={() => setIsFocusMode(true)} 
-              className="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-ghost hover:text-primary transition-colors flex items-center justify-center"
-              title="Enter Focus Mode"
+              className="p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded text-ghost hover:text-primary transition-colors"
+              title="Focus Mode"
             >
-              <Maximize size={16} className="shrink-0" />
+              <Maximize size={15} />
             </button>
             <button 
               onClick={() => useUIStore.getState().setSprintWidgetOpen(true)} 
-              className="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-ghost hover:text-primary transition-colors flex items-center justify-center"
+              className="p-1.5 hover:bg-black/5 dark:hover:bg-white/5 rounded text-ghost hover:text-primary transition-colors"
               title="Word Sprint"
             >
-              <Timer size={16} className="shrink-0" />
+              <Timer size={15} />
             </button>
-            <div className="w-[1px] h-4 bg-subtle mx-0.5 sm:mx-1" />
+            <div className="w-[1px] h-3.5 bg-subtle mx-1" />
             <button
               onClick={() => useUIStore.getState().setOpenModal('ghostwriter')}
-              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg nav-pill-active transition-all shadow-sm font-medium text-xs"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-from/10 text-amber-from hover:bg-amber-from/20 transition-colors text-xs font-semibold"
             >
-              <Feather size={14} className="shrink-0" />
-              <span className="font-bold uppercase tracking-wider hidden sm:inline">Ghostwriter</span>
+              <Feather size={13} />
+              <span className="hidden sm:inline">Ghostwriter</span>
             </button>
           </div>
         </div>
       )}
 
       {/* Editor Container */}
-      <div className={`flex-1 overflow-y-auto px-6 sm:px-12 scrollbar-hide ${isFocusMode ? 'py-32' : 'py-16'}`}>
+      <div className={`flex-1 overflow-y-auto px-6 sm:px-12 ${isFocusMode ? 'py-20' : 'py-12'}`}>
         <div className="max-w-3xl mx-auto h-full relative">
           
-          <h1 className="text-4xl sm:text-5xl font-serif font-bold text-primary mb-12 outline-none">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-primary mb-8 outline-none">
             {activeScene.title}
           </h1>
 
@@ -167,11 +167,11 @@ export function ManuscriptEditor() {
         </div>
       </div>
 
-      {/* Floating Word Count Pill */}
+      {/* Word Count Pill */}
       {!isFocusMode && (
-        <div className="fixed bottom-6 right-8 bg-surface/90 backdrop-blur-xl border border-subtle px-4 py-2 rounded-full shadow-2xl flex items-center gap-3 text-xs font-semibold text-secondary z-20 transition-all hover:scale-105">
-          <span className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full bg-amber-from shadow-[0_0_6px_rgba(212,153,90,0.8)]" />
+        <div className="fixed bottom-4 right-6 bg-surface border border-subtle px-3 py-1 rounded-full flex items-center gap-2.5 text-xs text-secondary z-20">
+          <span className="flex items-center gap-1.5 font-medium">
+            <div className="w-1.5 h-1.5 rounded-full bg-amber-from" />
             {wordCount} words
           </span>
           <span className="w-[1px] h-3 bg-subtle" />
@@ -181,10 +181,10 @@ export function ManuscriptEditor() {
 
       {/* Focus Mode Overlay Controls */}
       {isFocusMode && (
-        <div className="absolute top-0 left-0 right-0 h-24 flex items-center justify-between px-8 opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-to-b from-base/90 to-transparent z-50">
-          <div className="flex items-center gap-4 text-ghost/80 text-sm font-medium">
-            <span className="font-mono bg-surface border border-subtle shadow-sm px-3 py-1.5 rounded-md flex items-center gap-2">
-              <Timer size={14} className="text-amber-from" />
+        <div className="absolute top-0 left-0 right-0 h-16 flex items-center justify-between px-6 opacity-0 hover:opacity-100 transition-opacity bg-surface border-b border-subtle z-50">
+          <div className="flex items-center gap-3 text-ghost text-xs font-medium">
+            <span className="font-mono bg-base border border-subtle px-2.5 py-1 rounded flex items-center gap-1.5">
+              <Timer size={13} className="text-amber-from" />
               {formatTime(focusTime)}
             </span>
             <span>•</span>
@@ -192,10 +192,10 @@ export function ManuscriptEditor() {
           </div>
           <button 
             onClick={() => setIsFocusMode(false)} 
-            className="px-4 py-2 text-ghost hover:text-primary bg-surface/50 hover:bg-surface border border-subtle rounded-md transition-colors flex items-center gap-2 shadow-sm backdrop-blur-md"
+            className="px-3 py-1 text-xs text-secondary hover:text-primary bg-base border border-subtle rounded transition-colors flex items-center gap-1.5"
           >
-            <Minimize size={16} />
-            <span className="text-sm font-medium">Exit Focus</span>
+            <Minimize size={14} />
+            <span>Exit Focus</span>
           </button>
         </div>
       )}

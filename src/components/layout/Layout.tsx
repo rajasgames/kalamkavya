@@ -33,31 +33,27 @@ export const Layout = () => {
   return (
     <div 
       id="main-content" 
-      className={`flex h-screen overflow-hidden bg-gradient-to-br from-base to-surface text-primary transition-colors duration-500 ${window.__TAURI__ ? 'pt-8' : ''}`}
+      className={`flex h-screen overflow-hidden bg-base text-primary transition-colors duration-200 ${window.__TAURI__ ? 'pt-8' : ''}`}
     >
-      {/* Floating Desktop Sidebar Container */}
+      {/* Desktop Sidebar Container */}
       <div 
-        className="hidden md:block h-full p-4 pr-0 relative z-20" 
+        className="hidden md:block h-full border-r border-subtle bg-surface relative z-20" 
         style={{
-          width: isSidebarExpanded ? '250px' : '68px',
-          transition: 'width 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
+          width: isSidebarExpanded ? '230px' : '56px',
+          transition: 'width 0.2s ease-in-out'
         }}
       >
-        <div className="h-full rounded-2xl shadow-xl shadow-black/10 dark:shadow-black/40 overflow-hidden bg-surface/75 backdrop-blur-2xl border border-subtle flex flex-col">
-          <Sidebar />
-        </div>
+        <Sidebar />
       </div>
       
-      {/* Mobile Floating Bottom Bar */}
-      <div className="md:hidden fixed bottom-4 left-3 right-3 z-40 h-[64px] rounded-full shadow-2xl shadow-black/20 dark:shadow-black/60 overflow-hidden bg-surface/90 backdrop-blur-2xl border border-subtle/80">
+      {/* Mobile Bottom Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 h-[56px] bg-surface border-t border-subtle">
         <Sidebar />
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 h-full overflow-hidden relative transition-all duration-300 ease-out bg-transparent p-0 md:p-4 pb-[84px] md:pb-4 flex flex-col">
-        <div className="flex-1 rounded-none md:rounded-2xl bg-surface/40 backdrop-blur-md border-0 md:border border-subtle shadow-sm overflow-y-auto w-full h-full">
-          <Outlet />
-        </div>
+      <main className="flex-1 h-full overflow-y-auto relative bg-base p-0 pb-[56px] md:pb-0 flex flex-col">
+        <Outlet />
       </main>
       <GlobalSearch />
       <ProjectCreationModal />

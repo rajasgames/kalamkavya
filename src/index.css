@@ -4,40 +4,40 @@
 
 @layer base {
   :root {
-    --bg-base: #FAF7F2;
-    --bg-surface: #F2EBE0;
+    --bg-base: #FAF8F5;
+    --bg-surface: #FFFFFF;
     --bg-elevated: #FFFFFF;
-    --bg-glass: rgba(250, 247, 242, 0.82);
-    --border-subtle: rgba(160, 125, 90, 0.14);
-    --text-primary: #231E18;
-    --text-secondary: #63564A;
-    --text-ghost: #A09181;
+    --bg-glass: rgba(255, 255, 255, 0.95);
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-ghost: #A8A29E;
 
     /* Accents (universal) */
-    --amber-from: #D4995A;
-    --amber-to: #E8A85C;
-    --amber-grad: linear-gradient(135deg, var(--amber-from), var(--amber-to));
-    --amber-glow: rgba(212, 153, 90, 0.22);
-    --menu-gradient: linear-gradient(135deg, rgba(242, 235, 224, 0.95), rgba(250, 247, 242, 0.85));
-    --sage: #7C8F74;
-    --clay: #C66B5E;
+    --amber-from: #D97706;
+    --amber-to: #B45309;
+    --amber-grad: #D97706;
+    --amber-glow: rgba(217, 119, 6, 0.1);
+    --menu-gradient: #FFFFFF;
+    --sage: #65A30D;
+    --clay: #DC2626;
   }
 
   [data-theme="dark"] {
-    --bg-base: #14120E;
-    --bg-surface: #1B1814;
-    --bg-elevated: #24201A;
-    --bg-glass: rgba(27, 24, 20, 0.84);
-    --border-subtle: rgba(224, 159, 86, 0.12);
-    --text-primary: #EDE6DA;
-    --text-secondary: #A3998A;
-    --text-ghost: #635A4D;
-    --menu-gradient: linear-gradient(135deg, rgba(27, 24, 20, 0.95), rgba(20, 18, 14, 0.88));
+    --bg-base: #0C0A09;
+    --bg-surface: #1C1917;
+    --bg-elevated: #262626;
+    --bg-glass: rgba(28, 25, 23, 0.95);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --text-primary: #F5F5F4;
+    --text-secondary: #A8A29E;
+    --text-ghost: #78716C;
+    --menu-gradient: #1C1917;
   }
 
   body {
-    @apply bg-base text-primary font-sans;
-    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    @apply bg-base text-primary font-sans antialiased;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
 
   *:focus, *:focus-visible,
@@ -51,30 +51,28 @@
     outline-offset: 0 !important;
   }
 
-  /* Menu Bar Grading Design Utility Classes */
+  /* Minimal Navigation Utilities */
   .menu-bar-graded {
-    background: var(--menu-gradient);
-    backdrop-filter: blur(16px);
+    background: var(--bg-surface);
     border-bottom: 1px solid var(--border-subtle);
   }
 
   .nav-pill-active {
-    background: linear-gradient(135deg, rgba(212, 153, 90, 0.2), rgba(232, 168, 92, 0.12));
+    background: var(--amber-glow);
     color: var(--amber-from);
-    border: 1px solid rgba(212, 153, 90, 0.35);
-    box-shadow: 0 0 16px rgba(212, 153, 90, 0.2);
+    border: 1px solid rgba(217, 119, 6, 0.25);
   }
 
-  /* Custom Minimal Cozy Scrollbar */
+  /* Custom Minimal Scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(160, 125, 90, 0.25);
+    background: rgba(160, 150, 140, 0.2);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {

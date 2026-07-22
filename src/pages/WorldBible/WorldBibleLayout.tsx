@@ -104,35 +104,35 @@ export function WorldBibleLayout() {
     <div className="h-full flex flex-col md:flex-row bg-base relative overflow-hidden">
       
       {/* Desktop Sidebar Navigation */}
-      <div className="hidden md:flex w-64 border-r border-subtle bg-surface flex-col h-full shrink-0 z-10 shadow-sm">
-        <div className="p-4 border-b border-subtle shrink-0">
+      <div className="hidden md:flex w-56 border-r border-subtle bg-surface flex-col h-full shrink-0 z-10">
+        <div className="p-3 border-b border-subtle shrink-0">
           <Button 
             onClick={() => openCreationForTab()} 
-            className="w-full gap-2 justify-center shadow-sm bg-amber-from text-black font-semibold hover:bg-amber-from/90 transition-all rounded-xl py-2"
+            className="w-full gap-2 justify-center bg-amber-from text-black font-semibold hover:bg-amber-from/90 transition-colors rounded-md py-1.5 text-xs"
           >
-            <Plus size={16} className="shrink-0" /> New Entry
+            <Plus size={15} className="shrink-0" /> New Entry
           </Button>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
+        <div className="flex-1 overflow-y-auto p-3 space-y-5">
           {categoryGroups.map(group => (
             <div key={group.group}>
-              <h3 className="text-[10px] font-bold uppercase tracking-widest text-ghost/80 mb-2 px-2">
+              <h3 className="text-[11px] font-semibold text-ghost uppercase tracking-wider mb-2 px-2">
                 {group.group}
               </h3>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-0.5">
                 {group.categories.map(category => (
                   <button
                     key={category.id}
                     onClick={() => handleTabClick(category.id)}
-                    className={`text-left px-3 py-2 rounded-xl text-sm transition-all duration-200 flex items-center justify-between ${
+                    className={`text-left px-2.5 py-1.5 rounded-md text-xs transition-colors flex items-center justify-between ${
                       currentView === category.id
-                        ? 'nav-pill-active font-semibold'
-                        : 'text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
+                        ? 'bg-amber-from/10 text-amber-from font-medium'
+                        : 'text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
                     }`}
                   >
                     <span>{category.label}</span>
                     {currentView === category.id && (
-                      <div className="w-1.5 h-1.5 rounded-full bg-amber-from shadow-[0_0_6px_rgba(212,153,90,0.8)] shrink-0" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-amber-from shrink-0" />
                     )}
                   </button>
                 ))}
@@ -143,14 +143,14 @@ export function WorldBibleLayout() {
       </div>
 
       {/* Mobile Category Tab Selector Bar */}
-      <div className="md:hidden shrink-0 menu-bar-graded px-3 py-2 flex.gap-1.5 overflow-x-auto scrollbar-hide z-10 shadow-sm flex items-center">
+      <div className="md:hidden shrink-0 bg-surface border-b border-subtle px-3 py-2 flex gap-1 overflow-x-auto scrollbar-hide z-10 flex items-center">
         {allCategories.map(category => (
           <button
             key={category.id}
             onClick={() => handleTabClick(category.id)}
-            className={`px-3 py-1.5 rounded-xl text-xs whitespace-nowrap font-semibold transition-all shrink-0 ${
+            className={`px-2.5 py-1 rounded text-xs whitespace-nowrap font-medium transition-colors shrink-0 ${
               currentView === category.id
-                ? 'nav-pill-active font-bold'
+                ? 'bg-amber-from/10 text-amber-from'
                 : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
             }`}
           >

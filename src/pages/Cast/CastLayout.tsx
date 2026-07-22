@@ -40,48 +40,48 @@ export function CastLayout() {
   return (
     <div className="h-full flex flex-col bg-base overflow-hidden relative">
       {/* Header with Sub-view Tabs & Contextual Create Action */}
-      <div className="shrink-0 menu-bar-graded px-4 sm:px-8 py-3 sm:py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 z-10 shadow-sm">
-        <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
-          <h1 className="text-2xl sm:text-3xl font-serif text-primary">Cast & Characters</h1>
+      <div className="shrink-0 bg-surface border-b border-subtle px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 z-10">
+        <div className="flex items-center gap-4 flex-wrap">
+          <h1 className="text-xl sm:text-2xl font-serif text-primary">Cast & Characters</h1>
 
-          <div className="flex bg-base/80 backdrop-blur-md border border-subtle p-1 rounded-xl gap-1">
+          <div className="flex bg-base border border-subtle p-0.5 rounded-lg gap-0.5">
             <button
               onClick={() => navigate('/cast/characters')}
-              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition-colors ${
                 activeSubView === 'characters'
-                  ? 'nav-pill-active'
-                  : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
+                  ? 'bg-amber-from/10 text-amber-from'
+                  : 'text-ghost hover:text-primary'
               }`}
             >
-              <User size={15} className="shrink-0" /> Characters
+              <User size={14} className="shrink-0" /> Characters
             </button>
             <button
               onClick={() => navigate('/cast/art')}
-              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition-colors ${
                 activeSubView === 'art'
-                  ? 'nav-pill-active'
-                  : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
+                  ? 'bg-amber-from/10 text-amber-from'
+                  : 'text-ghost hover:text-primary'
               }`}
             >
-              <Image size={15} className="shrink-0" /> Art Direction
+              <Image size={14} className="shrink-0" /> Art Direction
             </button>
           </div>
         </div>
 
-        <Button onClick={handleCreateNew} className="gap-2 shadow-sm font-semibold text-xs sm:text-sm self-stretch sm:self-auto">
-          <Plus size={16} className="shrink-0" /> {activeSubView === 'art' ? 'New Art Concept' : 'New Character'}
+        <Button onClick={handleCreateNew} className="gap-2 text-xs font-medium self-stretch sm:self-auto">
+          <Plus size={15} className="shrink-0" /> {activeSubView === 'art' ? 'New Art Concept' : 'New Character'}
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 sm:p-8">
+      <div className="flex-1 overflow-y-auto p-6">
         <div className="max-w-6xl mx-auto h-full flex flex-col">
           {activeSubView === 'art' ? (
             <div className="flex-1 flex flex-col gap-6">
-              <div className="bg-surface border border-subtle p-6 rounded-2xl flex flex-col gap-3">
-                <div className="flex items-center gap-2 text-amber-from font-serif text-lg font-bold">
-                  <Sparkles size={20} /> Visual Art & Character Moodboards
+              <div className="bg-surface border border-subtle p-5 rounded-lg flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-amber-from font-serif text-base font-semibold">
+                  <Sparkles size={18} /> Visual Art & Character Moodboards
                 </div>
-                <p className="text-secondary text-sm leading-relaxed">
+                <p className="text-secondary text-xs leading-relaxed">
                   Define art direction guidelines, character portraits, color palettes, and visual prompts for your story cast. Link visual assets to characters in the World Bible.
                 </p>
               </div>
@@ -95,8 +95,8 @@ export function CastLayout() {
             </div>
           ) : (
             <div className="flex-1 flex flex-col">
-              <p className="text-secondary mb-6">
-                Manage your world's inhabitants. Click any character to open their detailed Bento Grid.
+              <p className="text-secondary text-xs mb-4">
+                Manage your world's inhabitants. Click any character to view details.
               </p>
               
               <div className="flex-1">

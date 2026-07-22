@@ -144,17 +144,17 @@ export function Dashboard() {
   ];
 
   return (
-    <div className="p-4 sm:p-8 md:p-12 h-full flex flex-col overflow-y-auto max-w-7xl mx-auto w-full">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4">
-        <h1 className="text-xl sm:text-2xl font-serif italic text-primary">{getGreeting()}</h1>
+    <div className="p-6 sm:p-10 h-full flex flex-col overflow-y-auto max-w-6xl mx-auto w-full">
+      <div className="flex items-center justify-between mb-8 pb-4 border-b border-subtle">
+        <h1 className="text-xl sm:text-2xl font-serif text-primary">{getGreeting()}</h1>
         <div className="flex items-center gap-3">
           <Button
             variant="ghost"
             onClick={() => useUIStore.getState().setOnboardingOpen(true)}
-            className="gap-2 text-xs font-semibold text-amber-from bg-amber-from/10 hover:bg-amber-from/20 border border-amber-from/30"
+            className="gap-2 text-xs text-amber-from hover:bg-amber-from/10 border border-subtle"
           >
-            <HelpCircle size={15} />
-            User Guide & Tour
+            <HelpCircle size={14} />
+            Guide & Tour
           </Button>
           <ThemeToggle />
         </div>
@@ -162,40 +162,40 @@ export function Dashboard() {
 
       {/* Hero Section */}
       {!activeProject ? (
-        <Card className="p-8 text-center flex flex-col items-center mb-12 bg-gradient-to-br from-surface to-base border-subtle">
-          <div className="text-amber-from/20 mb-6 drop-shadow-sm">
-            <PenTool size={64} strokeWidth={1} />
+        <Card className="p-8 text-center flex flex-col items-center mb-10 bg-surface border-subtle">
+          <div className="text-amber-from mb-4">
+            <PenTool size={48} strokeWidth={1.5} />
           </div>
-          <h2 className="text-2xl font-serif font-bold text-primary mb-2">Start Your Story</h2>
-          <p className="text-secondary mb-8 max-w-lg">
-            InkwellPro works for any genre — from Vedic epics to rom-coms to sci-fi mysteries.
-            Create a new project or jump in with a sample world.
+          <h2 className="text-xl font-serif font-semibold text-primary mb-2">Start Your Story</h2>
+          <p className="text-sm text-secondary mb-6 max-w-md">
+            InkwellPro works for any genre — Vedic epics, rom-coms, or sci-fi mysteries.
+            Create a new project or explore a sample world.
           </p>
 
           <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-8">
-            <PlusCircle size={18} />
+            <PlusCircle size={16} />
             New Project
           </Button>
 
           <div className="w-full border-t border-subtle pt-6">
-            <p className="text-xs font-bold uppercase tracking-wider text-ghost mb-4 flex items-center justify-center gap-2">
-              <Sparkles size={13} /> Or explore a sample world
+            <p className="text-xs font-semibold uppercase tracking-wider text-ghost mb-4 flex items-center justify-center gap-2">
+              <Sparkles size={13} /> Sample Worlds
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto">
               {sampleOptions.map(opt => (
                 <button
                   key={opt.key}
                   onClick={() => handleLoadSample(opt.key)}
                   disabled={loadingSample !== null}
-                  className="flex flex-col items-start gap-1.5 p-4 bg-elevated border border-subtle rounded-xl hover:border-amber-from/40 hover:shadow-sm transition-all text-left disabled:opacity-50 group"
+                  className="flex flex-col items-start gap-1 p-3.5 bg-base border border-subtle rounded-lg hover:border-amber-from/50 transition-colors text-left disabled:opacity-50"
                 >
-                  <div className="p-2 rounded-lg bg-amber-from/10 text-amber-from mb-1 group-hover:scale-110 transition-transform">
-                    <opt.Icon size={22} />
+                  <div className="p-1.5 rounded bg-amber-from/10 text-amber-from mb-1">
+                    <opt.Icon size={18} />
                   </div>
-                  <span className="font-bold text-sm text-primary">{opt.label}</span>
-                  <span className="text-[11px] text-ghost leading-snug">{opt.desc}</span>
+                  <span className="font-semibold text-xs text-primary">{opt.label}</span>
+                  <span className="text-[11px] text-ghost leading-tight">{opt.desc}</span>
                   {loadingSample === opt.key && (
-                    <span className="text-[10px] text-amber-from font-bold uppercase tracking-wider animate-pulse mt-0.5">Loading…</span>
+                    <span className="text-[10px] text-amber-from font-semibold animate-pulse mt-0.5">Loading…</span>
                   )}
                 </button>
               ))}
@@ -203,37 +203,39 @@ export function Dashboard() {
           </div>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-          <Card className="col-span-1 lg:col-span-2 p-8 flex flex-col justify-center bg-gradient-to-br from-surface to-base border-subtle">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs font-bold uppercase tracking-wider text-ghost bg-surface border border-subtle rounded px-2 py-0.5">
-                {getGenreLabel(activeProject)}
-              </span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+          <Card className="col-span-1 lg:col-span-2 p-6 flex flex-col justify-between bg-surface border-subtle">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-ghost bg-base border border-subtle rounded px-2 py-0.5">
+                  {getGenreLabel(activeProject)}
+                </span>
+              </div>
+              <h2 className="text-2xl font-serif font-bold text-primary mb-2">{activeProject.title}</h2>
+              <p className="text-sm text-secondary mb-6 line-clamp-2">{activeProject.premise}</p>
             </div>
-            <h2 className="text-3xl font-serif font-bold text-primary mb-2">{activeProject.title}</h2>
-            <p className="text-secondary mb-8">{activeProject.premise}</p>
             
-            <div className="flex flex-wrap gap-4">
-              <Button className="gap-2" onClick={() => setIsNewProjectOpen(true)}>
-                <PlusCircle size={18} />
+            <div className="flex flex-wrap gap-3 pt-4 border-t border-subtle">
+              <Button className="gap-2 text-xs" onClick={() => setIsNewProjectOpen(true)}>
+                <PlusCircle size={15} />
                 New Project
               </Button>
-              <Button variant="ghost" className="gap-2" onClick={() => navigate('/toolkit/ai')}>
-                <Sparkles size={18} />
+              <Button variant="ghost" className="gap-2 text-xs border border-subtle" onClick={() => navigate('/toolkit/ai')}>
+                <Sparkles size={15} />
                 Generate Lore
               </Button>
-              <Button variant="ghost" className="gap-2" onClick={() => useUIStore.getState().setSprintWidgetOpen(true)}>
-                <Timer size={18} />
+              <Button variant="ghost" className="gap-2 text-xs border border-subtle" onClick={() => useUIStore.getState().setSprintWidgetOpen(true)}>
+                <Timer size={15} />
                 Word Sprint
               </Button>
             </div>
           </Card>
 
-          <Card className="col-span-1 p-8 flex flex-col items-center justify-center text-center">
-            <h3 className="text-sm font-bold tracking-wider text-ghost uppercase mb-6">Manuscript Progress</h3>
-            <ProgressRing currentWordCount={totalWordCount} targetWordCount={activeProject.targetWordCount || 50000} size={140} strokeWidth={10} />
-            <div className="mt-6 text-sm text-secondary">
-              <span className="font-medium text-primary">{totalWordCount.toLocaleString()}</span> / {activeProject.targetWordCount?.toLocaleString() || '50,000'} words
+          <Card className="col-span-1 p-6 flex flex-col items-center justify-center text-center bg-surface border-subtle">
+            <h3 className="text-xs font-semibold tracking-wider text-ghost uppercase mb-4">Manuscript Progress</h3>
+            <ProgressRing currentWordCount={totalWordCount} targetWordCount={activeProject.targetWordCount || 50000} size={120} strokeWidth={8} />
+            <div className="mt-4 text-xs text-secondary">
+              <span className="font-semibold text-primary">{totalWordCount.toLocaleString()}</span> / {activeProject.targetWordCount?.toLocaleString() || '50,000'} words
             </div>
           </Card>
         </div>
@@ -241,47 +243,47 @@ export function Dashboard() {
 
       {/* Activity Heatmap */}
       {activeProject && (
-        <div className="mb-12">
+        <div className="mb-10">
           <ActivityHeatmap />
         </div>
       )}
 
       {/* Your Projects Section */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-serif font-bold text-primary">Your Projects</h3>
-          <Button variant="ghost" className="gap-2" onClick={() => setIsNewProjectOpen(true)}>
-            <PlusCircle size={16} />
+      <div className="mb-10">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-serif font-semibold text-primary">Your Projects</h3>
+          <Button variant="ghost" className="gap-1.5 text-xs border border-subtle" onClick={() => setIsNewProjectOpen(true)}>
+            <PlusCircle size={14} />
             New
           </Button>
         </div>
         
         {allProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {allProjects.map(project => {
               const isActive = activeProject?.id === project.id;
               return (
                 <Card 
                   key={project.id} 
-                  className={`p-6 flex flex-col transition-colors ${isActive ? 'border-amber-from shadow-[0_0_15px_rgba(212,153,90,0.15)] bg-amber-from/5' : 'hover:border-ghost'}`}
+                  className={`p-5 flex flex-col bg-surface border transition-colors ${isActive ? 'border-amber-from bg-amber-from/[0.03]' : 'border-subtle hover:border-ghost'}`}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex flex-col gap-1">
-                      <h4 className="text-lg font-bold text-primary">{project.title}</h4>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-ghost bg-base border border-subtle rounded px-1.5 py-0.5 w-fit">
+                      <h4 className="text-base font-semibold text-primary">{project.title}</h4>
+                      <span className="text-[10px] font-medium uppercase text-ghost">
                         {getGenreLabel(project)}
                       </span>
                     </div>
                     {isActive && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-amber-from bg-amber-from/10 px-2 py-1 rounded shrink-0 ml-2">
+                      <span className="text-[10px] font-semibold text-amber-from bg-amber-from/10 px-2 py-0.5 rounded shrink-0 ml-2">
                         Active
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-secondary mb-6 line-clamp-3 flex-1 mt-2">{project.premise}</p>
-                  <div className="flex gap-3 mt-auto">
+                  <p className="text-xs text-secondary mb-4 line-clamp-2 flex-1 mt-1">{project.premise}</p>
+                  <div className="flex gap-2 mt-auto pt-3 border-t border-subtle">
                     <Button 
-                      className="flex-1" 
+                      className="flex-1 text-xs" 
                       variant={isActive ? 'ghost' : 'primary'}
                       disabled={isActive}
                       onClick={() => useStoryStore.getState().setActiveProject(project.id)}
@@ -290,7 +292,7 @@ export function Dashboard() {
                     </Button>
                     <Button 
                       variant="ghost" 
-                      className="text-red-500 hover:bg-red-500/10 hover:text-red-500 px-3" 
+                      className="text-secondary hover:text-red-500 p-2" 
                       onClick={async () => {
                         if (confirm(`Are you sure you want to delete "${project.title}"? This cannot be undone.`)) {
                           await useStoryStore.getState().deleteProject(project.id);
@@ -298,7 +300,7 @@ export function Dashboard() {
                         }
                       }}
                     >
-                      <Trash2 size={18} />
+                      <Trash2 size={16} />
                     </Button>
                   </div>
                 </Card>
@@ -306,8 +308,8 @@ export function Dashboard() {
             })}
           </div>
         ) : (
-          <div className="py-12 text-center text-secondary border border-dashed border-subtle rounded-xl">
-            <BookOpen size={32} className="mx-auto mb-3 opacity-30" />
+          <div className="py-8 text-center text-xs text-secondary border border-dashed border-subtle rounded-lg">
+            <BookOpen size={24} className="mx-auto mb-2 opacity-30" />
             <p>No projects yet. Create one above or load a sample world.</p>
           </div>
         )}
