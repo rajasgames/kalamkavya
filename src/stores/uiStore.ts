@@ -23,6 +23,7 @@ export const useUIStore = create<UIState>()(
       isSprintWidgetOpen: false,
       isAIDrawerOpen: false,
       isAISettingsOpen: false,
+      isOnboardingOpen: false,
 
       setActivePillar: (pillar: Pillar) => set({ activePillar: pillar }),
       setActiveSubView: (view: string) => set({ activeSubView: view }),
@@ -31,8 +32,8 @@ export const useUIStore = create<UIState>()(
         try {
           localStorage.setItem('inkwell-theme', theme);
         } catch (e) {
-    console.warn('Failed to read theme from localStorage', e);
-  }
+          console.warn('Failed to read theme from localStorage', e);
+        }
         document.documentElement.setAttribute('data-theme', theme);
         set({ theme });
       },
@@ -40,6 +41,7 @@ export const useUIStore = create<UIState>()(
       setSprintWidgetOpen: (open: boolean) => set({ isSprintWidgetOpen: open }),
       setAIDrawerOpen: (open: boolean) => set({ isAIDrawerOpen: open }),
       setAISettingsOpen: (open: boolean) => set({ isAISettingsOpen: open }),
+      setOnboardingOpen: (open: boolean) => set({ isOnboardingOpen: open }),
     }),
     { enabled: import.meta.env.DEV }
   )

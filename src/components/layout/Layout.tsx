@@ -7,7 +7,7 @@ import { useSearchStore } from '@/stores/searchStore';
 import { ProjectCreationModal } from '@/components/ui';
 import { SprintWidget } from '@/components/toolkit/SprintWidget';
 import { AIDrawer } from '@/components/toolkit/AIDrawer';
-import { AISettingsModal } from '@/components/shared';
+import { AISettingsModal, OnboardingModal } from '@/components/shared';
 
 declare global {
   interface Window {
@@ -64,6 +64,7 @@ export const Layout = () => {
       {isSprintWidgetOpen && <SprintWidget onClose={() => setSprintWidgetOpen(false)} />}
       <AIDrawer />
       <AISettingsModal />
+      <OnboardingModal />
     </div>
   );
 };

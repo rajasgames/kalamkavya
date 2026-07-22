@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, PenTool, BookOpen, Users, Wrench, PanelLeftClose, PanelLeftOpen, Search, LucideIcon, Sparkles, Settings } from 'lucide-react';
+import { Home, PenTool, BookOpen, Users, Wrench, PanelLeftClose, PanelLeftOpen, Search, LucideIcon, Sparkles, Settings, HelpCircle } from 'lucide-react';
 import { useUIStore } from '@/stores/uiStore';
 import { useSearchStore } from '@/stores/searchStore';
 import { Pillar } from '@/types';
@@ -51,7 +51,7 @@ const PILLARS: PillarDef[] = [
 export const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { activePillar, setActivePillar, isSidebarExpanded, setSidebarExpanded, setAIDrawerOpen, activeSubView, setActiveSubView, setAISettingsOpen } = useUIStore();
+  const { activePillar, setActivePillar, isSidebarExpanded, setSidebarExpanded, setAIDrawerOpen, activeSubView, setActiveSubView, setAISettingsOpen, setOnboardingOpen } = useUIStore();
   const { openSearch } = useSearchStore();
 
   // Sync route changes to store
@@ -157,6 +157,20 @@ export const Sidebar = () => {
                   </div>
                 )}
               </button>
+
+              {/* User Guide & Onboarding Tour Icon */}
+              <button
+                onClick={() => setOnboardingOpen(true)}
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-amber-from hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                title={isSidebarExpanded ? undefined : "User Guide & Tour"}
+              >
+                <HelpCircle size={20} className="shrink-0" />
+                {!isSidebarExpanded && (
+                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
+                    User Guide & Tour
+                  </div>
+                )}
+              </button>
             </div>
 
             {/* Bottom Actions Group */}
@@ -258,6 +272,13 @@ export const Sidebar = () => {
               >
                 <Settings size={16} className="shrink-0 mr-2.5" />
                 <span className="truncate">AI Provider Settings</span>
+              </button>
+              <button
+                onClick={() => setOnboardingOpen(true)}
+                className="w-full flex items-center h-10 px-3 rounded-lg text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 font-medium text-xs transition-colors group"
+              >
+                <HelpCircle size={16} className="shrink-0 mr-2.5 text-amber-from" />
+                <span className="truncate">User Guide & Tour</span>
               </button>
             </div>
           </div>
