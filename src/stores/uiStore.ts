@@ -23,7 +23,7 @@ export const useUIStore = create<UIState>()(
       isSprintWidgetOpen: false,
       isAIDrawerOpen: false,
       isAISettingsOpen: false,
-      isOnboardingOpen: false,
+      isOnboardingOpen: typeof window !== 'undefined' ? localStorage.getItem('inkwell_onboarding_completed') !== 'true' : false,
 
       setActivePillar: (pillar: Pillar) => set({ activePillar: pillar }),
       setActiveSubView: (view: string) => set({ activeSubView: view }),

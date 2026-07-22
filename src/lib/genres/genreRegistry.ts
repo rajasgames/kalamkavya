@@ -344,19 +344,249 @@ export const GENRE_MODULES: Record<string, GenreModule> = {
 };
 
 // ---------------------------------------------------------------------------
+// SUB-GENRES & TAILORED CATEGORIES
+// ---------------------------------------------------------------------------
+export interface SubGenreDefinition {
+  id: string;
+  label: string;
+  description: string;
+  extraCategories?: { groupLabel: string; categories: GenreCategory[] }[];
+}
+
+export const SUB_GENRE_MAP: Record<string, SubGenreDefinition[]> = {
+  vedic: [
+    {
+      id: 'puranic_cosmology',
+      label: 'Puranic Cosmology & Lokas',
+      description: 'Realms of gods, devas, lokas, and yuga cycles',
+      extraCategories: [
+        {
+          groupLabel: 'Puranic Cosmology',
+          categories: [
+            { id: 'sub_lokas', label: '14 Lokas & Underworlds', types: ['LOKA'] },
+            { id: 'sub_yugas', label: 'Yuga Cycles & Karma', types: ['COSMIC_TIME', 'UNIVERSAL_LAW'] },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'cosmic_war',
+      label: 'Cosmic War & Deva-Asura Conflict',
+      description: 'Warfare between Devas, Asuras, Astras, and military Vyuhas',
+      extraCategories: [
+        {
+          groupLabel: 'Warfare Codex',
+          categories: [
+            { id: 'sub_astras', label: 'Divine Astras & Shastras', types: ['ASTRA', 'SHASTRA'] },
+            { id: 'sub_vyuhas', label: 'Battle Formations (Vyuhas)', types: ['VYUHA', 'MILITARY'] },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'itihasa_legend',
+      label: 'Itihasa Legend & Heroic Lineages',
+      description: 'Dynasties, Vamsha lineages, and royal sagas',
+      extraCategories: [
+        {
+          groupLabel: 'Lineages Codex',
+          categories: [
+            { id: 'sub_vamsha', label: 'Vamsha & Dynasties', types: ['VAMSHA', 'GOTRA', 'KINGDOM'] },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'dharma_fantasy',
+      label: 'Dharmic Quest & Siddhi Path',
+      description: 'Tapas, Siddhis, Gurukuls, and Rishis',
+      extraCategories: [
+        {
+          groupLabel: 'Sacred Path',
+          categories: [
+            { id: 'sub_tapas', label: 'Tapas & Power Siddhis', types: ['MAGIC_SYSTEM', 'TEXT'] },
+          ],
+        },
+      ],
+    },
+  ],
+  fantasy: [
+    {
+      id: 'high_fantasy',
+      label: 'High / Epic Fantasy',
+      description: 'Noble houses, magic academies, and dark lords',
+      extraCategories: [
+        {
+          groupLabel: 'High Magic Codex',
+          categories: [
+            { id: 'sub_academies', label: 'Magic Colleges & Guilds', types: ['MAGIC_SYSTEM', 'faction'] },
+            { id: 'sub_relics', label: 'Enchanted Relics', types: ['ARTIFACT'] },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'dark_grimdark',
+      label: 'Dark Fantasy & Grimdark',
+      description: 'Morally grey conflicts, blood magic, and ruined empires',
+      extraCategories: [
+        {
+          groupLabel: 'Grimdark Codex',
+          categories: [
+            { id: 'sub_bloodmagic', label: 'Forbidden Sorcery', types: ['MAGIC_SYSTEM'] },
+            { id: 'sub_ruins', label: 'Blighted Ruins', types: ['region', 'landmark'] },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'litrpg_progression',
+      label: 'LitRPG & Progression',
+      description: 'Rankings, stat systems, dungeons, and skill trees',
+      extraCategories: [
+        {
+          groupLabel: 'Progression Engine',
+          categories: [
+            { id: 'sub_dungeons', label: 'Dungeons & Raids', types: ['location', 'region'] },
+            { id: 'sub_skilltrees', label: 'Class & Skill Systems', types: ['system'] },
+          ],
+        },
+      ],
+    },
+  ],
+  scifi: [
+    {
+      id: 'space_opera',
+      label: 'Space Opera & Star Empires',
+      description: 'Interstellar fleets, jump gates, and alien species',
+      extraCategories: [
+        {
+          groupLabel: 'Interstellar Codex',
+          categories: [
+            { id: 'sub_fleets', label: 'Starship Fleets & Carriers', types: ['object'] },
+            { id: 'sub_aliens', label: 'Alien Civilizations', types: ['creature', 'race'] },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'cyberpunk_ai',
+      label: 'Cyberpunk & AI Network',
+      description: 'Megacorps, cyberware, netrunning, and rogue synthetic AIs',
+      extraCategories: [
+        {
+          groupLabel: 'Net & Cyber Codex',
+          categories: [
+            { id: 'sub_cyberware', label: 'Implants & Cyberware', types: ['system', 'object'] },
+            { id: 'sub_megacorps', label: 'Megacorporations', types: ['faction', 'KINGDOM'] },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'generation_ship',
+      label: 'Generation Ship & Deep Space',
+      description: 'Closed-ecosystem colony ships, habitat decay, and stellar mysteries',
+      extraCategories: [
+        {
+          groupLabel: 'Colony Codex',
+          categories: [
+            { id: 'sub_shipsectors', label: 'Ship Decks & Bio-Domes', types: ['location', 'region'] },
+          ],
+        },
+      ],
+    },
+  ],
+  contemporary: [
+    {
+      id: 'fake_dating',
+      label: 'Flatmates & Fake Dating',
+      description: 'Romantic tropes, shared apartments, and urban romance',
+      extraCategories: [
+        {
+          groupLabel: 'Romance Codex',
+          categories: [
+            { id: 'sub_hotspots', label: 'Cafes & Hangouts', types: ['location'] },
+            { id: 'sub_tropes', label: 'Relationship Milestones', types: ['event'] },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'enemies_to_lovers',
+      label: 'Enemies to Lovers & Workplace',
+      description: 'Rivalries, corporate offices, and witty banter',
+      extraCategories: [
+        {
+          groupLabel: 'Workplace Codex',
+          categories: [
+            { id: 'sub_office', label: 'Companies & Agencies', types: ['faction'] },
+          ],
+        },
+      ],
+    },
+  ],
+  horror: [
+    {
+      id: 'eldritch_horror',
+      label: 'Eldritch & Cosmic Horror',
+      description: 'Unknowable entities, ancient cults, and madness',
+      extraCategories: [
+        {
+          groupLabel: 'Eldritch Codex',
+          categories: [
+            { id: 'sub_grimoires', label: 'Cursed Manuscripts & Texts', types: ['lore_text', 'ARTIFACT'] },
+            { id: 'sub_entities', label: 'Eldritch Abominations', types: ['creature'] },
+          ],
+        },
+      ],
+    },
+  ],
+  historical: [
+    {
+      id: 'ancient_empires',
+      label: 'Ancient Empires & Dynasties',
+      description: 'Royal courts, sieges, and historical chronicles',
+      extraCategories: [
+        {
+          groupLabel: 'Historical Codex',
+          categories: [
+            { id: 'sub_dynasties', label: 'Royal Dynasties', types: ['KINGDOM', 'family'] },
+          ],
+        },
+      ],
+    },
+  ],
+  mystery: [
+    {
+      id: 'whodunit_locked',
+      label: 'Whodunit & Locked Room Mystery',
+      description: 'Clues, suspect lists, crime scenes, and alibis',
+      extraCategories: [
+        {
+          groupLabel: 'Investigation Codex',
+          categories: [
+            { id: 'sub_clues', label: 'Evidence & Clues', types: ['object'] },
+            { id: 'sub_suspects', label: 'Suspect Matrix', types: ['character'] },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+// ---------------------------------------------------------------------------
 // HELPERS
 // ---------------------------------------------------------------------------
 
 /**
  * Returns the full ordered list of sidebar category groups for a project,
- * starting with universal groups and appending genre-specific ones.
- *
- * @param genreModules - Array of genre module IDs from the project.
- *   If empty or undefined, only universal categories are returned.
- *   Legacy Vedic projects (those without genreModules) should pass ['vedic'].
+ * starting with universal groups, appending genre-specific ones, and adding
+ * tailored sub-genre categories if selected.
  */
 export function getCategoriesForGenre(
   genreModules?: string[],
+  subGenreId?: string,
 ): { group: string; categories: GenreCategory[] }[] {
   const groups = [...UNIVERSAL_CATEGORIES];
 
@@ -366,6 +596,16 @@ export function getCategoriesForGenre(
     if (!mod) continue;
     for (const cg of mod.categoryGroups) {
       groups.push({ group: cg.groupLabel, categories: cg.categories });
+    }
+
+    // Check if subGenre matches any defined sub-genre extra categories
+    if (subGenreId && SUB_GENRE_MAP[moduleId]) {
+      const foundSub = SUB_GENRE_MAP[moduleId].find(s => s.id === subGenreId);
+      if (foundSub && foundSub.extraCategories) {
+        for (const ec of foundSub.extraCategories) {
+          groups.push({ group: ec.groupLabel, categories: ec.categories });
+        }
+      }
     }
   }
 
