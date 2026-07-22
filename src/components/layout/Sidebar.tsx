@@ -23,7 +23,9 @@ const PILLARS: PillarDef[] = [
     subViews: [
       { id: 'editor', label: 'Editor', href: '/manuscript/editor' },
       { id: 'planner', label: 'Planner', href: '/manuscript/planner' },
-      { id: 'outline', label: 'Outline', href: '/manuscript/outline' }
+      { id: 'outline', label: 'Outline', href: '/manuscript/outline' },
+      { id: 'core', label: 'Project Core', href: '/manuscript/core' },
+      { id: 'templates', label: 'Templates & Schemas', href: '/manuscript/templates' }
     ]
   },
   { 

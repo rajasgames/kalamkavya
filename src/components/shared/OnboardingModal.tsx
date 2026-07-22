@@ -17,7 +17,10 @@ import {
   HelpCircle,
   BrainCircuit,
   Layers,
-  Award
+  Award,
+  Sun,
+  Coffee,
+  Rocket
 } from 'lucide-react';
 import { useUIStore } from '@/stores/uiStore';
 import { useStoryStore } from '@/stores/storyStore';
@@ -498,7 +501,9 @@ export function OnboardingModal() {
                     disabled={loadingSample !== null}
                     className="p-4 rounded-xl bg-base border border-subtle hover:border-amber-from/50 hover:bg-amber-from/5 transition-all group disabled:opacity-50"
                   >
-                    <div className="text-2xl mb-1">🕉️</div>
+                    <div className="p-2 w-fit rounded-lg bg-amber-from/10 text-amber-from mb-2 group-hover:scale-110 transition-transform">
+                      <Sun size={24} />
+                    </div>
                     <div className="font-bold text-xs text-primary group-hover:text-amber-from">Vedic & Puranic Epic</div>
                     <div className="text-[10px] text-ghost mt-1">Pre-built mythology world, characters, & lore</div>
                     {loadingSample === 'vedic' && <div className="text-[10px] text-amber-from animate-pulse mt-1">Loading...</div>}
@@ -509,7 +514,9 @@ export function OnboardingModal() {
                     disabled={loadingSample !== null}
                     className="p-4 rounded-xl bg-base border border-subtle hover:border-amber-from/50 hover:bg-amber-from/5 transition-all group disabled:opacity-50"
                   >
-                    <div className="text-2xl mb-1">☕</div>
+                    <div className="p-2 w-fit rounded-lg bg-amber-from/10 text-amber-from mb-2 group-hover:scale-110 transition-transform">
+                      <Coffee size={24} />
+                    </div>
                     <div className="font-bold text-xs text-primary group-hover:text-amber-from">Contemporary Rom-Com</div>
                     <div className="text-[10px] text-ghost mt-1">Flatmate romance novel with Mumbai setting</div>
                     {loadingSample === 'romcom' && <div className="text-[10px] text-amber-from animate-pulse mt-1">Loading...</div>}
@@ -520,7 +527,9 @@ export function OnboardingModal() {
                     disabled={loadingSample !== null}
                     className="p-4 rounded-xl bg-base border border-subtle hover:border-amber-from/50 hover:bg-amber-from/5 transition-all group disabled:opacity-50"
                   >
-                    <div className="text-2xl mb-1">🚀</div>
+                    <div className="p-2 w-fit rounded-lg bg-amber-from/10 text-amber-from mb-2 group-hover:scale-110 transition-transform">
+                      <Rocket size={24} />
+                    </div>
                     <div className="font-bold text-xs text-primary group-hover:text-amber-from">Sci-Fi Mystery</div>
                     <div className="text-[10px] text-ghost mt-1">Generation ship investigation & tech codex</div>
                     {loadingSample === 'scifi' && <div className="text-[10px] text-amber-from animate-pulse mt-1">Loading...</div>}

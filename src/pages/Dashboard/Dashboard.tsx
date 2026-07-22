@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PenTool, Sparkles, PlusCircle, Trash2, Timer, BookOpen, HelpCircle } from 'lucide-react';
+import { PenTool, Sparkles, PlusCircle, Trash2, Timer, BookOpen, HelpCircle, Sun, Coffee, Rocket } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
 import { db } from '@/lib/db/database';
 import { loadVedicSampleData } from '@/lib/vedicSampleData';
@@ -137,10 +137,10 @@ export function Dashboard() {
     return named.join(' + ');
   };
 
-  const sampleOptions: { key: SampleKey; label: string; icon: string; desc: string }[] = [
-    { key: 'vedic', icon: '🕉️', label: 'Vedic & Puranic', desc: 'Epic mythology — gods, realms, and cosmic war' },
-    { key: 'romcom', icon: '☕', label: 'Contemporary', desc: '"The Accidental Flatmates" — Mumbai rom-com' },
-    { key: 'scifi', icon: '🚀', label: 'Sci-Fi', desc: '"The Silence Between Stars" — generation ship mystery' },
+  const sampleOptions = [
+    { key: 'vedic' as SampleKey, Icon: Sun, label: 'Vedic & Puranic', desc: 'Epic mythology — gods, realms, and cosmic war' },
+    { key: 'romcom' as SampleKey, Icon: Coffee, label: 'Contemporary', desc: '"The Accidental Flatmates" — Mumbai rom-com' },
+    { key: 'scifi' as SampleKey, Icon: Rocket, label: 'Sci-Fi', desc: '"The Silence Between Stars" — generation ship mystery' },
   ];
 
   return (
@@ -187,9 +187,11 @@ export function Dashboard() {
                   key={opt.key}
                   onClick={() => handleLoadSample(opt.key)}
                   disabled={loadingSample !== null}
-                  className="flex flex-col items-start gap-1.5 p-4 bg-elevated border border-subtle rounded-xl hover:border-amber-from/40 hover:shadow-sm transition-all text-left disabled:opacity-50"
+                  className="flex flex-col items-start gap-1.5 p-4 bg-elevated border border-subtle rounded-xl hover:border-amber-from/40 hover:shadow-sm transition-all text-left disabled:opacity-50 group"
                 >
-                  <span className="text-2xl">{opt.icon}</span>
+                  <div className="p-2 rounded-lg bg-amber-from/10 text-amber-from mb-1 group-hover:scale-110 transition-transform">
+                    <opt.Icon size={22} />
+                  </div>
                   <span className="font-bold text-sm text-primary">{opt.label}</span>
                   <span className="text-[11px] text-ghost leading-snug">{opt.desc}</span>
                   {loadingSample === opt.key && (

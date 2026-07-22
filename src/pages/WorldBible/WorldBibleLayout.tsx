@@ -39,8 +39,8 @@ export function WorldBibleLayout() {
 
   /** Full ordered list of category groups for the sidebar */
   const categoryGroups = useMemo(
-    () => getCategoriesForGenre(genreModules),
-    [genreModules],
+    () => getCategoriesForGenre(genreModules, activeProject?.subGenre),
+    [genreModules, activeProject?.subGenre],
   );
 
   /** Flat list of all categories for lookup */

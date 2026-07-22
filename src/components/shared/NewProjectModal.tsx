@@ -5,6 +5,21 @@ import { Project } from '@/types';
 import { Modal, Input, Button, Label } from '@/components/ui';
 import { GENRE_MODULE_LIST } from '@/lib/genres/genreRegistry';
 
+import { Sun, Sword, Rocket, Coffee, Skull, Scroll, Search, Globe } from 'lucide-react';
+
+const renderGenreIcon = (id: string) => {
+  switch (id) {
+    case 'vedic': return <Sun size={22} className="text-amber-from" />;
+    case 'fantasy': return <Sword size={22} className="text-emerald-500" />;
+    case 'scifi': return <Rocket size={22} className="text-blue-500" />;
+    case 'contemporary': return <Coffee size={22} className="text-amber-600" />;
+    case 'horror': return <Skull size={22} className="text-red-500" />;
+    case 'historical': return <Scroll size={22} className="text-yellow-600" />;
+    case 'mystery': return <Search size={22} className="text-purple-500" />;
+    default: return <Globe size={22} className="text-primary" />;
+  }
+};
+
 interface NewProjectModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -102,7 +117,9 @@ export function NewProjectModal({ isOpen, onClose, onCreated }: NewProjectModalP
                   }`}
                 >
                   <div className="flex items-center justify-between w-full">
-                    <span className="text-2xl">{mod.icon}</span>
+                    <div className="p-1.5 rounded-lg bg-surface border border-subtle">
+                      {renderGenreIcon(mod.id)}
+                    </div>
                     <span
                       className={`w-4 h-4 rounded-full border-2 transition-all shrink-0 ${
                         isSelected
@@ -147,9 +164,9 @@ export function NewProjectModal({ isOpen, onClose, onCreated }: NewProjectModalP
               return (
                 <span
                   key={g}
-                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-amber-from/10 border border-amber-from/20 text-amber-from text-xs font-bold rounded-md"
+                  className="inline-flex items-center gap-1.5 px-2 py-1 bg-amber-from/10 border border-amber-from/20 text-amber-from text-xs font-bold rounded-md"
                 >
-                  {mod?.icon} {mod?.shortLabel}
+                  {renderGenreIcon(g)} {mod?.shortLabel}
                 </span>
               );
             })}
