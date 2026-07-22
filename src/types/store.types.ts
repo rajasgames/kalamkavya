@@ -57,6 +57,7 @@ export interface UIState {
   isAIDrawerOpen: boolean;
   isAISettingsOpen: boolean;
   isOnboardingOpen: boolean;
+  isFocusMode: boolean;
 
   setActivePillar: (pillar: Pillar) => void;
   setActiveSubView: (view: string) => void;
@@ -67,6 +68,7 @@ export interface UIState {
   setAIDrawerOpen: (open: boolean) => void;
   setAISettingsOpen: (open: boolean) => void;
   setOnboardingOpen: (open: boolean) => void;
+  setFocusMode: (open: boolean) => void;
 }
 
 export interface AIProviderSettings {

@@ -194,7 +194,7 @@ export function Dashboard() {
                   key={opt.key}
                   onClick={() => handleLoadSample(opt.key)}
                   disabled={loadingSample !== null}
-                  className="flex flex-col items-start gap-1.5 p-4 bg-canvas border border-subtle rounded-xl hover:border-terracotta/30 shadow-soft hover:shadow-hover hover:-translate-y-[2px] transition-all text-left disabled:opacity-50 group"
+                  className="flex flex-col items-start gap-1.5 p-4 bg-canvas border border-subtle rounded-xl shadow-soft glass-card-hover text-left disabled:opacity-50 group"
                 >
                   <div className="p-2 rounded-lg bg-terracotta/10 text-terracotta mb-1 group-hover:scale-110 transition-transform">
                     <opt.Icon size={22} />
@@ -212,7 +212,7 @@ export function Dashboard() {
       ) : (
         // ── Active project hero — condensed: text-2xl, p-6, tighter premise margin ──
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <Card className="col-span-1 lg:col-span-2 p-6 flex flex-col justify-center bg-surface shadow-soft border-subtle card card-bordered">
+          <Card className="col-span-1 lg:col-span-2 p-6 flex flex-col justify-center bg-surface border border-subtle glass-card-hover">
             <div className="flex items-center gap-2 mb-2">
               <Badge variant="sage" caps>{getGenreLabel(activeProject)}</Badge>
             </div>
@@ -236,7 +236,7 @@ export function Dashboard() {
           </Card>
 
           {/* Progress Ring — condensed to match hero density */}
-          <Card className="col-span-1 p-6 flex flex-col items-center justify-center text-center shadow-soft border-subtle card card-bordered bg-surface">
+          <Card className="col-span-1 p-6 flex flex-col items-center justify-center text-center bg-surface border border-subtle glass-card-hover">
             <h3 className="text-xs font-bold tracking-wider text-ghost uppercase mb-4">Manuscript Progress</h3>
             <ProgressRing currentWordCount={totalWordCount} targetWordCount={activeProject.targetWordCount || 50000} size={130} strokeWidth={9} />
             <div className="mt-4 text-sm text-secondary">
@@ -272,7 +272,7 @@ export function Dashboard() {
                 <Card 
                   key={scene.id} 
                   hoverable 
-                  className="card card-bordered p-5 flex flex-col cursor-pointer bg-canvas shadow-soft hover:shadow-lg hover:-translate-y-1 hover:border-terracotta/40 transition-all duration-300" 
+                  className="p-5 flex flex-col cursor-pointer bg-canvas border border-subtle rounded-xl glass-card-hover"
                   onClick={() => navigate('/manuscript/editor')}
                 >
                   <div className="flex items-start justify-between mb-3">
@@ -315,7 +315,7 @@ export function Dashboard() {
               return (
                 <Card 
                   key={project.id} 
-                  className={`p-6 flex flex-col transition-all duration-300 shadow-soft hover:shadow-hover hover:-translate-y-0.5 bg-canvas ${isActive ? 'border-terracotta bg-surface' : 'border-subtle hover:border-terracotta/30'}`}
+                  className={`p-6 flex flex-col shadow-soft glass-card-hover bg-canvas rounded-xl border ${isActive ? 'border-terracotta bg-surface' : 'border-subtle hover:border-terracotta/30'}`}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex flex-col gap-1">

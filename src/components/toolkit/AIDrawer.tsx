@@ -77,7 +77,7 @@ export function AIDrawer() {
         </div>
         <button 
           onClick={() => setAIDrawerOpen(false)}
-          className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-xl text-ghost hover:text-primary transition-colors flex items-center justify-center"
+          className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-xl text-ghost hover:text-primary transition-all duration-150 ease-out hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center"
         >
           <X size={18} className="shrink-0" />
         </button>
@@ -143,7 +143,7 @@ export function AIDrawer() {
           {isStreaming ? (
             <button 
               onClick={cancelStream}
-              className="absolute right-2 top-2 p-2 bg-red-500/15 text-red-500 rounded-lg hover:bg-red-500/25 transition-colors"
+              className="absolute right-2 top-2 p-2 bg-red-500/15 text-red-500 rounded-lg hover:bg-red-500/25 transition-all duration-150 ease-out hover:scale-[1.02] active:scale-[0.98]"
             >
               <Square size={16} fill="currentColor" className="shrink-0" />
             </button>
@@ -151,7 +151,7 @@ export function AIDrawer() {
             <button 
               onClick={handleSend}
               disabled={!input.trim()}
-              className="absolute right-2 top-2 p-2 bg-amber-from text-black rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-amber-from/90 transition-colors shadow-sm"
+              className="absolute right-2 top-2 p-2 bg-amber-from text-black rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-amber-from/90 transition-all duration-150 ease-out hover:scale-[1.02] active:scale-[0.98] shadow-sm"
             >
               <Send size={16} className="shrink-0" />
             </button>

@@ -35,7 +35,7 @@ function SortableChapterItem({ chapter, scenes }: { chapter: Chapter; scenes: Sc
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="bg-surface border border-subtle rounded-xl p-4 mb-4 shadow-soft transition-all duration-300 hover:shadow-hover">
+    <div ref={setNodeRef} style={style} className="bg-surface border border-subtle rounded-xl p-4 mb-4 shadow-soft transition-all duration-300 hover:shadow-hover hover:border-terracotta/30">
       <div className="flex items-center gap-3 mb-2">
         <button {...attributes} {...listeners} className="text-ghost hover:text-primary cursor-grab">
           <GripVertical size={18} />
@@ -46,7 +46,7 @@ function SortableChapterItem({ chapter, scenes }: { chapter: Chapter; scenes: Sc
       
       <div className="pl-8 space-y-2">
         {scenes.sort((a,b) => a.order - b.order).map(scene => (
-          <div key={scene.id} className="bg-canvas border border-subtle rounded-xl p-3 text-sm text-secondary flex items-center justify-between shadow-sm">
+          <div key={scene.id} className="bg-canvas border border-subtle rounded-xl p-3 text-sm font-sans text-secondary flex items-center justify-between shadow-sm hover:border-terracotta/30 transition-colors">
             <span>{scene.title || 'Untitled Scene'}</span>
             <span className="text-xs text-ghost">{scene.wordCount} words</span>
           </div>

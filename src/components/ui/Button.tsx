@@ -22,7 +22,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     // Base styles
-    const baseStyles = 'btn inline-flex items-center justify-center transition-all duration-200 ease-out outline-none';
+    const baseStyles = 'btn inline-flex items-center justify-center transition-all duration-150 ease-out outline-none hover:scale-[1.02] active:scale-[0.98]';
 
     // Size styles
     const sizeStyles = {
@@ -34,7 +34,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     // Variant styles
     const variantStyles = {
       primary:
-        'btn-primary bg-amber-from text-black font-bold border border-amber-from/40 shadow-[0_2px_8px_rgba(212,153,90,0.22)] hover:shadow-[0_4px_16px_rgba(212,153,90,0.35)] hover:bg-amber-from/90 active:scale-[0.98]',
+        'btn-primary text-white font-bold border-none shadow-[0_2px_8px_rgba(217,119,6,0.25)] hover:shadow-[0_4px_16px_rgba(217,119,6,0.4)]',
       ghost:
         'btn-ghost text-secondary hover:text-primary rounded-xl font-medium transition-colors',
       destructive:

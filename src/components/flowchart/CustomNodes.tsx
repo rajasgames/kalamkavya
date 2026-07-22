@@ -13,7 +13,7 @@ export function CharacterNode({ id, data }: NodeProps<EntityNodeData>) {
   const targetPos = data.direction === 'LR' ? Position.Left : Position.Top;
   const sourcePos = data.direction === 'LR' ? Position.Right : Position.Bottom;
   return (
-    <div className="relative flex items-center justify-center bg-surface border border-subtle text-primary font-bold text-sm px-6 py-3 min-w-[120px] rounded-[50px] shadow-soft group">
+    <div style={{ background: 'var(--surface-glass)', backdropFilter: 'var(--backdrop-blur)' }} className="relative flex items-center justify-center border border-subtle text-primary font-bold text-sm px-6 py-3 min-w-[120px] rounded-[50px] shadow-soft hover:shadow-hover hover:border-terracotta/30 transition-all group">
       <Handle type="target" position={targetPos} className="!bg-secondary !w-2 !h-2" />
       <div className="text-center w-full font-serif">{data.label}</div>
       <button 
@@ -35,7 +35,7 @@ export function FactionNode({ id, data }: NodeProps<EntityNodeData>) {
   const targetPos = data.direction === 'LR' ? Position.Left : Position.Top;
   const sourcePos = data.direction === 'LR' ? Position.Right : Position.Bottom;
   return (
-    <div className="relative flex items-center justify-center bg-surface border border-subtle text-primary font-bold text-sm px-4 py-3 min-w-[140px] rounded-lg shadow-soft group">
+    <div style={{ background: 'var(--surface-glass)', backdropFilter: 'var(--backdrop-blur)' }} className="relative flex items-center justify-center border border-subtle text-primary font-bold text-sm px-4 py-3 min-w-[140px] rounded-lg shadow-soft hover:shadow-hover hover:border-sage/30 transition-all group">
       <Handle type="target" position={targetPos} className="!bg-secondary !w-2 !h-2" />
       <div className="text-center w-full font-serif">{data.label}</div>
       <button 
@@ -57,7 +57,7 @@ export function GeographyNode({ id, data }: NodeProps<EntityNodeData>) {
   const targetPos = data.direction === 'LR' ? Position.Left : Position.Top;
   const sourcePos = data.direction === 'LR' ? Position.Right : Position.Bottom;
   return (
-    <div className="relative flex items-center justify-center bg-surface border border-subtle text-primary font-bold text-sm px-4 py-3 min-w-[120px] rounded-sm shadow-soft group">
+    <div style={{ background: 'var(--surface-glass)', backdropFilter: 'var(--backdrop-blur)' }} className="relative flex items-center justify-center border border-subtle text-primary font-bold text-sm px-4 py-3 min-w-[120px] rounded-sm shadow-soft hover:shadow-hover hover:border-clay/30 transition-all group">
       <Handle type="target" position={targetPos} className="!bg-secondary !w-2 !h-2 z-10" />
       <div className="text-center w-full font-serif truncate">{data.label}</div>
       <button 

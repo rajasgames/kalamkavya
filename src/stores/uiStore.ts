@@ -24,6 +24,7 @@ export const useUIStore = create<UIState>()(
       isAIDrawerOpen: false,
       isAISettingsOpen: false,
       isOnboardingOpen: typeof window !== 'undefined' ? localStorage.getItem('inkwell_onboarding_completed') !== 'true' : false,
+      isFocusMode: false,
 
       setActivePillar: (pillar: Pillar) => set({ activePillar: pillar }),
       setActiveSubView: (view: string) => set({ activeSubView: view }),
@@ -42,6 +43,7 @@ export const useUIStore = create<UIState>()(
       setAIDrawerOpen: (open: boolean) => set({ isAIDrawerOpen: open }),
       setAISettingsOpen: (open: boolean) => set({ isAISettingsOpen: open }),
       setOnboardingOpen: (open: boolean) => set({ isOnboardingOpen: open }),
+      setFocusMode: (open: boolean) => set({ isFocusMode: open }),
     }),
     { enabled: import.meta.env.DEV }
   )

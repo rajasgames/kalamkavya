@@ -190,7 +190,7 @@ export function EntityGrid({ typeFilters, onEntityClick }: EntityGridProps) {
               <div 
                 key={entity.id}
                 onClick={() => onEntityClick?.(entity.id)}
-                className="group flex flex-col bg-surface border border-subtle p-4 rounded-xl cursor-pointer hover:border-terracotta/30 shadow-soft hover:shadow-hover hover:-translate-y-0.5 transition-all duration-300"
+                className="group flex flex-col bg-surface border border-subtle p-4 rounded-xl cursor-pointer glass-card-hover shadow-soft"
               >
                 <div className="flex items-start justify-between mb-2">
                   <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center border border-subtle group-hover:bg-terracotta/10 group-hover:border-terracotta/30 transition-colors">

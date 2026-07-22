@@ -4,10 +4,10 @@
 
 @layer base {
   :root {
-    /* Backgrounds — Warm Paper & Linen */
-    --bg-canvas: #FBF8F1;        /* Main page background */
-    --bg-surface: #F5F0E6;        /* Cards, sidebar */
-    --bg-deep: #EDE8DA;           /* Input fields, nested surfaces */
+    /* Backgrounds — Warm Parchment (Light Mode) */
+    --bg-canvas: #FBF9F4;        /* Main page background */
+    --bg-surface: #FFFFFF;        /* Cards, sidebar */
+    --bg-deep: #E5E0D8;           /* Input fields, nested surfaces */
     --bg-ink: #1A1814;            /* Deep ink for dark mode text or accents */
     
     /* Text */
@@ -15,14 +15,14 @@
     --text-secondary: #6E6456;    /* Warm gray */
     --text-ghost: #A89F8E;        /* Faint placeholders / metadata */
 
-    /* Accents — Earthy, Not Flashy */
-    --terracotta: #C47A5A;        /* Warm, quiet highlight */
-    --sage: #7A8B6E;              /* Calm success/state */
-    --dusty-blue: #6B7A8F;        /* Informational / neutral link states */
+    /* Accents & Semantics */
+    --terracotta: #D97706;        /* Warm Amber Gold (Primary Accent) */
+    --sage: #10B981;              /* Success */
+    --dusty-blue: #6366F1;        /* Info */
     --cream-border: rgba(45, 42, 38, 0.08);
 
     /* Borders */
-    --border-subtle: rgba(45, 42, 38, 0.08); /* alias for cream-border */
+    --border-subtle: #E5E0D8;
 
     /* Focus Ring — keyboard-only, never shown on mouse click */
     --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
@@ -37,17 +37,17 @@
   }
 
   [data-theme="dark"] {
-    --bg-canvas: #181612;        /* Deep warm charcoal, not pure black */
-    --bg-surface: #221E19;
-    --bg-deep: #2D2922;
+    --bg-canvas: #0F1117;        /* Deep Obsidian */
+    --bg-surface: #1E222D;       /* Slate Charcoal */
+    --bg-deep: #262B38;          /* Dark Steel */
     --text-primary: #F0EBDF;
     --text-secondary: #A8A08E;
     --text-ghost: #5E574D;
-    --terracotta: #D4956E;
-    --sage: #8FA07A;
-    --dusty-blue: #8A9BB0;
+    --terracotta: #D97706;       /* Warm Amber Gold */
+    --sage: #10B981;             /* Success */
+    --dusty-blue: #6366F1;       /* Info */
     --cream-border: rgba(240, 235, 223, 0.06);
-    --border-subtle: rgba(240, 235, 223, 0.06);
+    --border-subtle: #262B38;
     --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
     --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
     --surface-glass: rgba(34, 30, 25, 0.88);
@@ -190,7 +190,7 @@
 /* ─── TipTap / Prose Editor ──────────────────────────────────────────────── */
 
 .tiptap-editor {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Merriweather', 'Lora', serif;
   font-size: 20px;
   line-height: 1.85;
   color: var(--text-primary);

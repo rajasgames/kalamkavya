@@ -18,7 +18,7 @@ declare global {
 }
 
 export const Layout = () => {
-  const { isSidebarExpanded, isSprintWidgetOpen, setSprintWidgetOpen } = useUIStore();
+  const { isSidebarExpanded, isSprintWidgetOpen, setSprintWidgetOpen, isFocusMode, setFocusMode } = useUIStore();
   const { toggleSearch } = useSearchStore();
   const { scenes, activeProject } = useStoryStore();
 
@@ -33,10 +33,14 @@ export const Layout = () => {
         e.preventDefault();
         toggleSearch();
       }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'f') {
+        e.preventDefault();
+        setFocusMode(!useUIStore.getState().isFocusMode);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleSearch]);
+  }, [toggleSearch, setFocusMode]);
 
   return (
     <div 
@@ -44,9 +48,9 @@ export const Layout = () => {
       className={`flex flex-col h-screen overflow-hidden bg-canvas text-primary transition-colors duration-300 ${window.__TAURI__ ? 'pt-8' : ''}`}
     >
       {/* Header Bar */}
-      <header className="h-[56px] shrink-0 border-b border-subtle flex items-center px-6 justify-between bg-surface/50 z-30">
+      <header className={`h-[56px] shrink-0 border-b border-subtle flex items-center px-6 justify-between bg-surface/50 z-30 transition-all duration-300 ${isFocusMode ? '-mt-[56px] opacity-0 pointer-events-none' : 'mt-0 opacity-100'}`}>
         <div className="flex items-center gap-6">
-          <div className="font-serif font-medium text-xl">Inkwell</div>
+          <div className="font-display font-medium text-xl">Inkwell</div>
           {/* Workspace Switcher — placeholder for multi-workspace support */}
           <button className="text-sm text-secondary hover:text-primary transition-colors font-sans flex items-center gap-1">
             My Workspace <ChevronDown size={13} className="opacity-60" />
@@ -65,17 +69,16 @@ export const Layout = () => {
       <div className="flex flex-1 overflow-hidden">
         {/* Desktop Sidebar */}
         <div 
-          className="hidden md:flex flex-col border-r border-subtle bg-surface relative z-20" 
+          className={`hidden md:flex flex-col border-r border-subtle bg-surface relative z-20 overflow-hidden transition-all duration-300 ${isFocusMode ? 'w-0 opacity-0 pointer-events-none' : 'opacity-100'}`} 
           style={{
-            width: isSidebarExpanded ? '250px' : '68px',
-            transition: 'width 0.3s ease-out'
+            width: isFocusMode ? '0px' : (isSidebarExpanded ? '250px' : '68px'),
           }}
         >
           <Sidebar />
         </div>
         
         {/* Mobile Floating Bottom Bar */}
-        <div className="md:hidden fixed bottom-4 left-3 right-3 z-40 h-[64px] rounded-full shadow-soft overflow-hidden bg-surface border border-subtle">
+        <div className={`md:hidden fixed bottom-4 left-3 right-3 z-40 h-[64px] rounded-full shadow-soft overflow-hidden bg-surface border border-subtle transition-all duration-300 ${isFocusMode ? 'translate-y-[150%] opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
           <Sidebar />
         </div>
 

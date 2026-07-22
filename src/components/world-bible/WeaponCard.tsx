@@ -21,7 +21,7 @@ export function WeaponCard({ entity, onClick }: WeaponCardProps) {
   return (
     <div 
       onClick={onClick}
-      className="group flex flex-col bg-elevated border border-subtle p-4 rounded-xl cursor-pointer hover:border-amber-from/50 hover:shadow-md transition-all duration-200"
+      className="group flex flex-col bg-surface border border-subtle p-4 rounded-xl cursor-pointer glass-card-hover shadow-soft"
     >
       <div className="flex items-start justify-between mb-3 gap-2">
         <div className="flex items-center gap-2 flex-wrap">

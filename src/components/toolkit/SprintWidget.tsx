@@ -86,16 +86,37 @@ export function SprintWidget({ onClose }: SprintWidgetProps) {
       </div>
 
       <div className="text-center">
-        <div className="text-5xl font-mono font-bold tracking-tight mb-2 drop-shadow-sm">
-          {formatTime(timeLeft)}
-        </div>
-        
-        {/* Progress Bar */}
-        <div className="w-full h-2 bg-black/20 rounded-full overflow-hidden mb-4 border border-white/5">
-          <div 
-            className="h-full bg-amber-from transition-all duration-1000 ease-linear rounded-full" 
-            style={{ width: `${progress}%` }} 
-          />
+        {/* Radial Progress Ring */}
+        <div className="relative flex flex-col items-center justify-center mb-6 mt-2">
+          <svg width={140} height={140} className="transform -rotate-90 drop-shadow-md">
+            {/* Background track */}
+            <circle
+              stroke="rgba(0, 0, 0, 0.2)"
+              fill="transparent"
+              strokeWidth={8}
+              r={66}
+              cx={70}
+              cy={70}
+            />
+            {/* Animated progress stroke */}
+            <circle
+              stroke="var(--terracotta)"
+              fill="transparent"
+              strokeWidth={8}
+              strokeLinecap="round"
+              strokeDasharray={2 * Math.PI * 66}
+              strokeDashoffset={2 * Math.PI * 66 - (progress / 100) * 2 * Math.PI * 66}
+              style={{ transition: 'stroke-dashoffset 1000ms linear' }}
+              r={66}
+              cx={70}
+              cy={70}
+            />
+          </svg>
+          <div className="absolute flex flex-col items-center justify-center text-center">
+            <div className="text-4xl font-mono font-bold tracking-tight drop-shadow-sm text-primary">
+              {formatTime(timeLeft)}
+            </div>
+          </div>
         </div>
 
         {/* Presets */}

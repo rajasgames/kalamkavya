@@ -36,7 +36,7 @@ export function ProgressRing({
       <svg width={size} height={size} className="transform -rotate-90">
         {/* Background track */}
         <circle
-          stroke="var(--cream-border)"
+          stroke="var(--border-subtle)"
           fill="transparent"
           strokeWidth={strokeWidth}
           r={radius}
@@ -45,7 +45,7 @@ export function ProgressRing({
         />
         {/* Animated progress stroke */}
         <circle
-          stroke="var(--terracotta)"
+          stroke={percent >= 100 ? "var(--sage)" : "var(--terracotta)"}
           fill="transparent"
           strokeWidth={strokeWidth}
           strokeLinecap="round"

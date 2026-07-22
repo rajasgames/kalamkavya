@@ -28,6 +28,12 @@ export const RarityBadge = ({ rarityTier, size = 'md', variant = 'badge' }: Rari
   if (rarityTier.badgeStyle === 'outline') {
      finalClass = `${sizeClasses[size]} ${variantClasses.outline}`;
   }
+  
+  if (rarityTier.name.toLowerCase() === 'mythic' || rarityTier.badgeStyle === 'gradient') {
+     finalClass = `${sizeClasses[size]} ${variantClasses[variant]} text-white rarity-aura-mythic border-none`;
+  } else if (rarityTier.name.toLowerCase() === 'epic') {
+     finalClass = `${sizeClasses[size]} ${variantClasses[variant]} text-white rarity-aura-epic border-none`;
+  }
 
   return (
     <span className={`inline-block shadow-sm ${finalClass}`}>
