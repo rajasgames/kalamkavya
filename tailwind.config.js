@@ -8,31 +8,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        base: 'var(--bg-base)',
+        canvas: 'var(--bg-canvas)',
         surface: 'var(--bg-surface)',
-        elevated: 'var(--bg-elevated)',
-        glass: 'var(--bg-glass)',
-        subtle: 'var(--border-subtle)',
+        deep: 'var(--bg-deep)',
+        ink: 'var(--bg-ink)',
         primary: 'var(--text-primary)',
         secondary: 'var(--text-secondary)',
         ghost: 'var(--text-ghost)',
-        amber: {
-          from: 'var(--amber-from)',
-          to: 'var(--amber-to)',
-          glow: 'var(--amber-glow)',
-        },
+        terracotta: 'var(--terracotta)',
         sage: 'var(--sage)',
-        clay: 'var(--clay)',
-      },
-      backgroundImage: {
-        'amber-grad': 'var(--amber-grad)',
+        'dusty-blue': 'var(--dusty-blue)',
+        subtle: 'var(--cream-border)',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['"Crimson Pro"', 'serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
-        hand: ['Caveat', 'cursive'],
+        sans: ['"DM Sans"', '"Inter"', 'sans-serif'],
+        serif: ['"Cormorant Garamond"', '"EB Garamond"', 'serif'],
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
       },
+      boxShadow: {
+        soft: 'var(--shadow-soft)',
+        hover: 'var(--shadow-hover)',
+      }
     },
   },
   plugins: [],

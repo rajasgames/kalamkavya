@@ -33,16 +33,10 @@ export function ProgressRing({
 
   return (
     <div className="relative flex flex-col items-center justify-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="transform -rotate-90 drop-shadow-sm">
-        <defs>
-          <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#D4995A" />
-            <stop offset="100%" stopColor="#E8A85C" />
-          </linearGradient>
-        </defs>
+      <svg width={size} height={size} className="transform -rotate-90">
         {/* Background track */}
         <circle
-          stroke="var(--border-subtle)"
+          stroke="var(--cream-border)"
           fill="transparent"
           strokeWidth={strokeWidth}
           r={radius}
@@ -51,7 +45,7 @@ export function ProgressRing({
         />
         {/* Animated progress stroke */}
         <circle
-          stroke="url(#amberGrad)"
+          stroke="var(--terracotta)"
           fill="transparent"
           strokeWidth={strokeWidth}
           strokeLinecap="round"
@@ -65,7 +59,7 @@ export function ProgressRing({
       </svg>
       {/* Centered text */}
       <div className="absolute flex flex-col items-center justify-center text-center">
-        <span className="text-xl font-bold font-serif text-primary">
+        <span className="text-xl font-medium font-sans text-primary">
           {Math.floor(percent)}%
         </span>
       </div>

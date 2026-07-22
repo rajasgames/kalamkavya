@@ -4,7 +4,7 @@ import { Sidebar } from './Sidebar';
 import { GlobalSearch } from './GlobalSearch';
 import { useUIStore } from '@/stores/uiStore';
 import { useSearchStore } from '@/stores/searchStore';
-import { ProjectCreationModal } from '@/components/ui';
+import { ProjectCreationModal, ThemeToggle } from '@/components/ui';
 import { SprintWidget } from '@/components/toolkit/SprintWidget';
 import { AIDrawer } from '@/components/toolkit/AIDrawer';
 import { AISettingsModal, OnboardingModal } from '@/components/shared';
@@ -33,28 +33,48 @@ export const Layout = () => {
   return (
     <div 
       id="main-content" 
-      className={`flex h-screen overflow-hidden bg-base text-primary transition-colors duration-200 ${window.__TAURI__ ? 'pt-8' : ''}`}
+      className={`flex flex-col h-screen overflow-hidden bg-canvas text-primary transition-colors duration-300 ${window.__TAURI__ ? 'pt-8' : ''}`}
     >
-      {/* Desktop Sidebar Container */}
-      <div 
-        className="hidden md:block h-full border-r border-subtle bg-surface relative z-20" 
-        style={{
-          width: isSidebarExpanded ? '230px' : '56px',
-          transition: 'width 0.2s ease-in-out'
-        }}
-      >
-        <Sidebar />
-      </div>
-      
-      {/* Mobile Bottom Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 h-[56px] bg-surface border-t border-subtle">
-        <Sidebar />
+      {/* Header Bar */}
+      <header className="h-[56px] shrink-0 border-b border-subtle flex items-center px-6 justify-between bg-surface/50 z-30">
+        <div className="flex items-center gap-6">
+          <div className="font-serif font-medium text-xl">Inkwell</div>
+          {/* Simple Workspace Switcher (Placeholder for now) */}
+          <button className="text-sm text-secondary hover:text-primary transition-colors font-sans">
+            My Workspace ▼
+          </button>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="text-xs text-ghost font-mono">24,512 words</div>
+          <ThemeToggle />
+        </div>
+      </header>
+
+      <div className="flex flex-1 overflow-hidden">
+        {/* Desktop Sidebar */}
+        <div 
+          className="hidden md:flex flex-col border-r border-subtle bg-surface relative z-20" 
+          style={{
+            width: isSidebarExpanded ? '250px' : '68px',
+            transition: 'width 0.3s ease-out'
+          }}
+        >
+          <Sidebar />
+        </div>
+        
+        {/* Mobile Floating Bottom Bar */}
+        <div className="md:hidden fixed bottom-4 left-3 right-3 z-40 h-[64px] rounded-full shadow-soft overflow-hidden bg-surface border border-subtle">
+          <Sidebar />
+        </div>
+
+        {/* Main Content Area */}
+        <main className="flex-1 h-full overflow-hidden relative transition-all duration-300 ease-out bg-canvas p-0 md:p-6 pb-[84px] md:pb-6 flex flex-col">
+          <div className="flex-1 overflow-y-auto w-full h-full">
+            <Outlet />
+          </div>
+        </main>
       </div>
 
-      {/* Main Content Area */}
-      <main className="flex-1 h-full overflow-y-auto relative bg-base p-0 pb-[56px] md:pb-0 flex flex-col">
-        <Outlet />
-      </main>
       <GlobalSearch />
       <ProjectCreationModal />
       {isSprintWidgetOpen && <SprintWidget onClose={() => setSprintWidgetOpen(false)} />}

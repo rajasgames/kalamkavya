@@ -155,7 +155,7 @@ export function EntityGrid({ typeFilters, onEntityClick }: EntityGridProps) {
                       onClick={() => toggleFilter(ms.id, selectedMagicSystems, setSelectedMagicSystems)}
                       className={`px-3 py-1 rounded-full text-xs font-semibold border transition-all ${
                         selectedMagicSystems.includes(ms.id)
-                          ? 'bg-amber-from text-black border-amber-from shadow-sm'
+                          ? 'bg-terracotta text-white border-terracotta shadow-sm'
                           : 'bg-base text-ghost border-subtle hover:text-primary hover:border-primary/30'
                       }`}
                     >
@@ -190,14 +190,14 @@ export function EntityGrid({ typeFilters, onEntityClick }: EntityGridProps) {
               <div 
                 key={entity.id}
                 onClick={() => onEntityClick?.(entity.id)}
-                className="group flex flex-col bg-elevated border border-subtle p-4 rounded-xl cursor-pointer hover:border-amber-from/50 hover:shadow-md transition-all duration-200"
+                className="group flex flex-col bg-surface border border-subtle p-4 rounded-xl cursor-pointer hover:border-terracotta/30 shadow-soft hover:shadow-hover hover:-translate-y-0.5 transition-all duration-300"
               >
                 <div className="flex items-start justify-between mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center border border-subtle group-hover:bg-amber-from/10 group-hover:border-amber-from/30 transition-colors">
+                  <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center border border-subtle group-hover:bg-terracotta/10 group-hover:border-terracotta/30 transition-colors">
                     {getTypeIcon(entity.type)}
                   </div>
                 </div>
-                <h3 className="font-serif font-bold text-primary text-lg leading-tight group-hover:text-amber-from transition-colors line-clamp-2">
+                <h3 className="font-serif font-bold text-primary text-lg leading-tight group-hover:text-terracotta transition-colors line-clamp-2">
                   {entity.name}
                 </h3>
                 <p className="text-xs text-ghost mt-1 uppercase tracking-wider font-bold">

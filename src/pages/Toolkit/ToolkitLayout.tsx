@@ -40,16 +40,16 @@ export function ToolkitLayout() {
   return (
     <div className="h-full flex bg-base relative overflow-hidden">
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="shrink-0 bg-surface border-b border-subtle px-6 py-3 flex items-center justify-between z-10">
-          <div className="flex gap-1 overflow-x-auto scrollbar-hide py-1 max-w-full">
+        <div className="shrink-0 menu-bar-graded px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between z-10 shadow-sm">
+          <div className="flex gap-1.5 overflow-x-auto scrollbar-hide py-1 max-w-full">
             {CATEGORIES.map(category => (
               <button
                 key={category.id}
                 onClick={() => handleTabClick(category.id)}
-                className={`px-3 py-1 rounded-md text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
+                className={`px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl font-sans text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap shrink-0 ${
                   currentView === category.id
-                    ? 'bg-amber-from/10 text-amber-from'
-                    : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
+                    ? 'nav-pill-active font-bold shadow-md shadow-amber-from/20'
+                    : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
                 }`}
               >
                 {category.label}

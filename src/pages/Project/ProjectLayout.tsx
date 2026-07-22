@@ -11,30 +11,30 @@ export function ProjectLayout() {
   return (
     <div className="h-full flex flex-col bg-base overflow-hidden relative">
       {/* Header with Sub-view Tabs */}
-      <div className="shrink-0 bg-surface border-b border-subtle px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 z-10">
-        <div className="flex items-center gap-4 flex-wrap">
-          <h1 className="text-xl sm:text-2xl font-serif text-primary">Project Setup</h1>
+      <div className="shrink-0 menu-bar-graded px-4 sm:px-8 py-3 sm:py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 z-10 shadow-sm">
+        <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
+          <h1 className="text-2xl sm:text-3xl font-serif text-primary">Project Setup</h1>
 
-          <div className="flex bg-base border border-subtle p-0.5 rounded-lg gap-0.5">
+          <div className="flex bg-base/80 backdrop-blur-md border border-subtle p-1 rounded-xl gap-1">
             <button
               onClick={() => navigate('/project/core')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 activeSubView === 'core'
-                  ? 'bg-amber-from/10 text-amber-from'
-                  : 'text-ghost hover:text-primary'
+                  ? 'nav-pill-active'
+                  : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
               }`}
             >
-              <Settings size={14} className="shrink-0" /> Project Core
+              <Settings size={15} className="shrink-0" /> Project Core
             </button>
             <button
               onClick={() => navigate('/project/templates')}
-              className={`flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-medium transition-colors ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 activeSubView === 'templates'
-                  ? 'bg-amber-from/10 text-amber-from'
-                  : 'text-ghost hover:text-primary'
+                  ? 'nav-pill-active'
+                  : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
               }`}
             >
-              <Layers size={14} className="shrink-0" /> Templates & Schemas
+              <Layers size={15} className="shrink-0" /> Templates & Schemas
             </button>
           </div>
         </div>

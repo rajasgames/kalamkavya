@@ -202,7 +202,7 @@ export function ManuscriptPlanner() {
   return (
     <div className="h-full flex bg-base overflow-hidden relative">
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="px-4 sm:px-8 py-4 sm:py-6 shrink-0 menu-bar-graded">
+        <div className="px-4 sm:px-8 py-4 sm:py-6 shrink-0 bg-surface border-b border-subtle shadow-soft z-10">
           <h1 className="text-2xl sm:text-3xl font-serif text-primary">Plot Board</h1>
           <p className="text-secondary mt-1 text-xs sm:text-sm">Visualize and restructure your scenes.</p>
         </div>
@@ -229,7 +229,7 @@ export function ManuscriptPlanner() {
               {/* Add Column Button */}
               <button
                 onClick={handleAddColumn}
-                className="shrink-0 w-[300px] h-[60px] border-2 border-dashed border-subtle rounded-xl flex items-center justify-center text-ghost hover:text-primary hover:border-amber-from/50 hover:bg-amber-from/5 transition-colors font-medium text-sm gap-2"
+                className="shrink-0 w-[300px] h-[60px] border-2 border-dashed border-subtle rounded-xl flex items-center justify-center text-ghost hover:text-primary hover:border-terracotta/50 hover:bg-terracotta/5 transition-colors font-medium text-sm gap-2"
               >
                 <Plus size={18} /> Add Column
               </button>

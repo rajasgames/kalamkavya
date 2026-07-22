@@ -25,15 +25,12 @@ export const RarityBadge = ({ rarityTier, size = 'md', variant = 'badge' }: Rari
   // like 'bg-gradient-to-r from-amber-400 to-orange-500'. 
   let finalClass = `${sizeClasses[size]} ${variantClasses[variant]}`;
   
-  if (rarityTier.badgeStyle === 'gradient') {
-     // override badge classes slightly for gradient if needed, but if bgColor has the gradient classes it works out of the box.
-     finalClass += ' shadow-sm';
-  } else if (rarityTier.badgeStyle === 'outline') {
+  if (rarityTier.badgeStyle === 'outline') {
      finalClass = `${sizeClasses[size]} ${variantClasses.outline}`;
   }
 
   return (
-    <span className={`inline-block ${finalClass}`}>
+    <span className={`inline-block shadow-sm ${finalClass}`}>
       {rarityTier.name}
     </span>
   );

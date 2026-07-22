@@ -66,10 +66,10 @@ export function KanbanColumn({ column, scenes, onRename, onDelete }: KanbanColum
 
   return (
     <div 
-      className="flex flex-col w-[300px] shrink-0 h-full bg-surface/50 border border-subtle rounded-xl overflow-hidden"
+      className="flex flex-col w-[300px] shrink-0 h-full bg-transparent"
     >
       {/* Column Header */}
-      <div className="p-3 border-b border-subtle bg-base flex items-center justify-between group">
+      <div className="p-3 mb-2 flex items-center justify-between group">
         {isEditing ? (
           <form onSubmit={handleRenameSubmit} className="flex-1 mr-2">
             <input
@@ -78,7 +78,7 @@ export function KanbanColumn({ column, scenes, onRename, onDelete }: KanbanColum
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               onBlur={handleRenameSubmit}
-              className="w-full bg-transparent text-primary text-sm font-bold outline-none border-b border-amber-from py-0.5"
+              className="w-full bg-transparent text-primary text-sm font-bold outline-none border-b border-terracotta py-0.5"
             />
           </form>
         ) : (
@@ -121,8 +121,8 @@ export function KanbanColumn({ column, scenes, onRename, onDelete }: KanbanColum
       {/* Column Body - Droppable Area */}
       <div 
         ref={setNodeRef}
-        className={`flex-1 p-2 overflow-y-auto scrollbar-hide flex flex-col gap-2 transition-colors ${
-          isOver ? 'bg-amber-from/5' : ''
+        className={`flex-1 p-2 overflow-y-auto scrollbar-hide flex flex-col gap-3 rounded-xl transition-colors ${
+          isOver ? 'bg-terracotta/5' : ''
         }`}
       >
         <SortableContext items={scenes.map(s => s.id)} strategy={verticalListSortingStrategy}>
@@ -140,9 +140,9 @@ export function KanbanColumn({ column, scenes, onRename, onDelete }: KanbanColum
       </div>
 
       {/* Column Footer - Add Card */}
-      <div className="p-2 border-t border-subtle bg-base/50">
+      <div className="p-2 mt-2">
         {isAddingCard ? (
-          <form onSubmit={handleAddCard} className="bg-elevated border border-amber-from/50 rounded-lg p-2 shadow-md">
+          <form onSubmit={handleAddCard} className="bg-canvas border border-terracotta/30 rounded-xl p-2 shadow-soft">
             <input
               autoFocus
               type="text"
@@ -161,7 +161,7 @@ export function KanbanColumn({ column, scenes, onRename, onDelete }: KanbanColum
               </button>
               <button
                 type="submit"
-                className="text-xs bg-amber-from/20 text-amber-from hover:bg-amber-from/30 px-3 py-1 rounded font-medium transition-colors"
+                className="text-xs bg-terracotta/10 text-terracotta hover:bg-terracotta/20 px-3 py-1 rounded-full font-medium transition-colors"
               >
                 Add
               </button>

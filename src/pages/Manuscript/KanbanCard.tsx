@@ -26,11 +26,11 @@ export function KanbanCard({ scene }: KanbanCardProps) {
           ref={setNodeRef}
           style={style}
           onClick={() => setActiveSceneId(scene.id)}
-          className={`group bg-elevated border rounded-lg p-3 cursor-pointer shadow-sm transition-colors ${
+          className={`group bg-canvas border rounded-xl p-3 cursor-pointer shadow-sm transition-all duration-300 hover:shadow-hover hover:-translate-y-[2px] ${
             activeSceneId === scene.id
-              ? 'border-amber-from shadow-amber-from/20'
-              : 'border-subtle hover:border-amber-from/50 hover:shadow-md'
-          } ${isDragging ? 'shadow-lg ring-2 ring-amber-from opacity-90 scale-[1.02]' : ''}`}
+              ? 'border-terracotta bg-surface ring-1 ring-terracotta/30'
+              : 'border-subtle hover:border-terracotta/30'
+          } ${isDragging ? 'shadow-lg ring-2 ring-terracotta opacity-90 scale-[1.02]' : ''}`}
         >
           <div className="flex items-start gap-2">
             <button
@@ -55,7 +55,7 @@ export function KanbanCard({ scene }: KanbanCardProps) {
                     <div
                       key={char!.id}
                       title={char!.name}
-                      className="w-6 h-6 rounded-full bg-amber-from/20 border border-amber-from/30 flex items-center justify-center text-[10px] font-bold text-amber-from"
+                      className="w-6 h-6 rounded-full bg-sage/10 border border-sage/20 flex items-center justify-center text-[10px] font-bold text-sage"
                     >
                       {char!.name.substring(0, 2).toUpperCase()}
                     </div>

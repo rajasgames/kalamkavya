@@ -150,7 +150,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
             <button
               key={c.id}
               onClick={() => onCreateNew?.(c.id)}
-              className="flex flex-col items-center justify-center p-6 bg-surface border border-subtle rounded-xl hover:border-amber-from/50 hover:shadow-md transition-all group"
+              className="flex flex-col items-center justify-center p-6 bg-surface border border-subtle rounded-xl hover:border-terracotta/30 shadow-soft hover:shadow-hover hover:-translate-y-0.5 transition-all group"
             >
               <c.icon size={24} className={`${c.color} mb-3 group-hover:scale-110 transition-transform`} />
               <span className="font-bold text-sm text-primary">{c.label}</span>
@@ -247,7 +247,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
         {onCreateNew && (
           <button
             onClick={() => onCreateNew('character')}
-            className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-from text-black hover:bg-amber-from/90 transition-all shadow-sm"
+            className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-terracotta text-white hover:bg-terracotta/90 transition-all shadow-sm"
           >
             <Plus size={14} /> Master New Entry
           </button>
@@ -262,7 +262,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
           {onCreateNew && (
             <button
               onClick={() => onCreateNew('character')}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-amber-from text-black hover:bg-amber-from/90 transition-all shadow-md mt-1"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-terracotta text-white hover:bg-terracotta/90 transition-all shadow-md mt-1"
             >
               <Plus size={14} /> Create Master Entry
             </button>
@@ -274,7 +274,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
             <div 
               key={entity.id}
               onClick={() => onEntityClick(entity)}
-              className="group flex flex-col bg-elevated border border-subtle p-3 rounded-xl cursor-pointer hover:border-amber-from/50 hover:shadow-md transition-all duration-200"
+              className="group flex flex-col bg-surface border border-subtle p-3 rounded-xl cursor-pointer hover:border-terracotta/30 shadow-soft hover:shadow-hover hover:-translate-y-0.5 transition-all duration-300"
             >
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between">
@@ -302,7 +302,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
                 </p>
 
                 <div className="flex justify-end mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button className="text-amber-from hover:text-amber-from/80 bg-amber-from/10 p-1.5 rounded-md">
+                  <button className="text-terracotta hover:text-terracotta/80 bg-terracotta/10 p-1.5 rounded-md">
                     <Edit2 size={12} />
                   </button>
                 </div>

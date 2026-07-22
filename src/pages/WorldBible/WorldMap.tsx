@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import ReactFlow, { 
   MiniMap, 
   Controls,
-  Background,
   useNodesState, 
   useEdgesState,
   Node,
@@ -34,12 +33,14 @@ export function WorldMap() {
       position: { x: (i % 5) * 200, y: Math.floor(i / 5) * 150 }, // simple grid layout
       data: { label: entity.name },
       style: {
-        background: theme === 'dark' ? '#1f2937' : '#ffffff',
-        color: theme === 'dark' ? '#f3f4f6' : '#111827',
-        border: `2px solid ${getEntityColor(entity.type)}`,
+        background: 'var(--bg-canvas)',
+        color: 'var(--text-primary)',
+        border: `1px solid var(--border-subtle)`,
         borderRadius: '8px',
         padding: '10px',
-        fontWeight: 'bold',
+        fontWeight: 'normal',
+        fontFamily: 'var(--font-sans)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
       },
     }));
   }, [entities, theme]);
@@ -53,9 +54,9 @@ export function WorldMap() {
       label: rel.metadata?.label as string || rel.type,
       type: 'smoothstep',
       animated: true,
-      style: { stroke: theme === 'dark' ? '#4b5563' : '#9ca3af', strokeWidth: 2 },
-      labelStyle: { fill: theme === 'dark' ? '#9ca3af' : '#4b5563', fontWeight: 500, fontSize: 12 },
-      labelBgStyle: { fill: theme === 'dark' ? '#111827' : '#ffffff', fillOpacity: 0.8 },
+      style: { stroke: 'var(--border-subtle)', strokeWidth: 1 },
+      labelStyle: { fill: 'var(--text-secondary)', fontWeight: 400, fontSize: 12, fontFamily: 'var(--font-sans)' },
+      labelBgStyle: { fill: 'var(--bg-surface)', fillOpacity: 0.8 },
     }));
   }, [relationships, theme]);
 
@@ -69,7 +70,7 @@ export function WorldMap() {
   }, [initialNodes, initialEdges, setNodes, setEdges]);
 
   return (
-    <div className="h-full w-full bg-base/50 rounded-2xl border border-white/5 overflow-hidden">
+    <div className="h-full w-full bg-canvas rounded-2xl border border-subtle overflow-hidden">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -77,16 +78,15 @@ export function WorldMap() {
         onEdgesChange={onEdgesChange}
         fitView
       >
-        <Controls className="bg-surface border border-white/10" />
+        <Controls className="bg-surface border border-subtle" />
         <MiniMap 
           nodeColor={(n) => {
             const entity = entities.find(e => e.id === n.id);
             return entity ? getEntityColor(entity.type) : '#eee';
           }}
-          maskColor={theme === 'dark' ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.4)'}
-          className="bg-surface border border-white/10"
+          maskColor={'rgba(0, 0, 0, 0.1)'}
+          className="bg-surface border border-subtle"
         />
-        <Background color={theme === 'dark' ? '#4b5563' : '#e5e7eb'} gap={16} />
       </ReactFlow>
     </div>
   );

@@ -2,7 +2,6 @@ import { useEffect, useCallback, useState, useRef } from 'react';
 import ReactFlow, {
   Node,
   Edge,
-  Background,
   Controls,
   MarkerType,
   useNodesState,
@@ -37,7 +36,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => 
 
   nodes.forEach((node) => {
     const w = node.type === 'faction' ? 140 : 120;
-    const h = node.type === 'geography' ? 80 : 40;
+    const h = node.type === 'geography' ? 40 : 40;
     dagreGraph.setNode(node.id, { width: w, height: h });
   });
 
@@ -52,7 +51,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => 
   nodes.forEach((node) => {
     const nodeWithPosition = dagreGraph.node(node.id);
     const w = node.type === 'faction' ? 140 : 120;
-    const h = node.type === 'geography' ? 80 : 40;
+    const h = node.type === 'geography' ? 40 : 40;
     
     node.position = {
       x: nodeWithPosition.x - w / 2,
@@ -65,14 +64,14 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[], direction = 'TB') => 
 
 const getEdgeStyle = (type: string) => {
   const t = type.toUpperCase();
-  if (t === 'ALLY') return '#8FA88A';
-  if (t === 'ENEMY') return '#C66B5E';
-  if (t === 'MEMBER_OF') return '#D4995A';
-  if (t === 'LOCATED_AT') return '#A89B8E';
-  if (t === 'INHERITS_FROM' || t === 'BELONGS_TO_LINEAGE' || t === 'DESCENDED_FROM') return '#D4995A';
-  if (t === 'BLESSED_BY' || t === 'INCARNATION_OF') return '#8FA88A';
-  if (t === 'PRACTICES_PATH' || t === 'WIELDS_ASTRA') return '#C66B5E';
-  return '#A89B8E';
+  if (t === 'ALLY') return 'var(--sage)';
+  if (t === 'ENEMY') return 'var(--terracotta)';
+  if (t === 'MEMBER_OF') return 'var(--text-secondary)';
+  if (t === 'LOCATED_AT') return 'var(--text-ghost)';
+  if (t === 'INHERITS_FROM' || t === 'BELONGS_TO_LINEAGE' || t === 'DESCENDED_FROM') return 'var(--text-secondary)';
+  if (t === 'BLESSED_BY' || t === 'INCARNATION_OF') return 'var(--sage)';
+  if (t === 'PRACTICES_PATH' || t === 'WIELDS_ASTRA') return 'var(--terracotta)';
+  return 'var(--text-ghost)';
 };
 
 export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
@@ -180,11 +179,11 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
           source: r.fromEntityId,
           target: r.toEntityId,
           type: 'step',
-          style: { stroke, strokeWidth: 2, strokeDasharray: isHierarchy ? undefined : '5,5' },
+          style: { stroke, strokeWidth: 1, strokeDasharray: isHierarchy ? undefined : '5,5' },
           markerEnd: { type: MarkerType.ArrowClosed, color: stroke },
           label: r.type.replace(/_/g, ' '),
-          labelStyle: { fill: stroke, fontWeight: 'bold', fontSize: 10 },
-          labelBgStyle: { fill: '#fff', fillOpacity: 0.8 },
+          labelStyle: { fill: 'var(--text-secondary)', fontWeight: 400, fontSize: 10, fontFamily: 'var(--font-sans)' },
+          labelBgStyle: { fill: 'var(--bg-surface)', fillOpacity: 0.8 },
           data: { isHierarchy }
         });
       }
@@ -313,8 +312,7 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
           fitView
           attributionPosition="bottom-left"
         >
-          <Background color="#ccc" gap={16} />
-          <Controls />
+          <Controls className="bg-surface border border-subtle" />
           <Panel position="top-right" className="m-4 flex flex-col gap-2">
             <button 
               onClick={() => {
@@ -342,29 +340,29 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
             <h4 className="text-xs font-semibold uppercase text-ghost tracking-wider mb-3">Node Types</h4>
             <div className="flex flex-col gap-2 mb-4 text-sm text-secondary">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-[#D4995A] border border-[#1A1814]" /> Character
+                <div className="w-4 h-4 rounded-full bg-surface border border-subtle" /> Character
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#8FA88A] border border-[#1A1814]" /> Faction
+                <div className="w-4 h-4 bg-surface rounded-sm border border-subtle" /> Faction
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#C66B5E]" style={{ clipPath: 'polygon(50% 100%, 0 0, 100% 0)' }} /> Geography
+                <div className="w-4 h-4 bg-surface rounded-none border border-subtle" /> Geography
               </div>
             </div>
             
             <h4 className="text-xs font-semibold uppercase text-ghost tracking-wider mb-3">Edge Types</h4>
             <div className="flex flex-col gap-2 text-sm text-secondary">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-0.5 bg-[#8FA88A]" /> Ally / Blessed / Incarnation
+                <div className="w-4 h-0.5 bg-sage" /> Ally / Blessed / Incarnation
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-0.5 bg-[#C66B5E]" /> Enemy / Practices / Wields
+                <div className="w-4 h-0.5 bg-terracotta" /> Enemy / Practices / Wields
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-0.5 bg-[#D4995A]" /> Member Of / Inherits / Descends
+                <div className="w-4 h-0.5 bg-secondary" /> Member Of / Inherits / Descends
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-0.5 bg-[#A89B8E]" /> Located At (Default)
+                <div className="w-4 h-0.5 bg-ghost" /> Located At (Default)
               </div>
             </div>
           </Panel>

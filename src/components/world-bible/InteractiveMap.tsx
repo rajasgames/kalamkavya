@@ -75,7 +75,7 @@ export function InteractiveMap({ onMapImageLoad }: InteractiveMapProps) {
   }
 
   return (
-    <div className={`flex-1 h-full relative overflow-hidden transition-all duration-150 ${isSketchMode ? 'bg-amber-from/5' : 'bg-surface'}`} ref={containerRef}>
+    <div className={`flex-1 h-full relative overflow-hidden transition-all duration-150 ${isSketchMode ? 'bg-terracotta/5' : 'bg-surface'}`} ref={containerRef}>
       <svg
         ref={svgRef}
         className="w-full h-full cursor-grab active:cursor-grabbing"
