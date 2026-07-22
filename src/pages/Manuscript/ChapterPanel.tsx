@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useStoryStore } from '@/stores/storyStore';
 import { Chapter } from '@/types';
-import { SortableItem } from '@/components/ui';
+import { SortableItem, ConfirmModal } from '@/components/ui';
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis, restrictToParentElement } from '@dnd-kit/modifiers';
@@ -13,6 +13,7 @@ export function ChapterPanel() {
   const [isAdding, setIsAdding] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [chapterToDelete, setChapterToDelete] = useState<Chapter | null>(null);
 
   // Filter and sort chapters
   const projectChapters = chapters
@@ -36,9 +37,11 @@ export function ChapterPanel() {
     }
   };
 
-  const handleAddSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTitle.trim() || !activeProjectId) return;
+  const submitNewChapter = async () => {
+    if (!newTitle.trim() || !activeProjectId) {
+      setIsAdding(false);
+      return;
+    }
 
     const newChapter: Chapter = {
       id: crypto.randomUUID(),
@@ -53,6 +56,11 @@ export function ChapterPanel() {
     setNewTitle('');
     setIsAdding(false);
     setActiveChapterId(newChapter.id);
+  };
+
+  const handleAddSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await submitNewChapter();
   };
 
   const handleRenameSubmit = async (e: React.FormEvent, chapter: Chapter) => {
@@ -72,13 +80,16 @@ export function ChapterPanel() {
   };
 
   const handleDelete = async (chapter: Chapter) => {
-    // In a real app we would use ConfirmModal here as requested
-    // "Delete (triggers ConfirmModal)" - we will simulate it with window.confirm for now or build it if needed.
-    if (window.confirm(`Are you sure you want to delete chapter "${chapter.title}" and all its scenes?`)) {
-      await deleteChapter(chapter.id);
-      if (activeChapterId === chapter.id) {
+    setChapterToDelete(chapter);
+  };
+
+  const confirmDelete = async () => {
+    if (chapterToDelete) {
+      await deleteChapter(chapterToDelete.id);
+      if (activeChapterId === chapterToDelete.id) {
         setActiveChapterId(null);
       }
+      setChapterToDelete(null);
     }
   };
 
@@ -104,7 +115,7 @@ export function ChapterPanel() {
               type="text"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              onBlur={() => setIsAdding(false)}
+              onBlur={() => submitNewChapter()}
               placeholder="Chapter title..."
               className="w-full bg-transparent text-primary text-sm outline-none border-b border-amber-from/50 focus:border-amber-from transition-colors py-1"
             />
@@ -201,6 +212,16 @@ export function ChapterPanel() {
           </DndContext>
         )}
       </div>
+
+      <ConfirmModal
+        isOpen={!!chapterToDelete}
+        onClose={() => setChapterToDelete(null)}
+        title="Delete Chapter"
+        message={`Are you sure you want to delete chapter "${chapterToDelete?.title}"? All scenes within this chapter will be permanently deleted.`}
+        confirmLabel="Delete Chapter"
+        isDestructive={true}
+        onConfirm={confirmDelete}
+      />
     </div>
   );
 }

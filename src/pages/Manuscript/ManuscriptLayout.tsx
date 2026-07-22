@@ -134,18 +134,22 @@ export function ManuscriptLayout() {
           <div className="relative h-full z-10">
             <ChapterPanel />
             <div 
-              className="absolute top-0 right-0 w-1 h-full cursor-col-resize hover:bg-amber-from/50 active:bg-amber-from transition-colors z-20"
+              className="absolute top-0 -right-2 w-4 h-full cursor-col-resize flex justify-center z-20 group"
               onMouseDown={() => setIsDraggingP1(true)}
-            />
+            >
+              <div className="w-1 h-full group-hover:bg-amber-from/50 group-active:bg-amber-from transition-colors" />
+            </div>
           </div>
 
           {/* Panel 2 */}
           <div className="relative h-full z-10">
             <ScenePanel />
             <div 
-              className="absolute top-0 right-0 w-1 h-full cursor-col-resize hover:bg-amber-from/50 active:bg-amber-from transition-colors z-20"
+              className="absolute top-0 -right-2 w-4 h-full cursor-col-resize flex justify-center z-20 group"
               onMouseDown={() => setIsDraggingP2(true)}
-            />
+            >
+              <div className="w-1 h-full group-hover:bg-amber-from/50 group-active:bg-amber-from transition-colors" />
+            </div>
           </div>
 
           {/* Panel 3 */}

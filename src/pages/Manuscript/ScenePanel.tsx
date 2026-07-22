@@ -50,9 +50,11 @@ export function ScenePanel() {
     }
   };
 
-  const handleAddSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTitle.trim() || !activeProjectId || !activeChapterId) return;
+  const submitNewScene = async () => {
+    if (!newTitle.trim() || !activeProjectId || !activeChapterId) {
+      setIsAdding(false);
+      return;
+    }
 
     const newScene: Scene = {
       id: crypto.randomUUID(),
@@ -72,6 +74,11 @@ export function ScenePanel() {
     setNewTitle('');
     setIsAdding(false);
     setActiveSceneId(newScene.id);
+  };
+
+  const handleAddSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await submitNewScene();
   };
 
   const handleRenameSubmit = async (e: React.FormEvent, scene: Scene) => {
@@ -131,7 +138,7 @@ export function ScenePanel() {
               type="text"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
-              onBlur={() => setIsAdding(false)}
+              onBlur={() => submitNewScene()}
               placeholder="Scene title..."
               className="w-full bg-transparent text-primary text-sm outline-none border-b border-amber-from/50 focus:border-amber-from transition-colors py-1"
             />

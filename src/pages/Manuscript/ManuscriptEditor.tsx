@@ -11,7 +11,7 @@ import { useUIStore } from '@/stores/uiStore';
 import { GhostwriterDrawer } from '@/components/editor/GhostwriterDrawer';
 
 export function ManuscriptEditor() {
-  const { scenes, activeSceneId, updateScene } = useStoryStore();
+  const { scenes, activeSceneId, updateScene, chapters } = useStoryStore();
   const { setEditor } = useManuscriptEditor();
   const quillRef = useRef<ReactQuill>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -92,6 +92,10 @@ export function ManuscriptEditor() {
   }), []);
 
   if (!activeScene) {
+    if (chapters.length === 0) {
+      return <div className="h-full bg-canvas" />;
+    }
+
     return (
       <div className="h-full flex items-center justify-center p-8 bg-canvas">
         <div className="max-w-md w-full p-8 text-center flex flex-col items-center">
@@ -181,7 +185,7 @@ export function ManuscriptEditor() {
 
       {/* Focus Mode Overlay Controls */}
       {isFocusMode && (
-        <div className="absolute top-0 left-0 right-0 h-24 flex items-center justify-between px-8 opacity-0 hover:opacity-100 transition-opacity duration-300 bg-gradient-to-b from-canvas/90 to-transparent z-50">
+        <div className="absolute top-0 left-0 right-0 h-24 flex items-center justify-between px-8 opacity-20 hover:opacity-100 transition-opacity duration-300 bg-gradient-to-b from-canvas/90 to-transparent z-50">
           <div className="flex items-center gap-4 text-ghost/80 text-sm font-medium">
             <span className="font-mono bg-surface border border-subtle shadow-sm px-3 py-1.5 rounded-md flex items-center gap-2">
               <Timer size={14} className="text-terracotta" />
