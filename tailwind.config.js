@@ -18,7 +18,9 @@ export default {
         terracotta: 'var(--terracotta)',
         sage: 'var(--sage)',
         'dusty-blue': 'var(--dusty-blue)',
+        info: 'var(--dusty-blue)',         // semantic alias for informational states
         subtle: 'var(--cream-border)',
+        'border-subtle': 'var(--border-subtle)', // direct border utility
       },
       fontFamily: {
         sans: ['"DM Sans"', '"Inter"', 'sans-serif'],
@@ -28,6 +30,7 @@ export default {
       boxShadow: {
         soft: 'var(--shadow-soft)',
         hover: 'var(--shadow-hover)',
+        'focus-ring': 'var(--focus-ring)', // keyboard-only focus indicator
       }
     },
   },

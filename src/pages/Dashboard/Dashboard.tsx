@@ -7,7 +7,7 @@ import { loadVedicSampleData } from '@/lib/vedicSampleData';
 import { loadRomComSampleData } from '@/lib/sampleData/romComSampleData';
 import { loadScifiSampleData } from '@/lib/sampleData/scifiSampleData';
 import { Scene, Project } from '@/types';
-import { Card, Button } from '@/components/ui';
+import { Card, Button, Badge } from '@/components/ui';
 import { useUIStore } from '@/stores/uiStore';
 import { ProgressRing } from './ProgressRing';
 import { ActivityHeatmap } from './ActivityHeatmap';
@@ -168,22 +168,23 @@ export function Dashboard() {
 
       {/* Hero Section */}
       {!activeProject ? (
-        <Card className="p-8 text-center flex flex-col items-center mb-12 bg-surface shadow-soft border-subtle">
-          <div className="text-terracotta/20 mb-6 drop-shadow-sm">
-            <PenTool size={64} strokeWidth={1} />
+        <Card className="p-6 text-center flex flex-col items-center mb-10 bg-surface shadow-soft border-subtle">
+          {/* Icon: strokeWidth 1.25 — readable at 64px, not hairline-thin */}
+          <div className="text-terracotta/20 mb-5 drop-shadow-sm">
+            <PenTool size={64} strokeWidth={1.25} />
           </div>
           <h2 className="text-2xl font-serif font-bold text-primary mb-2">Start Your Story</h2>
-          <p className="text-secondary mb-8 max-w-lg">
-            InkwellPro works for any genre — from Vedic epics to rom-coms to sci-fi mysteries.
+          <p className="text-secondary mb-7 max-w-lg">
+            Inkwell Pro works for any genre — from Vedic epics to rom-coms to sci-fi mysteries.
             Create a new project or jump in with a sample world.
           </p>
 
-          <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-8">
+          <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-7">
             <PlusCircle size={18} />
             New Project
           </Button>
 
-          <div className="w-full border-t border-subtle pt-6">
+          <div className="w-full border-t border-subtle pt-5">
             <p className="text-xs font-bold uppercase tracking-wider text-ghost mb-4 flex items-center justify-center gap-2">
               <Sparkles size={13} /> Or explore a sample world
             </p>
@@ -209,45 +210,50 @@ export function Dashboard() {
           </div>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
-          <Card className="col-span-1 lg:col-span-2 p-8 flex flex-col justify-center bg-surface shadow-soft border-subtle">
+        // ── Active project hero — condensed: text-2xl, p-6, tighter premise margin ──
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <Card className="col-span-1 lg:col-span-2 p-6 flex flex-col justify-center bg-surface shadow-soft border-subtle">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-sage bg-sage/10 rounded-full px-2.5 py-0.5">
-                {getGenreLabel(activeProject)}
-              </span>
+              <Badge variant="sage" caps>{getGenreLabel(activeProject)}</Badge>
             </div>
-            <h2 className="text-3xl font-serif font-bold text-primary mb-2">{activeProject.title}</h2>
-            <p className="text-secondary mb-8">{activeProject.premise}</p>
+            <h2 className="text-2xl font-serif font-bold text-primary mb-2">{activeProject.title}</h2>
+            <p className="text-secondary mb-5 line-clamp-2">{activeProject.premise}</p>
             
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               <Button className="gap-2" onClick={() => navigate('/manuscript/editor')}>
-                <PenTool size={18} />
+                <PenTool size={16} />
                 Continue Writing
               </Button>
               <Button variant="ghost" className="gap-2" onClick={() => navigate('/toolkit/ai')}>
-                <Sparkles size={18} />
+                <Sparkles size={16} />
                 Generate Lore
               </Button>
               <Button variant="ghost" className="gap-2" onClick={() => useUIStore.getState().setSprintWidgetOpen(true)}>
-                <Timer size={18} />
+                <Timer size={16} />
                 Word Sprint
               </Button>
             </div>
           </Card>
 
-          <Card className="col-span-1 p-8 flex flex-col items-center justify-center text-center shadow-soft border-subtle">
-            <h3 className="text-xs font-bold tracking-wider text-ghost uppercase mb-6">Manuscript Progress</h3>
-            <ProgressRing currentWordCount={totalWordCount} targetWordCount={activeProject.targetWordCount || 50000} size={140} strokeWidth={10} />
-            <div className="mt-6 text-sm text-secondary">
-              <span className="font-medium text-primary">{totalWordCount.toLocaleString()}</span> / {activeProject.targetWordCount?.toLocaleString() || '50,000'} words
+          {/* Progress Ring — condensed to match hero density */}
+          <Card className="col-span-1 p-6 flex flex-col items-center justify-center text-center shadow-soft border-subtle">
+            <h3 className="text-xs font-bold tracking-wider text-ghost uppercase mb-4">Manuscript Progress</h3>
+            <ProgressRing currentWordCount={totalWordCount} targetWordCount={activeProject.targetWordCount || 50000} size={130} strokeWidth={9} />
+            <div className="mt-4 text-sm text-secondary">
+              <span className="font-semibold text-primary">{totalWordCount.toLocaleString()}</span>
+              {' / '}{(activeProject.targetWordCount || 50000).toLocaleString()} words
+            </div>
+            {/* Percentage complete micro-stat */}
+            <div className="mt-1 text-xs text-ghost">
+              {Math.min(100, Math.round((totalWordCount / (activeProject.targetWordCount || 50000)) * 100))}% complete
             </div>
           </Card>
         </div>
       )}
 
-      {/* Quick Resume — Placed directly after Active Project Hero */}
+      {/* Quick Resume — directly below hero */}
       {activeProject && (
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-lg font-serif font-bold text-primary">Quick Resume</h3>
             {recentScenes.length > 0 && (
@@ -265,9 +271,7 @@ export function Dashboard() {
               {recentScenes.map(scene => (
                 <Card key={scene.id} hoverable className="p-5 flex flex-col cursor-pointer bg-canvas shadow-soft hover:shadow-hover hover:-translate-y-0.5 transition-all duration-300" onClick={() => navigate('/manuscript/editor')}>
                   <div className="flex items-start justify-between mb-3">
-                    <span className="text-xs font-medium text-sage bg-sage/10 px-2.5 py-0.5 rounded-full">
-                      {scene.wordCount} words
-                    </span>
+                    <Badge variant="sage">{scene.wordCount} words</Badge>
                     <span className="text-xs text-ghost">{getRelativeTime(scene.updatedAt || Date.now())}</span>
                   </div>
                   <h4 className="text-primary font-bold mb-1">{scene.title}</h4>
@@ -289,16 +293,9 @@ export function Dashboard() {
         </div>
       )}
 
-      {/* Activity Heatmap */}
-      {activeProject && (
-        <div className="mb-10">
-          <ActivityHeatmap />
-        </div>
-      )}
-
-      {/* Your Projects Section */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between mb-6">
+      {/* Your Projects — above heatmap: switching projects is more actionable than reviewing history */}
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-5">
           <h3 className="text-xl font-serif font-bold text-primary">Your Projects</h3>
           <Button variant="ghost" className="gap-2" onClick={() => setIsNewProjectOpen(true)}>
             <PlusCircle size={16} />
@@ -307,7 +304,7 @@ export function Dashboard() {
         </div>
         
         {allProjects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {allProjects.map(project => {
               const isActive = activeProject?.id === project.id;
               return (
@@ -317,18 +314,14 @@ export function Dashboard() {
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex flex-col gap-1">
-                      <h4 className="text-lg font-bold text-primary">{project.title}</h4>
-                      <span className="text-xs font-bold uppercase tracking-wider text-sage bg-sage/10 rounded-full px-2.5 py-0.5 w-fit">
-                        {getGenreLabel(project)}
-                      </span>
+                      <h4 className="text-base font-bold text-primary">{project.title}</h4>
+                      <Badge variant="sage" caps>{getGenreLabel(project)}</Badge>
                     </div>
                     {isActive && (
-                      <span className="text-xs font-bold uppercase tracking-wider text-terracotta bg-terracotta/10 px-2.5 py-1 rounded-full shrink-0 ml-2">
-                        Active
-                      </span>
+                      <Badge variant="terracotta" caps className="shrink-0 ml-2">Active</Badge>
                     )}
                   </div>
-                  <p className="text-sm text-secondary mb-6 line-clamp-3 flex-1 mt-2">{project.premise}</p>
+                  <p className="text-sm text-secondary mb-5 line-clamp-2 flex-1 mt-2">{project.premise}</p>
                   <div className="flex gap-3 mt-auto">
                     <Button 
                       className="flex-1" 
@@ -362,6 +355,13 @@ export function Dashboard() {
           </div>
         )}
       </div>
+
+      {/* Activity Heatmap — at the bottom: a reward/motivation widget, not a navigation step */}
+      {activeProject && (
+        <div className="mb-10">
+          <ActivityHeatmap />
+        </div>
+      )}
 
       {/* Modals */}
       <NewProjectModal

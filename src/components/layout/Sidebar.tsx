@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Home, PenTool, BookOpen, Users, Wrench, PanelLeftClose, PanelLeftOpen, Search, LucideIcon, Sparkles, Settings, HelpCircle, Sliders } from 'lucide-react';
+import { Home, PenTool, BookOpen, Users, Wrench, PanelLeftClose, PanelLeftOpen, Search, LucideIcon, Sparkles, Settings, HelpCircle, PlusCircle, ArrowRight } from 'lucide-react';
 import { useUIStore } from '@/stores/uiStore';
 import { useSearchStore } from '@/stores/searchStore';
 import { Pillar } from '@/types';
@@ -26,7 +26,7 @@ const PILLARS: PillarDef[] = [
     ]
   },
   {
-    id: 'project', label: 'Project Setup', icon: Sliders, defaultHref: '/project/core',
+    id: 'project', label: 'Settings', icon: Settings, defaultHref: '/project/core',
     subViews: [
       { id: 'core', label: 'Project Core', href: '/project/core' },
       { id: 'templates', label: 'Templates & Schemas', href: '/project/templates' }
@@ -248,37 +248,49 @@ export const Sidebar = () => {
                 </nav>
               </div>
             ) : (
-              <div className="p-4 flex-1 flex flex-col justify-center items-center text-center opacity-60">
-                {currentPillarDef && (
-                  <h2 className="text-base font-serif text-secondary font-medium">{currentPillarDef.label}</h2>
+              // Contextual quick-actions for pillars with no sub-views (Home, World Bible)
+              <div className="p-4 flex-1 flex flex-col gap-1">
+                <h3 className="text-[10px] font-bold tracking-widest text-ghost/80 uppercase mb-3 px-2">
+                  {currentPillarDef?.label}
+                </h3>
+                {currentPillarDef?.id === 'home' && (
+                  <>
+                    <button
+                      onClick={() => navigate('/') }
+                      className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
+                    >
+                      <PlusCircle size={14} className="shrink-0 text-terracotta" />
+                      <span className="group-hover:translate-x-0.5 transition-transform">New Project</span>
+                    </button>
+                    <button
+                      onClick={() => setOnboardingOpen(true)}
+                      className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
+                    >
+                      <ArrowRight size={14} className="shrink-0 text-terracotta" />
+                      <span className="group-hover:translate-x-0.5 transition-transform">Explore Sample Worlds</span>
+                    </button>
+                  </>
+                )}
+                {currentPillarDef?.id === 'worldbible' && (
+                  <>
+                    <button
+                      onClick={() => navigate('/world-bible')}
+                      className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
+                    >
+                      <BookOpen size={14} className="shrink-0 text-terracotta" />
+                      <span className="group-hover:translate-x-0.5 transition-transform">Browse Entries</span>
+                    </button>
+                    <button
+                      onClick={() => navigate('/world-bible')}
+                      className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
+                    >
+                      <PlusCircle size={14} className="shrink-0 text-terracotta" />
+                      <span className="group-hover:translate-x-0.5 transition-transform">Add Lore Entry</span>
+                    </button>
+                  </>
                 )}
               </div>
             )}
-            
-            {/* Drawer Bottom Action Text Labels */}
-            <div className="border-t border-subtle p-3 flex flex-col gap-1.5 bg-surface/40">
-              <button 
-                onClick={() => setAIDrawerOpen(true)}
-                className="w-full flex items-center h-10 px-3 rounded-lg text-terracotta hover:bg-terracotta/10 font-medium text-xs transition-colors group"
-              >
-                <Sparkles size={16} className="shrink-0 mr-2.5" />
-                <span className="truncate">Ask AI Assistant</span>
-              </button>
-              <button
-                onClick={() => setAISettingsOpen(true)}
-                className="w-full flex items-center h-10 px-3 rounded-lg text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 font-medium text-xs transition-colors group"
-              >
-                <Settings size={16} className="shrink-0 mr-2.5" />
-                <span className="truncate">AI Provider Settings</span>
-              </button>
-              <button
-                onClick={() => setOnboardingOpen(true)}
-                className="w-full flex items-center h-10 px-3 rounded-lg text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 font-medium text-xs transition-colors group"
-              >
-                <HelpCircle size={16} className="shrink-0 mr-2.5 text-terracotta" />
-                <span className="truncate">User Guide & Tour</span>
-              </button>
-            </div>
           </div>
         </div>
       </aside>

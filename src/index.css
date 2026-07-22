@@ -18,14 +18,20 @@
     /* Accents — Earthy, Not Flashy */
     --terracotta: #C47A5A;        /* Warm, quiet highlight */
     --sage: #7A8B6E;              /* Calm success/state */
-    --dusty-blue: #6B7A8F;        /* Cool, neutral info */
+    --dusty-blue: #6B7A8F;        /* Informational / neutral link states */
     --cream-border: rgba(45, 42, 38, 0.08);
+
+    /* Borders */
+    --border-subtle: rgba(45, 42, 38, 0.08); /* alias for cream-border */
+
+    /* Focus Ring — keyboard-only, never shown on mouse click */
+    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
 
     /* Shadows — Soft & Diffuse */
     --shadow-soft: 0 1px 3px rgba(45, 42, 38, 0.06), 0 8px 24px rgba(45, 42, 38, 0.04);
     --shadow-hover: 0 4px 12px rgba(45, 42, 38, 0.08);
 
-    /* Glass — Replaced with "Frosted Paper" (optional, very subtle) */
+    /* Glass — "Frosted Paper" (very subtle) */
     --surface-glass: rgba(251, 248, 241, 0.85);
     --backdrop-blur: blur(12px) saturate(110%);
   }
@@ -39,7 +45,10 @@
     --text-ghost: #5E574D;
     --terracotta: #D4956E;
     --sage: #8FA07A;
+    --dusty-blue: #8A9BB0;
     --cream-border: rgba(240, 235, 223, 0.06);
+    --border-subtle: rgba(240, 235, 223, 0.06);
+    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
     --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
     --surface-glass: rgba(34, 30, 25, 0.88);
   }
@@ -49,15 +58,29 @@
     transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 
-  *:focus, *:focus-visible,
-  select:focus, select:focus-visible,
-  button:focus, button:focus-visible,
-  input:focus, input:focus-visible,
-  textarea:focus, textarea:focus-visible,
-  [role="combobox"]:focus,
-  [role="option"]:focus {
-    outline: 0 !important;
-    outline-offset: 0 !important;
+  /* ─── Accessibility: Focus Rings ────────────────────────────────────────────
+     We do NOT suppress focus globally. Instead we show a styled ring only on
+     keyboard navigation (:focus-visible), which is invisible to mouse/touch users
+     and fully accessible to keyboard users. This satisfies WCAG 2.1 AA.
+  ─────────────────────────────────────────────────────────────────────────── */
+
+  /* Remove default browser outline only for non-keyboard interactions */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Keyboard-only focus ring using the design token */
+  *:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: 6px;
+  }
+
+  /* Tighter radius for input-like elements */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    border-radius: 8px;
   }
 
   /* Custom Minimal Cozy Scrollbar */
@@ -77,6 +100,8 @@
   }
 }
 
+/* ─── Modal Animations ───────────────────────────────────────────────────── */
+
 @keyframes modalOverlayShow {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -95,63 +120,11 @@
   animation: modalContentShow 300ms ease-out forwards;
 }
 
+/* ─── Toast Animations ───────────────────────────────────────────────────── */
+
 @keyframes toastSlideIn {
   from { transform: translateX(100%); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
-}
-
-.ql-container {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  line-height: 1.85;
-  color: var(--text-primary);
-  border: none !important;
-}
-
-.ql-editor {
-  outline: none !important;
-  box-shadow: none !important;
-  min-height: 100%;
-}
-
-.ql-editor:focus,
-.ql-editor:focus-visible {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-::selection {
-  background: var(--terracotta);
-  color: #fff;
-}
-
-/* Faint highlight for active line (Typewriter mode feel) */
-.ql-editor p:active {
-  background: rgba(196, 122, 90, 0.04);
-}
-
-.ql-editor p {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-.ql-toolbar {
-  border: none !important;
-  border-bottom: 1px solid var(--border-subtle) !important;
-  background: var(--bg-surface);
-  border-radius: 8px 8px 0 0;
-}
-
-.ql-toolbar button:hover .ql-stroke,
-.ql-toolbar button:focus .ql-stroke,
-.ql-toolbar button.ql-active .ql-stroke {
-  stroke: var(--terracotta) !important;
-}
-
-.ql-toolbar button:hover .ql-fill,
-.ql-toolbar button:focus .ql-fill,
-.ql-toolbar button.ql-active .ql-fill {
-  fill: var(--terracotta) !important;
 }
 
 @keyframes toastHide {
@@ -175,6 +148,8 @@
 .animate-toast-swipe-out {
   animation: toastSwipeOut 100ms ease-out forwards;
 }
+
+/* ─── Drawer Animations ──────────────────────────────────────────────────── */
 
 @keyframes drawerSlideIn {
   from { transform: translateX(100%); }
@@ -212,13 +187,62 @@
   animation: overlayFadeOut 300ms ease-out forwards;
 }
 
-/* Quill Placeholder */
-.ql-editor.ql-blank::before {
-  color: var(--text-ghost);
-  font-style: normal;
+/* ─── TipTap / Prose Editor ──────────────────────────────────────────────── */
+
+.tiptap-editor {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  line-height: 1.85;
+  color: var(--text-primary);
 }
 
-/* Rarity Tier & Metallic Aura Animations */
+.tiptap-editor:focus {
+  outline: none;
+}
+
+.tiptap-editor p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* Active paragraph highlight — Typewriter mode feel */
+.tiptap-editor p.is-active {
+  background: rgba(196, 122, 90, 0.04);
+}
+
+/* Placeholder text */
+.tiptap-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--text-ghost);
+  pointer-events: none;
+  height: 0;
+}
+
+/* ─── Text Selection ─────────────────────────────────────────────────────── */
+
+::selection {
+  background: var(--terracotta);
+  color: #fff;
+}
+
+/* ─── Glassmorphism Card Utilities ───────────────────────────────────────── */
+
+.glass-card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.25);
+  border-color: rgba(212, 153, 90, 0.35);
+}
+
+/* ─── Rarity Tier Animations (World Bible — Artifact Cards) ──────────────
+   These belong here only temporarily. Migrate to WorldBibleLayout or
+   EntityDetailPanel component styles when the Artifact system is built out.
+─────────────────────────────────────────────────────────────────────────── */
+
 @keyframes metallicShimmer {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -238,15 +262,3 @@
   animation: metallicShimmer 5s ease infinite;
   box-shadow: 0 0 12px rgba(139, 92, 246, 0.35);
 }
-
-/* Glassmorphism Card Utilities */
-.glass-card-hover {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.25);
-  border-color: rgba(212, 153, 90, 0.35);
-}
-

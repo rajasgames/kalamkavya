@@ -1,4 +1,4 @@
-import { Card } from '@/components/ui';
+import { Card, Badge } from '@/components/ui';
 import { Flame } from 'lucide-react';
 
 export function ActivityHeatmap() {
@@ -28,9 +28,7 @@ export function ActivityHeatmap() {
         <h3 className="text-sm font-bold tracking-wider text-ghost uppercase flex items-center gap-2">
           <Flame size={16} className="text-terracotta" /> Writing Activity
         </h3>
-        <span className="text-xs text-sage font-semibold bg-sage/10 px-2 py-1 rounded-full">
-          12 Day Streak
-        </span>
+        <Badge variant="sage">12 Day Streak</Badge>
       </div>
       
       <div className="flex flex-wrap gap-1 mb-2">

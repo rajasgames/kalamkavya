@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import { GlobalSearch } from './GlobalSearch';
 import { useUIStore } from '@/stores/uiStore';
 import { useSearchStore } from '@/stores/searchStore';
+import { useStoryStore } from '@/stores/storyStore';
 import { ProjectCreationModal, ThemeToggle } from '@/components/ui';
 import { SprintWidget } from '@/components/toolkit/SprintWidget';
 import { AIDrawer } from '@/components/toolkit/AIDrawer';
@@ -18,6 +20,12 @@ declare global {
 export const Layout = () => {
   const { isSidebarExpanded, isSprintWidgetOpen, setSprintWidgetOpen } = useUIStore();
   const { toggleSearch } = useSearchStore();
+  const { scenes, activeProject } = useStoryStore();
+
+  // Derive total word count from the active project's loaded scenes
+  const totalWordCount = activeProject
+    ? scenes.reduce((sum, s) => sum + (s.wordCount || 0), 0)
+    : null;
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -39,13 +47,17 @@ export const Layout = () => {
       <header className="h-[56px] shrink-0 border-b border-subtle flex items-center px-6 justify-between bg-surface/50 z-30">
         <div className="flex items-center gap-6">
           <div className="font-serif font-medium text-xl">Inkwell</div>
-          {/* Simple Workspace Switcher (Placeholder for now) */}
-          <button className="text-sm text-secondary hover:text-primary transition-colors font-sans">
-            My Workspace ▼
+          {/* Workspace Switcher — placeholder for multi-workspace support */}
+          <button className="text-sm text-secondary hover:text-primary transition-colors font-sans flex items-center gap-1">
+            My Workspace <ChevronDown size={13} className="opacity-60" />
           </button>
         </div>
         <div className="flex items-center gap-4">
-          <div className="text-xs text-ghost font-mono">24,512 words</div>
+          <div className="text-xs text-ghost font-mono">
+            {totalWordCount !== null
+              ? `${totalWordCount.toLocaleString()} words`
+              : '—'}
+          </div>
           <ThemeToggle />
         </div>
       </header>

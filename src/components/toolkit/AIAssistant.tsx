@@ -4,8 +4,9 @@ import { useAIStore } from '@/stores/aiStore';
 import { buildAssistantPrompt } from '@/lib/ai/promptEngine';
 import { streamAI } from '@/lib/ai/streamAI';
 import { Entity } from '@/types';
-import { Send, Loader2, Save, X } from 'lucide-react';
+import { Send, Loader2, Save, X, User, Sparkles, Search } from 'lucide-react';
 import { Button, Textarea, Input, Label, Select } from '@/components/ui';
+import { getEntityTypesForGenre } from '@/lib/genres/genreRegistry';
 
 type Message = {
   id: string;
@@ -13,16 +14,9 @@ type Message = {
   content: string;
 };
 
-const ENTITY_TYPES = [
-  { value: 'Character', label: 'Character' },
-  { value: 'Geography', label: 'Geography' },
-  { value: 'Location', label: 'Location' },
-  { value: 'Magic_System', label: 'Magic System' },
-  { value: 'Lore', label: 'Lore' }
-];
 
 export function AIAssistant() {
-  const { activeProjectId, entities, addEntity, addGenerationLog } = useStoryStore();
+  const { activeProjectId, activeProject, entities, addEntity, addGenerationLog } = useStoryStore();
   const { activeProvider, providers, isStreaming, streamedText, clearStream, cancelStream } = useAIStore();
   
   const [selectedEntityIds, setSelectedEntityIds] = useState<Set<string>>(new Set());
@@ -31,6 +25,9 @@ export function AIAssistant() {
   const [saveModalOpen, setSaveModalOpen] = useState(false);
   const [entityToSave, setEntityToSave] = useState<{name: string, type: string, content: string}>({ name: '', type: 'Lore', content: '' });
   const [isBuildingContext, setIsBuildingContext] = useState(false);
+  const [contextSearch, setContextSearch] = useState('');
+
+  const dynamicEntityTypes = useMemo(() => getEntityTypesForGenre(activeProject?.genreModules), [activeProject?.genreModules]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
@@ -144,6 +141,12 @@ export function AIAssistant() {
   };
 
   const filteredEntities = entities.filter(e => e.projectId === activeProjectId);
+  const searchedEntities = filteredEntities.filter(e => e.name.toLowerCase().includes(contextSearch.toLowerCase()));
+  const groupedEntities = searchedEntities.reduce((acc, entity) => {
+    if (!acc[entity.type]) acc[entity.type] = [];
+    acc[entity.type].push(entity);
+    return acc;
+  }, {} as Record<string, Entity[]>);
 
   return (
     <div className="flex h-full border border-subtle rounded-xl overflow-hidden bg-base shadow-sm relative">
@@ -153,24 +156,39 @@ export function AIAssistant() {
         <div className="p-4 border-b border-subtle">
           <h3 className="font-serif text-lg text-primary">Context Attachments</h3>
           <p className="text-xs text-secondary mt-1">Force AI to reference these items</p>
+          <div className="mt-3 relative">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ghost" />
+            <Input 
+              placeholder="Search entities..." 
+              value={contextSearch} 
+              onChange={e => setContextSearch(e.target.value)} 
+              className="pl-8 h-8 text-xs"
+            />
+          </div>
         </div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-2">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {filteredEntities.length === 0 ? (
             <p className="text-sm text-ghost italic">No entities in project yet.</p>
+          ) : searchedEntities.length === 0 ? (
+            <p className="text-sm text-ghost italic">No entities match your search.</p>
           ) : (
-            filteredEntities.map(entity => (
-              <label key={entity.id} className="flex items-center gap-3 p-2 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
-                <input 
-                  type="checkbox"
-                  className="accent-amber-from w-4 h-4 cursor-pointer"
-                  checked={selectedEntityIds.has(entity.id)}
-                  onChange={() => toggleEntity(entity.id)}
-                />
-                <div className="flex flex-col min-w-0">
-                  <span className="text-sm font-medium text-primary truncate">{entity.name}</span>
-                  <span className="text-[10px] text-ghost uppercase tracking-wider">{entity.type}</span>
-                </div>
-              </label>
+            Object.entries(groupedEntities).sort(([a], [b]) => a.localeCompare(b)).map(([type, typeEntities]) => (
+              <div key={type} className="space-y-1">
+                <h4 className="text-[10px] font-bold uppercase tracking-widest text-ghost/80 px-2">{type.replace(/_/g, ' ')}</h4>
+                {typeEntities.map(entity => (
+                  <label key={entity.id} className="flex items-center gap-3 p-2 rounded hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
+                    <input 
+                      type="checkbox"
+                      className="accent-amber-from w-4 h-4 cursor-pointer"
+                      checked={selectedEntityIds.has(entity.id)}
+                      onChange={() => toggleEntity(entity.id)}
+                    />
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-sm font-medium text-primary truncate">{entity.name}</span>
+                    </div>
+                  </label>
+                ))}
+              </div>
             ))
           )}
         </div>
@@ -199,17 +217,22 @@ export function AIAssistant() {
           
           {messages.map(msg => (
             <div key={msg.id} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-              <div 
-                className={`max-w-[85%] rounded-xl p-4 shadow-sm whitespace-pre-wrap ${
-                  msg.role === 'user' 
-                    ? 'bg-elevated border border-subtle text-primary font-sans text-sm'
-                    : 'bg-surface border border-subtle text-primary font-serif text-[15px] leading-relaxed'
-                }`}
-              >
-                {msg.content}
+              <div className={`flex items-start gap-3 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center mt-1 ${msg.role === 'user' ? 'bg-primary text-base' : 'bg-amber-from text-black'}`}>
+                  {msg.role === 'user' ? <User size={16} /> : <Sparkles size={16} />}
+                </div>
+                <div 
+                  className={`rounded-xl p-4 shadow-sm whitespace-pre-wrap ${
+                    msg.role === 'user' 
+                      ? 'bg-elevated border border-subtle text-primary font-sans text-sm'
+                      : 'bg-surface border border-subtle text-primary font-serif text-[15px] leading-relaxed'
+                  }`}
+                >
+                  {msg.content}
+                </div>
               </div>
               {msg.role === 'assistant' && (
-                <div className="mt-2 ml-1">
+                <div className="mt-2 ml-12">
                   <Button 
                     variant="ghost" 
                     size="sm" 
@@ -226,18 +249,23 @@ export function AIAssistant() {
           {/* Active Stream */}
           {(isStreaming || isBuildingContext) && (
             <div className="flex flex-col items-start">
-              <div className="max-w-[85%] rounded-xl p-4 shadow-sm bg-surface border border-subtle text-primary font-serif text-[15px] leading-relaxed whitespace-pre-wrap">
-                {isBuildingContext ? (
-                  <span className="flex items-center gap-2 text-ghost italic text-sm font-sans">
-                    <Loader2 size={14} className="animate-spin" /> Building context...
-                  </span>
-                ) : streamedText ? (
-                  streamedText
-                ) : (
-                  <span className="flex items-center gap-2 text-ghost italic text-sm font-sans">
-                    <Loader2 size={14} className="animate-spin" /> Thinking...
-                  </span>
-                )}
+              <div className="flex items-start gap-3 max-w-[85%] flex-row">
+                <div className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center mt-1 bg-amber-from text-black">
+                  <Sparkles size={16} />
+                </div>
+                <div className="rounded-xl p-4 shadow-sm bg-surface border border-subtle text-primary font-serif text-[15px] leading-relaxed whitespace-pre-wrap">
+                  {isBuildingContext ? (
+                    <span className="flex items-center gap-2 text-ghost italic text-sm font-sans">
+                      <Loader2 size={14} className="animate-spin" /> Building context...
+                    </span>
+                  ) : streamedText ? (
+                    streamedText
+                  ) : (
+                    <span className="flex items-center gap-2 text-ghost italic text-sm font-sans">
+                      <Loader2 size={14} className="animate-spin" /> Thinking...
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           )}
@@ -253,7 +281,6 @@ export function AIAssistant() {
               onKeyDown={handleKeyDown}
               placeholder="Ask a question or generate lore... (Shift+Enter for newline)"
               className="flex-1 min-h-[60px] max-h-[200px]"
-              disabled={isStreaming || isBuildingContext}
             />
             <div className="flex flex-col justify-end">
               {isStreaming ? (
@@ -296,7 +323,7 @@ export function AIAssistant() {
                 <Select
                   value={entityToSave.type}
                   onValueChange={val => setEntityToSave(prev => ({...prev, type: val}))}
-                  options={ENTITY_TYPES}
+                  options={dynamicEntityTypes}
                 />
               </div>
               <div className="space-y-2">

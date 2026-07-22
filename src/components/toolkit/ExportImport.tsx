@@ -110,7 +110,9 @@ export function ExportImport() {
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
-    setIsDragging(true);
+    if (e.dataTransfer.types.includes('Files')) {
+      setIsDragging(true);
+    }
   };
 
   const handleDragLeave = () => {
