@@ -101,10 +101,10 @@ export function WorldBibleLayout() {
   };
 
   return (
-    <div className="h-full flex bg-base relative overflow-hidden">
+    <div className="h-full flex flex-col md:flex-row bg-base relative overflow-hidden">
       
-      {/* Sidebar Navigation */}
-      <div className="w-64 border-r border-subtle bg-surface flex flex-col h-full shrink-0 z-10 shadow-sm">
+      {/* Desktop Sidebar Navigation */}
+      <div className="hidden md:flex w-64 border-r border-subtle bg-surface flex-col h-full shrink-0 z-10 shadow-sm">
         <div className="p-4 border-b border-subtle shrink-0">
           <Button 
             onClick={() => openCreationForTab()} 
@@ -126,7 +126,7 @@ export function WorldBibleLayout() {
                     onClick={() => handleTabClick(category.id)}
                     className={`text-left px-3 py-2 rounded-xl text-sm transition-all duration-200 flex items-center justify-between ${
                       currentView === category.id
-                        ? 'bg-amber-from/15 text-amber-from font-semibold border border-amber-from/25 shadow-sm'
+                        ? 'nav-pill-active font-semibold'
                         : 'text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
                     }`}
                   >
@@ -142,28 +142,45 @@ export function WorldBibleLayout() {
         </div>
       </div>
 
+      {/* Mobile Category Tab Selector Bar */}
+      <div className="md:hidden shrink-0 menu-bar-graded px-3 py-2 flex.gap-1.5 overflow-x-auto scrollbar-hide z-10 shadow-sm flex items-center">
+        {allCategories.map(category => (
+          <button
+            key={category.id}
+            onClick={() => handleTabClick(category.id)}
+            className={`px-3 py-1.5 rounded-xl text-xs whitespace-nowrap font-semibold transition-all shrink-0 ${
+              currentView === category.id
+                ? 'nav-pill-active font-bold'
+                : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
+            }`}
+          >
+            {category.label}
+          </button>
+        ))}
+      </div>
+
       <div className="flex-1 flex flex-col min-w-0 relative">
         {/* Content Area */}
         <div
-          className={`flex-1 overflow-y-auto p-8 transition-opacity ${
+          className={`flex-1 overflow-y-auto p-4 sm:p-8 transition-opacity ${
             isTransitioning ? 'opacity-0 duration-100 ease-in' : 'opacity-100 duration-150 ease-out'
           }`}
         >
           <div className="max-w-6xl mx-auto flex flex-col h-full">
-            <div className="mb-8 shrink-0">
-              <div className="flex justify-between items-center gap-4 flex-wrap">
+            <div className="mb-6 sm:mb-8 shrink-0">
+              <div className="flex justify-between items-start sm:items-center gap-4 flex-col sm:flex-row">
                 <div>
-                  <h1 className="text-3xl font-serif text-primary capitalize">
+                  <h1 className="text-2xl sm:text-3xl font-serif text-primary capitalize">
                     {activeCategory?.label ?? 'World Bible'}
                   </h1>
-                  <p className="text-secondary mt-1">
+                  <p className="text-secondary text-xs sm:text-sm mt-1">
                     {displayView === 'catalog'
                       ? 'All entities across your world.'
                       : `Managing all ${activeCategory?.label?.toLowerCase() ?? ''} entries.`}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
                   {displayView === 'geography' && (
                     <div className="bg-surface border border-subtle p-1 rounded-lg flex gap-1">
                       <button
@@ -185,7 +202,7 @@ export function WorldBibleLayout() {
 
                   <Button
                     onClick={() => openCreationForTab()}
-                    className="gap-2 shadow-sm"
+                    className="gap-2 shadow-sm text-xs sm:text-sm"
                   >
                     <Plus size={16} /> {getTabCreateLabel(activeCategory, displayView)}
                   </Button>

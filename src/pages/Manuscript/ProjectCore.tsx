@@ -111,15 +111,15 @@ export function ProjectCore() {
   }
 
   return (
-    <div className="p-8 md:p-12 max-w-6xl mx-auto space-y-8 font-sans overflow-y-auto">
+    <div className="p-4 sm:p-8 md:p-12 max-w-6xl mx-auto space-y-6 sm:space-y-8 font-sans overflow-y-auto">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-subtle pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-subtle pb-6 gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-amber-from/15 text-amber-from border border-amber-from/30 shadow-md">
+          <div className="p-3 rounded-2xl bg-amber-from/15 text-amber-from border border-amber-from/30 shadow-md shrink-0">
             <Sliders size={24} />
           </div>
           <div>
-            <h1 className="text-2xl font-serif font-bold text-primary flex items-center gap-3">
+            <h1 className="text-xl sm:text-2xl font-serif font-bold text-primary flex items-center gap-3 flex-wrap">
               Project Core & Narrative Architecture
               {savedSuccess && (
                 <span className="text-xs font-mono bg-emerald-500/15 text-emerald-500 border border-emerald-500/30 px-2.5 py-1 rounded-full flex items-center gap-1">
@@ -127,13 +127,13 @@ export function ProjectCore() {
                 </span>
               )}
             </h1>
-            <p className="text-xs text-secondary">
+            <p className="text-xs text-secondary mt-0.5">
               Configure genre, sub-genre, world building schema, tone, and narrative targets.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <Button onClick={() => navigate('/world-bible')} variant="ghost" className="gap-2 text-xs">
             <BookOpen size={16} /> Open World Bible
           </Button>

@@ -288,8 +288,8 @@ export const Sidebar = () => {
       </aside>
 
       {/* Mobile Floating Bottom Bar */}
-      <nav className="md:hidden flex items-center justify-around h-full w-full bg-transparent px-2 font-sans relative">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none rounded-full" />
+      <nav className="md:hidden flex items-center justify-around h-full w-full bg-transparent px-1 font-sans relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-amber-from/5 via-transparent to-amber-from/5 pointer-events-none rounded-full" />
         
         {PILLARS.map(pillar => {
           const isActive = activePillar === pillar.id;
@@ -300,15 +300,17 @@ export const Sidebar = () => {
                 setActivePillar(pillar.id);
                 navigate(pillar.defaultHref);
               }}
-              className={`flex-1 flex flex-col items-center justify-center gap-1 transition-all duration-300 relative z-10 ${
-                isActive ? 'text-amber-from scale-105 font-bold' : 'text-ghost hover:text-primary'
+              className={`flex-1 flex flex-col items-center justify-center py-1.5 px-1 transition-all duration-300 relative z-10 rounded-2xl ${
+                isActive 
+                  ? 'text-amber-from font-bold bg-amber-from/15 border border-amber-from/25 shadow-[0_0_12px_rgba(212,153,90,0.2)] scale-105' 
+                  : 'text-ghost hover:text-primary active:scale-95'
               }`}
             >
               {isActive && (
-                <div className="absolute -top-2 w-8 h-1 rounded-full bg-amber-from shadow-[0_0_8px_rgba(212,153,90,0.8)]" />
+                <div className="absolute -top-1 w-6 h-1 rounded-full bg-amber-from shadow-[0_0_8px_rgba(212,153,90,0.8)]" />
               )}
-              <pillar.icon size={20} className={isActive ? 'drop-shadow-[0_0_5px_rgba(212,153,90,0.5)]' : ''} />
-              <span className="text-[9px] font-medium tracking-wide">{pillar.label}</span>
+              <pillar.icon size={18} className={`shrink-0 ${isActive ? 'drop-shadow-[0_0_6px_rgba(212,153,90,0.5)]' : ''}`} />
+              <span className="text-[10px] font-medium tracking-tight mt-0.5 truncate max-w-full">{pillar.label}</span>
             </button>
           );
         })}

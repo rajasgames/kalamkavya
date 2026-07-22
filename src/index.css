@@ -18,6 +18,7 @@
     --amber-to: #E8A85C;
     --amber-grad: linear-gradient(135deg, var(--amber-from), var(--amber-to));
     --amber-glow: rgba(212, 153, 90, 0.22);
+    --menu-gradient: linear-gradient(135deg, rgba(242, 235, 224, 0.95), rgba(250, 247, 242, 0.85));
     --sage: #7C8F74;
     --clay: #C66B5E;
   }
@@ -31,6 +32,7 @@
     --text-primary: #EDE6DA;
     --text-secondary: #A3998A;
     --text-ghost: #635A4D;
+    --menu-gradient: linear-gradient(135deg, rgba(27, 24, 20, 0.95), rgba(20, 18, 14, 0.88));
   }
 
   body {
@@ -47,6 +49,20 @@
   [role="option"]:focus {
     outline: 0 !important;
     outline-offset: 0 !important;
+  }
+
+  /* Menu Bar Grading Design Utility Classes */
+  .menu-bar-graded {
+    background: var(--menu-gradient);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .nav-pill-active {
+    background: linear-gradient(135deg, rgba(212, 153, 90, 0.2), rgba(232, 168, 92, 0.12));
+    color: var(--amber-from);
+    border: 1px solid rgba(212, 153, 90, 0.35);
+    box-shadow: 0 0 16px rgba(212, 153, 90, 0.2);
   }
 
   /* Custom Minimal Cozy Scrollbar */
