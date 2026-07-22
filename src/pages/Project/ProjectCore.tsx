@@ -20,7 +20,7 @@ import {
   Search
 } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
-import { Button, Card, Input, Textarea, Select } from '@/components/ui';
+import { Button, Card, Input, Textarea } from '@/components/ui';
 import { GENRE_MODULE_LIST, SUB_GENRE_MAP, getCategoriesForGenre } from '@/lib/genres/genreRegistry';
 
 export function ProjectCore() {
@@ -29,7 +29,9 @@ export function ProjectCore() {
 
   const [title, setTitle] = useState(activeProject?.title || '');
   const [premise, setPremise] = useState(activeProject?.premise || '');
-  const [targetWordCount, setTargetWordCount] = useState(activeProject?.targetWordCount || 50000);
+  const [targetWordCountInput, setTargetWordCountInput] = useState(
+    activeProject?.targetWordCount?.toLocaleString() || '50,000'
+  );
   const [selectedGenre, setSelectedGenre] = useState(activeProject?.genreModules?.[0] || 'vedic');
   const [selectedSubGenre, setSelectedSubGenre] = useState(activeProject?.subGenre || '');
   const [tone, setTone] = useState(activeProject?.tone || 'Epic');
@@ -42,7 +44,7 @@ export function ProjectCore() {
     if (activeProject) {
       setTitle(activeProject.title);
       setPremise(activeProject.premise);
-      setTargetWordCount(activeProject.targetWordCount || 50000);
+      setTargetWordCountInput(activeProject.targetWordCount?.toLocaleString() || '50,000');
       setSelectedGenre(activeProject.genreModules?.[0] || 'vedic');
       setSelectedSubGenre(activeProject.subGenre || '');
       setTone(activeProject.tone || 'Epic');
@@ -51,21 +53,30 @@ export function ProjectCore() {
     }
   }, [activeProject]);
 
+  const isDirty = 
+    title !== (activeProject?.title || '') ||
+    premise !== (activeProject?.premise || '') ||
+    targetWordCountInput.replace(/,/g, '') !== (activeProject?.targetWordCount?.toString() || '50000') ||
+    selectedGenre !== (activeProject?.genreModules?.[0] || 'vedic') ||
+    selectedSubGenre !== (activeProject?.subGenre || '') ||
+    tone !== (activeProject?.tone || 'Epic') ||
+    pov !== (activeProject?.pov || 'Third Person Limited') ||
+    theme !== (activeProject?.theme || 'Fate vs. Free Will');
+
   // Available sub-genres for current selected main genre
   const availableSubGenres = SUB_GENRE_MAP[selectedGenre] || [];
 
   // Dynamically compute World Bible preview categories based on selected genre & sub-genre
   const previewCategories = getCategoriesForGenre([selectedGenre], selectedSubGenre);
 
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const saveProject = async () => {
     if (!activeProject) return;
 
     const updated = {
       ...activeProject,
       title,
       premise,
-      targetWordCount: Number(targetWordCount),
+      targetWordCount: Number(targetWordCountInput.replace(/,/g, '')),
       genreModules: [selectedGenre],
       genre: GENRE_MODULE_LIST.find(m => m.id === selectedGenre)?.label || selectedGenre,
       subGenre: selectedSubGenre,
@@ -78,6 +89,18 @@ export function ProjectCore() {
     await updateProject(updated);
     setSavedSuccess(true);
     setTimeout(() => setSavedSuccess(false), 3000);
+  };
+
+  const handleSave = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    await saveProject();
+  };
+
+  const handleOpenWorldBible = async () => {
+    if (isDirty) {
+      await saveProject();
+    }
+    navigate('/world-bible');
   };
 
   const getGenreIcon = (genreId: string) => {
@@ -134,7 +157,7 @@ export function ProjectCore() {
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <Button onClick={() => navigate('/world-bible')} variant="ghost" className="gap-2 text-xs">
+          <Button onClick={handleOpenWorldBible} variant="ghost" className="gap-2 text-xs">
             <BookOpen size={16} /> Open World Bible
           </Button>
           <Button onClick={handleSave} className="gap-2 text-xs bg-amber-from text-black font-bold">
@@ -182,11 +205,16 @@ export function ProjectCore() {
                     <Target size={13} /> Target Word Count
                   </label>
                   <Input
-                    type="number"
-                    value={targetWordCount}
-                    onChange={(e) => setTargetWordCount(Number(e.target.value))}
-                    min={1000}
-                    step={5000}
+                    type="text"
+                    value={targetWordCountInput}
+                    onChange={(e) => setTargetWordCountInput(e.target.value)}
+                    onBlur={(e) => {
+                      const num = parseInt(e.target.value.replace(/,/g, ''), 10);
+                      if (!isNaN(num)) {
+                        setTargetWordCountInput(num.toLocaleString());
+                      }
+                    }}
+                    placeholder="e.g. 50,000"
                   />
                 </div>
 
@@ -293,38 +321,62 @@ export function ProjectCore() {
               <Sparkles size={18} className="text-amber-from" /> Voice, Tone & AI Profile
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-6">
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-ghost mb-1">
+                <label className="block text-xs font-bold uppercase tracking-wider text-ghost mb-2">
                   Narrative Tone
                 </label>
-                <Select
-                  value={tone}
-                  onValueChange={setTone}
-                  options={[
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {[
                     { value: 'Epic', label: 'Epic & Mythic' },
                     { value: 'Dark', label: 'Dark & Gritty' },
                     { value: 'Whimsical', label: 'Whimsical & Playful' },
                     { value: 'Dramatic', label: 'Dramatic & Emotional' },
                     { value: 'Analytical', label: 'Analytical & Technical' },
-                  ]}
-                />
+                  ].map((opt) => (
+                    <button
+                      type="button"
+                      key={opt.value}
+                      onClick={() => setTone(opt.value)}
+                      className={`p-3 rounded-xl border text-left transition-all flex items-center justify-between ${
+                        tone === opt.value
+                          ? 'bg-amber-from/15 border-amber-from text-primary shadow-sm font-semibold'
+                          : 'bg-base border-subtle text-secondary hover:text-primary hover:border-ghost'
+                      }`}
+                    >
+                      <span className="text-xs">{opt.label}</span>
+                      {tone === opt.value && <Check size={14} className="text-amber-from shrink-0 ml-2" />}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-ghost mb-1">
+                <label className="block text-xs font-bold uppercase tracking-wider text-ghost mb-2">
                   Point of View (POV)
                 </label>
-                <Select
-                  value={pov}
-                  onValueChange={setPov}
-                  options={[
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {[
                     { value: 'Third Person Limited', label: 'Third Person Limited' },
                     { value: 'First Person', label: 'First Person (I / Me)' },
                     { value: 'Third Person Omniscient', label: 'Third Person Omniscient' },
                     { value: 'Dual / Multi POV', label: 'Dual / Multi POV' },
-                  ]}
-                />
+                  ].map((opt) => (
+                    <button
+                      type="button"
+                      key={opt.value}
+                      onClick={() => setPov(opt.value)}
+                      className={`p-3 rounded-xl border text-left transition-all flex items-center justify-between ${
+                        pov === opt.value
+                          ? 'bg-amber-from/15 border-amber-from text-primary shadow-sm font-semibold'
+                          : 'bg-base border-subtle text-secondary hover:text-primary hover:border-ghost'
+                      }`}
+                    >
+                      <span className="text-xs">{opt.label}</span>
+                      {pov === opt.value && <Check size={14} className="text-amber-from shrink-0 ml-2" />}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </Card>
@@ -366,9 +418,6 @@ export function ProjectCore() {
               ))}
             </div>
 
-            <Button type="submit" className="w-full gap-2 bg-amber-from text-black font-bold mt-4 shadow-sm">
-              <Save size={16} /> Apply to World Bible & Project
-            </Button>
           </Card>
         </div>
       </form>
