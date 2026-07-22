@@ -105,14 +105,6 @@ export function WorldBibleLayout() {
       
       {/* Desktop Sidebar Navigation */}
       <div className="hidden md:flex w-64 border-r border-subtle bg-surface flex-col h-full shrink-0 z-10 shadow-sm">
-        <div className="p-4 border-b border-subtle shrink-0">
-          <Button 
-            onClick={() => openCreationForTab()} 
-            className="w-full gap-2 justify-center shadow-sm bg-terracotta text-white font-semibold hover:bg-terracotta/90 transition-all rounded-xl py-2"
-          >
-            <Plus size={16} className="shrink-0" /> New Entry
-          </Button>
-        </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-hide">
           {categoryGroups.map(group => (
             <div key={group.group}>
@@ -142,21 +134,28 @@ export function WorldBibleLayout() {
         </div>
       </div>
 
-      {/* Mobile Category Tab Selector Bar */}
-      <div className="md:hidden shrink-0 bg-surface border-b border-subtle px-3 py-2 flex gap-1.5 overflow-x-auto scrollbar-hide z-10 shadow-sm items-center">
-        {allCategories.map(category => (
-          <button
-            key={category.id}
-            onClick={() => handleTabClick(category.id)}
-            className={`px-3 py-1.5 rounded-xl text-xs whitespace-nowrap font-semibold transition-all shrink-0 ${
-              currentView === category.id
-                ? 'bg-terracotta/10 text-terracotta'
-                : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
-            }`}
+      {/* Mobile Category Dropdown */}
+      <div className="md:hidden shrink-0 bg-surface border-b border-subtle p-3 z-10 shadow-sm">
+        <div className="relative">
+          <select
+            value={currentView}
+            onChange={(e) => handleTabClick(e.target.value)}
+            className="w-full appearance-none bg-elevated border border-subtle rounded-xl py-2 pl-4 pr-10 text-sm font-semibold text-primary focus:outline-none focus:ring-2 focus:ring-terracotta/50"
           >
-            {category.label}
-          </button>
-        ))}
+            {categoryGroups.map(group => (
+              <optgroup key={group.group} label={group.group}>
+                {group.categories.map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.label}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-ghost">
+            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          </div>
+        </div>
       </div>
 
       <div className="flex-1 flex flex-col min-w-0 relative">
@@ -185,14 +184,14 @@ export function WorldBibleLayout() {
                     <div className="bg-surface border border-subtle p-1 rounded-lg flex gap-1">
                       <button
                         onClick={() => setAtlasViewMode('grid')}
-                        className={`p-2 rounded-md transition-colors ${atlasViewMode === 'grid' ? 'bg-elevated text-primary' : 'text-ghost hover:text-primary'}`}
+                        className={`p-2 rounded-md transition-colors ${atlasViewMode === 'grid' ? 'bg-elevated text-terracotta shadow-sm' : 'text-ghost hover:text-primary'}`}
                         title="Grid View"
                       >
                         <Grid size={16} />
                       </button>
                       <button
                         onClick={() => setAtlasViewMode('map')}
-                        className={`p-2 rounded-md transition-colors ${atlasViewMode === 'map' ? 'bg-elevated text-primary' : 'text-ghost hover:text-primary'}`}
+                        className={`p-2 rounded-md transition-colors ${atlasViewMode === 'map' ? 'bg-elevated text-terracotta shadow-sm' : 'text-ghost hover:text-primary'}`}
                         title="Map View"
                       >
                         <Map size={16} />
@@ -248,7 +247,7 @@ export function WorldBibleLayout() {
       </div>
 
       {activeEntityId && (
-        <EntityDetailPanel entityId={activeEntityId} onClose={() => setActiveEntityId(null)} />
+        <EntityDetailPanel entityId={activeEntityId} onClose={() => setActiveEntityId(null)} onEntitySelect={setActiveEntityId} />
       )}
 
       <MasterEntityCreationModal

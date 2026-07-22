@@ -8,9 +8,10 @@ import { useState } from 'react';
 interface EntityDetailPanelProps {
   entityId: string;
   onClose: () => void;
+  onEntitySelect?: (id: string) => void;
 }
 
-export function EntityDetailPanel({ entityId, onClose }: EntityDetailPanelProps) {
+export function EntityDetailPanel({ entityId, onClose, onEntitySelect }: EntityDetailPanelProps) {
   const { entities, updateEntity } = useStoryStore();
   const [viewMode, setViewMode] = useState<'form' | 'tree'>('form');
   const entity = entities.find(e => e.id === entityId);
@@ -77,14 +78,15 @@ export function EntityDetailPanel({ entityId, onClose }: EntityDetailPanelProps)
                 </h3>
                 <div className="flex flex-col gap-2">
                   {relatedCultures.map(culture => (
-                    <div key={culture.id} className="pointer-events-none">
+                    <div 
+                      key={culture.id} 
+                      className="cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                      onClick={() => onEntitySelect?.(culture.id)}
+                    >
                       <CultureCard entity={culture} />
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-ghost mt-1">
-                  (Close this panel and click the culture card in the grid to edit it)
-                </p>
               </div>
             )}
 

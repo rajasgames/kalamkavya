@@ -1,8 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 import { useStoryStore } from '@/stores/storyStore';
 import { Entity, CharacterData } from '@/types';
-import { Input } from '@/components/ui';
-import { ArrowLeft, Target, Heart, Brain, Activity, User, MessageCircle, Star, Share2, Users } from 'lucide-react';
+import { Input, TagInput } from '@/components/ui';
+import { ArrowLeft, Target, Heart, Brain, Activity, User, MessageCircle, Star, Share2, Users, ChevronDown } from 'lucide-react';
 import { IndividualTreeGraph } from '@/components/flowchart';
 import { hasGenreModule } from '@/lib/genres/genreRegistry';
 
@@ -40,14 +40,26 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
     return defaultData;
   });
 
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+    };
+  }, []);
+
   // Sync state to store on blur/change
   const handleSave = (newData: Partial<CharacterData>) => {
     const updated = { ...formData, ...newData };
     setFormData(updated);
-    updateEntity({
-      ...entity,
-      data: updated as unknown as Record<string, unknown>
-    });
+    
+    if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+    saveTimeoutRef.current = setTimeout(() => {
+      updateEntity({
+        ...entity,
+        data: updated as unknown as Record<string, unknown>
+      });
+    }, 500);
   };
 
   // Relationship Helpers
@@ -97,6 +109,44 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
   const vamshas = entities.filter(e => e.type === 'VAMSHA');
   const characters = entities.filter(e => e.type === 'character' && e.id !== entity.id);
 
+  // Dynamic placeholders based on Arc Type
+  const arcPlaceholders = useMemo(() => {
+    switch (formData.arc.type) {
+      case 'Negative':
+      case 'Corruption':
+        return {
+          beginning: "Their initial flawed but stable state",
+          midpoint: "The point of no return",
+          end: "Their ultimate downfall or moral collapse"
+        };
+      case 'Flat':
+        return {
+          beginning: "The truth they already know",
+          midpoint: "The world challenges their truth",
+          end: "The world changes to match their truth"
+        };
+      case 'Redemption':
+        return {
+          beginning: "Their state of sin or guilt",
+          midpoint: "The moment of realization/sacrifice",
+          end: "Atonement achieved"
+        };
+      case 'Tragedy':
+        return {
+          beginning: "A promising beginning with a fatal flaw",
+          midpoint: "A false victory",
+          end: "The tragic consequences of their flaw"
+        };
+      case 'Positive':
+      default:
+        return {
+          beginning: "The Lie they believe",
+          midpoint: "The Truth revealed",
+          end: "The New Normal"
+        };
+    }
+  }, [formData.arc.type]);
+
   return (
     <div className="flex flex-col h-full bg-base overflow-y-auto scrollbar-hide">
       {/* Opaque Header */}
@@ -124,16 +174,19 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
               placeholder="ROLE / ARCHETYPE"
             />
             <span className="w-1.5 h-1.5 rounded-full bg-subtle" />
-            <select
-              value={formData.status}
-              onChange={(e) => handleSave({ status: e.target.value as CharacterData['status'] })}
-              className="text-sm font-semibold text-ghost bg-transparent border-none outline-none cursor-pointer"
-            >
-              <option value="Alive">Alive</option>
-              <option value="Dead">Dead</option>
-              <option value="Unknown">Unknown</option>
-              <option value="Transformed">Transformed</option>
-            </select>
+            <div className="relative flex items-center bg-black/5 dark:bg-white/5 rounded-full px-3 py-1">
+              <select
+                value={formData.status}
+                onChange={(e) => handleSave({ status: e.target.value as CharacterData['status'] })}
+                className="text-sm font-semibold text-ghost bg-transparent border-none outline-none cursor-pointer appearance-none pr-5 pl-1"
+              >
+                <option value="Alive">Alive</option>
+                <option value="Dead">Dead</option>
+                <option value="Unknown">Unknown</option>
+                <option value="Transformed">Transformed</option>
+              </select>
+              <ChevronDown size={14} className="text-ghost absolute right-2 pointer-events-none" />
+            </div>
           </div>
         </div>
       </div>
@@ -285,31 +338,33 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-ghost uppercase">Traits (comma separated)</label>
-              <Input 
-                value={formData.personality.traits.join(', ')}
-                onChange={(e) => handleSave({ personality: { ...formData.personality, traits: e.target.value.split(',').map(s => s.trim()).filter(Boolean) } })}
+              <label className="text-xs font-bold text-ghost uppercase block mb-1">Traits</label>
+              <TagInput
+                tags={formData.personality.traits}
+                onChange={(tags) => handleSave({ personality: { ...formData.personality, traits: tags } })}
                 placeholder="Brave, Stubborn, Witty"
-                className="mt-1"
+                className="w-full"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-xs font-bold text-clay uppercase">Flaws</label>
-                <Input 
-                  value={formData.personality.flaws.join(', ')}
-                  onChange={(e) => handleSave({ personality: { ...formData.personality, flaws: e.target.value.split(',').map(s => s.trim()).filter(Boolean) } })}
+                <label className="text-xs font-bold text-clay uppercase block mb-1">Flaws</label>
+                <TagInput
+                  tags={formData.personality.flaws}
+                  onChange={(tags) => handleSave({ personality: { ...formData.personality, flaws: tags } })}
                   placeholder="Arrogant"
-                  className="mt-1 text-sm border-clay/20 focus:border-clay/50"
+                  className="w-full border-clay/20"
+                  tagClassName="bg-clay/10 text-clay border-clay/20"
                 />
               </div>
               <div>
-                <label className="text-xs font-bold text-sage uppercase">Virtues</label>
-                <Input 
-                  value={formData.personality.virtues.join(', ')}
-                  onChange={(e) => handleSave({ personality: { ...formData.personality, virtues: e.target.value.split(',').map(s => s.trim()).filter(Boolean) } })}
+                <label className="text-xs font-bold text-sage uppercase block mb-1">Virtues</label>
+                <TagInput
+                  tags={formData.personality.virtues}
+                  onChange={(tags) => handleSave({ personality: { ...formData.personality, virtues: tags } })}
                   placeholder="Loyal"
-                  className="mt-1 text-sm border-sage/20 focus:border-sage/50"
+                  className="w-full border-sage/20"
+                  tagClassName="bg-sage/10 text-sage border-sage/20"
                 />
               </div>
             </div>
@@ -317,35 +372,39 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
         </div>
 
         {/* Module 5: Motivation Web */}
-        <div className="bg-surface border border-subtle rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center relative overflow-hidden group">
-           <h3 className="absolute top-4 left-6 font-bold text-lg text-primary flex items-center gap-2">
-             <Brain size={18} className="text-terracotta" /> Core Motivations
-           </h3>
-           <div className="mt-8 relative w-full h-48 flex items-center justify-center">
-             <svg width="200" height="160" viewBox="0 0 200 160" className="absolute">
-               <polygon points="100,20 20,140 180,140" fill="none" stroke="rgba(212,153,90,0.2)" strokeWidth="2" />
-               <circle cx="100" cy="20" r="4" fill="#D4995A" />
-               <circle cx="20" cy="140" r="4" fill="#D4995A" />
-               <circle cx="180" cy="140" r="4" fill="#D4995A" />
-             </svg>
-             <input 
-               value={formData.motivations[0]} 
-               onChange={(e) => handleSave({ motivations: [e.target.value, formData.motivations[1], formData.motivations[2]] })}
-               className="absolute top-0 w-32 text-center bg-base/80 border border-subtle rounded-md text-xs p-1 outline-none focus:border-terracotta/50"
-               placeholder="Top Motivation"
-             />
-             <input 
-               value={formData.motivations[1]} 
-               onChange={(e) => handleSave({ motivations: [formData.motivations[0], e.target.value, formData.motivations[2]] })}
-               className="absolute bottom-2 left-0 w-28 text-center bg-base/80 border border-subtle rounded-md text-xs p-1 outline-none focus:border-terracotta/50"
-               placeholder="Motivation 2"
-             />
-             <input 
-               value={formData.motivations[2]} 
-               onChange={(e) => handleSave({ motivations: [formData.motivations[0], formData.motivations[1], e.target.value] })}
-               className="absolute bottom-2 right-0 w-28 text-center bg-base/80 border border-subtle rounded-md text-xs p-1 outline-none focus:border-terracotta/50"
-               placeholder="Motivation 3"
-             />
+        <div className="bg-surface border border-subtle rounded-2xl p-6 shadow-sm flex flex-col gap-4 relative">
+           <div className="flex items-center gap-2 text-primary border-b border-subtle pb-3">
+             <Brain size={18} className="text-terracotta" />
+             <h3 className="font-bold text-lg">Core Motivations</h3>
+           </div>
+           <div className="flex flex-col gap-3 mt-2">
+             <div className="flex items-start gap-3">
+               <div className="w-6 h-6 rounded-full bg-terracotta/10 text-terracotta flex items-center justify-center font-bold text-xs shrink-0 mt-1">1</div>
+               <textarea 
+                 value={formData.motivations[0]} 
+                 onChange={(e) => handleSave({ motivations: [e.target.value, formData.motivations[1], formData.motivations[2]] })}
+                 className="flex-1 bg-transparent border border-subtle rounded-lg p-2 text-sm focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/20 outline-none resize-none"
+                 rows={2} placeholder="Primary motivation or driving force"
+               />
+             </div>
+             <div className="flex items-start gap-3">
+               <div className="w-6 h-6 rounded-full bg-terracotta/10 text-terracotta flex items-center justify-center font-bold text-xs shrink-0 mt-1">2</div>
+               <textarea 
+                 value={formData.motivations[1]} 
+                 onChange={(e) => handleSave({ motivations: [formData.motivations[0], e.target.value, formData.motivations[2]] })}
+                 className="flex-1 bg-transparent border border-subtle rounded-lg p-2 text-sm focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/20 outline-none resize-none"
+                 rows={2} placeholder="Secondary motivation"
+               />
+             </div>
+             <div className="flex items-start gap-3">
+               <div className="w-6 h-6 rounded-full bg-terracotta/10 text-terracotta flex items-center justify-center font-bold text-xs shrink-0 mt-1">3</div>
+               <textarea 
+                 value={formData.motivations[2]} 
+                 onChange={(e) => handleSave({ motivations: [formData.motivations[0], formData.motivations[1], e.target.value] })}
+                 className="flex-1 bg-transparent border border-subtle rounded-lg p-2 text-sm focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/20 outline-none resize-none"
+                 rows={2} placeholder="Hidden or subconscious motivation"
+               />
+             </div>
            </div>
         </div>
 
@@ -377,7 +436,7 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
                 value={formData.arc.beginningState} 
                 onChange={(e) => handleSave({ arc: { ...formData.arc, beginningState: e.target.value } })}
                 className="w-full bg-transparent border border-subtle rounded-lg p-2 text-sm focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/20 outline-none resize-none h-24"
-                placeholder="The Lie they believe"
+                placeholder={arcPlaceholders.beginning}
               />
             </div>
             <div>
@@ -386,7 +445,7 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
                 value={formData.arc.midpointShift} 
                 onChange={(e) => handleSave({ arc: { ...formData.arc, midpointShift: e.target.value } })}
                 className="w-full bg-amber-from/5 border border-amber-from/20 rounded-lg p-2 text-sm focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/20 outline-none resize-none h-24"
-                placeholder="The Truth revealed"
+                placeholder={arcPlaceholders.midpoint}
               />
             </div>
             <div>
@@ -395,7 +454,7 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
                 value={formData.arc.endState} 
                 onChange={(e) => handleSave({ arc: { ...formData.arc, endState: e.target.value } })}
                 className="w-full bg-sage/5 border border-sage/20 rounded-lg p-2 text-sm focus:border-sage/50 focus:ring-1 focus:ring-sage/20 outline-none resize-none h-24"
-                placeholder="The New Normal"
+                placeholder={arcPlaceholders.end}
               />
             </div>
           </div>
@@ -474,20 +533,13 @@ export function CharacterDetail({ entity, onBack }: CharacterDetailProps) {
             <h3 className="font-bold text-lg">Arts & Skills</h3>
           </div>
           <div>
-            <label className="text-xs font-bold text-ghost uppercase block mb-2">Skills (comma separated)</label>
-            <textarea 
-                value={formData.skills.join(', ')}
-                onChange={(e) => handleSave({ skills: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
+            <label className="text-xs font-bold text-ghost uppercase block mb-2">Skills</label>
+            <TagInput
+                tags={formData.skills}
+                onChange={(tags) => handleSave({ skills: tags })}
                 placeholder="Swordsmanship, Alchemy, Stealth..." 
-                className="w-full bg-transparent border border-subtle rounded-lg p-2 text-sm focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/20 outline-none resize-none h-20"
+                className="w-full min-h-[5rem]"
             />
-          </div>
-          <div className="flex flex-wrap gap-2 mt-1">
-            {formData.skills.map((skill, i) => (
-              <span key={i} className="px-2 py-1 bg-terracotta/10 text-terracotta text-xs font-bold rounded-md border border-terracotta/20">
-                {skill}
-              </span>
-            ))}
           </div>
         </div>
 
