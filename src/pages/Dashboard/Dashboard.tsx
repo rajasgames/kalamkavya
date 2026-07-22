@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PenTool, Sparkles, PlusCircle, Trash2, Timer, BookOpen } from 'lucide-react';
+import { PenTool, Sparkles, PlusCircle, Trash2, Timer, BookOpen, HelpCircle } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
 import { db } from '@/lib/db/database';
 import { loadVedicSampleData } from '@/lib/vedicSampleData';
@@ -147,7 +147,17 @@ export function Dashboard() {
     <div className="p-8 md:p-12 h-full flex flex-col overflow-y-auto max-w-7xl mx-auto w-full">
       <div className="flex items-center justify-between mb-12">
         <h1 className="text-2xl font-serif italic text-primary">{getGreeting()}</h1>
-        <ThemeToggle />
+        <div className="flex items-center gap-3">
+          <Button
+            variant="ghost"
+            onClick={() => useUIStore.getState().setOnboardingOpen(true)}
+            className="gap-2 text-xs font-semibold text-amber-from bg-amber-from/10 hover:bg-amber-from/20 border border-amber-from/30"
+          >
+            <HelpCircle size={15} />
+            User Guide & Tour
+          </Button>
+          <ThemeToggle />
+        </div>
       </div>
 
       {/* Hero Section */}

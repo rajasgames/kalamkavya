@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { db } from '@/lib/db';
 import { useStoryStore } from '@/stores/storyStore';
 import { useAIStore } from '@/stores/aiStore';
+import { useUIStore } from '@/stores/uiStore';
 
 export const AppInitializer = ({ children }: { children: React.ReactNode }) => {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -56,6 +57,12 @@ export const AppInitializer = ({ children }: { children: React.ReactNode }) => {
         const projectCount = await db.projects.count();
         if (projectCount === 0 && isMounted) {
           navigate('/'); // Auto-redirect to dashboard/empty state
+        }
+
+        // 5. Trigger Onboarding for First Time User
+        const hasCompletedOnboarding = localStorage.getItem('inkwell_onboarding_completed') === 'true';
+        if (!hasCompletedOnboarding && isMounted) {
+          useUIStore.getState().setOnboardingOpen(true);
         }
       } catch (error) {
         console.error('Failed to initialize app', error);

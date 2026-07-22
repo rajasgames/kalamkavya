@@ -56,6 +56,7 @@ export interface UIState {
   isSprintWidgetOpen: boolean;
   isAIDrawerOpen: boolean;
   isAISettingsOpen: boolean;
+  isOnboardingOpen: boolean;
 
   setActivePillar: (pillar: Pillar) => void;
   setActiveSubView: (view: string) => void;
@@ -65,6 +66,7 @@ export interface UIState {
   setSprintWidgetOpen: (open: boolean) => void;
   setAIDrawerOpen: (open: boolean) => void;
   setAISettingsOpen: (open: boolean) => void;
+  setOnboardingOpen: (open: boolean) => void;
 }
 
 export interface AIProviderSettings {
