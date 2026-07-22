@@ -1,0 +1,29 @@
+Manuscript Editor Panel
+The Editor Panel serves as the central hub for creative production, providing a robust environment for hierarchical content organization. It facilitates a seamless transition from macro-level structural planning to micro-level scene development.
+Hierarchical Organization
+Chapters: High-level containers that define the major segments of the narrative arc.
+Scenes: Granular writing units nested within chapters, allowing writers to focus on specific beats and character interactions.
+Multi-Page Interface: Supports the creation of expansive drafts across multiple pages, ensuring that complex scenes remain manageable and focused.
+Planner and Plot Board
+The Plot Board is a visual strategic tool designed to map out the narrative journey. Each column represents a critical stage in storytelling, ensuring the manuscript maintains momentum and thematic resonance.
+1. Setup
+Establishes the ordinary world, introduces the protagonist, and provides the necessary context for the story to begin.
+2. Inciting Incident
+The catalyst that disrupts the protagonist's status quo and sets the primary conflict in motion.
+3. Rising Action
+A series of events and obstacles that build tension and develop the central conflict.
+4. Midpoint
+A significant shift in the story where the stakes are raised and the protagonist often moves from reactive to proactive.
+5. Complications
+Internal and external hurdles that test the protagonist's resolve and lead toward the climax.
+6. Climax
+The ultimate peak of tension and conflict where the protagonist faces the story's greatest challenge.
+7. Falling Action
+The aftermath of the climax, dealing with the immediate consequences of the resolution.
+8. Resolution
+The conclusion of the narrative arc where loose ends are tied and a new status quo is established.
+Custom Columns
+Provides flexibility for non-linear storytelling or specific tracking needs, such as subplots, world-building notes, or character arcs that run parallel to the main plot.
+Outline Panel
+The Outline Panel acts as a navigation and structural overview tool. It provides a condensed view of the entire project, allowing writers to jump between sections instantly and maintain a clear vision of the document's architecture.
+

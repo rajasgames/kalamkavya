@@ -1,0 +1,46 @@
+import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
+import { UIState, Pillar, Theme } from '@/types';
+
+const getInitialTheme = (): Theme => {
+  try {
+    const stored = localStorage.getItem('inkwell-theme');
+    if (stored === 'dark' || stored === 'light') return stored;
+  } catch (e) {
+    console.warn('Failed to read theme from localStorage', e);
+  }
+  return 'light';
+};
+
+export const useUIStore = create<UIState>()(
+  devtools(
+    (set) => ({
+      activePillar: 'home',
+      activeSubView: '',
+      isSidebarExpanded: true,
+      theme: getInitialTheme(),
+      openModal: null,
+      isSprintWidgetOpen: false,
+      isAIDrawerOpen: false,
+      isAISettingsOpen: false,
+
+      setActivePillar: (pillar: Pillar) => set({ activePillar: pillar }),
+      setActiveSubView: (view: string) => set({ activeSubView: view }),
+      setSidebarExpanded: (expanded: boolean) => set({ isSidebarExpanded: expanded }),
+      setTheme: (theme: Theme) => {
+        try {
+          localStorage.setItem('inkwell-theme', theme);
+        } catch (e) {
+    console.warn('Failed to read theme from localStorage', e);
+  }
+        document.documentElement.setAttribute('data-theme', theme);
+        set({ theme });
+      },
+      setOpenModal: (modal: string | null) => set({ openModal: modal }),
+      setSprintWidgetOpen: (open: boolean) => set({ isSprintWidgetOpen: open }),
+      setAIDrawerOpen: (open: boolean) => set({ isAIDrawerOpen: open }),
+      setAISettingsOpen: (open: boolean) => set({ isAISettingsOpen: open }),
+    }),
+    { enabled: import.meta.env.DEV }
+  )
+);

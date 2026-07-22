@@ -1,0 +1,25 @@
+World Bible: 
+Master Flowchart -
+Architecture
+The World Bible Master Flowchart serves as the central administrative hub for the worldbuilding engine. This interface allows for the viewing, editing, and modification of all world-rules, interconnected via a sophisticated node-based system to ensure logical consistency across all layers of existence.
+1. Cosmos: Universal Foundations
+This layer defines the fundamental laws governing the universe and the metaphysical constraints of reality.
+Universal Laws (Siddhis & Ethics): Integration of Dharma (cosmic order), Karma (causal equilibrium), and Siddhis (attained paranormal capabilities) as primary nodes governing character progression and narrative consequences.
+Cosmic Chronology (Vedic Timeline): Detailed temporal nodes representing the cyclical nature of time, including Kalpas (aeons), Manvantaras (ages of Manu), Mahayugas, and individual Yugas.
+Cycle of Creation: Technical specifications for the Srishti (creation), Sthiti (maintenance), and Pralaya (dissolution) phases of the universe.
+2. Divine World: Transcendental Realms
+The transcendental layer manages the hierarchy of non-mortal existences and their respective domains.
+Hierarchy of Lokas: Multidimensional mapping of the various realms, defining the environmental rules and access requirements for each transcendental plane.
+Deity Categorization (33 Koti): A systematic database of the divine pantheon, detailing their specific jurisdictions, cosmic duties, and inter-deity relationships.
+Celestial Races: Biological and metaphysical profiles for non-humanoid celestial beings and entities residing within the upper lokas.
+3. Mortal World: Geopolitical & Social Structure
+The terrestrial layer focuses on the tangible environment and the sociological development of mortal civilizations.
+World Geography & Sacred Sites: Mapping of terrestrial landmasses, including nodes for Tirthas (sacred places) that serve as conduits between the mortal and divine worlds.
+Terrestrial Races & Species: Classification of the various sentient and non-sentient inhabitants of the physical plane.
+Social Stratification: Detailed nodes for the Varna and Jati systems, governing social roles, duties, and community interactions.
+Lineage & Kinship: Tracking of Vansha (lineage) and Gotra (clan) to maintain ancestral history and inheritance rules.
+4. Combat, Artifacts, & Relics
+The operational layer defines the mechanics of conflict and the significance of unique items.
+Warfare Systems: Definition of combat areas, military strategies, and complex unit formations (Vyuha).
+Weaponry & Arsenal: Categorization of standard arms and divine projectiles (Astras).
+Artifact Taxonomy: Detailed data entries for legendary relics, specifying their origins, power levels, and conditions for use.
