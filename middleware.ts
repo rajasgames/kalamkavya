@@ -30,7 +30,7 @@ export default function middleware(req: Request) {
   return new Response('Access Restricted: Authentication Required', {
     status: 401,
     headers: {
-      'WWW-Authenticate': 'Basic realm="कalam काvya Beta Access"',
+      'WWW-Authenticate': 'Basic realm="Kalam Kavya Beta Access"',
     },
   });
 }
