@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useStoryStore } from '@/stores/storyStore';
 import { db } from '@/lib/db/database';
@@ -10,13 +10,20 @@ import {
 import { useUIStore } from '@/stores/uiStore';
 import { GhostwriterDrawer } from '@/components/editor/GhostwriterDrawer';
 
+const Embed = Quill.import('blots/embed');
+class SoftBreak extends Embed {
+  static blotName = 'break';
+  static tagName = 'BR';
+}
+Quill.register(SoftBreak);
+
 export function ManuscriptEditor() {
   const { scenes, activeSceneId, updateScene, chapters } = useStoryStore();
   const { setEditor } = useManuscriptEditor();
   const quillRef = useRef<ReactQuill>(null);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
-  const [isFocusMode, setIsFocusMode] = useState(false);
+  const { isFocusMode, setFocusMode } = useUIStore();
   const [focusTime, setFocusTime] = useState(0);
   const [wordCount, setWordCount] = useState(0);
   const [charCount, setCharCount] = useState(0);
@@ -101,6 +108,19 @@ export function ManuscriptEditor() {
       [{'list': 'ordered'}, {'list': 'bullet'}],
       ['clean']
     ],
+    keyboard: {
+      bindings: {
+        shiftEnter: {
+          key: 13,
+          shiftKey: true,
+          handler: function(this: any, range: any) {
+            this.quill.insertEmbed(range.index, 'break', true, 'user');
+            this.quill.setSelection(range.index + 1, 'silent');
+            return false;
+          }
+        }
+      }
+    }
   }), []);
 
   if (!activeScene) {
@@ -136,7 +156,7 @@ export function ManuscriptEditor() {
           </div>
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <button 
-              onClick={() => setIsFocusMode(true)} 
+              onClick={() => setFocusMode(true)} 
               className="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-ghost hover:text-primary transition-colors flex items-center justify-center"
               title="Enter Focus Mode"
             >
@@ -209,7 +229,7 @@ export function ManuscriptEditor() {
             <span>{wordCount} words</span>
           </div>
           <button 
-            onClick={() => setIsFocusMode(false)} 
+            onClick={() => setFocusMode(false)} 
             className="px-4 py-2 text-ghost hover:text-primary bg-surface/50 hover:bg-surface border border-subtle rounded-md transition-colors flex items-center gap-2 shadow-sm backdrop-blur-md"
           >
             <Minimize size={16} />
