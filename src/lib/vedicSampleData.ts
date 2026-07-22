@@ -328,11 +328,61 @@ export const loadVedicSampleData = async (forceNewProject = false) => {
   addNode('Spiritual Growth (Karma Accumulation, Moksha, etc)', 'character', 'cast', {}, indId);
 
 
+  // --- SAMPLE CHAPTERS & SCENES FOR MANUSCRIPT ---
+  const chap1Id = `chap-${now}-1`;
+  const chap2Id = `chap-${now}-2`;
+  const chap3Id = `chap-${now}-3`;
+
+  const sampleChapters = [
+    { id: chap1Id, projectId, title: 'Khanda I: Cosmic Order & Disruption (Rita)', order: 1, createdAt: now, updatedAt: now },
+    { id: chap2Id, projectId, title: 'Khanda II: Royal Assembly & Quest (Artha)', order: 2, createdAt: now, updatedAt: now },
+    { id: chap3Id, projectId, title: 'Khanda III: Trial in the Wilderness (Kama)', order: 3, createdAt: now, updatedAt: now },
+  ];
+
+  const sampleScenes = [
+    {
+      id: `scene-${now}-1`,
+      projectId,
+      chapterId: chap1Id,
+      title: 'Scene 1: The Breaking of the Rita',
+      content: '<p>The celestial fires burned blue along the peaks of Mount Meru. Indra watched from his high throne as the ancient vows of austerity resonated across the three worlds...</p><p>For three thousand solar cycles, no mortal had accumulated Tapas of such potency without threatening the balance between Devas and Asuras.</p>',
+      wordCount: 52,
+      order: 1,
+      kanbanColumn: 'draft',
+      planning: {
+        goal: 'Establish the cosmic imbalance and the threat posed by unchecked Tapas.',
+        conflict: 'Indra fears losing the celestial throne to a mortal rishi.',
+        outcome: 'A divine herald is dispatched to test the rishi\'s resolve.'
+      },
+      createdAt: now,
+      updatedAt: now
+    },
+    {
+      id: `scene-${now}-2`,
+      projectId,
+      chapterId: chap2Id,
+      title: 'Scene 1: The Royal Assembly at Ayodhya',
+      content: '<p>The scent of sandalwood incense and roasted cardamom hung heavy in the royal sabha. King Dasharatha sat upon the lion-throne, surrounded by his ministers and the revered Rajguru Vasistha...</p>',
+      wordCount: 38,
+      order: 1,
+      kanbanColumn: 'todo',
+      planning: {
+        goal: 'Convene the royal sabha to address the kingdom\'s impending succession and quest.',
+        conflict: 'Court factions disagree on army deployment.',
+        outcome: 'The princes are summoned to undertake the sacred Astra sadhana.'
+      },
+      createdAt: now,
+      updatedAt: now
+    }
+  ];
+
   // --- BULK INSERT ---
   await db.entities.bulkPut(entities);
   if (relationships.length > 0) {
     await db.relationships.bulkPut(relationships);
   }
+  await db.chapters.bulkPut(sampleChapters);
+  await db.scenes.bulkPut(sampleScenes);
 
   // Update in-memory state if we are still active on this project
   if (useStoryStore.getState().activeProjectId === projectId) {

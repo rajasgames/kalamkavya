@@ -5,8 +5,10 @@ import { ProgressRing } from '@/pages/Dashboard/ProgressRing';
 import { db } from '@/lib/db/database';
 import { useStoryStore } from '@/stores/storyStore';
 import { useUIStore } from '@/stores/uiStore';
-import { Minus, Plus, ChevronRight, ChevronLeft, Sparkles, PenTool } from 'lucide-react';
+import { Minus, Plus, ChevronRight, ChevronLeft, Sparkles, PenTool, Sun, Rocket, Heart } from 'lucide-react';
 import { loadVedicSampleData } from '@/lib/vedicSampleData';
+import { loadRomComSampleData } from '@/lib/sampleData/romComSampleData';
+import { loadScifiSampleData } from '@/lib/sampleData/scifiSampleData';
 
 const GENRE_OPTIONS = [
   { value: 'Fantasy', label: 'Fantasy' },
@@ -15,7 +17,7 @@ const GENRE_OPTIONS = [
   { value: 'Mystery', label: 'Mystery' },
   { value: 'Historical', label: 'Historical' },
   { value: 'Literary', label: 'Literary' },
-  { value: 'TTRPG', label: 'TTRPG' },
+  { value: 'Contemporary', label: 'Contemporary' },
   { value: 'Other', label: 'Other' },
 ];
 
@@ -28,7 +30,7 @@ export function ProjectCreationModal() {
   const onClose = () => setOpenModal(null);
 
   const [step, setStep] = useState(1);
-  const [template, setTemplate] = useState<'blank' | 'vedic'>('vedic');
+  const [template, setTemplate] = useState<'blank' | 'vedic' | 'romcom' | 'scifi'>('vedic');
   const [title, setTitle] = useState('');
   const [genre, setGenre] = useState('Fantasy');
   const [premise, setPremise] = useState('');
@@ -39,10 +41,18 @@ export function ProjectCreationModal() {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleNext = async () => {
-    if (step === 1 && template === 'vedic') {
+    if (step === 1 && template !== 'blank') {
       setIsInitializing(true);
       try {
-        await loadVedicSampleData(true); // forceNewProject = true
+        if (template === 'vedic') {
+          await loadVedicSampleData(true);
+        } else if (template === 'romcom') {
+          const newProjectId = await loadRomComSampleData();
+          await useStoryStore.getState().setActiveProject(newProjectId);
+        } else if (template === 'scifi') {
+          const newProjectId = await loadScifiSampleData();
+          await useStoryStore.getState().setActiveProject(newProjectId);
+        }
         onClose();
         navigate('/world-bible');
         resetState();
@@ -109,8 +119,8 @@ export function ProjectCreationModal() {
     isTransitioning ? 'opacity-0 translate-x-8' : 'opacity-100 translate-x-0'
   }`;
 
-  // If vedic template is selected, we only have 1 step. Otherwise 4.
-  const totalSteps = template === 'vedic' ? 1 : 4;
+  // If a prebuilt template is selected, step 1 loads it immediately
+  const totalSteps = template === 'blank' ? 4 : 1;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Create New Universe" size="md">
@@ -132,25 +142,46 @@ export function ProjectCreationModal() {
       <div className="min-h-[320px] flex flex-col overflow-hidden px-1">
         {step === 1 && (
           <div className={`flex flex-col gap-4 flex-1 ${contentClass}`}>
-            <Label className="block mb-2 text-center text-lg">Choose a Starting Template</Label>
-            <div className="grid grid-cols-2 gap-4">
+            <Label className="block mb-2 text-center text-lg font-serif">Choose a Universe Starter Template</Label>
+            <div className="grid grid-cols-2 gap-3">
               <Card 
                 hoverable 
-                className={`p-4 cursor-pointer text-center flex flex-col items-center gap-2 transition-all ${template === 'vedic' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
+                className={`p-3.5 cursor-pointer text-center flex flex-col items-center gap-1.5 transition-all ${template === 'vedic' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
                 onClick={() => setTemplate('vedic')}
               >
-                <Sparkles size={32} className={template === 'vedic' ? 'text-amber-from' : 'text-ghost'} />
-                <span className="font-bold text-primary">Vedic World</span>
-                <span className="text-xs text-secondary">A fully populated template to explore the systems.</span>
+                <Sun size={26} className={template === 'vedic' ? 'text-amber-from' : 'text-ghost'} />
+                <span className="font-bold text-xs text-primary">Vedic Cosmology</span>
+                <span className="text-[10px] text-secondary">Complete epic Puranic realms & astras.</span>
               </Card>
+
               <Card 
                 hoverable 
-                className={`p-4 cursor-pointer text-center flex flex-col items-center gap-2 transition-all ${template === 'blank' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
+                className={`p-3.5 cursor-pointer text-center flex flex-col items-center gap-1.5 transition-all ${template === 'romcom' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
+                onClick={() => setTemplate('romcom')}
+              >
+                <Heart size={26} className={template === 'romcom' ? 'text-amber-from' : 'text-ghost'} />
+                <span className="font-bold text-xs text-primary">Rom-Com Universe</span>
+                <span className="text-[10px] text-secondary">Contemporary romance beats & character tropes.</span>
+              </Card>
+
+              <Card 
+                hoverable 
+                className={`p-3.5 cursor-pointer text-center flex flex-col items-center gap-1.5 transition-all ${template === 'scifi' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
+                onClick={() => setTemplate('scifi')}
+              >
+                <Rocket size={26} className={template === 'scifi' ? 'text-amber-from' : 'text-ghost'} />
+                <span className="font-bold text-xs text-primary">Sci-Fi Colony Ship</span>
+                <span className="text-[10px] text-secondary">Colony ship factions, AI logs & mysteries.</span>
+              </Card>
+
+              <Card 
+                hoverable 
+                className={`p-3.5 cursor-pointer text-center flex flex-col items-center gap-1.5 transition-all ${template === 'blank' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
                 onClick={() => setTemplate('blank')}
               >
-                <PenTool size={32} className={template === 'blank' ? 'text-amber-from' : 'text-ghost'} />
-                <span className="font-bold text-primary">Blank Universe</span>
-                <span className="text-xs text-secondary">Start from scratch with an empty database.</span>
+                <PenTool size={26} className={template === 'blank' ? 'text-amber-from' : 'text-ghost'} />
+                <span className="font-bold text-xs text-primary">Blank Universe</span>
+                <span className="text-[10px] text-secondary">Custom project setup from scratch.</span>
               </Card>
             </div>
           </div>
@@ -260,11 +291,11 @@ export function ProjectCreationModal() {
             </Button>
           ) : (
             <Button 
-              onClick={template === 'vedic' ? handleNext : handleInitialize} 
+              onClick={template !== 'blank' ? handleNext : handleInitialize} 
               disabled={isInitializing}
-              className="gap-2 bg-amber-from hover:bg-amber-to text-white border-transparent"
+              className="gap-2 bg-amber-from hover:bg-amber-to text-white border-transparent font-bold"
             >
-              {isInitializing ? 'Loading...' : template === 'vedic' ? 'Load Template' : 'Initialize Universe'}
+              {isInitializing ? 'Loading Template...' : template !== 'blank' ? 'Load Starter Template' : 'Initialize Universe'}
               {!isInitializing && <Sparkles size={16} />}
             </Button>
           )}
