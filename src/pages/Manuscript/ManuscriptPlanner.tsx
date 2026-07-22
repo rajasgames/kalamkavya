@@ -202,9 +202,9 @@ export function ManuscriptPlanner() {
   return (
     <div className="h-full flex bg-base overflow-hidden relative">
       <div className="flex-1 flex flex-col min-w-0">
-        <div className="px-8 py-6 shrink-0 border-b border-subtle bg-surface">
-          <h1 className="text-3xl font-serif text-primary">Plot Board</h1>
-          <p className="text-secondary mt-1 text-sm">Visualize and restructure your scenes.</p>
+        <div className="px-4 sm:px-8 py-4 sm:py-6 shrink-0 menu-bar-graded">
+          <h1 className="text-2xl sm:text-3xl font-serif text-primary">Plot Board</h1>
+          <p className="text-secondary mt-1 text-xs sm:text-sm">Visualize and restructure your scenes.</p>
         </div>
 
         <div className="flex-1 overflow-x-auto overflow-y-hidden p-6 scrollbar-hide">

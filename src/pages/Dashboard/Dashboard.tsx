@@ -144,9 +144,9 @@ export function Dashboard() {
   ];
 
   return (
-    <div className="p-8 md:p-12 h-full flex flex-col overflow-y-auto max-w-7xl mx-auto w-full">
-      <div className="flex items-center justify-between mb-12">
-        <h1 className="text-2xl font-serif italic text-primary">{getGreeting()}</h1>
+    <div className="p-4 sm:p-8 md:p-12 h-full flex flex-col overflow-y-auto max-w-7xl mx-auto w-full">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4">
+        <h1 className="text-xl sm:text-2xl font-serif italic text-primary">{getGreeting()}</h1>
         <div className="flex items-center gap-3">
           <Button
             variant="ghost"

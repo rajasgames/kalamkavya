@@ -117,13 +117,13 @@ export function ManuscriptEditor() {
       
       {/* Top Breadcrumb & Actions */}
       {!isFocusMode && (
-        <div className="h-14 px-8 flex items-center justify-between shrink-0 sticky top-0 z-10 bg-base/80 backdrop-blur-md border-b border-subtle transition-colors">
-          <div className="flex items-center gap-2 text-sm font-medium text-ghost">
-            <span className="cursor-default">Manuscript</span>
+        <div className="h-14 px-4 sm:px-8 flex items-center justify-between shrink-0 sticky top-0 z-10 menu-bar-graded transition-colors">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-medium text-ghost min-w-0">
+            <span className="cursor-default shrink-0">Manuscript</span>
             <ChevronRight size={14} className="opacity-50 shrink-0" />
-            <span className="text-primary truncate max-w-[200px]">{activeScene.title}</span>
+            <span className="text-primary truncate max-w-[120px] sm:max-w-[220px] font-semibold">{activeScene.title}</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <button 
               onClick={() => setIsFocusMode(true)} 
               className="p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg text-ghost hover:text-primary transition-colors flex items-center justify-center"
@@ -138,13 +138,13 @@ export function ManuscriptEditor() {
             >
               <Timer size={16} className="shrink-0" />
             </button>
-            <div className="w-[1px] h-4 bg-subtle mx-1" />
+            <div className="w-[1px] h-4 bg-subtle mx-0.5 sm:mx-1" />
             <button
               onClick={() => useUIStore.getState().setOpenModal('ghostwriter')}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-amber-from/15 hover:bg-amber-from/25 text-amber-from transition-all shadow-sm font-medium text-xs border border-amber-from/20"
+              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg nav-pill-active transition-all shadow-sm font-medium text-xs"
             >
               <Feather size={14} className="shrink-0" />
-              <span className="font-bold uppercase tracking-wider hidden lg:inline">Ghostwriter</span>
+              <span className="font-bold uppercase tracking-wider hidden sm:inline">Ghostwriter</span>
             </button>
           </div>
         </div>

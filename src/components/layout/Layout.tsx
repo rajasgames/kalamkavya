@@ -49,12 +49,12 @@ export const Layout = () => {
       </div>
       
       {/* Mobile Floating Bottom Bar */}
-      <div className="md:hidden fixed bottom-6 left-4 right-4 z-40 h-[64px] rounded-full shadow-2xl shadow-black/20 overflow-hidden bg-surface/85 backdrop-blur-3xl border border-subtle">
+      <div className="md:hidden fixed bottom-4 left-3 right-3 z-40 h-[64px] rounded-full shadow-2xl shadow-black/20 dark:shadow-black/60 overflow-hidden bg-surface/90 backdrop-blur-2xl border border-subtle/80">
         <Sidebar />
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 h-full overflow-hidden relative transition-all duration-300 ease-out bg-transparent p-0 md:p-4 pb-[100px] md:pb-4 flex flex-col">
+      <main className="flex-1 h-full overflow-hidden relative transition-all duration-300 ease-out bg-transparent p-0 md:p-4 pb-[84px] md:pb-4 flex flex-col">
         <div className="flex-1 rounded-none md:rounded-2xl bg-surface/40 backdrop-blur-md border-0 md:border border-subtle shadow-sm overflow-y-auto w-full h-full">
           <Outlet />
         </div>

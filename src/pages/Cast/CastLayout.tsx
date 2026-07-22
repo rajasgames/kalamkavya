@@ -40,16 +40,16 @@ export function CastLayout() {
   return (
     <div className="h-full flex flex-col bg-base overflow-hidden relative">
       {/* Header with Sub-view Tabs & Contextual Create Action */}
-      <div className="shrink-0 bg-surface border-b border-subtle px-8 py-4 flex items-center justify-between z-10 shadow-sm">
-        <div className="flex items-center gap-6">
-          <h1 className="text-3xl font-serif text-primary">Cast & Characters</h1>
+      <div className="shrink-0 menu-bar-graded px-4 sm:px-8 py-3 sm:py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 z-10 shadow-sm">
+        <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
+          <h1 className="text-2xl sm:text-3xl font-serif text-primary">Cast & Characters</h1>
 
           <div className="flex bg-base/80 backdrop-blur-md border border-subtle p-1 rounded-xl gap-1">
             <button
               onClick={() => navigate('/cast/characters')}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 activeSubView === 'characters'
-                  ? 'bg-amber-from/20 text-amber-from border border-amber-from/30 shadow-sm'
+                  ? 'nav-pill-active'
                   : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
               }`}
             >
@@ -57,9 +57,9 @@ export function CastLayout() {
             </button>
             <button
               onClick={() => navigate('/cast/art')}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
                 activeSubView === 'art'
-                  ? 'bg-amber-from/20 text-amber-from border border-amber-from/30 shadow-sm'
+                  ? 'nav-pill-active'
                   : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
               }`}
             >
@@ -68,12 +68,12 @@ export function CastLayout() {
           </div>
         </div>
 
-        <Button onClick={handleCreateNew} className="gap-2 shadow-sm font-semibold">
+        <Button onClick={handleCreateNew} className="gap-2 shadow-sm font-semibold text-xs sm:text-sm self-stretch sm:self-auto">
           <Plus size={16} className="shrink-0" /> {activeSubView === 'art' ? 'New Art Concept' : 'New Character'}
         </Button>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-8">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-8">
         <div className="max-w-6xl mx-auto h-full flex flex-col">
           {activeSubView === 'art' ? (
             <div className="flex-1 flex flex-col gap-6">
