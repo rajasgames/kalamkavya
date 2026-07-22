@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useStoryStore } from '@/stores/storyStore';
 import { useAIStore } from '@/stores/aiStore';
 import { buildAssistantPrompt } from '@/lib/ai/promptEngine';

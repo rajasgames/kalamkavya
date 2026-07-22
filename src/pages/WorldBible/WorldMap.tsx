@@ -9,7 +9,6 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { useStoryStore } from '@/stores/storyStore';
-import { useUIStore } from '@/stores/uiStore';
 
 // Custom colors based on entity types
 const getEntityColor = (type: string) => {
@@ -24,7 +23,6 @@ const getEntityColor = (type: string) => {
 
 export function WorldMap() {
   const { entities, relationships } = useStoryStore();
-  const theme = useUIStore(state => state.theme);
 
   // Derive nodes from entities
   const initialNodes: Node[] = useMemo(() => {
@@ -43,7 +41,7 @@ export function WorldMap() {
         boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
       },
     }));
-  }, [entities, theme]);
+  }, [entities]);
 
   // Derive edges from relationships
   const initialEdges: Edge[] = useMemo(() => {
@@ -58,7 +56,7 @@ export function WorldMap() {
       labelStyle: { fill: 'var(--text-secondary)', fontWeight: 400, fontSize: 12, fontFamily: 'var(--font-sans)' },
       labelBgStyle: { fill: 'var(--bg-surface)', fillOpacity: 0.8 },
     }));
-  }, [relationships, theme]);
+  }, [relationships]);
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);

@@ -206,6 +206,7 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
 
     setNodes(finalNodes);
     setEdges(visibleEdges);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeProjectId, entities, relationships, layoutDirection, showAllEdges, handleAddSubnode]); // Exclude setNodes/setEdges to prevent loops
 
   const forceLayout = useCallback(() => {
@@ -237,8 +238,8 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
     let top: number | undefined = event.clientY - pane.top;
     let left: number | undefined = event.clientX - pane.left;
     
-    let right = left > pane.width - 200 ? pane.width - left : undefined;
-    let bottom = top > pane.height - 200 ? pane.height - top : undefined;
+    const right = left > pane.width - 200 ? pane.width - left : undefined;
+    const bottom = top > pane.height - 200 ? pane.height - top : undefined;
     if (right !== undefined) left = undefined;
     if (bottom !== undefined) top = undefined;
 

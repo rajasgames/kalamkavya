@@ -6,9 +6,7 @@ interface SortableItemProps {
   id: string;
   children: (props: {
     setNodeRef: (node: HTMLElement | null) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     attributes: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     listeners: any | undefined;
     style: React.CSSProperties;
     isDragging: boolean;

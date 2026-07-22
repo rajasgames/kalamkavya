@@ -82,7 +82,7 @@ export function Dashboard() {
     }
   };
 
-  const handleNewProjectCreated = async (_projectId: string) => {
+  const handleNewProjectCreated = async () => {
     const projects = await db.projects.toArray();
     setAllProjects(projects);
     navigate('/world-bible');

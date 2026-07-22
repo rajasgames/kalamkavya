@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Download, UploadCloud, Loader2 } from 'lucide-react';

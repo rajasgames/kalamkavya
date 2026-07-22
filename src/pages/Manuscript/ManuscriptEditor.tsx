@@ -44,6 +44,7 @@ export function ManuscriptEditor() {
   useEffect(() => {
     setEditor(quillRef.current);
     return () => setEditor(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quillRef.current, setEditor]);
 
   // Compute word and char counts based on current text
@@ -60,6 +61,7 @@ export function ManuscriptEditor() {
       const quill = quillRef.current.getEditor();
       updateCounts(quill.getText());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeScene?.id]);
 
   const handleEditorChange = (content: string, _delta: unknown, _source: string, editor: any) => {
