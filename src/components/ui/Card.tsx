@@ -11,12 +11,12 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     { className = '', noPad = false, hoverable = false, variant = 'default', children, ...props },
     ref
   ) => {
-    const baseStyles = 'card card-bordered border-subtle rounded-xl';
+    const baseStyles = 'border border-subtle rounded-xl overflow-hidden flex flex-col';
 
     const variantStyles = {
       default:
-        'bg-elevated shadow-[0_1px_3px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)] text-primary',
-      glass: 'bg-glass backdrop-blur-xl text-primary card-glass',
+        'bg-surface shadow-soft text-primary',
+      glass: 'bg-surface/80 backdrop-blur-xl text-primary border-white/20 dark:border-white/10',
     };
 
     const hoverStyles = hoverable

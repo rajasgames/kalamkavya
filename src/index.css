@@ -6,20 +6,21 @@
   :root {
     /* Backgrounds — Warm Parchment (Light Mode) */
     --bg-canvas: #FBF9F4;        /* Main page background */
-    --bg-surface: #FFFFFF;        /* Cards, sidebar */
-    --bg-deep: #E5E0D8;           /* Input fields, nested surfaces */
-    --bg-ink: #1A1814;            /* Deep ink for dark mode text or accents */
+    --bg-surface: #FFFFFF;       /* Cards, sidebar */
+    --bg-deep: #EBE6DF;          /* Input fields, nested surfaces */
+    --bg-ink: #111111;           /* Deep ink for dark mode text or accents */
     
     /* Text */
-    --text-primary: #2D2A26;      /* Soft black, not harsh #000 */
-    --text-secondary: #6E6456;    /* Warm gray */
-    --text-ghost: #A89F8E;        /* Faint placeholders / metadata */
+    --text-primary: #18181B;     /* Very dark, high contrast */
+    --text-secondary: #52525B;   /* Zinc-600 equivalent */
+    --text-ghost: #A1A1AA;       /* Zinc-400 equivalent */
 
     /* Accents & Semantics */
-    --terracotta: #D97706;        /* Warm Amber Gold (Primary Accent) */
-    --sage: #10B981;              /* Success */
-    --dusty-blue: #6366F1;        /* Info */
-    --cream-border: rgba(45, 42, 38, 0.08);
+    --terracotta: #D97706;       /* Warm Amber Gold (Primary Accent) */
+    --sage: #10B981;             /* Success */
+    --dusty-blue: #6366F1;       /* Info */
+    --destructive: #EF4444;      /* Error/Destructive */
+    --cream-border: rgba(24, 24, 27, 0.08);
 
     /* Borders */
     --border-subtle: #E5E0D8;
@@ -28,8 +29,8 @@
     --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
 
     /* Shadows — Soft & Diffuse */
-    --shadow-soft: 0 1px 3px rgba(45, 42, 38, 0.06), 0 8px 24px rgba(45, 42, 38, 0.04);
-    --shadow-hover: 0 4px 12px rgba(45, 42, 38, 0.08);
+    --shadow-soft: 0 1px 3px rgba(24, 24, 27, 0.06), 0 8px 24px rgba(24, 24, 27, 0.04);
+    --shadow-hover: 0 4px 12px rgba(24, 24, 27, 0.08);
 
     /* Glass — "Frosted Paper" (very subtle) */
     --surface-glass: rgba(251, 248, 241, 0.85);
@@ -37,20 +38,22 @@
   }
 
   [data-theme="dark"] {
-    --bg-canvas: #0F1117;        /* Deep Obsidian */
-    --bg-surface: #1E222D;       /* Slate Charcoal */
-    --bg-deep: #262B38;          /* Dark Steel */
-    --text-primary: #F0EBDF;
-    --text-secondary: #A8A08E;
-    --text-ghost: #5E574D;
-    --terracotta: #D97706;       /* Warm Amber Gold */
+    --bg-canvas: #09090B;        /* Deep Obsidian (Zinc-950) */
+    --bg-surface: #18181B;       /* Slate Charcoal (Zinc-900) */
+    --bg-deep: #27272A;          /* Dark Steel (Zinc-800) */
+    --bg-ink: #FAFAFA;           
+    --text-primary: #FAFAFA;     /* High contrast white */
+    --text-secondary: #A1A1AA;   /* Zinc-400 */
+    --text-ghost: #52525B;       /* Zinc-600 */
+    --terracotta: #F59E0B;       /* Brighter Amber for dark mode contrast */
     --sage: #10B981;             /* Success */
     --dusty-blue: #6366F1;       /* Info */
-    --cream-border: rgba(240, 235, 223, 0.06);
-    --border-subtle: #262B38;
+    --destructive: #EF4444;      /* Error/Destructive */
+    --cream-border: rgba(250, 250, 250, 0.06);
+    --border-subtle: #3F3F46;    /* Zinc-700 */
     --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
     --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
-    --surface-glass: rgba(34, 30, 25, 0.88);
+    --surface-glass: rgba(24, 24, 27, 0.88);
   }
 
   body {

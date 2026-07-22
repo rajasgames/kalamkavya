@@ -22,23 +22,23 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     // Base styles
-    const baseStyles = 'btn inline-flex items-center justify-center transition-all duration-150 ease-out outline-none hover:scale-[1.02] active:scale-[0.98]';
+    const baseStyles = 'inline-flex items-center justify-center transition-all duration-150 ease-out outline-none hover:scale-[1.02] active:scale-[0.98] disabled:hover:scale-100 disabled:active:scale-100 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-terracotta';
 
     // Size styles
     const sizeStyles = {
-      sm: 'btn-sm px-3 py-1.5 text-xs font-semibold rounded-lg gap-1.5',
-      md: 'btn-md px-4 py-2 text-sm font-semibold rounded-xl gap-2',
-      lg: 'btn-lg px-6 py-3 text-base font-bold rounded-xl gap-2.5',
+      sm: 'px-3 py-1.5 text-xs font-semibold rounded-lg gap-1.5',
+      md: 'px-4 py-2 text-sm font-semibold rounded-xl gap-2',
+      lg: 'px-6 py-3 text-base font-bold rounded-xl gap-2.5',
     };
 
     // Variant styles
     const variantStyles = {
       primary:
-        'btn-primary text-white font-bold border-none shadow-[0_2px_8px_rgba(217,119,6,0.25)] hover:shadow-[0_4px_16px_rgba(217,119,6,0.4)]',
+        'bg-terracotta text-white font-bold border border-transparent shadow-[0_2px_8px_rgba(217,119,6,0.25)] hover:shadow-[0_4px_16px_rgba(217,119,6,0.4)] hover:brightness-110',
       ghost:
-        'btn-ghost text-secondary hover:text-primary rounded-xl font-medium transition-colors',
+        'bg-transparent text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 rounded-xl font-medium transition-colors border border-transparent',
       destructive:
-        'btn-error text-white rounded-xl font-medium transition-colors',
+        'bg-destructive text-white font-bold rounded-xl hover:brightness-110 shadow-soft border border-transparent',
     };
 
     // Disabled styles

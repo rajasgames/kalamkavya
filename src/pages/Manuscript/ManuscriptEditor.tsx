@@ -28,6 +28,7 @@ export function ManuscriptEditor() {
     if (activeScene) {
       setEditorContent(activeScene.content || '');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeScene?.id]);
 
   useEffect(() => {
