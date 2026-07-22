@@ -20,7 +20,6 @@ This document outlines the master technical and feature architecture for **Kalam
 ## 2. Technical Stack
 - **Frontend Framework**: React 18+ (via Vite)
 - **Desktop Runtime**: Tauri (Rust-based, lightweight, native performance)
-- **Styling**: Tailwind CSS with custom glassmorphism, dynamic micro-animations, and premium typography.
 - **State Management**: Zustand or Redux Toolkit for managing complex, deeply nested relational data between the manuscript and world bible.
 - **Node/Graph Visualization**: React Flow (or similar) for the Master Flowchart.
 - **Rich Text Editor**: Protiptap, Slate.js, or Lexical for the Manuscript Editor, enabling custom inline blocks (e.g., linking a character directly in the text).
@@ -65,12 +64,7 @@ The central hub for creative production, linking directly to the World Bible.
   - Custom Columns: Subplots, parallel arcs.
 - **Outline Panel**: Quick navigation and structural overview of the entire project.
 
----
 
-## 4. UI/UX & Aesthetic Design System
-- **Premium Interface**: Move away from basic layouts. The app will utilize translucent backgrounds (`backdrop-blur`), soft shadows, and deep, vibrant accent colors appropriate for a rich mythological theme.
-- **Sidebar Navigation**: A sleek, animated sidebar for switching between the Manuscript Editor, World Bible, Plot Board, and Character Database.
-- **Contextual Writing**: The rich text editor will support a split-screen or popover view where highlighting a character's name pulls up their World Bible node (traits, allegiances) without breaking the writing flow.
 
 ---
 
@@ -89,11 +83,8 @@ The central hub for creative production, linking directly to the World Bible.
 - Integrate the Rich Text Editor with custom entity-linking plugins.
 - Build the Kanban Plot Board and hierarchical Outline Panel.
 
-### Phase 4: UI Polish & Polish
-- Apply glassmorphism, fluid animations, and premium typography.
-- Conduct end-to-end testing of the contextual writing features.
+
 
 ## 6. Verification Plan
 - **Data Integrity**: Ensure modifying a character's attributes automatically reflects in the Master Flowchart and Manuscript context cards.
 - **Performance**: Test the node visualization (React Flow) with 500+ interconnected entities to ensure native-like performance in Tauri.
-- **UI Responsiveness**: Verify transitions and glassmorphism rendering across different OS environments (Windows/macOS) via Tauri.

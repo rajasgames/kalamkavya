@@ -20,6 +20,15 @@ export function ManuscriptEditor() {
   const [focusTime, setFocusTime] = useState(0);
   const [wordCount, setWordCount] = useState(0);
   const [charCount, setCharCount] = useState(0);
+  const [editorContent, setEditorContent] = useState('');
+
+  const activeScene = scenes.find((s) => s.id === activeSceneId);
+
+  useEffect(() => {
+    if (activeScene) {
+      setEditorContent(activeScene.content || '');
+    }
+  }, [activeScene?.id]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -38,8 +47,6 @@ export function ManuscriptEditor() {
     const s = seconds % 60;
     return `${m}:${s.toString().padStart(2, '0')}`;
   };
-
-  const activeScene = scenes.find((s) => s.id === activeSceneId);
 
   useEffect(() => {
     setEditor(quillRef.current);
@@ -66,6 +73,8 @@ export function ManuscriptEditor() {
 
   const handleEditorChange = (content: string, _delta: unknown, _source: string, editor: any) => {
     if (!activeScene) return;
+
+    setEditorContent(content);
 
     const text = editor.getText();
     const currentWordCount = updateCounts(text);
@@ -163,7 +172,7 @@ export function ManuscriptEditor() {
             <ReactQuill 
               ref={quillRef}
               theme="snow"
-              value={activeScene.content}
+              value={editorContent}
               onChange={handleEditorChange}
               modules={modules}
               placeholder="Start writing..."
