@@ -50,7 +50,7 @@ export const Layout = () => {
       {/* Header Bar */}
       <header className={`h-[56px] shrink-0 border-b border-subtle flex items-center px-6 justify-between bg-surface/80 backdrop-blur-md z-30 transition-all duration-300 ${isFocusMode ? '-mt-[56px] opacity-0 pointer-events-none' : 'mt-0 opacity-100'}`}>
         <div className="flex items-center gap-6">
-          <div className="font-display font-medium text-xl tracking-tight">Inkwell</div>
+          <div className="font-display font-medium text-xl tracking-tight">कalam काvya</div>
           {/* Workspace Switcher — placeholder for multi-workspace support */}
           <button className="text-sm text-secondary hover:text-primary transition-colors font-sans flex items-center gap-1">
             My Workspace <ChevronDown size={13} className="opacity-60" />

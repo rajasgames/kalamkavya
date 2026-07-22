@@ -44,7 +44,7 @@ export function OnboardingModal() {
   const totalSteps = 5;
 
   const handleClose = () => {
-    localStorage.setItem('inkwell_onboarding_completed', 'true');
+    localStorage.setItem('kalam-kavya_onboarding_completed', 'true');
     setOnboardingOpen(false);
   };
 
@@ -78,7 +78,7 @@ export function OnboardingModal() {
 
       if (projectId) {
         await setActiveProject(projectId);
-        localStorage.setItem('inkwell_onboarding_completed', 'true');
+        localStorage.setItem('kalam-kavya_onboarding_completed', 'true');
         setOnboardingOpen(false);
         setActivePillar('worldbible');
         navigate('/world-bible');
@@ -101,7 +101,7 @@ export function OnboardingModal() {
             </div>
             <div>
               <h2 className="text-xl font-serif font-bold text-primary flex items-center gap-2">
-                Welcome to Inkwell Pro
+                Welcome to कalam काvya
                 <span className="text-[10px] font-mono uppercase bg-amber-from/15 text-amber-from border border-amber-from/30 px-2 py-0.5 rounded-full font-bold">
                   User Guide & Tour
                 </span>
@@ -159,7 +159,7 @@ export function OnboardingModal() {
                   The All-in-One Studio for Novelists & Worldbuilders
                 </h3>
                 <p className="text-sm text-secondary leading-relaxed max-w-2xl">
-                  Inkwell Pro bridges the gap between creative storytelling, deep encyclopedic worldbuilding, and context-aware artificial intelligence. Designed for writers who demand complete control over their narrative universe.
+                  कalam काvya bridges the gap between creative storytelling, deep encyclopedic worldbuilding, and context-aware artificial intelligence. Designed for writers who demand complete control over their narrative universe.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
@@ -387,7 +387,7 @@ export function OnboardingModal() {
                 </div>
 
                 <p className="text-xs text-secondary leading-relaxed">
-                  Inkwell Pro gives you full sovereignty over your data and AI providers. You can write 100% offline with zero data leakage or connect powerful cloud endpoints.
+                  कalam काvya gives you full sovereignty over your data and AI providers. You can write 100% offline with zero data leakage or connect powerful cloud endpoints.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
@@ -474,7 +474,7 @@ export function OnboardingModal() {
                 <div className="p-4 rounded-xl bg-base border border-subtle">
                   <h5 className="font-bold text-xs text-primary mb-1">Dynamic Genre Modules</h5>
                   <p className="text-xs text-ghost leading-relaxed">
-                    Inkwell Pro supports multiple genre structures. When creating a novel project, select genre modules like <span className="text-primary font-medium">Vedic Myth</span>, <span className="text-primary font-medium">Contemporary Rom-Com</span>, or <span className="text-primary font-medium">Sci-Fi</span> to automatically enable customized worldbuilding schemas.
+                    कalam काvya supports multiple genre structures. When creating a novel project, select genre modules like <span className="text-primary font-medium">Vedic Myth</span>, <span className="text-primary font-medium">Contemporary Rom-Com</span>, or <span className="text-primary font-medium">Sci-Fi</span> to automatically enable customized worldbuilding schemas.
                   </p>
                 </div>
               </div>
@@ -491,7 +491,7 @@ export function OnboardingModal() {
                 <div>
                   <h4 className="text-xl font-serif font-bold text-primary">You're Ready to Architect Your Story!</h4>
                   <p className="text-xs text-secondary max-w-lg mx-auto mt-1">
-                    Choose how you would like to begin your journey in Inkwell Pro.
+                    Choose how you would like to begin your journey in कalam काvya.
                   </p>
                 </div>
 

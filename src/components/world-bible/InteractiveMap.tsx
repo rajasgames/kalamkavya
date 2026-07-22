@@ -92,7 +92,7 @@ export function InteractiveMap({ onMapImageLoad }: InteractiveMapProps) {
       
       <div className="absolute top-4 right-4 z-10 flex gap-2">
         <SketchModeToggle 
-          storageKey="inkwell-sketchmode-atlas" 
+          storageKey="kalam-kavya-sketchmode-atlas" 
           isSketchMode={isSketchMode} 
           onToggle={setIsSketchMode} 
         />

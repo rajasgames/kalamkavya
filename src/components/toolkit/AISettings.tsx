@@ -256,7 +256,7 @@ export function AISettings() {
                         placeholder={isLocalProvider ? 'Not required for local providers' : 'sk-...'}
                       />
                       <p className="text-ghost text-[11px] mt-1 italic">
-                        Stored locally on your device only. Never sent to Inkwell servers.
+                        Stored locally on your device only. Never sent to कalam काvya servers.
                       </p>
                     </div>
 

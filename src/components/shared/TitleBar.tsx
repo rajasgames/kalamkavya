@@ -34,7 +34,7 @@ export function TitleBar() {
       data-tauri-drag-region
     >
       <div className="flex-1 flex items-center pl-4 h-full" data-tauri-drag-region>
-        <span className="text-xs font-semibold text-primary font-sans" data-tauri-drag-region>Inkwell</span>
+        <span className="text-xs font-semibold text-primary font-sans" data-tauri-drag-region>कalam काvya</span>
       </div>
       
       <div className="flex items-center h-full text-secondary">

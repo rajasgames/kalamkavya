@@ -1,13 +1,13 @@
-# Inkwell Pro 🖋️✨
+# कalam काvya 🖋️✨
 
 > **The All-in-One Studio & Narrative Engine for Authors, Worldbuilders, and Story Architects.**
 
-![Inkwell Pro Version](https://img.shields.io/badge/version-0.1.0-amber?style=for-the-badge)
+![कalam काvya Version](https://img.shields.io/badge/version-0.1.0-amber?style=for-the-badge)
 ![Tech Stack](https://img.shields.io/badge/stack-React_18_%7C_TypeScript_%7C_Vite_%7C_Tauri-blue?style=for-the-badge)
 ![Database](https://img.shields.io/badge/storage-Dexie.js_(IndexedDB)-emerald?style=for-the-badge)
 ![AI Privacy](https://img.shields.io/badge/AI-Local_(Ollama/LM_Studio)_%2B_Cloud-purple?style=for-the-badge)
 
-Inkwell Pro bridges the gap between distraction-free manuscript drafting, encyclopedic worldbuilding, character cast management, and context-aware artificial intelligence. Whether you are crafting Vedic mythological epics, hard sci-fi sagas, or contemporary romances, Inkwell Pro gives you complete control over your narrative universe.
+कalam काvya bridges the gap between distraction-free manuscript drafting, encyclopedic worldbuilding, character cast management, and context-aware artificial intelligence. Whether you are crafting Vedic mythological epics, hard sci-fi sagas, or contemporary romances, कalam काvya gives you complete control over your narrative universe.
 
 ---
 
@@ -39,7 +39,7 @@ Inkwell Pro bridges the gap between distraction-free manuscript drafting, encycl
 
 ## 🤖 Privacy-First AI Integration
 
-Inkwell Pro gives you complete data sovereignty:
+कalam काvya gives you complete data sovereignty:
 
 - **100% Offline Local LLMs**: Connect **Ollama** or **LM Studio** to run models like Llama 3, Mistral, or Gemma on your local GPU with zero internet connection or data leakage.
 - **Cloud LLMs**: Connect **OpenAI** (GPT-4o), **Groq** (Instant Llama 3.1), or **OpenRouter** API keys.
@@ -82,8 +82,8 @@ Ensure you have the following installed on your machine:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/rajasgames/inkwell.git
-cd inkwell
+git clone https://github.com/rajasgames/kalam-kavya.git
+cd kalam-kavya
 ```
 
 ### 2. Install Dependencies
@@ -110,7 +110,7 @@ npm run build
 
 ## 📖 First-Time User Onboarding
 
-Inkwell Pro includes a built-in 5-step interactive **User Guide & Tour**. First-time users will automatically see the tour upon initial launch, offering:
+कalam काvya includes a built-in 5-step interactive **User Guide & Tour**. First-time users will automatically see the tour upon initial launch, offering:
 1. An overview of the story studio philosophy.
 2. Interactive walkthrough of the 4 Core Pillars.
 3. Local & Cloud AI setup instructions.

@@ -2,7 +2,7 @@ import Dexie, { Table } from 'dexie';
 import { Entity, Relationship, AiSettings, Project, Chapter, Scene } from '@/types';
 import { applyMigrations } from './migrations';
 
-export class InkwellDatabase extends Dexie {
+export class कalam काvyaDatabase extends Dexie {
   projects!: Table<Project, string>;
   entities!: Table<Entity, string>;
   relationships!: Table<Relationship, string>;
@@ -14,7 +14,7 @@ export class InkwellDatabase extends Dexie {
   generationLogs!: Table<import('@/types/story.types').GenerationLog, string>;
 
   constructor() {
-    super('inkwell-db');
+    super('kalam-kavya-db');
     
     // Apply schema versions and migrations
     applyMigrations(this);
@@ -22,4 +22,4 @@ export class InkwellDatabase extends Dexie {
 }
 
 // Export singleton instance
-export const db = new InkwellDatabase();
+export const db = new कalam काvyaDatabase();

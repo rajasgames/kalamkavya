@@ -1,4 +1,4 @@
-import { InkwellDatabase } from './database';
+import { कalam काvyaDatabase } from './database';
 
 /**
  * Apply database migrations and define the schema versions.
@@ -7,7 +7,7 @@ import { InkwellDatabase } from './database';
  * The primary key is always the first specified property.
  * We do not define every column here, only the properties that need to be indexed.
  */
-export function applyMigrations(db: InkwellDatabase) {
+export function applyMigrations(db: कalam काvyaDatabase) {
   db.version(1).stores({
     projects: 'id, title',
     entities: 'id, projectId, type, entityClass, [projectId+type], [projectId+entityClass], name, hasAIRule',

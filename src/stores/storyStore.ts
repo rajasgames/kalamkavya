@@ -254,7 +254,7 @@ export const useStoryStore = create<StoryState>()(
         },
       }),
       {
-        name: 'inkwell-story-storage',
+        name: 'kalam-kavya-story-storage',
         // Only persist the activeProjectId to localStorage
         partialize: (state) => ({ activeProjectId: state.activeProjectId }),
         onRehydrateStorage: () => (state) => {

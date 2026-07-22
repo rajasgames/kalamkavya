@@ -14,7 +14,7 @@ export function AIDrawer() {
   const { activeProvider, isStreaming, streamedText, clearStream, cancelStream } = useAIStore();
   
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello! I am your Inkwell AI assistant. How can I help you with your world-building or manuscript today?' }
+    { role: 'assistant', content: 'Hello! I am your कalam काvya AI assistant. How can I help you with your world-building or manuscript today?' }
   ]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -42,7 +42,7 @@ export function AIDrawer() {
       const payload = `Chat History:\n${historyContext}\n\nUser: ${userMsgContent}`;
 
       await streamAI({
-        systemPrompt: "You are a helpful AI assistant for the Inkwell world-building and writing tool. Be concise, creative, and extremely helpful.",
+        systemPrompt: "You are a helpful AI assistant for the कalam काvya world-building and writing tool. Be concise, creative, and extremely helpful.",
         userMessage: payload,
         onChunk: () => {},
         onDone: () => {
@@ -72,7 +72,7 @@ export function AIDrawer() {
           </div>
           <div>
             <h2 className="font-serif font-bold text-lg text-primary leading-none">AI Assistant</h2>
-            <span className="text-[10px] text-ghost font-medium">Inkwell Intelligence</span>
+            <span className="text-[10px] text-ghost font-medium">कalam काvya Intelligence</span>
           </div>
         </div>
         <button 

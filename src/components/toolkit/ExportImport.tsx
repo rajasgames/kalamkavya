@@ -50,12 +50,12 @@ export function ExportImport() {
 
       const safeTitle = project.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
       const date = new Date().toISOString().split('T')[0];
-      const defaultFilename = `${safeTitle}-${date}.inkwell`;
+      const defaultFilename = `${safeTitle}-${date}.kalam-kavya`;
       const jsonContent = JSON.stringify(payload, null, 2);
 
       if (window.__TAURI__) {
         const filePath = await save({
-          filters: [{ name: 'Inkwell Project', extensions: ['inkwell'] }],
+          filters: [{ name: 'कalam काvyaject', extensions: ['kalam-kavya'] }],
           defaultPath: defaultFilename
         });
         if (filePath) {
@@ -103,7 +103,7 @@ export function ExportImport() {
       setShowConfirm(true);
     } catch (err) {
       console.error("Import error", err);
-      showToast("Invalid file format — please use a file exported from Inkwell.", 'error');
+      showToast("Invalid file format — please use a file exported from कalam काvya.", 'error');
     }
   };
 
@@ -220,7 +220,7 @@ export function ExportImport() {
       <section className="bg-elevated border border-subtle p-6 rounded-xl">
         <h2 className="text-xl font-serif text-primary mb-2">Export Project</h2>
         <p className="text-secondary text-sm mb-6">
-          Download a complete backup of your current project. This includes all entities, relationships, chapters, scenes, and notes. The resulting <code>.inkwell</code> file is fully portable and operates offline.
+          Download a complete backup of your current project. This includes all entities, relationships, chapters, scenes, and notes. The resulting <code>.kalam-kavya</code> file is fully portable and operates offline.
         </p>
         <Button 
           onClick={handleExport} 
@@ -235,7 +235,7 @@ export function ExportImport() {
           ) : (
             <>
               <Download size={16} />
-              Export to .inkwell
+              Export to .kalam-kavya
             </>
           )}
         </Button>
@@ -245,7 +245,7 @@ export function ExportImport() {
       <section className="bg-elevated border border-subtle p-6 rounded-xl flex-1 flex flex-col">
         <h2 className="text-xl font-serif text-primary mb-2">Import Project</h2>
         <p className="text-secondary text-sm mb-6">
-          Upload a previously exported <code>.inkwell</code> file to add it to your library. 
+          Upload a previously exported <code>.kalam-kavya</code> file to add it to your library. 
           Existing projects will not be overwritten.
         </p>
 
@@ -259,11 +259,11 @@ export function ExportImport() {
         >
           <UploadCloud size={48} className={isDragging ? 'text-amber-from mb-4' : 'text-ghost mb-4'} />
           <p className="text-primary font-medium mb-1">Drag and drop your file here</p>
-          <p className="text-secondary text-sm mb-4">Accepts .inkwell or .json</p>
+          <p className="text-secondary text-sm mb-4">Accepts .kalam-kavya or .json</p>
           
           <input 
             type="file" 
-            accept=".inkwell,.json" 
+            accept=".kalam-kavya,.json" 
             className="hidden" 
             ref={fileInputRef}
             onChange={(e) => {

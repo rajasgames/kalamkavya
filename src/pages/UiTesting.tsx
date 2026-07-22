@@ -22,7 +22,7 @@ export function UiTesting() {
     <div id="main-content" className="min-h-screen bg-base text-primary p-8 transition-colors duration-300 transition-[filter] ease-out">
       <header className="flex items-center justify-between border-b border-subtle pb-6 mb-8">
         <div>
-          <h1 className="text-4xl font-serif text-primary">Inkwell Engine</h1>
+          <h1 className="text-4xl font-serif text-primary">कalam काvya Engine</h1>
           <p className="text-secondary mt-2">Design Token System Test Page</p>
         </div>
         <div className="flex gap-4">
@@ -265,7 +265,7 @@ export function UiTesting() {
       <Modal 
         isOpen={standardModal.isOpen} 
         onClose={standardModal.close}
-        title="Welcome to Inkwell"
+        title="Welcome to कalam काvya"
         description="This is a standard modal dialog. It uses the custom 'animate-modal-content' keyframes and dims the background with a backdrop blur."
       >
         <div className="space-y-4 py-4">

@@ -1,4 +1,4 @@
-# Inkwell Pro 🖋️✨ — Product Design Document (PDD) & UX Requirements
+# कalam काvya 🖋️✨ — Product Design Document (PDD) & UX Requirements
 
 > **Version**: 1.0  
 > **Target Audience**: UI/UX Design & Frontend Engineering Teams  
@@ -10,17 +10,17 @@
 ## 1. Executive Summary
 
 ### Product Overview
-**Inkwell Pro** is an all-in-one desktop and web-based narrative studio designed specifically for fiction authors, screenwriters, worldbuilders, and story architects. It bridges the gap between distraction-free manuscript drafting, encyclopedic worldbuilding, cast relationship management, and privacy-first artificial intelligence (local LLMs via Ollama/LM Studio and cloud LLMs via OpenAI/Groq/OpenRouter).
+**कalam काvya** is an all-in-one desktop and web-based narrative studio designed specifically for fiction authors, screenwriters, worldbuilders, and story architects. It bridges the gap between distraction-free manuscript drafting, encyclopedic worldbuilding, cast relationship management, and privacy-first artificial intelligence (local LLMs via Ollama/LM Studio and cloud LLMs via OpenAI/Groq/OpenRouter).
 
 ### Primary Value Proposition
-Existing creative tools force writers to constantly context-switch between disparate apps (Scrivener for drafting, Notion/Obsidian for worldbible notes, WorldAnvil for lore, and web browser tabs for ChatGPT). Inkwell Pro unifies these workflows into a single offline-first, highly tactile environment where the AI engine possesses complete, context-aware awareness of the user's active scene, characters, and lore while maintaining 100% data sovereignty and privacy.
+Existing creative tools force writers to constantly context-switch between disparate apps (Scrivener for drafting, Notion/Obsidian for worldbible notes, WorldAnvil for lore, and web browser tabs for ChatGPT). कalam काvya unifies these workflows into a single offline-first, highly tactile environment where the AI engine possesses complete, context-aware awareness of the user's active scene, characters, and lore while maintaining 100% data sovereignty and privacy.
 
 ### Overall Design Vision
 *"Warm literary craftsmanship meets high-efficiency studio tools."*  
 The interface must evoke the aesthetic satisfaction of a master bookbinder's desk paired with the speed and precision of a high-performance developer IDE. It prioritizes focus, clarity, high information density without clutter, and fluid micro-interactions.
 
 ### Primary Business Goals
-1. **Market Leadership**: Establish Inkwell Pro as the premier narrative software for serious authors and worldbuilders.
+1. **Market Leadership**: Establish कalam काvya as the premier narrative software for serious authors and worldbuilders.
 2. **User Retention**: Achieve high daily active usage (DAU) by creating a friction-free, flow-state drafting environment.
 3. **Data Sovereignty Champion**: Build a strong brand reputation for offline dependability and privacy-first local AI integration.
 
@@ -46,7 +46,7 @@ The interface must evoke the aesthetic satisfaction of a master bookbinder's des
 * **Technical Proficiency**: Moderate. Values clean, intuitive visual design, fast offline launch, and keyboard efficiency.
 
 ### "Day in the Life" Scenario: Elena's Writing Session
-1. **08:00 AM — Coffee Shop Launch**: Elena opens Inkwell Pro on her laptop without Wi-Fi. The desktop app launches instantly (<1s) into her active project.
+1. **08:00 AM — Coffee Shop Launch**: Elena opens कalam काvya on her laptop without Wi-Fi. The desktop app launches instantly (<1s) into her active project.
 2. **08:02 AM — Entering Flow State**: She selects Chapter 4, Scene 1 in the **Manuscript Studio** and hits `Ctrl+F` (Focus Mode). The sidebars smoothly retract, leaving a clean serif canvas. She launches a 20-minute Word Sprint using the floating `<Timer>` widget.
 3. **08:12 AM — Instant Lore Lookup**: While writing, Elena needs to verify the rules of the "Solar Core Artifact". She types `@` or hits `Ctrl+K` (Global Search), previews the artifact entry in a lightweight popover, inserts a cross-link chip, and resumes typing without moving her hands from the keyboard.
 4. **08:18 AM — Local AI Brainstorming**: Stuck on a dialogue transition, she opens the **AI Co-Pilot Drawer** (`Sparkles`). Her local Ollama model reads the active scene context and suggests three voice-consistent dialogue options. She picks option 2 with one click.
@@ -57,7 +57,7 @@ The interface must evoke the aesthetic satisfaction of a master bookbinder's des
 ## 3. Information Architecture (IA)
 
 ```
-[ Inkwell Pro Studio ]
+[ कalam काvya Studio ]
  ├── 📊 1. Dashboard (Overview & Analytics)
  │    ├── Project Metrics & Word Target Gauge
  │    ├── Quick Sprint Launcher

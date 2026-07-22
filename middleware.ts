@@ -13,7 +13,7 @@ export default function middleware(req: Request) {
 
       // Reads credentials from Vercel Environment Variables, with default fallback
       const expectedUser = process.env.BASIC_AUTH_USER || 'admin';
-      const expectedPwd = process.env.BASIC_AUTH_PASSWORD || 'inkwell2026';
+      const expectedPwd = process.env.BASIC_AUTH_PASSWORD || 'kalam-kavya2026';
 
       if (user === expectedUser && pwd === expectedPwd) {
         return new Response(null, {
@@ -30,7 +30,7 @@ export default function middleware(req: Request) {
   return new Response('Access Restricted: Authentication Required', {
     status: 401,
     headers: {
-      'WWW-Authenticate': 'Basic realm="Inkwell Pro Beta Access"',
+      'WWW-Authenticate': 'Basic realm="कalam काvya Beta Access"',
     },
   });
 }

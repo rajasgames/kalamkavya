@@ -191,7 +191,7 @@ export function ManuscriptEditor() {
             {activeScene.title}
           </h1>
 
-          <div className="inkwell-editor-container">
+          <div className="kalam-kavya-editor-container">
             <ReactQuill 
               ref={quillRef}
               theme="snow"

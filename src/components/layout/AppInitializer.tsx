@@ -60,7 +60,7 @@ export const AppInitializer = ({ children }: { children: React.ReactNode }) => {
         }
 
         // 5. Trigger Onboarding for First Time User
-        const hasCompletedOnboarding = localStorage.getItem('inkwell_onboarding_completed') === 'true';
+        const hasCompletedOnboarding = localStorage.getItem('kalam-kavya_onboarding_completed') === 'true';
         if (!hasCompletedOnboarding && isMounted) {
           useUIStore.getState().setOnboardingOpen(true);
         }

@@ -4,7 +4,7 @@ import { UIState, Pillar, Theme } from '@/types';
 
 const getInitialTheme = (): Theme => {
   try {
-    const stored = localStorage.getItem('inkwell-theme');
+    const stored = localStorage.getItem('kalam-kavya-theme');
     if (stored === 'dark' || stored === 'light') return stored;
   } catch (e) {
     console.warn('Failed to read theme from localStorage', e);
@@ -23,7 +23,7 @@ export const useUIStore = create<UIState>()(
       isSprintWidgetOpen: false,
       isAIDrawerOpen: false,
       isAISettingsOpen: false,
-      isOnboardingOpen: typeof window !== 'undefined' ? localStorage.getItem('inkwell_onboarding_completed') !== 'true' : false,
+      isOnboardingOpen: typeof window !== 'undefined' ? localStorage.getItem('kalam-kavya_onboarding_completed') !== 'true' : false,
       isFocusMode: false,
 
       setActivePillar: (pillar: Pillar) => set({ activePillar: pillar }),
@@ -31,7 +31,7 @@ export const useUIStore = create<UIState>()(
       setSidebarExpanded: (expanded: boolean) => set({ isSidebarExpanded: expanded }),
       setTheme: (theme: Theme) => {
         try {
-          localStorage.setItem('inkwell-theme', theme);
+          localStorage.setItem('kalam-kavya-theme', theme);
         } catch (e) {
           console.warn('Failed to read theme from localStorage', e);
         }

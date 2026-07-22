@@ -176,7 +176,7 @@ export function Dashboard() {
         <div className="text-center flex flex-col items-center mb-16 pt-8">
           <h2 className="text-4xl sm:text-5xl font-serif text-primary mb-4">{getGreeting()}</h2>
           <p className="text-secondary mb-8 max-w-lg text-lg">
-            Inkwell works for any genre — from Vedic epics to rom-coms to sci-fi mysteries.
+            कalam काvya works for any genre — from Vedic epics to rom-coms to sci-fi mysteries.
             Create a new project or jump in with a sample world.
           </p>
 

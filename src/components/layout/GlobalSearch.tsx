@@ -15,7 +15,7 @@ interface SearchResult {
   categorySlug?: string;
 }
 
-const RECENT_SEARCHES_KEY = 'inkwell-recent-searches';
+const RECENT_SEARCHES_KEY = 'kalam-kavya-recent-searches';
 
 export function GlobalSearch() {
   const { isOpen, closeSearch } = useSearchStore();
