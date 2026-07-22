@@ -1,8 +1,12 @@
+import { heroui } from "@heroui/react";
+import daisyui from "daisyui";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: ['class', '[data-theme="dark"]'],
   theme: {
@@ -34,5 +38,6 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [heroui(), daisyui],
 }
+

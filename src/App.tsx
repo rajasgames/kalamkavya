@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HeroUIProvider } from '@heroui/react';
 import { ToastProvider } from '@/components/ui';
 import { AppInitializer, Layout } from '@/components/layout';
 import { TitleBar } from '@/components/shared';
@@ -17,7 +18,8 @@ import { WorldBibleLayout } from '@/pages/WorldBible/WorldBibleLayout';
 
 function App() {
   return (
-    <ToastProvider>
+    <HeroUIProvider>
+      <ToastProvider>
         <BrowserRouter>
           <TitleBar />
           <AppInitializer>
@@ -40,7 +42,9 @@ function App() {
           </AppInitializer>
         </BrowserRouter>
       </ToastProvider>
+    </HeroUIProvider>
   );
 }
 
 export default App;
+

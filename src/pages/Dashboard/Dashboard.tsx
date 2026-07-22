@@ -212,7 +212,7 @@ export function Dashboard() {
       ) : (
         // ── Active project hero — condensed: text-2xl, p-6, tighter premise margin ──
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <Card className="col-span-1 lg:col-span-2 p-6 flex flex-col justify-center bg-surface shadow-soft border-subtle">
+          <Card className="col-span-1 lg:col-span-2 p-6 flex flex-col justify-center bg-surface shadow-soft border-subtle card card-bordered">
             <div className="flex items-center gap-2 mb-2">
               <Badge variant="sage" caps>{getGenreLabel(activeProject)}</Badge>
             </div>
@@ -220,15 +220,15 @@ export function Dashboard() {
             <p className="text-secondary mb-5 line-clamp-2">{activeProject.premise}</p>
             
             <div className="flex flex-wrap gap-3">
-              <Button className="gap-2" onClick={() => navigate('/manuscript/editor')}>
+              <Button className="gap-2 btn btn-primary" onClick={() => navigate('/manuscript/editor')}>
                 <PenTool size={16} />
                 Continue Writing
               </Button>
-              <Button variant="ghost" className="gap-2" onClick={() => navigate('/toolkit/ai')}>
+              <Button variant="ghost" className="gap-2 btn btn-ghost" onClick={() => navigate('/toolkit/ai-assistant')}>
                 <Sparkles size={16} />
                 Generate Lore
               </Button>
-              <Button variant="ghost" className="gap-2" onClick={() => useUIStore.getState().setSprintWidgetOpen(true)}>
+              <Button variant="ghost" className="gap-2 btn btn-ghost" onClick={() => useUIStore.getState().setSprintWidgetOpen(true)}>
                 <Timer size={16} />
                 Word Sprint
               </Button>
@@ -236,7 +236,7 @@ export function Dashboard() {
           </Card>
 
           {/* Progress Ring — condensed to match hero density */}
-          <Card className="col-span-1 p-6 flex flex-col items-center justify-center text-center shadow-soft border-subtle">
+          <Card className="col-span-1 p-6 flex flex-col items-center justify-center text-center shadow-soft border-subtle card card-bordered bg-surface">
             <h3 className="text-xs font-bold tracking-wider text-ghost uppercase mb-4">Manuscript Progress</h3>
             <ProgressRing currentWordCount={totalWordCount} targetWordCount={activeProject.targetWordCount || 50000} size={130} strokeWidth={9} />
             <div className="mt-4 text-sm text-secondary">
@@ -269,7 +269,12 @@ export function Dashboard() {
           {recentScenes.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {recentScenes.map(scene => (
-                <Card key={scene.id} hoverable className="p-5 flex flex-col cursor-pointer bg-canvas shadow-soft hover:shadow-hover hover:-translate-y-0.5 transition-all duration-300" onClick={() => navigate('/manuscript/editor')}>
+                <Card 
+                  key={scene.id} 
+                  hoverable 
+                  className="card card-bordered p-5 flex flex-col cursor-pointer bg-canvas shadow-soft hover:shadow-lg hover:-translate-y-1 hover:border-terracotta/40 transition-all duration-300" 
+                  onClick={() => navigate('/manuscript/editor')}
+                >
                   <div className="flex items-start justify-between mb-3">
                     <Badge variant="sage">{scene.wordCount} words</Badge>
                     <span className="text-xs text-ghost">{getRelativeTime(scene.updatedAt || Date.now())}</span>

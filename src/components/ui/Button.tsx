@@ -22,23 +22,23 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     // Base styles
-    const baseStyles = 'inline-flex items-center justify-center transition-all duration-200 ease-out outline-none focus:outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-from/50 cursor-pointer';
+    const baseStyles = 'btn inline-flex items-center justify-center transition-all duration-200 ease-out outline-none';
 
     // Size styles
     const sizeStyles = {
-      sm: 'px-3 py-1.5 text-xs font-semibold rounded-lg gap-1.5',
-      md: 'px-4 py-2 text-sm font-semibold rounded-xl gap-2',
-      lg: 'px-6 py-3 text-base font-bold rounded-xl gap-2.5',
+      sm: 'btn-sm px-3 py-1.5 text-xs font-semibold rounded-lg gap-1.5',
+      md: 'btn-md px-4 py-2 text-sm font-semibold rounded-xl gap-2',
+      lg: 'btn-lg px-6 py-3 text-base font-bold rounded-xl gap-2.5',
     };
 
     // Variant styles
     const variantStyles = {
       primary:
-        'bg-amber-from text-black font-bold border border-amber-from/40 shadow-[0_2px_8px_rgba(212,153,90,0.22)] hover:shadow-[0_4px_16px_rgba(212,153,90,0.35)] hover:bg-amber-from/90 active:scale-[0.98]',
+        'btn-primary bg-amber-from text-black font-bold border border-amber-from/40 shadow-[0_2px_8px_rgba(212,153,90,0.22)] hover:shadow-[0_4px_16px_rgba(212,153,90,0.35)] hover:bg-amber-from/90 active:scale-[0.98]',
       ghost:
-        'text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 rounded-xl font-medium transition-colors',
+        'btn-ghost text-secondary hover:text-primary rounded-xl font-medium transition-colors',
       destructive:
-        'text-clay hover:bg-clay/15 rounded-xl font-medium transition-colors',
+        'btn-error text-white rounded-xl font-medium transition-colors',
     };
 
     // Disabled styles

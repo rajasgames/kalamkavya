@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, PenTool, BookOpen, Users, Wrench, PanelLeftClose, PanelLeftOpen, Search, LucideIcon, Sparkles, Settings, HelpCircle, PlusCircle, ArrowRight } from 'lucide-react';
+import { Tooltip } from '@heroui/react';
 import { useUIStore } from '@/stores/uiStore';
 import { useSearchStore } from '@/stores/searchStore';
 import { Pillar } from '@/types';
@@ -44,12 +45,12 @@ const PILLARS: PillarDef[] = [
     ]
   },
   { 
-    id: 'toolkit', label: 'Toolkit', icon: Wrench, defaultHref: '/toolkit/ai',
+    id: 'toolkit', label: 'Toolkit', icon: Wrench, defaultHref: '/toolkit/ai-assistant',
     subViews: [
-      { id: 'ai', label: 'AI Assistant', href: '/toolkit/ai' },
-      { id: 'ideas', label: 'Ideas', href: '/toolkit/ideas' },
+      { id: 'ai-assistant', label: 'AI Assistant', href: '/toolkit/ai-assistant' },
+      { id: 'ideas', label: 'Concepts Lab', href: '/toolkit/ideas' },
       { id: 'insights', label: 'Insights', href: '/toolkit/insights' },
-      { id: 'search', label: 'Search', href: '/toolkit/search' }
+      { id: 'data', label: 'Data Management', href: '/toolkit/data' }
     ]
   }
 ];
@@ -109,107 +110,128 @@ export const Sidebar = () => {
               {PILLARS.map(pillar => {
                 const isActive = activePillar === pillar.id;
                 return (
-                  <button
+                  <Tooltip
                     key={pillar.id}
-                    onClick={() => handlePillarClick(pillar)}
-                    title={isSidebarExpanded ? undefined : pillar.label}
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 relative group ${
-                      isActive 
-                        ? 'text-terracotta font-semibold bg-deep' 
-                        : 'text-ghost hover:text-primary hover:bg-deep active:scale-95'
-                    }`}
+                    content={pillar.label}
+                    isDisabled={isSidebarExpanded}
+                    placement="right"
+                    delay={200}
+                    closeDelay={0}
+                    classNames={{
+                      content: "bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap shadow-soft font-medium"
+                    }}
                   >
-                    {isActive && (
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 rounded-r-md bg-terracotta pointer-events-none" />
-                    )}
-                    <pillar.icon size={20} className="relative z-10 shrink-0" />
-                    
-                    {/* Tooltip on hover (when collapsed) */}
-                    {!isSidebarExpanded && (
-                      <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-canvas border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-soft font-medium">
-                        {pillar.label}
-                      </div>
-                    )}
-                  </button>
+                    <button
+                      onClick={() => handlePillarClick(pillar)}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 relative group active:scale-95 ${
+                        isActive 
+                          ? 'text-terracotta font-semibold bg-deep shadow-[inset_0_1px_3px_rgba(0,0,0,0.1)]' 
+                          : 'text-ghost hover:text-primary hover:bg-deep'
+                      }`}
+                    >
+                      {isActive && (
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 rounded-r-md bg-terracotta pointer-events-none" />
+                      )}
+                      <pillar.icon size={20} className="relative z-10 shrink-0" />
+                    </button>
+                  </Tooltip>
                 );
               })}
 
               <div className="w-6 h-[1px] bg-subtle my-1" />
 
               {/* AI Assistant Quick Icon */}
-              <button
-                onClick={() => setAIDrawerOpen(true)}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-terracotta hover:bg-terracotta/15 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
-                title={isSidebarExpanded ? undefined : "Ask AI"}
+              <Tooltip
+                content="Ask AI Assistant"
+                isDisabled={isSidebarExpanded}
+                placement="right"
+                delay={200}
+                classNames={{
+                  content: "bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap shadow-soft font-medium"
+                }}
               >
-                <Sparkles size={20} className="shrink-0" />
-                {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
-                    Ask AI Assistant
-                  </div>
-                )}
-              </button>
+                <button
+                  onClick={() => setAIDrawerOpen(true)}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-terracotta hover:bg-terracotta/15 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                >
+                  <Sparkles size={20} className="shrink-0" />
+                </button>
+              </Tooltip>
 
               {/* AI Settings Quick Icon */}
-              <button
-                onClick={() => setAISettingsOpen(true)}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
-                title={isSidebarExpanded ? undefined : "AI Settings"}
+              <Tooltip
+                content="AI Settings"
+                isDisabled={isSidebarExpanded}
+                placement="right"
+                delay={200}
+                classNames={{
+                  content: "bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap shadow-soft font-medium"
+                }}
               >
-                <Settings size={20} className="shrink-0" />
-                {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
-                    AI Settings
-                  </div>
-                )}
-              </button>
+                <button
+                  onClick={() => setAISettingsOpen(true)}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                >
+                  <Settings size={20} className="shrink-0" />
+                </button>
+              </Tooltip>
 
               {/* User Guide & Onboarding Tour Icon */}
-              <button
-                onClick={() => setOnboardingOpen(true)}
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-terracotta hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
-                title={isSidebarExpanded ? undefined : "User Guide & Tour"}
+              <Tooltip
+                content="User Guide & Tour"
+                isDisabled={isSidebarExpanded}
+                placement="right"
+                delay={200}
+                classNames={{
+                  content: "bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap shadow-soft font-medium"
+                }}
               >
-                <HelpCircle size={20} className="shrink-0" />
-                {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
-                    User Guide & Tour
-                  </div>
-                )}
-              </button>
+                <button
+                  onClick={() => setOnboardingOpen(true)}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-terracotta hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                >
+                  <HelpCircle size={20} className="shrink-0" />
+                </button>
+              </Tooltip>
             </div>
 
             {/* Bottom Actions Group */}
             <div className="flex flex-col items-center gap-3 w-full">
               {/* Global Search */}
-              <button 
-                onClick={openSearch}
-                className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
-                title={isSidebarExpanded ? undefined : "Global Search (Cmd/Ctrl + K)"}
+              <Tooltip
+                content="Search (Cmd/Ctrl + K)"
+                isDisabled={isSidebarExpanded}
+                placement="right"
+                delay={200}
+                classNames={{
+                  content: "bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap shadow-soft font-medium"
+                }}
               >
-                <Search size={18} className="shrink-0" />
-                {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
-                    Search (Cmd + K)
-                  </div>
-                )}
-              </button>
-
-
+                <button 
+                  onClick={openSearch}
+                  className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
+                >
+                  <Search size={18} className="shrink-0" />
+                </button>
+              </Tooltip>
 
               {/* Collapse/Expand Toggle */}
-              <button 
-                onClick={() => setSidebarExpanded(!isSidebarExpanded)}
-                className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
-                title={isSidebarExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
+              <Tooltip
+                content={isSidebarExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
+                isDisabled={isSidebarExpanded}
+                placement="right"
+                delay={200}
+                classNames={{
+                  content: "bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap shadow-soft font-medium"
+                }}
               >
-                {isSidebarExpanded ? <PanelLeftClose size={18} className="shrink-0" /> : <PanelLeftOpen size={18} className="shrink-0" />}
-                {!isSidebarExpanded && (
-                  <div className="absolute left-14 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap pointer-events-none z-50 shadow-xl font-medium">
-                    Expand Sidebar
-                  </div>
-                )}
-              </button>
+                <button 
+                  onClick={() => setSidebarExpanded(!isSidebarExpanded)}
+                  className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
+                >
+                  {isSidebarExpanded ? <PanelLeftClose size={18} className="shrink-0" /> : <PanelLeftOpen size={18} className="shrink-0" />}
+                </button>
+              </Tooltip>
             </div>
           </div>
 
