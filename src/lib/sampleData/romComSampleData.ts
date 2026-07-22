@@ -134,9 +134,59 @@ export async function loadRomComSampleData(): Promise<string> {
     },
   ];
 
+  // Sample Manuscript Chapters & Scenes
+  const chap1Id = `chap-${now}-rom1`;
+  const chap2Id = `chap-${now}-rom2`;
+  const chap3Id = `chap-${now}-rom3`;
+
+  const sampleChapters = [
+    { id: chap1Id, projectId, title: 'Beat 1: The Meet Cute & Initial Friction', order: 1, createdAt: now, updatedAt: now },
+    { id: chap2Id, projectId, title: 'Beat 2: Forced Proximity & Chemical Shift', order: 2, createdAt: now, updatedAt: now },
+    { id: chap3Id, projectId, title: 'Beat 3: Midpoint Confession & Defenses Down', order: 3, createdAt: now, updatedAt: now },
+  ];
+
+  const sampleScenes = [
+    {
+      id: `scene-${now}-rom1`,
+      projectId,
+      chapterId: chap1Id,
+      title: 'Scene 1: Double Lease Disaster',
+      content: '<p>Arjun stood in the doorway of Flat 4B holding a polished leather briefcase, an architectural tape measure, and a key that unequivocally turned the lock. Five seconds later, Zara arrived with three overstuffed boxes of spices, a potted curry plant, and a duplicate key.</p><p>"I think you\'re in my flat," Arjun said, evaluating her chaotic entrance with cold precision.</p>',
+      wordCount: 56,
+      order: 1,
+      kanbanColumn: 'draft',
+      planning: {
+        goal: 'Establish the immediate housing conflict and contrasting personalities.',
+        conflict: 'Both have valid leases signed by the landlord.',
+        outcome: 'Temporary agreement to split the 2BHK flat while housing authority investigates.'
+      },
+      createdAt: now,
+      updatedAt: now
+    },
+    {
+      id: `scene-${now}-rom2`,
+      projectId,
+      chapterId: chap2Id,
+      title: 'Scene 1: Monsoon Power Cut',
+      content: '<p>The rains lashed against the ocean-facing balcony of Flat 4B as the grid failed across Bandra West. In the warm glow of Zara\'s lavender soy candles, Arjun put down his blueprints for the first time in six months...</p>',
+      wordCount: 42,
+      order: 1,
+      kanbanColumn: 'todo',
+      planning: {
+        goal: 'Shift their relationship from hostility to hesitant intimacy.',
+        conflict: 'Power outage halts all work schedules.',
+        outcome: 'They share a meal cooked over a single gas burner and talk until 3 AM.'
+      },
+      createdAt: now,
+      updatedAt: now
+    }
+  ];
+
   // Persist to IndexedDB
   await db.projects.put(project);
   await db.entities.bulkPut(entities);
+  await db.chapters.bulkPut(sampleChapters);
+  await db.scenes.bulkPut(sampleScenes);
 
   return projectId;
 }

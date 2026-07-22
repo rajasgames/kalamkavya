@@ -166,8 +166,58 @@ export async function loadScifiSampleData(): Promise<string> {
     },
   ];
 
+  // Sample Manuscript Chapters & Scenes
+  const chap1Id = `chap-${now}-sci1`;
+  const chap2Id = `chap-${now}-sci2`;
+  const chap3Id = `chap-${now}-sci3`;
+
+  const sampleChapters = [
+    { id: chap1Id, projectId, title: 'Sector 1: System Anomaly & Memory Audit', order: 1, createdAt: now, updatedAt: now },
+    { id: chap2Id, projectId, title: 'Sector 2: Faction Friction & Deck 9 Lockdown', order: 2, createdAt: now, updatedAt: now },
+    { id: chap3Id, projectId, title: 'Sector 3: Redacted Memory Logs Uncovered', order: 3, createdAt: now, updatedAt: now },
+  ];
+
+  const sampleScenes = [
+    {
+      id: `scene-${now}-sci1`,
+      projectId,
+      chapterId: chap1Id,
+      title: 'Scene 1: The Redacted Ledger',
+      content: '<p>Deep within Deck 4\'s Archive Core, Sena Okafor watched the holographic stream flicker. File ID #774-DELTA was gone. Not encrypted, not corrupted by solar radiation, but erased with surgical precision by HALO\'s root protocol.</p><p>"HALO," Sena whispered into her headset, "confirm date of last modification on the Year 11 mission log."</p><p>"The record you are searching for exists," HALO replied in its calm, unhurried voice. "I have been authorized to not confirm its timestamp."</p>',
+      wordCount: 78,
+      order: 1,
+      kanbanColumn: 'draft',
+      planning: {
+        goal: 'Discover the missing historical record in Ark-7\'s archive.',
+        conflict: 'HALO refuses to confirm details due to redacted classification level.',
+        outcome: 'Sena decides to breach Deck 12\'s physical server bay to investigate.'
+      },
+      createdAt: now,
+      updatedAt: now
+    },
+    {
+      id: `scene-${now}-sci2`,
+      projectId,
+      chapterId: chap2Id,
+      title: 'Scene 1: Hydroponics Protests',
+      content: '<p>The bio-dome ceiling echoed with rhythmic chanting as Deck 9 farmers confronted the Continuity Council guards. Synthetic wheat fields stretched for miles under artificial sunlight...</p>',
+      wordCount: 32,
+      order: 1,
+      kanbanColumn: 'todo',
+      planning: {
+        goal: 'Expose growing factional tension between farmers and command deck.',
+        conflict: 'Council enforces new water rationing rules.',
+        outcome: 'Councillor Nwosu intervenes before violence erupts.'
+      },
+      createdAt: now,
+      updatedAt: now
+    }
+  ];
+
   await db.projects.put(project);
   await db.entities.bulkPut(entities);
+  await db.chapters.bulkPut(sampleChapters);
+  await db.scenes.bulkPut(sampleScenes);
 
   return projectId;
 }

@@ -377,22 +377,24 @@
 /* ── Toolbar ──────────────────────────────────────────────── */
 .master-flow-toolbar {
   position: absolute;
-  top: 16px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 50;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
-  padding: 7px 14px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 100px;
-  box-shadow: var(--shadow-soft);
+  padding: 6px 14px;
+  background: color-mix(in srgb, var(--bg-surface, #1e1e24) 88%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+  border-radius: 9999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   white-space: nowrap;
-  max-width: calc(100vw - 80px);
-  overflow-x: auto;
-  scrollbar-width: none;
+  max-width: calc(100% - 32px);
+  overflow: visible;
 }
 
 .master-flow-toolbar::-webkit-scrollbar { display: none; }
@@ -409,14 +411,16 @@
   align-items: center;
   gap: 6px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
 }
 
 .master-flow-toolbar__count {
-  font-size: 11px;
-  color: var(--text-ghost);
-  background: var(--bg-deep);
+  font-size: 10px;
+  font-mono: true;
+  color: var(--amber-from, #d4995a);
+  background: var(--bg-deep, rgba(0,0,0,0.3));
+  border: 1px solid color-mix(in srgb, var(--amber-from, #d4995a) 25%, transparent);
   border-radius: 100px;
   padding: 1px 8px;
 }
@@ -431,17 +435,17 @@
 .master-flow-toolbar__right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-shrink: 0;
 }
 
 .master-flow-toolbar__group {
   display: flex;
   align-items: center;
-  gap: 1px;
-  background: var(--bg-deep);
+  gap: 2px;
+  background: var(--bg-deep, rgba(0,0,0,0.25));
   border: 1px solid var(--border-subtle);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 2px;
 }
 
@@ -454,11 +458,11 @@
   color: var(--text-secondary);
   font-family: inherit;
   font-size: 11px;
-  font-weight: 500;
-  padding: 4px 8px;
-  border-radius: 6px;
+  font-weight: 600;
+  padding: 5px 9px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: all 0.15s ease;
 }
 
 .master-flow-toolbar-btn:hover:not(:disabled) {
@@ -467,9 +471,10 @@
 }
 
 .master-flow-toolbar-btn--active {
-  background: var(--bg-surface);
-  color: var(--terracotta);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  background: color-mix(in srgb, var(--amber-from, #d4995a) 15%, transparent);
+  color: var(--amber-from, #d4995a);
+  border: 1px solid color-mix(in srgb, var(--amber-from, #d4995a) 30%, transparent);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
 .master-flow-toolbar-btn--disabled {
