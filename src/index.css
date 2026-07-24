@@ -311,3 +311,49 @@
   animation: metallicShimmer 5s ease infinite;
   box-shadow: 0 0 12px rgba(139, 92, 246, 0.35);
 }
+
+/* ─── Interactive Micro-Animations ─────────────────────────────────────── */
+
+.btn-spring {
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+}
+
+.btn-spring:active {
+  transform: scale(0.96);
+}
+
+.shimmer-gold {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-gold::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg);
+  animation: shimmerSweep 4s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  20% { transform: translateX(100%) rotate(30deg); }
+  100% { transform: translateX(100%) rotate(30deg); }
+}
+
+.nav-pill-active {
+  background: rgba(217, 119, 6, 0.15);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  color: var(--text-primary);
+}
+

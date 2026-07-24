@@ -1,39 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
   <defs>
-    <linearGradient id="featherGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0e7a0d"/>
-      <stop offset="50%" stop-color="#14a098"/>
-      <stop offset="100%" stop-color="#022c7a"/>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b18"/>
+      <stop offset="100%" stop-color="#0f0d0b"/>
     </linearGradient>
-    <linearGradient id="eyeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5c71a"/>
-      <stop offset="50%" stop-color="#1a5ff5"/>
-      <stop offset="100%" stop-color="#000000"/>
-    </linearGradient>
-  </defs>
-  
-  <!-- Paper Background -->
-  <rect x="80" y="60" width="352" height="400" rx="16" fill="#fdfaf3" stroke="#e0d5c1" stroke-width="8"/>
-  <line x1="120" y1="140" x2="392" y2="140" stroke="#e0d5c1" stroke-width="4" stroke-dasharray="8 8"/>
-  <line x1="120" y1="200" x2="392" y2="200" stroke="#e0d5c1" stroke-width="4" stroke-dasharray="8 8"/>
-  <line x1="120" y1="260" x2="392" y2="260" stroke="#e0d5c1" stroke-width="4" stroke-dasharray="8 8"/>
-  <line x1="120" y1="320" x2="392" y2="320" stroke="#e0d5c1" stroke-width="4" stroke-dasharray="8 8"/>
 
-  <!-- Peacock Feather Quill -->
-  <g transform="translate(40, -40) rotate(15, 256, 256)">
-    <!-- Stem -->
-    <path d="M 200 420 Q 256 300 350 150" fill="none" stroke="#e6e6e6" stroke-width="6" stroke-linecap="round"/>
-    
-    <!-- Feather Barbs -->
-    <path d="M 350 150 Q 280 120 220 200 Q 180 280 200 420 Q 260 380 320 300 Q 380 220 350 150 Z" fill="url(#featherGrad)" opacity="0.9"/>
-    <path d="M 350 150 Q 420 180 360 280 Q 300 350 200 420 Q 230 330 300 240 Q 360 180 350 150 Z" fill="url(#featherGrad)" opacity="0.7"/>
-    
-    <!-- Feather Eye -->
-    <ellipse cx="310" cy="210" rx="35" ry="55" transform="rotate(45, 310, 210)" fill="url(#eyeGrad)"/>
-    <ellipse cx="310" cy="210" rx="15" ry="25" transform="rotate(45, 310, 210)" fill="#061244"/>
-    
-    <!-- Quill Nib -->
-    <path d="M 197 420 L 180 470 L 203 420 Z" fill="#b0a28f"/>
-    <path d="M 180 470 L 190 460 L 192 480 Z" fill="#333"/>
+    <!-- Golden Terracotta Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#C85A32"/>
+    </linearGradient>
+
+    <!-- Peacock Jewel Teal Gradient -->
+    <linearGradient id="jewelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF"/>
+      <stop offset="50%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#115E59"/>
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Container Base Card -->
+  <rect x="32" y="32" width="448" height="448" rx="100" fill="url(#bgGrad)" stroke="#C85A32" stroke-width="8" stroke-opacity="0.4"/>
+  
+  <!-- Subtle Inner Ring -->
+  <circle cx="256" cy="256" r="190" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.25" stroke-dasharray="12 8"/>
+
+  <!-- Glowing Aura -->
+  <circle cx="256" cy="256" r="140" fill="url(#goldGrad)" opacity="0.12" filter="url(#glow)"/>
+
+  <!-- Inkwell Vessel Base -->
+  <path d="M 176 340 L 336 340 L 360 410 C 360 424 348 436 332 436 L 180 436 C 164 436 152 424 152 410 Z" fill="#141210" stroke="url(#goldGrad)" stroke-width="8"/>
+  <rect x="200" y="320" width="112" height="24" rx="6" fill="url(#jewelGrad)"/>
+
+  <!-- Peacock Feather Quill (Main Emblem) -->
+  <g transform="translate(10, -20)">
+    <!-- Feather Stem/Spine -->
+    <path d="M 246 340 C 246 250 286 160 360 80" fill="none" stroke="url(#goldGrad)" stroke-width="10" stroke-linecap="round"/>
+
+    <!-- Left Barbs -->
+    <path d="M 360 80 C 280 90 200 150 215 240 C 220 270 240 310 246 340 C 240 300 245 230 300 160 Z" fill="url(#jewelGrad)" opacity="0.9"/>
+
+    <!-- Right Barbs -->
+    <path d="M 360 80 C 390 130 380 200 330 260 C 300 295 260 325 246 340 C 270 310 320 270 350 210 C 385 145 375 100 360 80 Z" fill="url(#goldGrad)" opacity="0.85"/>
+
+    <!-- Peacock Eye Motif -->
+    <ellipse cx="320" cy="150" rx="36" ry="50" transform="rotate(-30 320 150)" fill="url(#goldGrad)"/>
+    <ellipse cx="320" cy="150" rx="22" ry="32" transform="rotate(-30 320 150)" fill="url(#jewelGrad)"/>
+    <circle cx="320" cy="150" r="11" fill="#0f0d0b"/>
+    <circle cx="324" cy="146" r="4" fill="#FFFFFF" opacity="0.9"/>
+
+    <!-- Metallic Gold Quill Nib -->
+    <path d="M 246 340 L 230 400 L 255 348 Z" fill="#F59E0B"/>
+    <line x1="246" y1="340" x2="238" y2="390" stroke="#000" stroke-width="3"/>
   </g>
 </svg>

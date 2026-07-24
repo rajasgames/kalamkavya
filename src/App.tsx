@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { HeroUIProvider } from '@heroui/react';
 import { ToastProvider } from '@/components/ui';
 import { AppInitializer, Layout } from '@/components/layout';
@@ -33,6 +33,7 @@ function App() {
                 <Route path="project/:view" element={<ProjectLayout />} />
                 <Route path="world-bible" element={<WorldBibleLayout />} />
                 <Route path="cast/:view" element={<CastLayout />} />
+                <Route path="toolkit" element={<Navigate to="/toolkit/ai-assistant" replace />} />
                 <Route path="toolkit/:view" element={<ToolkitLayout />} />
               </Route>
               
