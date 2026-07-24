@@ -79,10 +79,21 @@ export const AppInitializer = ({ children }: { children: React.ReactNode }) => {
     };
   }, [navigate, setActiveProject, setProvider]);
 
+  const { isSplashOpen, setSplashOpen } = useUIStore();
+
   return (
     <>
-      {showSplash && <IntroSplash onComplete={() => setShowSplash(false)} />}
+      {(showSplash || isSplashOpen) && (
+        <IntroSplash
+          manualTrigger={isSplashOpen}
+          onComplete={() => {
+            setShowSplash(false);
+            setSplashOpen(false);
+          }}
+        />
+      )}
       {!isInitializing && children}
     </>
   );
 };
+

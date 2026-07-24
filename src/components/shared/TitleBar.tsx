@@ -33,8 +33,9 @@ export function TitleBar() {
       className="fixed top-0 left-0 right-0 h-8 bg-elevated border-b border-subtle flex items-center justify-between z-50 select-none"
       data-tauri-drag-region
     >
-      <div className="flex-1 flex items-center pl-4 h-full" data-tauri-drag-region>
-        <span className="text-xs font-semibold text-primary font-sans" data-tauri-drag-region>कalam काvya</span>
+      <div className="flex-1 flex items-center pl-4 gap-2 h-full whitespace-nowrap shrink-0" data-tauri-drag-region>
+        <img src="/favicon.svg" className="w-4 h-4 shrink-0 object-contain" alt="Favicon" data-tauri-drag-region />
+        <span className="text-xs font-bold text-primary font-serif whitespace-nowrap" data-tauri-drag-region>कalam काvya Engine</span>
       </div>
       
       <div className="flex items-center h-full text-secondary">

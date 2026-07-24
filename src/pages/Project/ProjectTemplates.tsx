@@ -324,7 +324,7 @@ export function ProjectTemplates() {
   }
 
   return (
-    <div className="p-4 sm:p-8 md:p-12 max-w-7xl mx-auto space-y-6 sm:space-y-8 font-sans overflow-y-auto">
+    <div className="p-3 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-6 font-sans">
       {/* Top Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-subtle pb-6 gap-4">
         <div className="flex items-center gap-3">

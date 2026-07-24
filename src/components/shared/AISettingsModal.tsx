@@ -12,7 +12,7 @@ export function AISettingsModal() {
       title="Global AI Settings"
       size="xl"
     >
-      <div className="h-[80vh] overflow-y-auto pr-2 custom-scrollbar">
+      <div className="max-h-[82vh] overflow-y-auto pr-1 sm:pr-2 scrollbar-hide font-sans">
         <AISettings />
       </div>
     </Modal>

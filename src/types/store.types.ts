@@ -57,6 +57,7 @@ export interface UIState {
   isAIDrawerOpen: boolean;
   isAISettingsOpen: boolean;
   isOnboardingOpen: boolean;
+  isSplashOpen: boolean;
   isFocusMode: boolean;
 
   setActivePillar: (pillar: Pillar) => void;
@@ -68,6 +69,7 @@ export interface UIState {
   setAIDrawerOpen: (open: boolean) => void;
   setAISettingsOpen: (open: boolean) => void;
   setOnboardingOpen: (open: boolean) => void;
+  setSplashOpen: (open: boolean) => void;
   setFocusMode: (open: boolean) => void;
 }
 

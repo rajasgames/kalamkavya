@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import { ChevronDown } from 'lucide-react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { ChevronDown, Sparkles } from 'lucide-react';
+import { Tooltip } from '@heroui/react';
 import { Sidebar } from './Sidebar';
 import { GlobalSearch } from './GlobalSearch';
 import { useUIStore } from '@/stores/uiStore';
 import { useSearchStore } from '@/stores/searchStore';
 import { useStoryStore } from '@/stores/storyStore';
-import { ProjectCreationModal, ThemeToggle } from '@/components/ui';
+import { ProjectCreationModal, ThemeToggle, InkRipple } from '@/components/ui';
 import { SprintWidget } from '@/components/toolkit/SprintWidget';
 import { AIDrawer } from '@/components/toolkit/AIDrawer';
 import { AISettingsModal, OnboardingModal } from '@/components/shared';
@@ -18,7 +19,8 @@ declare global {
 }
 
 export const Layout = () => {
-  const { isSidebarExpanded, isSprintWidgetOpen, setSprintWidgetOpen, isFocusMode, setFocusMode } = useUIStore();
+  const navigate = useNavigate();
+  const { isSidebarExpanded, isSprintWidgetOpen, setSprintWidgetOpen, isFocusMode, setFocusMode, setSplashOpen } = useUIStore();
   const { toggleSearch } = useSearchStore();
   const { scenes, activeProject } = useStoryStore();
 
@@ -47,21 +49,70 @@ export const Layout = () => {
       id="main-content" 
       className={`flex flex-col h-screen overflow-hidden bg-canvas text-primary transition-colors duration-300 ${window.__TAURI__ ? 'pt-8' : ''}`}
     >
+      {/* Interactive Ink Ring Ripple FX */}
+      <InkRipple />
+
       {/* Header Bar */}
-      <header className={`h-[56px] shrink-0 border-b border-subtle flex items-center px-6 justify-between bg-surface/80 backdrop-blur-md z-30 transition-all duration-300 ${isFocusMode ? '-mt-[56px] opacity-0 pointer-events-none' : 'mt-0 opacity-100'}`}>
-        <div className="flex items-center gap-6">
-          <div className="font-display font-medium text-xl tracking-tight">कalam काvya</div>
-          {/* Workspace Switcher — placeholder for multi-workspace support */}
-          <button className="text-sm text-secondary hover:text-primary transition-colors font-sans flex items-center gap-1">
-            My Workspace <ChevronDown size={13} className="opacity-60" />
+      <header className={`h-[56px] shrink-0 border-b border-subtle flex items-center px-4 sm:px-6 justify-between bg-surface/80 backdrop-blur-md z-30 transition-all duration-300 ${isFocusMode ? '-mt-[56px] opacity-0 pointer-events-none' : 'mt-0 opacity-100'}`}>
+        <div className="flex items-center gap-4 sm:gap-6 shrink-0 whitespace-nowrap overflow-hidden">
+          {/* Main Brand & Title - Strictly in ONE LINE */}
+          <div 
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2.5 shrink-0 whitespace-nowrap select-none cursor-pointer group hover:opacity-90 transition-opacity"
+            title="Kalam Kavya Engine — Return Home"
+          >
+            <div className="relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
+              <div className="absolute inset-0 bg-terracotta/20 rounded-xl blur-sm group-hover:scale-125 transition-transform duration-300" />
+              <img 
+                src="/favicon.svg" 
+                className="w-7 h-7 sm:w-8 sm:h-8 object-contain drop-shadow-md group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shrink-0 relative z-10" 
+                alt="Kalam Kavya Logo Favicon" 
+              />
+            </div>
+
+            <div className="font-serif font-extrabold text-base sm:text-xl tracking-tight text-primary whitespace-nowrap flex items-center gap-2 shrink-0">
+              <span className="whitespace-nowrap">कalam काvya</span>
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-terracotta/15 text-terracotta border border-terracotta/25 uppercase tracking-wider hidden sm:inline-block shadow-sm">
+                Engine
+              </span>
+            </div>
+          </div>
+
+          <div className="h-4 w-[1px] bg-subtle hidden sm:block shrink-0" />
+
+          {/* Workspace Switcher */}
+          <button className="text-xs sm:text-sm text-secondary hover:text-primary transition-colors font-sans flex items-center gap-1 shrink-0 truncate max-w-[140px] sm:max-w-none">
+            <span className="truncate">My Workspace</span>
+            <ChevronDown size={13} className="opacity-60 shrink-0" />
           </button>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="text-xs text-ghost font-mono">
+
+        {/* Right Action Icons */}
+        <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+          {/* Replay Intro Splash Button */}
+          <Tooltip
+            content="Play Intro Splash Screen"
+            placement="bottom"
+            delay={200}
+            classNames={{
+              content: "bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap shadow-soft font-medium"
+            }}
+          >
+            <button
+              onClick={() => setSplashOpen(true)}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-terracotta/10 hover:bg-terracotta/20 border border-terracotta/25 text-terracotta text-xs font-semibold transition-all duration-200 active:scale-95 shadow-sm shrink-0"
+            >
+              <Sparkles size={13} className="animate-spin text-terracotta shrink-0" />
+              <span className="hidden md:inline">Intro Splash</span>
+            </button>
+          </Tooltip>
+
+          <div className="text-xs text-ghost font-mono hidden sm:block">
             {totalWordCount !== null
               ? `${totalWordCount.toLocaleString()} words`
               : '—'}
           </div>
+
           <ThemeToggle />
         </div>
       </header>

@@ -24,6 +24,7 @@ export const useUIStore = create<UIState>()(
       isAIDrawerOpen: false,
       isAISettingsOpen: false,
       isOnboardingOpen: typeof window !== 'undefined' ? localStorage.getItem('kalam-kavya_onboarding_completed') !== 'true' : false,
+      isSplashOpen: false,
       isFocusMode: false,
 
       setActivePillar: (pillar: Pillar) => set({ activePillar: pillar }),
@@ -43,6 +44,7 @@ export const useUIStore = create<UIState>()(
       setAIDrawerOpen: (open: boolean) => set({ isAIDrawerOpen: open }),
       setAISettingsOpen: (open: boolean) => set({ isAISettingsOpen: open }),
       setOnboardingOpen: (open: boolean) => set({ isOnboardingOpen: open }),
+      setSplashOpen: (open: boolean) => set({ isSplashOpen: open }),
       setFocusMode: (open: boolean) => set({ isFocusMode: open }),
     }),
     { enabled: import.meta.env.DEV }

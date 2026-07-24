@@ -16,3 +16,4 @@ export * from './ThemeToggle';
 export * from './ProjectCreationModal';
 export * from './SortableItem';
 export * from './TagInput';
+export * from './InkRipple';
