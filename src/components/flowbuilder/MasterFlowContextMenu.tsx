@@ -2,15 +2,24 @@ import { useState, memo } from 'react';
 import { Plus, LayoutGrid, Maximize2, Trash2, ChevronRight } from 'lucide-react';
 import { getEntityTypeConfig } from './entityTypeConfig';
 
-// A curated set of entity types the user can add directly from the canvas
 const ADD_ENTITY_TYPES = [
-  { type: 'CHARACTER', label: 'Character' },
-  { type: 'GOD',       label: 'God / Deity' },
-  { type: 'FACTION',   label: 'Faction' },
-  { type: 'LOCATION',  label: 'Location / Loka' },
-  { type: 'WEAPON',    label: 'Weapon / Astra' },
-  { type: 'CULTURE',   label: 'Culture / Lineage' },
-  { type: 'LORE',      label: 'Lore / Knowledge' },
+  { type: 'CHARACTER', label: 'Character / Being' },
+  { type: 'GOD', label: 'God / Cosmic' },
+  { type: 'FACTION', label: 'Faction / Clan' },
+  { type: 'LOCATION', label: 'Location / Loka' },
+  { type: 'WEAPON', label: 'Weapon / Astra' },
+  { type: 'CULTURE', label: 'Culture / Vamsha' },
+  { type: 'LORE', label: 'Lore / Knowledge' },
+  { type: 'SCENE', label: 'Scene / Process' },
+];
+
+const SWATCHES = [
+  { color: '#E3A542', type: 'CHARACTER' },
+  { color: '#4FC1A6', type: 'FACTION' },
+  { color: '#8FB88A', type: 'LOCATION' },
+  { color: '#E2705F', type: 'WEAPON' },
+  { color: '#7B87D6', type: 'VAMSHA' },
+  { color: '#7A84A3', type: 'LORE' },
 ];
 
 interface MasterFlowContextMenuProps {
@@ -29,35 +38,39 @@ const MasterFlowContextMenuComponent = ({
   top, left, right, bottom,
   onAddEntity, onAutoArrange, onFitView, onClearLayout, onClose,
 }: MasterFlowContextMenuProps) => {
-  const [showEntityTypes, setShowEntityTypes] = useState(false);
+  const [showSubmenu, setShowSubmenu] = useState(false);
 
   return (
     <div
-      className="master-flow-context-menu"
+      className="flowcraft-context-menu"
       style={{ top, left, right, bottom }}
-      onClick={e => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
     >
-      {/* Add Entity → submenu */}
+      {/* Add Entity Submenu */}
       <div
-        className="master-flow-menu-item"
-        onMouseEnter={() => setShowEntityTypes(true)}
-        onMouseLeave={() => setShowEntityTypes(false)}
+        className="menu-item"
+        onMouseEnter={() => setShowSubmenu(true)}
+        onMouseLeave={() => setShowSubmenu(false)}
       >
         <Plus size={15} />
-        <span>Add Entity</span>
-        <ChevronRight size={13} className="master-flow-menu-chevron" />
+        <span>Add Process Node</span>
+        <ChevronRight size={13} className="ml-auto text-paper-700" />
 
-        {showEntityTypes && (
-          <div className="master-flow-submenu">
+        {showSubmenu && (
+          <div className="flowcraft-submenu">
             {ADD_ENTITY_TYPES.map(({ type, label }) => {
-              const config = getEntityTypeConfig(type);
+              const cfg = getEntityTypeConfig(type);
               return (
                 <button
                   key={type}
-                  className="master-flow-menu-item"
-                  onClick={e => { e.stopPropagation(); onAddEntity(type); onClose(); }}
+                  className="menu-item"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onAddEntity(type);
+                    onClose();
+                  }}
                 >
-                  <span style={{ color: config.color, fontSize: 14 }}>{config.icon}</span>
+                  <span style={{ color: cfg.color, fontSize: 14 }}>{cfg.icon}</span>
                   <span>{label}</span>
                 </button>
               );
@@ -66,35 +79,43 @@ const MasterFlowContextMenuComponent = ({
         )}
       </div>
 
-      <div className="master-flow-menu-divider" />
+      {/* Color Swatch Bar */}
+      <div className="menu-sep" />
+      <div className="menu-label">Quick Spec Archetype</div>
+      <div className="menu-swatches">
+        {SWATCHES.map(({ color, type }) => (
+          <button
+            key={type}
+            style={{ background: color }}
+            title={`Add ${type}`}
+            onClick={() => {
+              onAddEntity(type);
+              onClose();
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="menu-sep" />
 
       {/* Auto-arrange */}
-      <button
-        className="master-flow-menu-item"
-        onClick={() => { onAutoArrange(); onClose(); }}
-      >
+      <button className="menu-item" onClick={() => { onAutoArrange(); onClose(); }}>
         <LayoutGrid size={15} />
-        <span>Auto-arrange</span>
+        <span>Auto-arrange Blueprint Layout</span>
       </button>
 
       {/* Fit View */}
-      <button
-        className="master-flow-menu-item"
-        onClick={() => { onFitView(); onClose(); }}
-      >
+      <button className="menu-item" onClick={() => { onFitView(); onClose(); }}>
         <Maximize2 size={15} />
-        <span>Fit to view</span>
+        <span>Fit Diagram to Screen</span>
       </button>
 
-      <div className="master-flow-menu-divider" />
+      <div className="menu-sep" />
 
-      {/* Clear Layout */}
-      <button
-        className="master-flow-menu-item master-flow-menu-item--danger"
-        onClick={() => { onClearLayout(); onClose(); }}
-      >
+      {/* Reset Layout */}
+      <button className="menu-item danger" onClick={() => { onClearLayout(); onClose(); }}>
         <Trash2 size={15} />
-        <span>Reset layout</span>
+        <span>Reset Blueprint Layout</span>
       </button>
     </div>
   );

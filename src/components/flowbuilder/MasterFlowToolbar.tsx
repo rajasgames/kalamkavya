@@ -5,148 +5,215 @@ import {
   ArrowUpDown, 
   ArrowLeftRight, 
   GitBranch, 
-  Eye, 
-  EyeOff, 
+  Activity, 
   Download,
-  Palette
+  Palette,
+  Plus,
+  ZoomIn,
+  ZoomOut,
+  Maximize2,
+  ChevronDown
 } from 'lucide-react';
 import { useStore as useTemporalStore } from 'zustand';
+import { useReactFlow } from '@xyflow/react';
 import useMasterFlowStore from './masterFlowStore';
 import { useStoryStore } from '@/stores/storyStore';
+import { getEntityTypeConfig } from './entityTypeConfig';
 
 interface MasterFlowToolbarProps {
-  onExportJSON: () => void;
+  onAddNode: (type: string) => void;
 }
 
-const MasterFlowToolbarComponent = ({ onExportJSON }: MasterFlowToolbarProps) => {
-  const { layoutDirection, showAllEdges, setLayoutDirection, toggleEdgeFilter } = useMasterFlowStore();
+const ADD_NODE_MENU = [
+  { type: 'CHARACTER', label: 'Character Node' },
+  { type: 'FACTION', label: 'Faction / Clan' },
+  { type: 'LOCATION', label: 'Location / Loka' },
+  { type: 'WEAPON', label: 'Weapon / Astra' },
+  { type: 'SCENE', label: 'Scene / Process' },
+  { type: 'LORE', label: 'Lore / Knowledge' },
+];
+
+const LEGEND = [
+  { type: 'CHARACTER', label: 'Character / Being' },
+  { type: 'FACTION', label: 'Faction / Army' },
+  { type: 'LOCATION', label: 'Location / Realm' },
+  { type: 'WEAPON', label: 'Weapon / Astra' },
+  { type: 'VAMSHA', label: 'Lineage / Culture' },
+  { type: 'LORE', label: 'Lore / Magic' },
+  { type: 'SCENE', label: 'Scene / Process' },
+];
+
+const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
+  const { 
+    layoutDirection, 
+    enableMarchingAnts, 
+    setLayoutDirection, 
+    toggleMarchingAnts,
+    setExportModalOpen,
+  } = useMasterFlowStore();
+
   const temporalStore = useMasterFlowStore.temporal;
   const { undo, redo, pastStates, futureStates } = useTemporalStore(temporalStore);
-  const { activeProject, entities } = useStoryStore();
+  const { activeProject } = useStoryStore();
+  const { zoomIn, zoomOut, fitView, getZoom } = useReactFlow();
+
+  const [showAddMenu, setShowAddMenu] = useState(false);
   const [showLegend, setShowLegend] = useState(false);
 
   const canUndo = pastStates.length > 0;
   const canRedo = futureStates.length > 0;
-
-  // Color legend entries
-  const LEGEND = [
-    { color: '#6366F1', label: 'Character' },
-    { color: '#F59E0B', label: 'Divine' },
-    { color: '#10B981', label: 'Faction' },
-    { color: '#0EA5E9', label: 'Place' },
-    { color: '#EF4444', label: 'Weapon' },
-    { color: '#D97706', label: 'Lineage' },
-    { color: '#8B5CF6', label: 'Mystical' },
-  ];
+  const zoomPercent = Math.round(getZoom() * 100) || 100;
 
   return (
-    <div className="master-flow-toolbar">
-      {/* Left: project info */}
-      <div className="master-flow-toolbar__left">
-        <div className="master-flow-toolbar__title">
-          <GitBranch size={15} className="text-amber-from shrink-0" />
-          <span className="truncate max-w-[140px] sm:max-w-[200px]">{activeProject?.title ?? 'World Bible'}</span>
-        </div>
-        <div className="master-flow-toolbar__count">
-          {entities.length} entities
-        </div>
+    <div className="flowcraft-toolbar">
+      {/* Brand Header */}
+      <div className="flowcraft-brand">
+        <GitBranch className="text-brass" />
+        <span className="label">Flowcraft</span>
+        <span className="sub-label hidden md:inline">— {activeProject?.title || 'Master Flowchart'}</span>
       </div>
 
-      {/* Center: controls */}
-      <div className="master-flow-toolbar__center">
-        {/* Undo / Redo */}
-        <div className="master-flow-toolbar__group">
-          <button
-            className={`master-flow-toolbar-btn${!canUndo ? ' master-flow-toolbar-btn--disabled' : ''}`}
-            onClick={canUndo ? () => undo() : undefined}
-            disabled={!canUndo}
-            title="Undo layout change (Ctrl+Z)"
-          >
-            <Undo2 size={14} />
-          </button>
-          <button
-            className={`master-flow-toolbar-btn${!canRedo ? ' master-flow-toolbar-btn--disabled' : ''}`}
-            onClick={canRedo ? () => redo() : undefined}
-            disabled={!canRedo}
-            title="Redo layout change (Ctrl+Y)"
-          >
-            <Redo2 size={14} />
-          </button>
-        </div>
+      <div className="flowcraft-tb-div" />
 
-        {/* Layout direction */}
-        <div className="master-flow-toolbar__group">
-          <button
-            className={`master-flow-toolbar-btn${layoutDirection === 'TB' ? ' master-flow-toolbar-btn--active' : ''}`}
-            onClick={() => setLayoutDirection('TB')}
-            title="Top → Down layout"
-          >
-            <ArrowUpDown size={14} />
-            <span className="hidden sm:inline">Top-Down</span>
-          </button>
-          <button
-            className={`master-flow-toolbar-btn${layoutDirection === 'LR' ? ' master-flow-toolbar-btn--active' : ''}`}
-            onClick={() => setLayoutDirection('LR')}
-            title="Left → Right layout"
-          >
-            <ArrowLeftRight size={14} />
-            <span className="hidden sm:inline">Left-Right</span>
-          </button>
-        </div>
-
-        {/* Edge filter */}
+      {/* Add Node Dropdown */}
+      <div className="relative">
         <button
-          className={`master-flow-toolbar-btn${!showAllEdges ? ' master-flow-toolbar-btn--active' : ''}`}
-          onClick={toggleEdgeFilter}
-          title={showAllEdges ? 'Show hierarchy only' : 'Show all connections'}
+          className="btn btn-primary"
+          onClick={() => setShowAddMenu(!showAddMenu)}
         >
-          {showAllEdges ? <Eye size={14} /> : <EyeOff size={14} />}
-          <span className="hidden sm:inline">{showAllEdges ? 'All Links' : 'Hierarchy'}</span>
+          <Plus size={14} />
+          <span>Add Node</span>
+          <ChevronDown size={12} />
+        </button>
+
+        {showAddMenu && (
+          <div className="flowcraft-dropdown-menu">
+            {ADD_NODE_MENU.map(({ type, label }) => {
+              const cfg = getEntityTypeConfig(type);
+              return (
+                <button
+                  key={type}
+                  className="flowcraft-dropdown-item"
+                  onClick={() => {
+                    onAddNode(type);
+                    setShowAddMenu(false);
+                  }}
+                >
+                  <span style={{ color: cfg.color }}>{cfg.icon}</span>
+                  <span>{label}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <div className="flowcraft-tb-div" />
+
+      {/* Undo / Redo */}
+      <div className="flowcraft-tb-group">
+        <button
+          className="btn btn-icon"
+          onClick={() => undo()}
+          disabled={!canUndo}
+          title="Undo layout movement (Ctrl+Z)"
+        >
+          <Undo2 size={14} />
+        </button>
+        <button
+          className="btn btn-icon"
+          onClick={() => redo()}
+          disabled={!canRedo}
+          title="Redo layout movement (Ctrl+Y)"
+        >
+          <Redo2 size={14} />
         </button>
       </div>
 
-      {/* Right: export + legend toggle */}
-      <div className="master-flow-toolbar__right">
-        {/* Color legend button & popover */}
+      <div className="flowcraft-tb-div" />
+
+      {/* Auto-Layout Directions */}
+      <div className="flowcraft-tb-group">
+        <button
+          className={`btn ${layoutDirection === 'TB' ? 'btn-primary' : ''}`}
+          onClick={() => setLayoutDirection('TB')}
+          title="Arrange Vertical (Top → Down)"
+        >
+          <ArrowUpDown size={14} />
+          <span className="hidden lg:inline">Top-Down</span>
+        </button>
+        <button
+          className={`btn ${layoutDirection === 'LR' ? 'btn-primary' : ''}`}
+          onClick={() => setLayoutDirection('LR')}
+          title="Arrange Horizontal (Left → Right)"
+        >
+          <ArrowLeftRight size={14} />
+          <span className="hidden lg:inline">Left-Right</span>
+        </button>
+      </div>
+
+      <div className="flowcraft-tb-div" />
+
+      {/* Marching Ants Flow Animation Toggle */}
+      <button
+        className={`btn ${enableMarchingAnts ? 'btn-ghost-outline' : ''}`}
+        onClick={toggleMarchingAnts}
+        title={enableMarchingAnts ? 'Disable Flow Marching Ants Animation' : 'Enable Flow Marching Ants Animation'}
+      >
+        <Activity size={14} className={enableMarchingAnts ? 'text-teal animate-pulse' : 'text-paper-500'} />
+        <span className="hidden md:inline">{enableMarchingAnts ? 'Flow On' : 'Flow Off'}</span>
+      </button>
+
+      <div className="flowcraft-tb-div" />
+
+      {/* Zoom Controls */}
+      <div className="flowcraft-tb-group">
+        <button className="btn btn-icon" onClick={() => zoomOut()} title="Zoom Out">
+          <ZoomOut size={14} />
+        </button>
+        <span className="flowcraft-zoom-readout">{zoomPercent}%</span>
+        <button className="btn btn-icon" onClick={() => zoomIn()} title="Zoom In">
+          <ZoomIn size={14} />
+        </button>
+        <button className="btn btn-icon" onClick={() => fitView({ padding: 0.2 })} title="Fit Canvas to View">
+          <Maximize2 size={14} />
+        </button>
+      </div>
+
+      <div className="flowcraft-tb-div" />
+
+      {/* Legend & Export */}
+      <div className="flowcraft-tb-group">
         <div className="relative">
           <button
-            className={`master-flow-toolbar-btn ${showLegend ? 'master-flow-toolbar-btn--active' : ''}`}
+            className={`btn btn-icon ${showLegend ? 'btn-primary' : ''}`}
             onClick={() => setShowLegend(!showLegend)}
-            title="Toggle Node Legend"
+            title="Node Type Legend"
           >
-            <Palette size={14} className="text-amber-from" />
-            <span className="hidden md:inline">Legend</span>
+            <Palette size={14} />
           </button>
 
           {showLegend && (
-            <div className="absolute top-full right-0 mt-2 p-3 bg-surface border border-subtle rounded-xl shadow-xl z-50 flex flex-col gap-2 min-w-[140px] backdrop-blur-md">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-ghost border-b border-subtle pb-1">
-                Node Categories
+            <div className="flowcraft-dropdown-menu right-0 min-w-[180px] p-3 space-y-2">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-paper-700 block pb-1 border-b border-subtle">
+                6-Hue Functional System
               </span>
-              {LEGEND.map(({ color, label }) => (
-                <div key={label} className="flex items-center gap-2 text-xs">
-                  <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: color }} />
-                  <span className="text-secondary">{label}</span>
-                </div>
-              ))}
+              {LEGEND.map(({ type, label }) => {
+                const cfg = getEntityTypeConfig(type);
+                return (
+                  <div key={type} className="flex items-center gap-2 text-xs">
+                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: cfg.color }} />
+                    <span className="text-paper-300 font-mono text-[11px]">{label}</span>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
 
-        {/* Inline Legend for ultra wide screens */}
-        <div className="hidden xl:flex master-flow-legend">
-          {LEGEND.slice(0, 4).map(({ color, label }) => (
-            <div key={label} className="master-flow-legend__item" title={label}>
-              <div className="master-flow-legend__dot" style={{ background: color }} />
-              <span className="master-flow-legend__label">{label}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Export */}
-        <button className="master-flow-export-btn" onClick={onExportJSON} title="Export Flowchart JSON">
-          <Download size={13} />
-          <span>Export</span>
+        <button className="btn btn-primary" onClick={() => setExportModalOpen(true)}>
+          <Download size={14} />
+          <span className="hidden sm:inline">Export</span>
         </button>
       </div>
     </div>

@@ -1,88 +1,108 @@
-// Entity type visual configuration for the Master Flow canvas
-// Maps World Bible entity types to distinct colors, icons, and labels
+// Entity type visual configuration for the Master Flow canvas — Flowcraft Blueprint Design System
+// Maps World Bible entity types to functional 6-hue color system (Brass, Teal, Coral, Slate-Violet, Sage, Fog)
 
 export interface EntityTypeConfig {
-  color: string;       // Border/badge color (CSS hex)
-  bg: string;          // Light mode background
-  darkBg: string;      // Dark mode background
+  color: string;       // Accent color (CSS hex)
+  bg: string;          // Light background alpha
+  darkBg: string;      // Blueprint dark mode background
   label: string;       // Display label
-  icon: string;        // Unicode icon glyph
+  icon: string;        // Glyph icon
+  badgeClass?: string;
+  prefix: string;      // Spec ID prefix e.g. CHAR, LOC, FAK, ASTR
 }
 
+// ── Flowcraft 6-Hue Functional System ──────────────────────────────────────
+// Brass: #E3A542
+// Teal: #4FC1A6
+// Coral: #E2705F
+// Slate Violet: #7B87D6
+// Sage: #8FB88A
+// Fog: #7A84A3
+
 const CONFIG_MAP: Record<string, EntityTypeConfig> = {
-  // ── Characters ──────────────────────────────────────────────────────────
-  CHARACTER:    { color: '#6366F1', bg: '#EEF2FF', darkBg: '#1E1B4B', label: 'Character', icon: '◎' },
+  // ── Characters & Beings (Brass) ─────────────────────────────────────────
+  CHARACTER:    { color: '#E3A542', bg: 'rgba(227, 165, 66, 0.12)', darkBg: '#1B160C', label: 'Character', icon: '👤', prefix: 'CHAR' },
+  GOD:          { color: '#E3A542', bg: 'rgba(227, 165, 66, 0.16)', darkBg: '#231B0A', label: 'God', icon: '✦', prefix: 'GOD' },
+  TRIDEV:       { color: '#E3A542', bg: 'rgba(227, 165, 66, 0.16)', darkBg: '#231B0A', label: 'Tridev', icon: '✦', prefix: 'COSM' },
+  COSMIC:       { color: '#E3A542', bg: 'rgba(227, 165, 66, 0.16)', darkBg: '#231B0A', label: 'Cosmic', icon: '✦', prefix: 'COSM' },
+  DEVA:         { color: '#E3A542', bg: 'rgba(227, 165, 66, 0.16)', darkBg: '#231B0A', label: 'Deva', icon: '✦', prefix: 'DEVA' },
+  DEITY:        { color: '#E3A542', bg: 'rgba(227, 165, 66, 0.16)', darkBg: '#231B0A', label: 'Deity', icon: '✦', prefix: 'DEIT' },
+  AVATAR:       { color: '#E3A542', bg: 'rgba(227, 165, 66, 0.16)', darkBg: '#231B0A', label: 'Avatar', icon: '✦', prefix: 'AVAT' },
 
-  // ── Divine / Cosmic ──────────────────────────────────────────────────────
-  GOD:          { color: '#F59E0B', bg: '#FFFBEB', darkBg: '#2D1F00', label: 'God', icon: '✦' },
-  TRIDEV:       { color: '#F59E0B', bg: '#FFFBEB', darkBg: '#2D1F00', label: 'Tridev', icon: '✦' },
-  COSMIC:       { color: '#F59E0B', bg: '#FFFBEB', darkBg: '#2D1F00', label: 'Cosmic', icon: '✦' },
-  DEVA:         { color: '#F59E0B', bg: '#FFFBEB', darkBg: '#2D1F00', label: 'Deva', icon: '✦' },
-  DEITY:        { color: '#F59E0B', bg: '#FFFBEB', darkBg: '#2D1F00', label: 'Deity', icon: '✦' },
-  AVATAR:       { color: '#F59E0B', bg: '#FFFBEB', darkBg: '#2D1F00', label: 'Avatar', icon: '✦' },
+  // ── Factions & Collectives (Teal) ───────────────────────────────────────
+  FACTION:      { color: '#4FC1A6', bg: 'rgba(79, 193, 166, 0.12)', darkBg: '#0A1C18', label: 'Faction', icon: '⚑', prefix: 'FACT' },
+  CLAN:         { color: '#4FC1A6', bg: 'rgba(79, 193, 166, 0.12)', darkBg: '#0A1C18', label: 'Clan', icon: '⚑', prefix: 'CLAN' },
+  ARMY:         { color: '#4FC1A6', bg: 'rgba(79, 193, 166, 0.12)', darkBg: '#0A1C18', label: 'Army', icon: '⚔', prefix: 'ARMY' },
+  ASURA:        { color: '#E2705F', bg: 'rgba(226, 112, 95, 0.14)', darkBg: '#24100E', label: 'Asura', icon: '🔥', prefix: 'ASUR' },
+  KINGDOM:      { color: '#4FC1A6', bg: 'rgba(79, 193, 166, 0.12)', darkBg: '#0A1C18', label: 'Kingdom', icon: '🏰', prefix: 'KING' },
 
-  // ── Factions / Collectives ───────────────────────────────────────────────
-  FACTION:      { color: '#10B981', bg: '#ECFDF5', darkBg: '#0D2E20', label: 'Faction', icon: '⚑' },
-  CLAN:         { color: '#10B981', bg: '#ECFDF5', darkBg: '#0D2E20', label: 'Clan', icon: '⚑' },
-  ARMY:         { color: '#10B981', bg: '#ECFDF5', darkBg: '#0D2E20', label: 'Army', icon: '⚑' },
-  ASURA:        { color: '#EF4444', bg: '#FEF2F2', darkBg: '#2E0A0A', label: 'Asura', icon: '⚑' },
-  KINGDOM:      { color: '#10B981', bg: '#ECFDF5', darkBg: '#0D2E20', label: 'Kingdom', icon: '⚑' },
+  // ── Places & Realms (Sage) ─────────────────────────────────────────────
+  LOCATION:     { color: '#8FB88A', bg: 'rgba(143, 184, 138, 0.12)', darkBg: '#0E1A0E', label: 'Location', icon: '◉', prefix: 'LOC' },
+  LOKA:         { color: '#8FB88A', bg: 'rgba(143, 184, 138, 0.12)', darkBg: '#0E1A0E', label: 'Loka', icon: '🌌', prefix: 'LOKA' },
+  REGION:       { color: '#8FB88A', bg: 'rgba(143, 184, 138, 0.12)', darkBg: '#0E1A0E', label: 'Region', icon: '🗺️', prefix: 'REG' },
+  GEOGRAPHY:    { color: '#8FB88A', bg: 'rgba(143, 184, 138, 0.12)', darkBg: '#0E1A0E', label: 'Geography', icon: '⛰️', prefix: 'GEO' },
+  LANDMARK:     { color: '#8FB88A', bg: 'rgba(143, 184, 138, 0.12)', darkBg: '#0E1A0E', label: 'Landmark', icon: '📍', prefix: 'MARK' },
+  REALM:        { color: '#8FB88A', bg: 'rgba(143, 184, 138, 0.12)', darkBg: '#0E1A0E', label: 'Realm', icon: '🏛️', prefix: 'RLM' },
 
-  // ── Places / Realms ──────────────────────────────────────────────────────
-  LOCATION:     { color: '#0EA5E9', bg: '#F0F9FF', darkBg: '#0C1A2E', label: 'Location', icon: '◉' },
-  LOKA:         { color: '#0EA5E9', bg: '#F0F9FF', darkBg: '#0C1A2E', label: 'Loka', icon: '◉' },
-  REGION:       { color: '#0EA5E9', bg: '#F0F9FF', darkBg: '#0C1A2E', label: 'Region', icon: '◉' },
-  GEOGRAPHY:    { color: '#0EA5E9', bg: '#F0F9FF', darkBg: '#0C1A2E', label: 'Geography', icon: '◉' },
-  LANDMARK:     { color: '#0EA5E9', bg: '#F0F9FF', darkBg: '#0C1A2E', label: 'Landmark', icon: '◉' },
-  REALM:        { color: '#0EA5E9', bg: '#F0F9FF', darkBg: '#0C1A2E', label: 'Realm', icon: '◉' },
+  // ── Weapons & Astras (Coral) ────────────────────────────────────────────
+  WEAPON:       { color: '#E2705F', bg: 'rgba(226, 112, 95, 0.14)', darkBg: '#24100E', label: 'Weapon', icon: '⚔', prefix: 'WEAP' },
+  ASTRA:        { color: '#E2705F', bg: 'rgba(226, 112, 95, 0.14)', darkBg: '#24100E', label: 'Astra', icon: '⚡', prefix: 'ASTR' },
+  ARTIFACT:     { color: '#E2705F', bg: 'rgba(226, 112, 95, 0.14)', darkBg: '#24100E', label: 'Artifact', icon: '🔮', prefix: 'ART' },
 
-  // ── Weapons / Astras ─────────────────────────────────────────────────────
-  WEAPON:       { color: '#EF4444', bg: '#FEF2F2', darkBg: '#2E0A0A', label: 'Weapon', icon: '⚔' },
-  ASTRA:        { color: '#EF4444', bg: '#FEF2F2', darkBg: '#2E0A0A', label: 'Astra', icon: '⚔' },
-  ARTIFACT:     { color: '#EF4444', bg: '#FEF2F2', darkBg: '#2E0A0A', label: 'Artifact', icon: '⚔' },
+  // ── Lineages & Cultures (Slate Violet) ──────────────────────────────────
+  VAMSHA:       { color: '#7B87D6', bg: 'rgba(123, 135, 214, 0.12)', darkBg: '#111326', label: 'Vamsha', icon: '⬡', prefix: 'VAMS' },
+  LINEAGE:      { color: '#7B87D6', bg: 'rgba(123, 135, 214, 0.12)', darkBg: '#111326', label: 'Lineage', icon: '🌳', prefix: 'LINE' },
+  CULTURE:      { color: '#7B87D6', bg: 'rgba(123, 135, 214, 0.12)', darkBg: '#111326', label: 'Culture', icon: '📜', prefix: 'CULT' },
+  GOTRA:        { color: '#7B87D6', bg: 'rgba(123, 135, 214, 0.12)', darkBg: '#111326', label: 'Gotra', icon: '🧬', prefix: 'GOTR' },
 
-  // ── Lineages / Cultures ───────────────────────────────────────────────────
-  VAMSHA:       { color: '#D97706', bg: '#FDF3E1', darkBg: '#2E1A00', label: 'Vamsha', icon: '⬡' },
-  LINEAGE:      { color: '#D97706', bg: '#FDF3E1', darkBg: '#2E1A00', label: 'Lineage', icon: '⬡' },
-  CULTURE:      { color: '#D97706', bg: '#FDF3E1', darkBg: '#2E1A00', label: 'Culture', icon: '⬡' },
-  GOTRA:        { color: '#D97706', bg: '#FDF3E1', darkBg: '#2E1A00', label: 'Gotra', icon: '⬡' },
+  // ── Mystical & Knowledge (Fog) ──────────────────────────────────────────
+  MAGIC_SYSTEM: { color: '#7A84A3', bg: 'rgba(122, 132, 163, 0.12)', darkBg: '#12141C', label: 'Magic', icon: '✧', prefix: 'MAG' },
+  TAPAS:        { color: '#7A84A3', bg: 'rgba(122, 132, 163, 0.12)', darkBg: '#12141C', label: 'Tapas', icon: '🧘', prefix: 'TAP' },
+  KNOWLEDGE:    { color: '#7A84A3', bg: 'rgba(122, 132, 163, 0.12)', darkBg: '#12141C', label: 'Knowledge', icon: '📚', prefix: 'KNOW' },
+  LORE:         { color: '#7A84A3', bg: 'rgba(122, 132, 163, 0.12)', darkBg: '#12141C', label: 'Lore', icon: '📖', prefix: 'LORE' },
 
-  // ── Mystical / Knowledge ──────────────────────────────────────────────────
-  MAGIC_SYSTEM: { color: '#8B5CF6', bg: '#F5F3FF', darkBg: '#1E1040', label: 'Magic', icon: '✧' },
-  TAPAS:        { color: '#8B5CF6', bg: '#F5F3FF', darkBg: '#1E1040', label: 'Tapas', icon: '✧' },
-  KNOWLEDGE:    { color: '#8B5CF6', bg: '#F5F3FF', darkBg: '#1E1040', label: 'Knowledge', icon: '✧' },
-  LORE:         { color: '#8B5CF6', bg: '#F5F3FF', darkBg: '#1E1040', label: 'Lore', icon: '✧' },
+  // ── Scenes & Narrative Processes (Process Purple) ───────────────────────
+  SCENE:        { color: '#A855F7', bg: 'rgba(168, 85, 247, 0.14)', darkBg: '#1F0B2E', label: 'Scene', icon: '🎬', prefix: 'SCN' },
+  EVENT:        { color: '#A855F7', bg: 'rgba(168, 85, 247, 0.14)', darkBg: '#1F0B2E', label: 'Event', icon: '⚡', prefix: 'EVNT' },
+  PROCESS:      { color: '#A855F7', bg: 'rgba(168, 85, 247, 0.14)', darkBg: '#1F0B2E', label: 'Process', icon: '🔄', prefix: 'PROC' },
 };
 
 /** Fallback config for unknown entity types */
 const DEFAULT_CONFIG: EntityTypeConfig = {
-  color: '#71717A',
-  bg: '#F4F4F5',
-  darkBg: '#1A1A24',
-  label: 'Entity',
-  icon: '○',
+  color: '#7A84A3',
+  bg: 'rgba(122, 132, 163, 0.12)',
+  darkBg: '#12141C',
+  label: 'Node',
+  icon: '⚙️',
+  prefix: 'NODE',
 };
 
 /**
  * Get visual config for a World Bible entity type.
- * Falls back gracefully to a neutral style for unknown types.
  */
 export const getEntityTypeConfig = (type: string): EntityTypeConfig => {
+  if (!type) return DEFAULT_CONFIG;
   const t = type.toUpperCase();
   if (CONFIG_MAP[t]) return CONFIG_MAP[t];
-  // Partial match — e.g. 'CHARACTER_CLASS' still resolves to Character
   for (const [key, config] of Object.entries(CONFIG_MAP)) {
     if (t.includes(key)) return config;
   }
   return DEFAULT_CONFIG;
 };
 
+/** Format entity ID into a clean Flowcraft Spec Tag ID (e.g. #CHAR-01) */
+export const formatSpecId = (type: string, id: string): string => {
+  const config = getEntityTypeConfig(type);
+  const cleanId = id.replace(/[^0-9a-zA-Z]/g, '').slice(-3).toUpperCase() || '01';
+  return `#${config.prefix}-${cleanId}`;
+};
+
 /** Get edge stroke color based on relationship type */
 export const getRelationshipColor = (type: string): string => {
-  const t = type.toUpperCase();
-  if (t.includes('ALLY')  || t.includes('FRIEND') || t.includes('BLESSED')   || t.includes('INCARNATION')) return '#10B981'; // emerald
-  if (t.includes('ENEMY') || t.includes('RIVAL')  || t.includes('CURSE')     || t.includes('CORRUPT'))     return '#EF4444'; // red
-  if (t.includes('HIERARCHY') || t.includes('INHERITS') || t.includes('DESCENDED') || t.includes('AVATAR') || t.includes('BORN'))  return '#6366F1'; // indigo
-  if (t.includes('MEMBER') || t.includes('LOCATED') || t.includes('PRACTICES') || t.includes('WIELDS') || t.includes('BELONG'))    return '#0EA5E9'; // sky
-  return '#A1A1AA'; // neutral zinc
+  const t = (type || '').toUpperCase();
+  if (t.includes('ALLY')  || t.includes('FRIEND') || t.includes('BLESSED')   || t.includes('INCARNATION')) return '#4FC1A6'; // teal
+  if (t.includes('ENEMY') || t.includes('RIVAL')  || t.includes('CURSE')     || t.includes('CORRUPT'))     return '#E2705F'; // coral
+  if (t.includes('HIERARCHY') || t.includes('INHERITS') || t.includes('DESCENDED') || t.includes('AVATAR') || t.includes('BORN'))  return '#E3A542'; // brass
+  if (t.includes('MEMBER') || t.includes('LOCATED') || t.includes('PRACTICES') || t.includes('WIELDS') || t.includes('BELONG'))    return '#7B87D6'; // slate violet
+  return '#7A84A3'; // fog
 };

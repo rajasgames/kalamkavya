@@ -14,8 +14,6 @@ import {
   type NodeChange,
   type EdgeChange,
   type Connection,
-  addEdge,
-  MarkerType,
 } from '@xyflow/react';
 import dagre from 'dagre';
 import { useStoryStore } from '@/stores/storyStore';
@@ -24,13 +22,17 @@ import { MasterFlowNode, type MasterFlowNodeData } from './MasterFlowNode';
 import { MasterFlowEdge } from './MasterFlowEdge';
 import { MasterFlowContextMenu } from './MasterFlowContextMenu';
 import { MasterFlowToolbar } from './MasterFlowToolbar';
+import { MasterFlowInspector } from './MasterFlowInspector';
+import { MasterFlowExportModal } from './MasterFlowExportModal';
+import { MasterFlowShortcuts } from './MasterFlowShortcuts';
+import { MasterFlowToasts } from './MasterFlowToasts';
 import { getEntityTypeConfig, getRelationshipColor } from './entityTypeConfig';
 import './MasterFlowStyles.css';
 
 // ─── Node / Edge type registration ───────────────────────────────────────────
 
 const nodeTypes = { masterEntity: MasterFlowNode };
-const edgeTypes  = { masterRelation: MasterFlowEdge };
+const edgeTypes = { masterRelation: MasterFlowEdge };
 
 // ─── Dagre auto-layout helper ─────────────────────────────────────────────────
 
@@ -43,9 +45,9 @@ const autoLayout = (
 
   const g = new dagre.graphlib.Graph();
   g.setDefaultEdgeLabel(() => ({}));
-  g.setGraph({ rankdir: direction, nodesep: 80, ranksep: 130, ranker: 'tight-tree' });
+  g.setGraph({ rankdir: direction, nodesep: 90, ranksep: 140, ranker: 'tight-tree' });
 
-  nodes.forEach(n => g.setNode(n.id, { width: 190, height: 70 }));
+  nodes.forEach(n => g.setNode(n.id, { width: 248, height: 110 }));
   edges.forEach(e => g.setEdge(e.source, e.target));
 
   dagre.layout(g);
@@ -53,27 +55,8 @@ const autoLayout = (
   return nodes.map(n => {
     const pos = g.node(n.id);
     if (!pos) return n;
-    return { ...n, position: { x: pos.x - 95, y: pos.y - 35 } };
+    return { ...n, position: { x: pos.x - 124, y: pos.y - 55 } };
   });
-};
-
-// ─── Export helpers ───────────────────────────────────────────────────────────
-
-const exportJSON = (entities: ReturnType<typeof useStoryStore.getState>['entities'],
-                    relationships: ReturnType<typeof useStoryStore.getState>['relationships']) => {
-  const data = {
-    entities: entities.map(e => ({ id: e.id, name: e.name, type: e.type, entityClass: e.entityClass })),
-    relationships: relationships.map(r => ({ id: r.id, from: r.fromEntityId, to: r.toEntityId, type: r.type })),
-  };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'world-bible-flowchart.json';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
 };
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -88,10 +71,11 @@ interface MasterFlowCanvasProps {
 const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlowCanvasProps) => {
   const { fitView, screenToFlowPosition } = useReactFlow();
 
-  const { activeProjectId, entities, relationships } = useStoryStore();
+  const { activeProjectId, entities, relationships, addEntity, addRelationship } = useStoryStore();
   const {
     positions, setPositions, loadPositions, savePositions, clearPositions,
-    layoutDirection, showAllEdges,
+    layoutDirection, showAllEdges, selectNode, selectEdge,
+    addToast, selectedNodeId, selectedEdgeId,
   } = useMasterFlowStore();
 
   // Local RF state
@@ -105,7 +89,7 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     flowPosition: { x: number; y: number };
   } | null>(null);
 
-  // Track whether we've done the initial dagre layout for this project
+  // Track initial dagre layout
   const hasInitialLayout = useRef(false);
   const prevProjectId = useRef<string | null>(null);
 
@@ -128,19 +112,23 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
       return;
     }
 
-    const projEntities   = entities.filter(e => e.projectId === activeProjectId);
+    const projEntities = entities.filter(e => e.projectId === activeProjectId);
     const projRelationships = relationships.filter(r => r.projectId === activeProjectId);
 
     // Build RF nodes from entities
     let rfNodes: Node[] = projEntities.map(entity => {
       const savedPos = positions[entity.id];
+      const isSelected = entity.id === selectedNodeId;
+      const desc = ((entity.data as Record<string, unknown>)?.notes || (entity.data as Record<string, unknown>)?.description || '') as string;
       return {
         id: entity.id,
         type: 'masterEntity',
-        position: savedPos ?? { x: 0, y: 0 },
+        position: savedPos ?? { x: 100, y: 100 },
+        selected: isSelected,
         data: {
           entityId: entity.id,
           name: entity.name,
+          description: desc,
           entityType: entity.type,
           entityClass: entity.entityClass ?? 'INSTANCE',
           onEntitySelect,
@@ -153,6 +141,7 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     const rfEdges: Edge[] = projRelationships
       .filter(r => nodeIds.has(r.fromEntityId) && nodeIds.has(r.toEntityId))
       .map(r => {
+        const isSelected = r.id === selectedEdgeId;
         const color = getRelationshipColor(r.type);
         const isHierarchy = r.type.toUpperCase().includes('HIERARCHY') ||
                             r.type.toUpperCase().includes('INHERITS')  ||
@@ -162,9 +151,10 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
           source: r.fromEntityId,
           target: r.toEntityId,
           type: 'masterRelation',
-          markerEnd: { type: MarkerType.ArrowClosed, color },
+          selected: isSelected,
           style: { stroke: color },
           data: {
+            relationshipId: r.id,
             label: r.metadata?.label as string | undefined,
             relationshipType: r.type,
             isHierarchy,
@@ -181,13 +171,11 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     if (!hasInitialLayout.current && rfNodes.length > 0 && noSavedPositions) {
       rfNodes = autoLayout(rfNodes, rfEdges, layoutDirection);
       hasInitialLayout.current = true;
-      // Persist these computed positions
       const newPositions: Record<string, { x: number; y: number }> = {};
       rfNodes.forEach(n => { newPositions[n.id] = n.position; });
       setPositions(newPositions);
       savePositions(activeProjectId, newPositions);
     } else {
-      // Apply saved positions (preserve existing for known entities)
       rfNodes = rfNodes.map(n => ({
         ...n,
         position: positions[n.id] ?? n.position,
@@ -197,16 +185,20 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
 
     setNodes(rfNodes);
     setEdges(visibleEdges);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeProjectId, entities, relationships, showAllEdges]);
-  // Note: `positions` intentionally excluded — we only want external store changes
-  // (not drag updates) to re-trigger the build. Drag positions are applied via onNodesChange.
+  }, [
+    activeProjectId,
+    entities,
+    relationships,
+    showAllEdges,
+    selectedNodeId,
+    selectedEdgeId,
+    onEntitySelect,
+  ]);
 
   // ── Node/Edge change handlers ───────────────────────────────────────────────
   const onNodesChange = useCallback((changes: NodeChange[]) => {
     setNodes(nds => {
       const updated = applyNodeChanges(changes, nds);
-      // Persist position changes
       const posChanges = changes.filter(c => c.type === 'position' && c.position);
       if (posChanges.length > 0 && activeProjectId) {
         const newPositions = { ...positions };
@@ -215,7 +207,6 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
             newPositions[c.id] = c.position;
           }
         });
-        // Debounce handled by the store / localStorage
         savePositions(activeProjectId, newPositions);
         setPositions(newPositions);
       }
@@ -227,148 +218,213 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     setEdges(eds => applyEdgeChanges(changes, eds));
   }, []);
 
+  // Drag handle to connect edge creation
   const onConnect = useCallback((connection: Connection) => {
-    if (!connection.source || !connection.target || connection.source === connection.target) return;
-    const color = '#A1A1AA';
-    setEdges(eds => addEdge({
-      ...connection,
-      type: 'masterRelation',
-      markerEnd: { type: MarkerType.ArrowClosed, color },
-      style: { stroke: color },
-      data: { relationshipType: 'CONNECTED', isHierarchy: false },
-    }, eds));
-  }, []);
+    if (!connection.source || !connection.target || connection.source === connection.target || !activeProjectId) return;
+    
+    const newRelId = crypto.randomUUID();
+    addRelationship({
+      id: newRelId,
+      projectId: activeProjectId,
+      fromEntityId: connection.source,
+      toEntityId: connection.target,
+      type: 'CONNECTED_TO',
+      directed: true,
+      metadata: {},
+    });
 
-  // ── Keyboard shortcuts ──────────────────────────────────────────────────────
-  useEffect(() => {
-    const { undo, redo } = useMasterFlowStore.temporal.getState();
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const active = document.activeElement as HTMLElement;
-      const isTyping = active?.tagName === 'INPUT' || active?.tagName === 'TEXTAREA' || active?.isContentEditable;
-      if (isTyping) return;
-      const ctrl = e.ctrlKey || e.metaKey;
-      if (ctrl && e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
-      if (ctrl && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) { e.preventDefault(); redo(); }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+    addToast('Created new process relationship link', 'success');
+    selectEdge(newRelId);
+  }, [activeProjectId, addRelationship, addToast, selectEdge]);
 
-  // ── Context menu ────────────────────────────────────────────────────────────
-  const onPaneContextMenu = useCallback((e: React.MouseEvent | MouseEvent) => {
+  // Node & Edge selection click handlers
+  const handleNodeClick = useCallback((_: React.MouseEvent, node: Node) => {
+    selectNode(node.id);
+  }, [selectNode]);
+
+  const handleEdgeClick = useCallback((_: React.MouseEvent, edge: Edge) => {
+    selectEdge(edge.id);
+  }, [selectEdge]);
+
+  const handlePaneClick = useCallback(() => {
+    selectNode(null);
+    setMenu(null);
+  }, [selectNode]);
+
+  // Double click canvas to add node
+  const handlePaneDoubleClick = useCallback((e: React.MouseEvent) => {
+    if (!activeProjectId) return;
+    const flowPos = screenToFlowPosition({ x: e.clientX, y: e.clientY });
+    const newId = crypto.randomUUID();
+
+    addEntity({
+      id: newId,
+      projectId: activeProjectId,
+      name: 'New Process Spec',
+      type: 'CHARACTER',
+      entityClass: 'INSTANCE',
+      categorySlug: 'characters',
+      data: { notes: 'Technical spec notes...' },
+      hasAIRule: false,
+    });
+
+    const newPositions = { ...positions, [newId]: flowPos };
+    setPositions(newPositions);
+    savePositions(activeProjectId, newPositions);
+
+    addToast('Created new process node', 'success');
+    selectNode(newId);
+  }, [activeProjectId, screenToFlowPosition, addEntity, positions, setPositions, savePositions, addToast, selectNode]);
+
+  // ── Context Menu handlers ──────────────────────────────────────────────────
+  const onContextMenu = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     if (!canvasRef.current) return;
-    const pane = canvasRef.current.getBoundingClientRect();
-    let top: number | undefined  = e.clientY - pane.top;
-    let left: number | undefined = e.clientX - pane.left;
-    const right  = left  > pane.width  - 220 ? pane.width  - left  : undefined;
-    const bottom = top   > pane.height - 220 ? pane.height - top   : undefined;
-    if (right  !== undefined) left = undefined;
-    if (bottom !== undefined) top  = undefined;
-    setMenu({ top, left, right, bottom, flowPosition: screenToFlowPosition({ x: e.clientX, y: e.clientY }) });
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const flowPos = screenToFlowPosition({ x: e.clientX, y: e.clientY });
+
+    setMenu({
+      left: x < rect.width - 220 ? x : undefined,
+      right: x >= rect.width - 220 ? rect.width - x : undefined,
+      top: y < rect.height - 240 ? y : undefined,
+      bottom: y >= rect.height - 240 ? rect.height - y : undefined,
+      flowPosition: flowPos,
+    });
   }, [screenToFlowPosition]);
 
-  const onPaneClick = useCallback(() => setMenu(null), []);
+  const handleAddEntityFromMenu = useCallback((entityType: string) => {
+    if (!activeProjectId) return;
+    const pos = menu?.flowPosition ?? { x: 200, y: 200 };
+    
+    if (onRequestAddEntity) {
+      onRequestAddEntity(entityType);
+    } else {
+      const cfg = getEntityTypeConfig(entityType);
+      const newId = crypto.randomUUID();
+      addEntity({
+        id: newId,
+        projectId: activeProjectId,
+        name: `New ${cfg.label}`,
+        type: entityType,
+        entityClass: 'INSTANCE',
+        categorySlug: `${entityType.toLowerCase()}s`,
+        data: {},
+        hasAIRule: false,
+      });
+      const newPositions = { ...positions, [newId]: pos };
+      setPositions(newPositions);
+      savePositions(activeProjectId, newPositions);
+      addToast(`Added ${cfg.label} node`, 'success');
+      selectNode(newId);
+    }
+  }, [activeProjectId, menu, onRequestAddEntity, addEntity, positions, setPositions, savePositions, addToast, selectNode]);
 
-  // ── Auto arrange ────────────────────────────────────────────────────────────
+  // Auto-arrange whole canvas using Dagre
   const handleAutoArrange = useCallback(() => {
+    if (nodes.length === 0) return;
     const arranged = autoLayout(nodes, edges, layoutDirection);
     setNodes(arranged);
+
     if (activeProjectId) {
       const newPositions: Record<string, { x: number; y: number }> = {};
       arranged.forEach(n => { newPositions[n.id] = n.position; });
       setPositions(newPositions);
       savePositions(activeProjectId, newPositions);
     }
-    setTimeout(() => fitView({ padding: 0.15, duration: 400 }), 50);
-  }, [nodes, edges, layoutDirection, activeProjectId, setPositions, savePositions, fitView]);
+    setTimeout(() => fitView({ padding: 0.2, duration: 300 }), 50);
+    addToast('Auto-arranged blueprint layout', 'info');
+  }, [nodes, edges, layoutDirection, activeProjectId, setPositions, savePositions, fitView, addToast]);
 
-  // ── Export ──────────────────────────────────────────────────────────────────
-  const handleExportJSON = useCallback(() => {
-    const { entities: ents, relationships: rels } = useStoryStore.getState();
-    exportJSON(ents, rels);
-  }, []);
-
-  // ── Empty state ─────────────────────────────────────────────────────────────
-  const hasEntities = entities.filter(e => e.projectId === activeProjectId).length > 0;
+  const handleClearLayout = useCallback(() => {
+    if (!activeProjectId) return;
+    clearPositions(activeProjectId);
+    handleAutoArrange();
+    addToast('Reset node positions', 'info');
+  }, [activeProjectId, clearPositions, handleAutoArrange, addToast]);
 
   return (
-    <div className="master-flow-canvas-wrapper" ref={canvasRef}>
-      <MasterFlowToolbar
-        onExportJSON={handleExportJSON}
-      />
+    <div ref={canvasRef} className="master-flow-canvas-wrapper" onContextMenu={onContextMenu}>
+      {/* Floating Blueprint Toolbar */}
+      <MasterFlowToolbar onAddNode={handleAddEntityFromMenu} />
 
+      {/* Main ReactFlow Canvas */}
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        onPaneClick={onPaneClick}
-        onPaneContextMenu={onPaneContextMenu}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        panOnDrag={[1, 2]}
-        selectionOnDrag
-        selectionMode={SelectionMode.Partial}
-        deleteKeyCode={['Delete', 'Backspace']}
+        onNodeClick={handleNodeClick}
+        onEdgeClick={handleEdgeClick}
+        onPaneClick={handlePaneClick}
+        onDoubleClick={handlePaneDoubleClick}
         fitView
-        fitViewOptions={{ padding: 0.15 }}
-        minZoom={0.1}
-        maxZoom={3}
-        defaultEdgeOptions={{ type: 'masterRelation' }}
+        fitViewOptions={{ padding: 0.2 }}
+        selectionMode={SelectionMode.Partial}
+        panOnScroll
+        selectionOnDrag
+        panOnDrag={[1, 2]}
+        deleteKeyCode={['Backspace', 'Delete']}
+        minZoom={0.15}
+        maxZoom={2.5}
       >
-        <Background color="var(--border-subtle)" variant={BackgroundVariant.Dots} gap={20} size={1.5} />
+        <Background variant={BackgroundVariant.Dots} gap={24} size={1.2} />
         <Controls showInteractive={false} />
         <MiniMap
-          nodeColor={n => {
-            const entityType = (n.data as MasterFlowNodeData)?.entityType ?? '';
-            return getEntityTypeConfig(entityType).color;
+          nodeColor={(n) => {
+            const data = n.data as MasterFlowNodeData | undefined;
+            return getEntityTypeConfig(data?.entityType || '').color;
           }}
-          nodeStrokeWidth={0}
-          maskColor="rgba(0,0,0,0.08)"
-          zoomable
-          pannable
+          maskColor="rgba(10, 17, 32, 0.75)"
         />
       </ReactFlow>
 
-      {/* Empty state overlay */}
-      {!hasEntities && (
-        <div className="master-flow-empty">
-          <div className="master-flow-empty__icon">✦</div>
-          <div className="master-flow-empty__title">No entities yet</div>
-          <div className="master-flow-empty__hint">
-            Right-click on the canvas to add your first entity, or add entries from the World Bible sections.
-          </div>
+      {/* Blueprint Empty State when project has no nodes */}
+      {nodes.length === 0 && (
+        <div className="flowcraft-empty-state">
+          <h2>Blueprint Canvas Empty</h2>
+          <p className="mb-4">Double-click canvas or use <kbd>+ Add Node</kbd> to draft your process diagram</p>
+          <button className="btn btn-primary" onClick={() => handleAddEntityFromMenu('CHARACTER')}>
+            + Add Initial Process Node
+          </button>
         </div>
       )}
 
-      {/* Context menu */}
+      {/* Context Menu */}
       {menu && (
         <MasterFlowContextMenu
-          top={menu.top}
-          left={menu.left}
-          right={menu.right}
-          bottom={menu.bottom}
-          onAddEntity={(type) => onRequestAddEntity?.(type)}
+          {...menu}
+          onAddEntity={handleAddEntityFromMenu}
           onAutoArrange={handleAutoArrange}
-          onFitView={() => { fitView({ padding: 0.15, duration: 400 }); }}
-          onClearLayout={() => {
-            if (activeProjectId) clearPositions(activeProjectId);
-            hasInitialLayout.current = false;
-            handleAutoArrange();
-          }}
-          onClose={onPaneClick}
+          onFitView={() => fitView({ padding: 0.2, duration: 300 })}
+          onClearLayout={handleClearLayout}
+          onClose={() => setMenu(null)}
         />
       )}
+
+      {/* Sliding Inspector Panel */}
+      <MasterFlowInspector onEntitySelect={onEntitySelect} />
+
+      {/* Export Modal */}
+      <MasterFlowExportModal />
+
+      {/* Keyboard Shortcuts Cheatsheet */}
+      <MasterFlowShortcuts />
+
+      {/* Notification Toast Banners */}
+      <MasterFlowToasts />
     </div>
   );
 };
 
-// ─── Public export (wraps with ReactFlowProvider) ─────────────────────────────
+// ─── Exported outer wrapper ───────────────────────────────────────────────────
 
 export function MasterFlowCanvas(props: MasterFlowCanvasProps) {
-  // ReactFlowProvider is provided by WorldMap.tsx wrapper
   return <MasterFlowCanvasInner {...props} />;
 }
 

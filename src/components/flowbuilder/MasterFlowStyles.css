@@ -1,560 +1,1063 @@
 /* ============================================================
-   Master Flow Canvas — scoped CSS
-   All selectors are prefixed with .master-flow- to avoid
-   collision with the existing reactflow v11 styles used by
-   the Cast RelationshipFlowchart.
+   FLOWCRAFT — MASTER FLOW CHART DESIGN SYSTEM
+   Direction: a technical drafting instrument, not a SaaS dashboard.
+   Deep blueprint-navy canvas, brass/teal/coral/slate/sage/fog functional 6-hue system,
+   annotated "spec tag" cards, animated marching-ants connection flows.
    ============================================================ */
 
-/* ── Imports ─────────────────────────────────────────────── */
 @import '@xyflow/react/dist/style.css';
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
-/* ── Canvas background ────────────────────────────────────── */
+:root {
+  --ink-950: #0A1120;
+  --ink-900: #0F1A2E;
+  --ink-800: #16233D;
+  --ink-750: #1B2A47;
+  --ink-700: #24365A;
+  --hairline: rgba(163, 186, 230, .14);
+  --hairline-strong: rgba(163, 186, 230, .28);
+  --paper-100: #EEEAE0;
+  --paper-300: #C7CCDD;
+  --paper-500: #8D97B5;
+  --paper-700: #5C6684;
+  --brass: #E3A542;
+  --brass-dim: #C98A2C;
+  --brass-ink: #2B1B02;
+  --teal: #4FC1A6;
+  --coral: #E2705F;
+  --slate-violet: #7B87D6;
+  --sage: #8FB88A;
+  --fog: #7A84A3;
+  --danger: #E2705F;
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --shadow-float: 0 16px 44px -14px rgba(3, 7, 18, .7), 0 3px 10px rgba(3, 7, 18, .4);
+  --shadow-node: 0 6px 20px -8px rgba(3, 7, 18, .55);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --ink-950: #E6DFCB;
+  --ink-900: #F1ECDD;
+  --ink-800: #FBF9F2;
+  --ink-750: #F5F1E5;
+  --ink-700: #E2DAC0;
+  --hairline: rgba(60, 48, 20, .14);
+  --hairline-strong: rgba(60, 48, 20, .26);
+  --paper-100: #1C1A14;
+  --paper-300: #453F32;
+  --paper-500: #79715B;
+  --paper-700: #9C957F;
+  --shadow-float: 0 16px 40px -16px rgba(60, 48, 20, .28), 0 2px 8px rgba(60, 48, 20, .14);
+  --shadow-node: 0 6px 18px -10px rgba(60, 48, 20, .24);
+  color-scheme: light;
+}
+
+/* ---------- Canvas Viewport Wrapper ---------- */
 .master-flow-canvas-wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
-  background: var(--bg-canvas);
+  background: var(--ink-950);
+  color: var(--paper-100);
+  font-family: var(--font-body);
+  overflow: hidden;
 }
 
 .master-flow-canvas-wrapper .react-flow__background {
-  background: var(--bg-canvas);
+  background: var(--ink-950);
 }
 
 .master-flow-canvas-wrapper .react-flow__background-pattern circle {
-  fill: var(--border-subtle);
+  fill: var(--hairline-strong);
 }
 
 .master-flow-canvas-wrapper .react-flow__pane {
-  cursor: crosshair !important;
+  cursor: grab !important;
 }
 
-/* ── Controls override ────────────────────────────────────── */
+.master-flow-canvas-wrapper .react-flow__pane:active {
+  cursor: grabbing !important;
+}
+
 .master-flow-canvas-wrapper .react-flow__controls {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  box-shadow: var(--shadow-soft);
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float);
   overflow: hidden;
   bottom: 24px;
   left: 24px;
 }
 
 .master-flow-canvas-wrapper .react-flow__controls-button {
-  background: var(--bg-surface);
-  border: none;
-  border-bottom: 1px solid var(--border-subtle);
-  fill: var(--text-secondary);
-  transition: background 0.15s;
-}
-
-.master-flow-canvas-wrapper .react-flow__controls-button:last-child {
-  border-bottom: none;
-}
-
-.master-flow-canvas-wrapper .react-flow__controls-button:hover {
-  background: var(--bg-deep);
+  background: transparent;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--paper-300);
 }
 
 .master-flow-canvas-wrapper .react-flow__controls-button svg {
-  fill: var(--text-secondary);
+  fill: var(--paper-300);
 }
 
-/* ── MiniMap override ─────────────────────────────────────── */
-.master-flow-canvas-wrapper .react-flow__minimap {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  box-shadow: var(--shadow-soft);
-  bottom: 24px;
-  right: 24px;
+.master-flow-canvas-wrapper .react-flow__controls-button:hover {
+  background: var(--ink-750);
 }
 
-/* ── Custom Node ──────────────────────────────────────────── */
-.master-flow-node {
-  position: relative;
-  background: var(--bg-surface);
-  border: 1.5px solid var(--border-subtle);
-  border-radius: 10px;
-  width: 190px;
-  padding: 10px 12px 8px;
-  box-shadow: var(--shadow-soft);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  overflow: hidden;
-  font-family: var(--font-sans, 'Inter', sans-serif);
-}
-
-.master-flow-node:hover {
-  box-shadow: var(--shadow-hover);
-}
-
-.master-flow-node--selected {
-  border-width: 2px;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--border-subtle) 30%, transparent),
-              var(--shadow-hover);
-}
-
-/* Master entity gets a slightly more prominent treatment */
-.master-flow-node--master {
-  border-style: solid;
-}
-
-/* Top color accent bar */
-.master-flow-node__accent {
+/* ---------- Floating Toolbar ---------- */
+.flowcraft-toolbar {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  border-radius: 10px 10px 0 0;
-}
-
-/* Type badge */
-.master-flow-node__badge {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 6px;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  border-radius: 100px;
-  padding: 2px 7px 2px 5px;
-  width: fit-content;
-}
-
-.master-flow-node__icon {
-  font-size: 10px;
-}
-
-.master-flow-node__type {
-  font-size: 9px;
-}
-
-.master-flow-node__master-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  margin-left: 2px;
-}
-
-/* Node body / name */
-.master-flow-node__body {
-  margin-bottom: 4px;
-}
-
-.master-flow-node__name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  text-align: center;
-  padding: 2px 4px;
-  border-radius: 4px;
-  cursor: text;
-  word-break: break-word;
-  transition: background 0.15s;
-  line-height: 1.3;
-}
-
-.master-flow-node__name:hover {
-  background: var(--bg-deep);
-}
-
-.master-flow-node__input {
-  background: transparent;
-  border: none;
-  border-bottom: 1.5px solid var(--terracotta);
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  outline: none;
-  width: 100%;
-  text-align: center;
-  padding: 2px 4px;
-}
-
-/* Connection count */
-.master-flow-node__connections {
-  font-size: 10px;
-  text-align: center;
-  opacity: 0.6;
-  margin-top: 2px;
-}
-
-/* Action buttons */
-.master-flow-node__actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  margin-top: 6px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.master-flow-node:hover .master-flow-node__actions,
-.master-flow-node--selected .master-flow-node__actions {
-  opacity: 1;
-}
-
-.master-flow-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-canvas);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.18s ease;
-}
-
-.master-flow-action-btn:hover {
-  background: var(--btn-color, var(--terracotta));
-  border-color: var(--btn-color, var(--terracotta));
-  color: #fff;
-}
-
-.master-flow-action-btn--danger:hover {
-  background: var(--destructive);
-  border-color: var(--destructive);
-  color: #fff;
-}
-
-/* ── Handles ──────────────────────────────────────────────── */
-.master-flow-handle {
-  width: 8px !important;
-  height: 8px !important;
-  background: var(--bg-surface) !important;
-  border: 1.5px solid var(--text-ghost) !important;
-  transition: border-color 0.15s, background 0.15s !important;
-}
-
-.master-flow-handle:hover {
-  border-color: var(--terracotta) !important;
-  background: var(--terracotta) !important;
-}
-
-/* ── Custom Edge ──────────────────────────────────────────── */
-.master-flow-edge-path {
-  stroke-width: 1.5;
-  fill: none;
-  cursor: pointer;
-  transition: stroke-width 0.2s;
-}
-
-.master-flow-edge-path--selected {
-  stroke-width: 2.5;
-}
-
-.master-flow-edge-path:hover {
-  stroke-width: 2.5;
-}
-
-/* Edge label wrapper */
-.master-flow-edge-label {
-  position: absolute;
-  pointer-events: all;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.master-flow-edge-text {
-  background: var(--bg-surface);
-  border: 1px solid;
-  border-radius: 4px;
-  padding: 2px 7px;
-  font-size: 10px;
-  font-weight: 600;
-  font-family: var(--font-sans, sans-serif);
-  white-space: nowrap;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  cursor: pointer;
-  letter-spacing: 0.03em;
-}
-
-.master-flow-edge-add {
-  background: var(--bg-deep);
-  border: 1px dashed var(--border-subtle);
-  border-radius: 4px;
-  padding: 2px 7px;
-  font-size: 10px;
-  color: var(--text-ghost);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.15s;
-}
-
-.master-flow-edge-add:hover {
-  border-color: var(--terracotta);
-  color: var(--terracotta);
-}
-
-.master-flow-edge-input {
-  background: var(--bg-surface);
-  border: 1.5px solid var(--terracotta);
-  border-radius: 4px;
-  padding: 2px 7px;
-  font-size: 10px;
-  font-family: inherit;
-  color: var(--text-primary);
-  outline: none;
-  min-width: 60px;
-}
-
-/* ── Context Menu ─────────────────────────────────────────── */
-.master-flow-context-menu {
-  position: absolute;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  min-width: 190px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  padding: 5px 0;
-  overflow: visible;
-}
-
-.master-flow-menu-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  background: transparent;
-  border: none;
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  text-align: left;
-  transition: background 0.15s;
-  position: relative;
-  width: 100%;
-}
-
-.master-flow-menu-item:hover {
-  background: var(--bg-deep);
-}
-
-.master-flow-menu-item--danger {
-  color: var(--destructive);
-}
-
-.master-flow-menu-item--danger:hover {
-  background: rgba(220, 38, 38, 0.06);
-}
-
-.master-flow-menu-chevron {
-  margin-left: auto;
-  color: var(--text-ghost);
-}
-
-.master-flow-menu-divider {
-  height: 1px;
-  background: var(--border-subtle);
-  margin: 4px 0;
-}
-
-.master-flow-submenu {
-  position: absolute;
-  left: 100%;
-  top: -4px;
-  z-index: 1001;
-  min-width: 170px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  padding: 5px 0;
-}
-
-/* ── Toolbar ──────────────────────────────────────────────── */
-.master-flow-toolbar {
-  position: absolute;
-  top: 14px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 6px 14px;
-  background: color-mix(in srgb, var(--bg-surface, #1e1e24) 88%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
-  border-radius: 9999px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  white-space: nowrap;
-  max-width: calc(100% - 32px);
-  overflow: visible;
-}
-
-.master-flow-toolbar::-webkit-scrollbar { display: none; }
-
-.master-flow-toolbar__left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.master-flow-toolbar__title {
+  z-index: 40;
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: var(--radius-lg);
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: var(--shadow-float);
+  max-width: calc(100vw - 32px);
+  backdrop-filter: blur(12px);
+}
+
+.flowcraft-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 0 4px;
+  font-family: var(--font-display);
   font-weight: 700;
-  color: var(--text-primary);
+  font-size: 14px;
+  letter-spacing: .02em;
+  color: var(--paper-100);
+  white-space: nowrap;
 }
 
-.master-flow-toolbar__count {
-  font-size: 10px;
-  font-mono: true;
-  color: var(--amber-from, #d4995a);
-  background: var(--bg-deep, rgba(0,0,0,0.3));
-  border: 1px solid color-mix(in srgb, var(--amber-from, #d4995a) 25%, transparent);
-  border-radius: 100px;
-  padding: 1px 8px;
+.flowcraft-brand svg {
+  width: 18px;
+  height: 18px;
+  color: var(--brass);
+  flex: none;
 }
 
-.master-flow-toolbar__center {
+.flowcraft-brand .sub-label {
+  font-size: 12px;
+  color: var(--paper-500);
+  font-weight: 400;
+}
+
+.flowcraft-tb-group {
   display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.flowcraft-tb-div {
+  width: 1px;
+  height: 20px;
+  background: var(--hairline-strong);
+  margin: 0 3px;
+  flex: none;
+}
+
+.flowcraft-zoom-readout {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--paper-500);
+  min-width: 42px;
+  text-align: center;
+  user-select: none;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  flex-shrink: 0;
-}
-
-.master-flow-toolbar__right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.master-flow-toolbar__group {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  background: var(--bg-deep, rgba(0,0,0,0.25));
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  padding: 2px;
-}
-
-.master-flow-toolbar-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
   background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
-  padding: 5px 9px;
-  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--paper-300);
+  font-size: 12.5px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all .15s var(--ease);
+  white-space: nowrap;
 }
 
-.master-flow-toolbar-btn:hover:not(:disabled) {
-  background: var(--bg-surface);
-  color: var(--text-primary);
+.btn:hover {
+  background: var(--ink-750);
+  color: var(--paper-100);
 }
 
-.master-flow-toolbar-btn--active {
-  background: color-mix(in srgb, var(--amber-from, #d4995a) 15%, transparent);
-  color: var(--amber-from, #d4995a);
-  border: 1px solid color-mix(in srgb, var(--amber-from, #d4995a) 30%, transparent);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+.btn:active {
+  transform: scale(.96);
 }
 
-.master-flow-toolbar-btn--disabled {
-  opacity: 0.3;
+.btn:disabled {
+  opacity: .35;
   cursor: not-allowed;
 }
 
-/* Legend */
-.master-flow-legend {
+.btn-icon {
+  width: 32px;
+  padding: 0;
+  justify-content: center;
+}
+
+.btn-primary {
+  background: var(--brass);
+  color: var(--brass-ink);
+  border-color: var(--brass);
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background: #EEB35C;
+  color: var(--brass-ink);
+}
+
+.btn-ghost-outline {
+  border-color: var(--hairline-strong);
+}
+
+.btn-danger:hover {
+  background: rgba(226, 112, 95, .16);
+  color: var(--coral);
+}
+
+/* Dropdown Menus */
+.flowcraft-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 50;
+  min-width: 180px;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: var(--shadow-float);
+  backdrop-filter: blur(12px);
+  animation: nodeIn .12s var(--ease);
+}
+
+.flowcraft-dropdown-item {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.master-flow-legend__item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: default;
-}
-
-.master-flow-legend__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.master-flow-legend__label {
-  font-size: 10px;
-  color: var(--text-ghost);
-}
-
-/* Export button */
-.master-flow-export-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: var(--terracotta);
-  color: white;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: none;
   border: none;
-  padding: 5px 12px;
-  border-radius: 100px;
-  font-family: inherit;
-  font-size: 11px;
-  font-weight: 600;
+  color: var(--paper-300);
+  font-size: 12.5px;
   cursor: pointer;
-  transition: opacity 0.2s;
-  flex-shrink: 0;
+  transition: background .15s;
 }
 
-.master-flow-export-btn:hover { opacity: 0.85; }
+.flowcraft-dropdown-item:hover {
+  background: var(--ink-750);
+  color: var(--paper-100);
+}
 
-/* ── Empty state ──────────────────────────────────────────── */
-.master-flow-empty {
+/* ---------- Annotated Spec Tag Nodes ---------- */
+.flowcraft-node {
+  position: relative;
+  width: 248px;
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-node);
+  user-select: none;
+  cursor: grab;
+  padding: 10px 12px 10px 14px;
+  transition: box-shadow .15s var(--ease), border-color .15s var(--ease), transform .15s var(--ease);
+  animation: nodeIn .25s var(--ease);
+}
+
+@keyframes nodeIn {
+  from {
+    opacity: 0;
+    transform: scale(.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.flowcraft-node:hover {
+  box-shadow: 0 12px 30px -10px rgba(3, 7, 18, .7);
+}
+
+.flowcraft-node--selected {
+  border-color: var(--accent-color, var(--brass));
+  box-shadow: var(--shadow-node), 0 0 0 3px color-mix(in srgb, var(--accent-color, var(--brass)) 35%, transparent);
+}
+
+.flowcraft-node--master {
+  border-width: 1.5px;
+}
+
+.flowcraft-node__accent-bar {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+/* Header */
+.flowcraft-node__header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.flowcraft-node__type-icon {
+  font-size: 11px;
+}
+
+.flowcraft-node__type-label {
+  font-weight: 600;
+}
+
+.flowcraft-node__spec-id {
+  margin-left: auto;
+  color: var(--paper-700);
+  font-size: 9.5px;
+}
+
+.flowcraft-node__master-badge {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 0 6px var(--brass);
+}
+
+/* Actions */
+.flowcraft-node__actions {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  gap: 3px;
+  opacity: 0;
+  transition: opacity .15s var(--ease);
+}
+
+.flowcraft-node:hover .flowcraft-node__actions,
+.flowcraft-node--selected .flowcraft-node__actions {
+  opacity: 1;
+}
+
+.flowcraft-action-btn {
+  width: 22px;
+  height: 22px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  border-radius: 6px;
+  background: var(--ink-750);
+  border: 1px solid var(--hairline-strong);
+  color: var(--paper-500);
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.flowcraft-action-btn:hover {
+  color: var(--paper-100);
+  background: var(--ink-700);
+}
+
+.flowcraft-action-btn--danger:hover {
+  color: var(--coral);
+  background: rgba(226, 112, 95, .16);
+}
+
+/* Title & Body */
+.flowcraft-node__name {
+  margin: 0 0 3px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--paper-100);
+  line-height: 1.3;
+  word-break: break-word;
+  cursor: text;
+  border-radius: 4px;
+  padding: 1px 2px;
+  transition: background .15s;
+}
+
+.flowcraft-node__name:hover {
+  background: var(--ink-750);
+}
+
+.flowcraft-node__name-input {
+  width: 100%;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--paper-100);
+  background: var(--ink-750);
+  border: 1px solid var(--brass);
+  border-radius: 4px;
+  padding: 2px 6px;
+  outline: none;
+}
+
+.flowcraft-node__desc {
+  margin: 0 0 6px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--paper-500);
+  cursor: text;
+  word-break: break-word;
+  padding: 1px 2px;
+  border-radius: 4px;
+  transition: background .15s;
+  min-height: 18px;
+}
+
+.flowcraft-node__desc .placeholder {
+  color: var(--paper-700);
+  font-style: italic;
+}
+
+.flowcraft-node__desc:hover {
+  background: var(--ink-750);
+  color: var(--paper-300);
+}
+
+.flowcraft-node__desc-input {
+  width: 100%;
+  font-size: 12px;
+  color: var(--paper-100);
+  background: var(--ink-750);
+  border: 1px solid var(--brass);
+  border-radius: 4px;
+  padding: 4px 6px;
+  outline: none;
+  resize: vertical;
+  font-family: var(--font-body);
+}
+
+/* Connection Footer */
+.flowcraft-node__footer {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.conn-pill {
+  padding: 2px 7px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--hairline-strong);
+  background: var(--ink-900);
+}
+
+/* Handles */
+.flowcraft-handle {
+  width: 12px !important;
+  height: 12px !important;
+  background: var(--ink-900) !important;
+  border: 2px solid var(--accent-color, var(--brass)) !important;
+  border-radius: 50% !important;
+  opacity: 0;
+  transition: opacity .15s var(--ease), transform .15s var(--ease) !important;
+  z-index: 10;
+}
+
+.flowcraft-node:hover .flowcraft-handle,
+.flowcraft-node--selected .flowcraft-handle {
+  opacity: 1;
+}
+
+.flowcraft-handle:hover {
+  transform: scale(1.4) !important;
+  background: var(--accent-color, var(--brass)) !important;
+}
+
+/* ---------- Marching Ants Connection Edges ---------- */
+.flowcraft-edge-path {
+  fill: none;
+  stroke-width: 2.2;
+  transition: stroke .15s var(--ease), stroke-width .15s;
+  cursor: pointer;
+}
+
+.flowcraft-edge-path.selected {
+  stroke: var(--brass) !important;
+  stroke-width: 3;
+}
+
+.flowcraft-edge-flow {
+  fill: none;
+  stroke-width: 2;
+  stroke-dasharray: 2 7;
+  opacity: .75;
+  stroke-linecap: round;
+  animation: flow 1.1s linear infinite;
   pointer-events: none;
 }
 
-.master-flow-empty__icon {
-  font-size: 48px;
-  opacity: 0.2;
+@keyframes flow {
+  to {
+    stroke-dashoffset: -18;
+  }
 }
 
-.master-flow-empty__title {
+.flowcraft-edge-label-wrapper {
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.flowcraft-edge-badge {
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .4);
+}
+
+.flowcraft-edge-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.flowcraft-edge-input {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--ink-900);
+  border: 1px solid var(--brass);
+  color: var(--paper-100);
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  outline: none;
+  text-align: center;
+}
+
+/* ---------- Inspector Panel Drawer ---------- */
+.flowcraft-inspector {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  bottom: 16px;
+  width: 320px;
+  z-index: 35;
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translateX(360px);
+  opacity: 0;
+  transition: transform .25s var(--ease), opacity .25s var(--ease);
+  backdrop-filter: blur(12px);
+}
+
+.flowcraft-inspector.open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.flowcraft-insp-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.flowcraft-insp-head h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.flowcraft-insp-close {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  border: none;
+  background: transparent;
+  color: var(--paper-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flowcraft-insp-close:hover {
+  background: var(--ink-750);
+  color: var(--paper-100);
+}
+
+.flowcraft-insp-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flowcraft-insp-field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--paper-700);
+  margin-bottom: 6px;
+}
+
+.flowcraft-insp-id {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brass);
+  background: var(--ink-900);
+  border: 1px solid var(--hairline-strong);
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flowcraft-insp-id button {
+  background: none;
+  border: none;
+  color: var(--paper-500);
+  cursor: pointer;
+}
+
+.flowcraft-insp-id button:hover {
+  color: var(--brass);
+}
+
+.flowcraft-insp-input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline-strong);
+  color: var(--paper-100);
+  font-size: 13px;
+  font-family: var(--font-body);
+}
+
+.flowcraft-insp-input:focus {
+  outline: none;
+  border-color: var(--brass);
+}
+
+.flowcraft-type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.flowcraft-type-opt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--hairline-strong);
+  background: var(--ink-900);
+  color: var(--paper-500);
+  cursor: pointer;
+  font-size: 11px;
+  font-family: var(--font-mono);
+}
+
+.flowcraft-type-opt:hover {
+  border-color: var(--paper-500);
+  color: var(--paper-100);
+}
+
+.flowcraft-type-opt.active {
+  border-color: var(--accent, var(--brass));
+  color: var(--paper-100);
+  background: color-mix(in srgb, var(--accent, var(--brass)) 15%, var(--ink-900));
+}
+
+.flowcraft-style-toggle {
+  display: flex;
+  gap: 6px;
+}
+
+.flowcraft-style-toggle button {
+  flex: 1;
+  padding: 7px;
+  border-radius: 7px;
+  border: 1px solid var(--hairline-strong);
+  background: var(--ink-900);
+  color: var(--paper-500);
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.flowcraft-style-toggle button.active {
+  border-color: var(--brass);
+  color: var(--brass);
+}
+
+.flowcraft-conn-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flowcraft-conn-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline);
+  font-size: 12px;
+  color: var(--paper-300);
+}
+
+.flowcraft-conn-empty {
+  font-size: 12px;
+  color: var(--paper-700);
+  font-style: italic;
+  padding: 8px;
+}
+
+.flowcraft-insp-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.flowcraft-insp-actions button {
+  flex: 1;
+}
+
+/* ---------- Context Menu ---------- */
+.flowcraft-context-menu {
+  position: fixed;
+  z-index: 60;
+  min-width: 200px;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: var(--shadow-float);
+  animation: nodeIn .12s var(--ease);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: none;
+  border: none;
+  color: var(--paper-300);
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: var(--ink-750);
+  color: var(--paper-100);
+}
+
+.menu-item.danger:hover {
+  background: rgba(226, 112, 95, .16);
+  color: var(--coral);
+}
+
+.menu-sep {
+  height: 1px;
+  background: var(--hairline-strong);
+  margin: 5px 4px;
+}
+
+.menu-label {
+  padding: 4px 10px 2px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--paper-700);
+  font-family: var(--font-mono);
+}
+
+.menu-swatches {
+  display: flex;
+  gap: 6px;
+  padding: 4px 10px 6px;
+}
+
+.menu-swatches button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.flowcraft-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 4px;
+  z-index: 61;
+  min-width: 180px;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: var(--shadow-float);
+}
+
+/* ---------- Export Modal ---------- */
+.flowcraft-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 8, 18, .65);
+  backdrop-filter: blur(4px);
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flowcraft-modal {
+  width: min(680px, 92vw);
+  max-height: 84vh;
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.flowcraft-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.flowcraft-modal-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
   font-size: 16px;
   font-weight: 600;
-  color: var(--text-secondary);
 }
 
-.master-flow-empty__hint {
-  font-size: 13px;
-  color: var(--text-ghost);
+.flowcraft-modal-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 20px 0;
+}
+
+.flowcraft-mtab {
+  padding: 8px 14px;
+  border-radius: 8px 8px 0 0;
+  background: none;
+  border: 1px solid transparent;
+  border-bottom: none;
+  color: var(--paper-500);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+}
+
+.flowcraft-mtab.active {
+  background: var(--ink-900);
+  color: var(--brass);
+  border-color: var(--hairline-strong);
+}
+
+.flowcraft-modal-body {
+  padding: 16px 20px;
+  overflow: auto;
+  flex: 1;
+  background: var(--ink-900);
+}
+
+.flowcraft-code-block {
+  margin: 0;
+  padding: 16px;
+  background: var(--ink-950);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--paper-300);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 48vh;
+  overflow: auto;
+}
+
+.flowcraft-modal-foot {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--hairline);
+  justify-content: flex-end;
+}
+
+/* ---------- Toasts ---------- */
+.flowcraft-toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  pointer-events: none;
+}
+
+.flowcraft-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-float);
+  font-size: 12.5px;
+  color: var(--paper-100);
+  animation: nodeIn .2s var(--ease);
+}
+
+/* ---------- Shortcuts & Empty State ---------- */
+.flowcraft-help-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 40;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  color: var(--paper-500);
+  cursor: pointer;
+  box-shadow: var(--shadow-float);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .15s;
+}
+
+.flowcraft-help-btn:hover {
+  color: var(--brass);
+  border-color: var(--brass);
+}
+
+.flowcraft-shortcuts-popover {
+  position: fixed;
+  bottom: 72px;
+  right: 24px;
+  z-index: 41;
+  width: 280px;
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-float);
+  padding: 14px;
+}
+
+.flowcraft-sc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 12px;
+  color: var(--paper-500);
+}
+
+.flowcraft-sc-row kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--ink-900);
+  border: 1px solid var(--hairline-strong);
+  padding: 2px 6px;
+  border-radius: 5px;
+  color: var(--paper-300);
+}
+
+.flowcraft-empty-state {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  max-width: 280px;
-  line-height: 1.5;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.flowcraft-empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--paper-300);
+  margin: 0 0 6px;
+}
+
+.flowcraft-empty-state p {
+  font-size: 13px;
+  color: var(--paper-700);
+  margin: 0;
+  font-family: var(--font-mono);
+}
+
+.flowcraft-empty-state kbd {
+  padding: 2px 6px;
+  background: var(--ink-800);
+  border: 1px solid var(--hairline-strong);
+  border-radius: 5px;
+  color: var(--brass);
 }

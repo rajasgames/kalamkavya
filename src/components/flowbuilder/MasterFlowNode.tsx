@@ -1,14 +1,14 @@
 import { memo, useState, useRef, useCallback, useEffect } from 'react';
 import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
-import { Trash2, ExternalLink } from 'lucide-react';
-import { getEntityTypeConfig } from './entityTypeConfig';
+import { ExternalLink, Sliders, Trash2 } from 'lucide-react';
+import { getEntityTypeConfig, formatSpecId } from './entityTypeConfig';
 import { useStoryStore } from '@/stores/storyStore';
-
-// ─── Type declarations ────────────────────────────────────────────────────────
+import useMasterFlowStore from './masterFlowStore';
 
 export type MasterFlowNodeData = {
   entityId: string;
   name: string;
+  description?: string;
   entityType: string;
   entityClass: 'MASTER' | 'INSTANCE';
   onEntitySelect?: (id: string) => void;
@@ -17,41 +17,79 @@ export type MasterFlowNodeData = {
 
 export type MasterFlowNode = Node<MasterFlowNodeData, 'masterEntity'>;
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
-const MasterFlowNodeComponent = ({ data, selected }: NodeProps<MasterFlowNode>) => {
-  const { entityType, entityClass, name, onEntitySelect, entityId } = data;
+const MasterFlowNodeComponent = ({ id: nodeId, data, selected }: NodeProps<MasterFlowNode>) => {
+  const { entityType, entityClass, name, description: initialDesc, onEntitySelect, entityId } = data;
   const config = getEntityTypeConfig(entityType);
-  const { relationships } = useStoryStore();
+  const specId = formatSpecId(entityType, entityId);
+  const { entities, relationships, updateEntity, deleteEntity } = useStoryStore();
+  const { selectNode, addToast } = useMasterFlowStore();
 
-  // Inline title editing
-  const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState(name);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const currentEntity = entities.find(e => e.id === entityId);
+
+  // Title editing state
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [draftTitle, setDraftTitle] = useState(name || '');
+  const titleInputRef = useRef<HTMLInputElement>(null);
+
+  // Description editing state
+  const [editingDesc, setEditingDesc] = useState(false);
+  const [draftDesc, setDraftDesc] = useState(initialDesc || '');
+  const descInputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    if (!editing) setDraft(name);
-  }, [name, editing]);
+    if (!editingTitle) setDraftTitle(name || '');
+  }, [name, editingTitle]);
 
-  const startEditing = useCallback((e: React.MouseEvent) => {
+  useEffect(() => {
+    if (!editingDesc) setDraftDesc(initialDesc || '');
+  }, [initialDesc, editingDesc]);
+
+  const startTitleEditing = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    setDraft(name);
-    setEditing(true);
-    setTimeout(() => { inputRef.current?.focus(); inputRef.current?.select(); }, 0);
+    setDraftTitle(name || '');
+    setEditingTitle(true);
+    setTimeout(() => {
+      titleInputRef.current?.focus();
+      titleInputRef.current?.select();
+    }, 10);
   }, [name]);
 
   const commitTitle = useCallback(() => {
-    // Note: title edits go through storyStore in a real implementation
-    // For now we just exit editing mode (name comes from storyStore entities)
-    setEditing(false);
-  }, []);
+    if (draftTitle.trim() && draftTitle !== name && currentEntity) {
+      updateEntity({ ...currentEntity, name: draftTitle.trim() });
+      addToast(`Renamed entity to "${draftTitle.trim()}"`, 'success');
+    }
+    setEditingTitle(false);
+  }, [draftTitle, currentEntity, name, updateEntity, addToast]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const commitDesc = useCallback(() => {
+    if (draftDesc !== initialDesc && currentEntity) {
+      updateEntity({
+        ...currentEntity,
+        data: { ...(currentEntity.data || {}), notes: draftDesc },
+      });
+      addToast('Updated node notes', 'info');
+    }
+    setEditingDesc(false);
+  }, [draftDesc, currentEntity, initialDesc, updateEntity, addToast]);
+
+  const handleTitleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') commitTitle();
-    if (e.key === 'Escape') { setEditing(false); }
+    if (e.key === 'Escape') setEditingTitle(false);
   };
 
-  // Count connections for this node
+  const handleDescKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) commitDesc();
+    if (e.key === 'Escape') setEditingDesc(false);
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    deleteEntity(entityId);
+    addToast(`Deleted node ${name}`, 'info');
+  };
+
+  // Connection count
   const connectionCount = relationships.filter(
     r => r.fromEntityId === entityId || r.toEntityId === entityId
   ).length;
@@ -60,74 +98,112 @@ const MasterFlowNodeComponent = ({ data, selected }: NodeProps<MasterFlowNode>) 
 
   return (
     <div
-      className={`master-flow-node ${selected ? 'master-flow-node--selected' : ''} ${isMaster ? 'master-flow-node--master' : ''}`}
-      style={{ borderColor: selected ? config.color : undefined }}
+      className={`flowcraft-node ${selected ? 'flowcraft-node--selected' : ''} ${isMaster ? 'flowcraft-node--master' : ''}`}
+      style={{
+        '--accent-color': config.color,
+        '--accent-bg': config.bg,
+        borderColor: selected ? config.color : undefined,
+      } as React.CSSProperties}
+      data-type={entityType.toLowerCase()}
     >
-      {/* Handles on all four sides */}
-      <Handle type="target"  position={Position.Top}    id="top"    className="master-flow-handle" />
-      <Handle type="target"  position={Position.Left}   id="left"   className="master-flow-handle" />
-      <Handle type="source"  position={Position.Bottom} id="bottom" className="master-flow-handle" />
-      <Handle type="source"  position={Position.Right}  id="right"  className="master-flow-handle" />
+      {/* 4-Way Handles */}
+      <Handle type="target" position={Position.Top} id="top" className="flowcraft-handle handle-top" />
+      <Handle type="target" position={Position.Left} id="left" className="flowcraft-handle handle-left" />
+      <Handle type="source" position={Position.Bottom} id="bottom" className="flowcraft-handle handle-bottom" />
+      <Handle type="source" position={Position.Right} id="right" className="flowcraft-handle handle-right" />
 
-      {/* Type badge */}
-      <div className="master-flow-node__badge" style={{ color: config.color, background: `${config.color}18` }}>
-        <span className="master-flow-node__icon">{config.icon}</span>
-        <span className="master-flow-node__type">{config.label.toUpperCase()}</span>
-        {isMaster && <span className="master-flow-node__master-dot" style={{ background: config.color }} />}
+      {/* Top Spec Tag Header */}
+      <div className="flowcraft-node__header">
+        <span className="flowcraft-node__type-icon">{config.icon}</span>
+        <span className="flowcraft-node__type-label" style={{ color: config.color }}>
+          {config.label.toUpperCase()}
+        </span>
+        <span className="flowcraft-node__spec-id">{specId}</span>
+        {isMaster && <span className="flowcraft-node__master-badge" title="Master Entity" />}
       </div>
 
-      {/* Name */}
-      <div className="master-flow-node__body">
-        {editing ? (
-          <input
-            ref={inputRef}
-            className="master-flow-node__input nodrag"
-            value={draft}
-            onChange={e => setDraft(e.target.value)}
-            onBlur={commitTitle}
-            onKeyDown={handleKeyDown}
-          />
-        ) : (
-          <div
-            className="master-flow-node__name"
-            onDoubleClick={startEditing}
-            title="Double-click to rename"
-          >
-            {name || 'Unnamed'}
-          </div>
-        )}
-      </div>
-
-      {/* Connection count hint */}
-      {connectionCount > 0 && (
-        <div className="master-flow-node__connections" style={{ color: config.color }}>
-          {connectionCount} connection{connectionCount !== 1 ? 's' : ''}
-        </div>
-      )}
-
-      {/* Hover action buttons */}
-      <div className="master-flow-node__actions">
+      {/* Quick Action Icons */}
+      <div className="flowcraft-node__actions">
+        <button
+          className="flowcraft-action-btn nodrag"
+          onClick={(e) => { e.stopPropagation(); selectNode(nodeId); }}
+          title="Open Inspector"
+        >
+          <Sliders size={11} />
+        </button>
         {onEntitySelect && (
           <button
-            className="master-flow-action-btn nodrag"
-            onClick={e => { e.stopPropagation(); onEntitySelect(entityId); }}
-            title="Open details"
-            style={{ '--btn-color': config.color } as React.CSSProperties}
+            className="flowcraft-action-btn nodrag"
+            onClick={(e) => { e.stopPropagation(); onEntitySelect(entityId); }}
+            title="View Full Entity Dossier"
           >
-            <ExternalLink size={12} />
+            <ExternalLink size={11} />
           </button>
         )}
         <button
-          className="master-flow-action-btn master-flow-action-btn--danger nodrag"
-          onClick={e => { e.stopPropagation(); /* handled by canvas deleteKeyCode */ }}
-          title="Select & press Delete to remove"
+          className="flowcraft-action-btn flowcraft-action-btn--danger nodrag"
+          onClick={handleDelete}
+          title="Delete Node"
         >
-          <Trash2 size={12} />
+          <Trash2 size={11} />
         </button>
       </div>
 
-      {/* Color accent bar at top */}
-      <div className="master-flow-node__accent" style={{ background: config.color }} />
+      {/* Editable Node Title */}
+      <div className="flowcraft-node__body">
+        {editingTitle ? (
+          <input
+            ref={titleInputRef}
+            className="flowcraft-node__name-input nodrag"
+            value={draftTitle}
+            onChange={(e) => setDraftTitle(e.target.value)}
+            onBlur={commitTitle}
+            onKeyDown={handleTitleKeyDown}
+          />
+        ) : (
+          <h4
+            className="flowcraft-node__name"
+            onDoubleClick={startTitleEditing}
+            title="Double-click to rename"
+          >
+            {name || 'Unnamed Node'}
+          </h4>
+        )}
+
+        {/* Editable Description / Spec Notes */}
+        {editingDesc ? (
+          <textarea
+            ref={descInputRef}
+            className="flowcraft-node__desc-input nodrag"
+            value={draftDesc}
+            onChange={(e) => setDraftDesc(e.target.value)}
+            onBlur={commitDesc}
+            onKeyDown={handleDescKeyDown}
+            placeholder="Add spec notes..."
+            rows={2}
+          />
+        ) : (
+          <p
+            className="flowcraft-node__desc"
+            onDoubleClick={(e) => { e.stopPropagation(); setEditingDesc(true); }}
+            title="Double-click to edit description"
+          >
+            {initialDesc || <span className="placeholder">Double-click to add spec notes...</span>}
+          </p>
+        )}
+      </div>
+
+      {/* Footer Connection Count Indicator */}
+      {connectionCount > 0 && (
+        <div className="flowcraft-node__footer">
+          <span className="conn-pill" style={{ color: config.color, borderColor: `${config.color}33` }}>
+            ● {connectionCount} connection{connectionCount !== 1 ? 's' : ''}
+          </span>
+        </div>
+      )}
+
+      {/* Color Accent Indicator Strip */}
+      <div className="flowcraft-node__accent-bar" style={{ background: config.color }} />
     </div>
   );
 };
