@@ -13,6 +13,7 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import dagre from 'dagre';
+import { User, Flag, MapPin } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
 import { CharacterNode, FactionNode, GeographyNode } from './CustomNodes';
 import ContextMenu from './ContextMenu';
@@ -106,22 +107,19 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
       updatedAt: Date.now()
     };
     
-    // Add entity to store
     addEntity(newEntity);
 
-    // Create relationship
     const newRel: Relationship = {
       id: crypto.randomUUID(),
       projectId: activeProjectId,
       fromEntityId: parentId,
       toEntityId: newId,
-      type: 'MEMBER_OF', // Default relationship
+      type: 'MEMBER_OF',
       directed: true,
       metadata: {}
     };
     addRelationship(newRel);
 
-    // We manually add the node with position relative to parent to avoid waiting for useEffect and losing position intention
     const xOffset = layoutDirection === 'TB' ? 50 : 200;
     const yOffset = layoutDirection === 'TB' ? 180 : 50;
     
@@ -156,8 +154,8 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
       nodeMap.set(e.id, {
         id: e.id,
         type: nType,
-        targetPosition: layoutDirection === 'TB' ? 'top' : 'left',
-        sourcePosition: layoutDirection === 'TB' ? 'bottom' : 'right',
+        targetPosition: layoutDirection === 'TB' ? Position.Top : Position.Left,
+        sourcePosition: layoutDirection === 'TB' ? Position.Bottom : Position.Right,
         data: { 
           label: e.name, 
           type: e.type, 
@@ -192,7 +190,6 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
     let finalNodes = Array.from(nodeMap.values());
     let finalEdges = initialEdges;
 
-    // Run dagre layout ONLY initially if we have no nodes, or if the user clicks a manual re-layout
     if (!hasLayoutedRef.current && finalNodes.length > 0) {
       const layouted = getLayoutedElements(finalNodes, finalEdges, layoutDirection);
       finalNodes = layouted.nodes;
@@ -206,12 +203,10 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
 
     setNodes(finalNodes);
     setEdges(visibleEdges);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeProjectId, entities, relationships, layoutDirection, showAllEdges, handleAddSubnode]); // Exclude setNodes/setEdges to prevent loops
+  }, [activeProjectId, entities, relationships, layoutDirection, showAllEdges, handleAddSubnode]);
 
   const forceLayout = useCallback(() => {
     hasLayoutedRef.current = false;
-    // Update local state to trigger a layout pass on next render
     setNodes(nds => [...nds]);
   }, [setNodes]);
 
@@ -223,7 +218,7 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
       projectId: activeProjectId,
       fromEntityId: connection.source!,
       toEntityId: connection.target!,
-      type: 'ALLY', // Default connection type
+      type: 'ALLY',
       directed: true,
       metadata: {}
     };
@@ -272,7 +267,6 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
       updatedAt: Date.now()
     };
     
-    // Optimistic UI for position
     const newNode: Node = {
       id: newEntity.id,
       type: type.toLowerCase(),
@@ -311,10 +305,11 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
           onInit={setReactFlowInstance}
           nodeTypes={nodeTypes}
           fitView
+          panOnDrag={true}
           attributionPosition="bottom-left"
         >
           <Controls className="bg-surface border border-subtle" />
-          <Panel position="top-right" className="m-4 flex flex-col gap-2">
+          <Panel position="top-right" className="m-4 flex flex-col gap-2 z-20">
             <button 
               onClick={() => {
                 setLayoutDirection(prev => prev === 'TB' ? 'LR' : 'TB');
@@ -337,17 +332,17 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
               Re-Layout Graph
             </button>
           </Panel>
-          <Panel position="bottom-right" className="bg-base/90 backdrop-blur border border-subtle p-4 rounded-xl shadow-lg pointer-events-none mb-6 mr-6">
+          <Panel position="bottom-right" className="bg-base/90 backdrop-blur border border-subtle p-4 rounded-xl shadow-lg pointer-events-none mb-6 mr-6 z-20">
             <h4 className="text-xs font-semibold uppercase text-ghost tracking-wider mb-3">Node Types</h4>
             <div className="flex flex-col gap-2 mb-4 text-sm text-secondary">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-surface border border-subtle" /> Character
+                <User size={14} className="text-brass" /> Character
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-surface rounded-sm border border-subtle" /> Faction
+                <Flag size={14} className="text-teal" /> Faction
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-surface rounded-none border border-subtle" /> Geography
+                <MapPin size={14} className="text-sage" /> Geography
               </div>
             </div>
             
