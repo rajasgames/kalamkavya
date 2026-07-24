@@ -66,24 +66,16 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
 
   return (
     <div className="flowcraft-toolbar">
-      {/* Brand Header */}
-      <div className="flowcraft-brand">
-        <GitBranch className="text-brass shrink-0" />
-        <span className="label">Flowcraft</span>
-        <span className="sub-label hidden md:inline">— {activeProject?.title || 'Master Flowchart'}</span>
-      </div>
 
-      <div className="flowcraft-tb-div" />
 
       {/* Add Node Dropdown */}
       <div className="relative">
         <button
-          className="btn btn-primary"
+          className="btn btn-icon btn-primary"
           onClick={() => setShowAddMenu(!showAddMenu)}
+          title="Add Node"
         >
           <Plus size={14} />
-          <span className="hidden sm:inline">Add Node</span>
-          <ChevronDown size={12} />
         </button>
 
         {showAddMenu && (
@@ -137,33 +129,29 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
       {/* Auto-Layout Directions */}
       <div className="flowcraft-tb-group">
         <button
-          className={`btn ${layoutDirection === 'TB' ? 'btn-primary' : ''}`}
+          className={`btn btn-icon ${layoutDirection === 'TB' ? 'btn-primary' : ''}`}
           onClick={() => setLayoutDirection('TB')}
           title="Arrange Vertical (Top → Down)"
         >
           <ArrowUpDown size={14} />
-          <span className="hidden lg:inline">Top-Down</span>
         </button>
         <button
-          className={`btn ${layoutDirection === 'LR' ? 'btn-primary' : ''}`}
+          className={`btn btn-icon ${layoutDirection === 'LR' ? 'btn-primary' : ''}`}
           onClick={() => setLayoutDirection('LR')}
           title="Arrange Horizontal (Left → Right)"
         >
           <ArrowLeftRight size={14} />
-          <span className="hidden lg:inline">Left-Right</span>
         </button>
       </div>
 
       <div className="flowcraft-tb-div" />
 
-      {/* Marching Ants Flow Animation Toggle */}
       <button
-        className={`btn ${enableMarchingAnts ? 'btn-ghost-outline' : ''}`}
+        className={`btn btn-icon ${enableMarchingAnts ? 'btn-ghost-outline' : ''}`}
         onClick={toggleMarchingAnts}
         title={enableMarchingAnts ? 'Disable Flow Marching Ants Animation' : 'Enable Flow Marching Ants Animation'}
       >
         <Activity size={14} className={enableMarchingAnts ? 'text-teal animate-pulse' : 'text-paper-500'} />
-        <span className="hidden md:inline">{enableMarchingAnts ? 'Flow On' : 'Flow Off'}</span>
       </button>
 
       <div className="flowcraft-tb-div" />
@@ -215,9 +203,8 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
           )}
         </div>
 
-        <button className="btn btn-primary" onClick={() => setExportModalOpen(true)}>
+        <button className="btn btn-icon btn-primary" onClick={() => setExportModalOpen(true)} title="Export Diagram">
           <Download size={14} />
-          <span className="hidden sm:inline">Export</span>
         </button>
       </div>
     </div>
