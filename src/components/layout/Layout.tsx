@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { ChevronDown, Sparkles } from 'lucide-react';
-import { Tooltip } from '@heroui/react';
+import { ChevronDown } from 'lucide-react';
 import { Sidebar } from './Sidebar';
 import { GlobalSearch } from './GlobalSearch';
 import { useUIStore } from '@/stores/uiStore';
@@ -10,7 +9,7 @@ import { useStoryStore } from '@/stores/storyStore';
 import { ProjectCreationModal, ThemeToggle, InkRipple } from '@/components/ui';
 import { SprintWidget } from '@/components/toolkit/SprintWidget';
 import { AIDrawer } from '@/components/toolkit/AIDrawer';
-import { AISettingsModal, OnboardingModal } from '@/components/shared';
+import { AISettingsModal, OnboardingModal, GuidedTour } from '@/components/shared';
 
 declare global {
   interface Window {
@@ -20,7 +19,7 @@ declare global {
 
 export const Layout = () => {
   const navigate = useNavigate();
-  const { isSidebarExpanded, isSprintWidgetOpen, setSprintWidgetOpen, isFocusMode, setFocusMode, setSplashOpen } = useUIStore();
+  const { isSidebarExpanded, isSprintWidgetOpen, setSprintWidgetOpen, isFocusMode, setFocusMode } = useUIStore();
   const { toggleSearch } = useSearchStore();
   const { scenes, activeProject } = useStoryStore();
 
@@ -57,9 +56,10 @@ export const Layout = () => {
         <div className="flex items-center gap-4 sm:gap-6 shrink-0 whitespace-nowrap overflow-hidden">
           {/* Main Brand & Title - Strictly in ONE LINE */}
           <div 
+            data-tour-id="header-brand"
             onClick={() => navigate('/')}
             className="flex items-center gap-2.5 shrink-0 whitespace-nowrap select-none cursor-pointer group hover:opacity-90 transition-opacity"
-            title="Kalam Kavya Engine — Return Home"
+            title="Kalam Kavya — Return Home"
           >
             <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center shrink-0">
               <div className="absolute inset-0 bg-terracotta/20 rounded-xl blur-sm group-hover:scale-125 transition-transform duration-300" />
@@ -70,11 +70,8 @@ export const Layout = () => {
               />
             </div>
 
-            <div className="font-serif font-extrabold text-base sm:text-xl tracking-tight text-primary whitespace-nowrap flex items-center gap-2 shrink-0">
-              <span className="whitespace-nowrap">कalam काvya</span>
-              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-terracotta/15 text-terracotta border border-terracotta/25 uppercase tracking-wider hidden sm:inline-block shadow-sm">
-                Engine
-              </span>
+            <div className="font-serif font-extrabold text-base sm:text-xl tracking-tight text-primary whitespace-nowrap shrink-0">
+              <span className="whitespace-nowrap">kalam kavya</span>
             </div>
           </div>
 
@@ -89,24 +86,6 @@ export const Layout = () => {
 
         {/* Right Action Icons */}
         <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-          {/* Replay Intro Splash Button */}
-          <Tooltip
-            content="Play Intro Splash Screen"
-            placement="bottom"
-            delay={200}
-            classNames={{
-              content: "bg-surface border border-subtle text-primary text-xs py-1 px-2.5 rounded-lg whitespace-nowrap shadow-soft font-medium"
-            }}
-          >
-            <button
-              onClick={() => setSplashOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-terracotta/10 hover:bg-terracotta/20 border border-terracotta/25 text-terracotta text-xs font-semibold transition-all duration-200 active:scale-95 shadow-sm shrink-0"
-            >
-              <Sparkles size={13} className="animate-spin text-terracotta shrink-0" />
-              <span className="hidden md:inline">Intro Splash</span>
-            </button>
-          </Tooltip>
-
           <div className="text-xs text-ghost font-mono hidden sm:block">
             {totalWordCount !== null
               ? `${totalWordCount.toLocaleString()} words`
@@ -147,6 +126,7 @@ export const Layout = () => {
       <AIDrawer />
       <AISettingsModal />
       <OnboardingModal />
+      <GuidedTour />
     </div>
   );
 };

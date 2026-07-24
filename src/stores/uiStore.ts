@@ -26,6 +26,8 @@ export const useUIStore = create<UIState>()(
       isOnboardingOpen: typeof window !== 'undefined' ? localStorage.getItem('kalam-kavya_onboarding_completed') !== 'true' : false,
       isSplashOpen: false,
       isFocusMode: false,
+      isTourActive: false,
+      tourStep: 1,
 
       setActivePillar: (pillar: Pillar) => set({ activePillar: pillar }),
       setActiveSubView: (view: string) => set({ activeSubView: view }),
@@ -46,6 +48,8 @@ export const useUIStore = create<UIState>()(
       setOnboardingOpen: (open: boolean) => set({ isOnboardingOpen: open }),
       setSplashOpen: (open: boolean) => set({ isSplashOpen: open }),
       setFocusMode: (open: boolean) => set({ isFocusMode: open }),
+      setTourActive: (active: boolean) => set({ isTourActive: active }),
+      setTourStep: (step: number) => set({ tourStep: step }),
     }),
     { enabled: import.meta.env.DEV }
   )

@@ -59,6 +59,8 @@ export interface UIState {
   isOnboardingOpen: boolean;
   isSplashOpen: boolean;
   isFocusMode: boolean;
+  isTourActive: boolean;
+  tourStep: number;
 
   setActivePillar: (pillar: Pillar) => void;
   setActiveSubView: (view: string) => void;
@@ -71,6 +73,8 @@ export interface UIState {
   setOnboardingOpen: (open: boolean) => void;
   setSplashOpen: (open: boolean) => void;
   setFocusMode: (open: boolean) => void;
+  setTourActive: (active: boolean) => void;
+  setTourStep: (step: number) => void;
 }
 
 export interface AIProviderSettings {

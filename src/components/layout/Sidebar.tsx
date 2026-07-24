@@ -122,6 +122,7 @@ export const Sidebar = () => {
                     }}
                   >
                     <button
+                      data-tour-id={`pillar-${pillar.id}`}
                       onClick={() => handlePillarClick(pillar)}
                       className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 relative group active:scale-[0.98] ${
                         isActive 
@@ -151,6 +152,7 @@ export const Sidebar = () => {
                 }}
               >
                 <button
+                  data-tour-id="ai-assistant"
                   onClick={() => setAIDrawerOpen(true)}
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-terracotta hover:bg-terracotta/15 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
                 >
@@ -169,6 +171,7 @@ export const Sidebar = () => {
                 }}
               >
                 <button
+                  data-tour-id="ai-settings"
                   onClick={() => setAISettingsOpen(true)}
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
                 >
@@ -187,6 +190,7 @@ export const Sidebar = () => {
                 }}
               >
                 <button
+                  data-tour-id="user-guide"
                   onClick={() => setOnboardingOpen(true)}
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-terracotta hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
                 >
@@ -208,6 +212,7 @@ export const Sidebar = () => {
                 }}
               >
                 <button 
+                  data-tour-id="global-search"
                   onClick={openSearch}
                   className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
                 >
@@ -325,6 +330,7 @@ export const Sidebar = () => {
           return (
             <button
               key={pillar.id}
+              data-tour-id={`mobile-pillar-${pillar.id}`}
               onClick={() => {
                 setActivePillar(pillar.id);
                 navigate(pillar.defaultHref);

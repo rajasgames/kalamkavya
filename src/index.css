@@ -357,3 +357,37 @@
   color: var(--text-primary);
 }
 
+/* ─── Guided Tour Animations & Highlighting ───────────────────────────────── */
+
+@keyframes tourArrowBounceHoriz {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-6px); }
+}
+
+@keyframes tourArrowBounceVert {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes tourSpotlightGlow {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.6), 0 0 25px rgba(217, 119, 6, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(217, 119, 6, 0.9), 0 0 40px rgba(217, 119, 6, 0.7); }
+}
+
+.animate-tour-arrow-horiz {
+  animation: tourArrowBounceHoriz 1.5s ease-in-out infinite;
+}
+
+.animate-tour-arrow-vert {
+  animation: tourArrowBounceVert 1.5s ease-in-out infinite;
+}
+
+.tour-spotlight-active {
+  position: relative;
+  z-index: 1000 !important;
+  pointer-events: auto !important;
+  animation: tourSpotlightGlow 2s ease-in-out infinite !important;
+  border-radius: 12px;
+}
+
+

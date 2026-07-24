@@ -7,4 +7,4 @@ export * from './AISettingsModal';
 export * from './NewProjectModal';
 export * from './DeleteProjectModal';
 export * from './OnboardingModal';
-
+export * from './GuidedTour';

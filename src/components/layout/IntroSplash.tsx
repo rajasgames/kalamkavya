@@ -13,7 +13,7 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
   useEffect(() => {
     // Smooth progress animation from 0 to 100%
     const startTime = Date.now();
-    const duration = manualTrigger ? 1500 : 2000;
+    const duration = manualTrigger ? 1200 : 1600;
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -24,9 +24,9 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
         clearInterval(interval);
         setTimeout(() => {
           handleDismiss();
-        }, 200);
+        }, 150);
       }
-    }, 30);
+    }, 25);
 
     return () => clearInterval(interval);
   }, [manualTrigger]);
@@ -42,56 +42,54 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 1.02 }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           onClick={handleDismiss}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0d0b09] text-amber-50 overflow-hidden font-sans select-none cursor-pointer"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-canvas/95 backdrop-blur-2xl text-primary overflow-hidden font-sans select-none cursor-pointer"
         >
-          {/* Subtle Ambient Radial Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-amber-500/10 rounded-full blur-[90px] pointer-events-none" />
+          {/* Subtle Theme-Aligned Soft Radial Glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[360px] bg-terracotta/10 rounded-full blur-[90px] pointer-events-none" />
 
           {/* Minimalist Center Container */}
           <div className="relative z-10 flex flex-col items-center max-w-xs px-6 text-center">
-            {/* Minimal Icon Shield with Soft Glow */}
+            {/* Clean Brand Logo Container */}
             <motion.div
-              initial={{ scale: 0.85, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="relative mb-6"
+              initial={{ scale: 0.88, opacity: 0, y: 6 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="relative mb-5"
             >
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-amber-500/20 via-amber-600/10 to-transparent p-0.5 border border-amber-500/30 shadow-2xl shadow-amber-900/40">
-                <div className="w-full h-full bg-[#141210] rounded-[22px] flex items-center justify-center p-2 relative overflow-hidden">
-                  <img
-                    src="/brand_logo.png"
-                    alt="Kalam Kavya Logo"
-                    className="w-full h-full object-contain drop-shadow-[0_4px_16px_rgba(245,158,11,0.5)]"
-                  />
-                </div>
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-surface/80 border border-subtle backdrop-blur-md shadow-soft flex items-center justify-center p-3 relative overflow-hidden group">
+                <img
+                  src="/brand_logo.png"
+                  alt="Kalam Kavya Brand Logo"
+                  className="w-full h-full object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
             </motion.div>
 
-            {/* Clean Single-Line Title */}
+            {/* Clean Theme-Matching Brand Title */}
             <motion.div
-              initial={{ y: 10, opacity: 0 }}
+              initial={{ y: 8, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.15, duration: 0.5 }}
+              transition={{ delay: 0.12, duration: 0.45 }}
               className="space-y-1"
             >
-              <h1 className="text-2xl sm:text-3xl font-serif font-extrabold tracking-tight whitespace-nowrap bg-gradient-to-r from-amber-100 via-amber-300 to-amber-100 bg-clip-text text-transparent">
+              <h1 className="text-2xl sm:text-3xl font-serif font-extrabold tracking-tight text-primary whitespace-nowrap">
                 कalam काvya
               </h1>
             </motion.div>
 
-            {/* Whisper-Thin Minimal Progress Line */}
+            {/* Whisper-Thin Minimal Theme Progress Line */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.25 }}
-              className="w-36 sm:w-44 mt-8 space-y-1.5"
+              transition={{ delay: 0.2 }}
+              className="w-32 sm:w-40 mt-7 space-y-1.5"
             >
-              <div className="h-[2px] w-full bg-amber-950/60 rounded-full overflow-hidden">
+              <div className="h-[2px] w-full bg-subtle/70 rounded-full overflow-hidden">
                 <motion.div
-                  className="h-full bg-amber-400/90 rounded-full"
+                  className="h-full bg-terracotta rounded-full"
                   style={{ width: `${progress}%` }}
                   transition={{ ease: 'easeOut', duration: 0.1 }}
                 />

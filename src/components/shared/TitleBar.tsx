@@ -35,7 +35,7 @@ export function TitleBar() {
     >
       <div className="flex-1 flex items-center pl-4 gap-2 h-full whitespace-nowrap shrink-0" data-tauri-drag-region>
         <img src="/brand_logo.png" className="w-5 h-5 shrink-0 object-contain" alt="Brand Logo" data-tauri-drag-region />
-        <span className="text-xs font-bold text-primary font-serif whitespace-nowrap" data-tauri-drag-region>कalam काvya Engine</span>
+        <span className="text-xs font-bold text-primary font-serif whitespace-nowrap" data-tauri-drag-region>कalam काvya</span>
       </div>
       
       <div className="flex items-center h-full text-secondary">
