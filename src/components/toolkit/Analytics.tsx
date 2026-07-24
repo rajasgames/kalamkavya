@@ -162,7 +162,7 @@ export function Analytics() {
           {/* Card: Streak */}
           <div className="bg-surface border border-subtle rounded-2xl p-6 flex flex-col justify-between">
             <h3 className="text-xs font-semibold text-ghost uppercase tracking-wider flex items-center gap-2">
-              <Flame size={14} className={streak > 2 ? "text-clay" : ""} /> Writing Streak
+              <Flame size={14} className={streak > 2 ? "text-destructive" : ""} /> Writing Streak
             </h3>
             <div className="flex flex-col items-center justify-center flex-1 py-4">
               <div className="flex items-baseline gap-2">

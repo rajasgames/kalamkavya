@@ -63,7 +63,7 @@ const TOUR_STEPS: TourStepDef[] = [
     mobileTargetId: 'mobile-pillar-project',
     title: 'Project Settings',
     subtitle: 'Core & Schemas',
-    description: 'Configure novel title, premise, word count targets, and attach active Genre Modules (Vedic Myth, Sci-Fi, Rom-Com) or narrative templates.',
+    description: 'Configure novel title, premise, word count targets, and attach active Genre Modules (Fantasy, Sci-Fi, Romance) or narrative templates.',
     icon: Settings,
     badgeText: 'Step 4 of 8'
   },

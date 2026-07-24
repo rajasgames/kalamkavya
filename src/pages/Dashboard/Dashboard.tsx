@@ -135,7 +135,7 @@ export function Dashboard() {
   /** Resolve the genre display label for a project */
   const getGenreLabel = (project: Project): string => {
     const modules = project.genreModules;
-    if (!modules || modules.length === 0) return project.genre || 'Vedic';
+    if (!modules || modules.length === 0) return project.genre || 'Universal';
     const named = modules
       .filter(m => m !== 'universal')
       .map(m => GENRE_MODULE_LIST.find(mod => mod.id === m)?.shortLabel ?? m);
@@ -144,8 +144,8 @@ export function Dashboard() {
   };
 
   const sampleOptions = [
-    { key: 'vedic' as SampleKey, Icon: Sun, label: 'Vedic & Puranic', desc: 'Epic mythology — gods, realms, and cosmic war' },
-    { key: 'romcom' as SampleKey, Icon: Coffee, label: 'Contemporary', desc: '"The Accidental Flatmates" — Mumbai rom-com' },
+    { key: 'vedic' as SampleKey, Icon: Sun, label: 'Fantasy Epic', desc: 'Epic mythology — gods, realms, and cosmic war' },
+    { key: 'romcom' as SampleKey, Icon: Coffee, label: 'Romance', desc: '"The Accidental Flatmates" — Mumbai romance' },
     { key: 'scifi' as SampleKey, Icon: Rocket, label: 'Sci-Fi', desc: '"The Silence Between Stars" — generation ship mystery' },
   ];
 
@@ -176,7 +176,7 @@ export function Dashboard() {
         <div className="text-center flex flex-col items-center mb-16 pt-8">
           <h2 className="text-4xl sm:text-5xl font-serif text-primary mb-4">{getGreeting()}</h2>
           <p className="text-secondary mb-8 max-w-lg text-lg">
-            कalam काvya works for any genre — from Vedic epics to rom-coms to sci-fi mysteries.
+            कalam काvya works for any genre — from fantasy epics to romance to sci-fi mysteries.
             Create a new project or jump in with a sample world.
           </p>
 

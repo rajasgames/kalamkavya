@@ -27,7 +27,7 @@ export function CultureCard({ entity, onClick }: CultureCardProps) {
           <BookOpen size={18} className="text-secondary" />
         </div>
         {hasAIRule && (
-          <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-clay/10 text-clay border border-clay/20 uppercase tracking-wider">
+          <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-destructive/10 text-destructive border border-destructive/20 uppercase tracking-wider">
             #AI-Rule
           </span>
         )}

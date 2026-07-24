@@ -28,6 +28,10 @@ export default {
         subtle: 'var(--cream-border)',
         'border-subtle': 'var(--border-subtle)', // direct border utility
         destructive: 'var(--destructive)',
+        'surface-glass': 'var(--surface-glass)',
+      },
+      borderColor: {
+        subtle: 'var(--border-subtle)', // Fixes .border-subtle resolving to var(--cream-border)
       },
       fontFamily: {
         sans: ['"Inter"', '"Geist"', 'sans-serif'],

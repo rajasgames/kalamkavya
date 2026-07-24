@@ -24,7 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const defaultStyles =
       'bg-elevated border border-subtle rounded-xl px-4 py-2.5 outline-none focus:outline-none focus-visible:outline-none focus:ring-1 focus:ring-amber-from/50 focus:border-amber-from/80';
-    const errorStyles = error ? 'border-clay focus:ring-clay/50 focus:border-clay' : '';
+    const errorStyles = error ? 'border-destructive focus:ring-destructive/50 focus:border-destructive' : '';
 
     const combinedClassName = [baseStyles, defaultStyles, errorStyles, className]
       .filter(Boolean)

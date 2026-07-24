@@ -21,7 +21,7 @@ export function MagicSystemCard({ entity, onClick }: MagicSystemCardProps) {
           <Sparkles size={18} className="text-amber-from" />
         </div>
         {hasAIRule && (
-          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-clay/10 text-clay border border-clay/20 uppercase tracking-wider">
+          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-destructive/10 text-destructive border border-destructive/20 uppercase tracking-wider">
             #AI-Rule
           </span>
         )}

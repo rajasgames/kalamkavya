@@ -136,7 +136,7 @@ export function CultureForm({ entity, onSave }: CultureFormProps) {
               {coreValues.map(cv => (
                 <span key={cv} className="inline-flex items-center gap-1 px-2 py-1 bg-surface border border-subtle rounded-md text-xs font-medium text-secondary">
                   {cv}
-                  <button onClick={() => removeTag(cv, coreValues, setCoreValues)} className="text-ghost hover:text-clay">
+                  <button onClick={() => removeTag(cv, coreValues, setCoreValues)} className="text-ghost hover:text-destructive">
                     <X size={12} />
                   </button>
                 </span>
@@ -156,9 +156,9 @@ export function CultureForm({ entity, onSave }: CultureFormProps) {
           {taboos.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-1">
               {taboos.map(tb => (
-                <span key={tb} className="inline-flex items-center gap-1 px-2 py-1 bg-clay/5 border border-clay/20 rounded-md text-xs font-medium text-clay">
+                <span key={tb} className="inline-flex items-center gap-1 px-2 py-1 bg-destructive/5 border border-destructive/20 rounded-md text-xs font-medium text-destructive">
                   {tb}
-                  <button onClick={() => removeTag(tb, taboos, setTaboos)} className="text-clay/50 hover:text-clay">
+                  <button onClick={() => removeTag(tb, taboos, setTaboos)} className="text-destructive/50 hover:text-destructive">
                     <X size={12} />
                   </button>
                 </span>
@@ -245,11 +245,11 @@ export function CultureForm({ entity, onSave }: CultureFormProps) {
       )}
 
       {/* AI Constraint Block */}
-      <div className={`p-4 rounded-xl border ${aiRuleEnabled ? 'border-clay/30 bg-clay/5' : 'border-subtle bg-surface'} transition-colors`}>
+      <div className={`p-4 rounded-xl border ${aiRuleEnabled ? 'border-destructive/30 bg-destructive/5' : 'border-subtle bg-surface'} transition-colors`}>
         <div className="flex items-start justify-between mb-2">
           <div className="flex items-center gap-2">
-            <Sparkles size={16} className={aiRuleEnabled ? "text-clay" : "text-ghost"} />
-            <h3 className={`font-bold text-sm ${aiRuleEnabled ? 'text-clay' : 'text-primary'}`}>
+            <Sparkles size={16} className={aiRuleEnabled ? "text-destructive" : "text-ghost"} />
+            <h3 className={`font-bold text-sm ${aiRuleEnabled ? 'text-destructive' : 'text-primary'}`}>
               Ghostwriter Constraint (Culture & Taboos)
             </h3>
           </div>
@@ -259,7 +259,7 @@ export function CultureForm({ entity, onSave }: CultureFormProps) {
               type="checkbox" 
               checked={aiRuleEnabled}
               onChange={(e) => setAiRuleEnabled(e.target.checked)}
-              className="rounded text-clay focus:ring-clay border-subtle"
+              className="rounded text-destructive focus:ring-destructive border-subtle"
             />
           </label>
         </div>
@@ -271,7 +271,7 @@ export function CultureForm({ entity, onSave }: CultureFormProps) {
             value={aiRuleText}
             onChange={e => setAiRuleText(e.target.value)}
             placeholder="e.g. NEVER use contractions in dialogue. Characters must always refer to the ocean with reverence. They will aggressively shun anyone who speaks of the dead."
-            className="border-clay/30 bg-white dark:bg-black min-h-[80px]"
+            className="border-destructive/30 bg-white dark:bg-black min-h-[80px]"
           />
         )}
       </div>

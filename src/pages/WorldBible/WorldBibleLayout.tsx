@@ -78,8 +78,8 @@ export function WorldBibleLayout() {
 
   /** For the CreationModal: map the current sidebar category to a default entity type */
   const defaultEntityType = useMemo(
-    () => categoryIdToEntityType(currentView, genreModules),
-    [currentView, genreModules],
+    () => categoryIdToEntityType(currentView),
+    [currentView],
   );
 
   const getTabCreateLabel = (category: typeof activeCategory, view: string) => {

@@ -9,17 +9,12 @@ import { Minus, Plus, ChevronRight, ChevronLeft, Sparkles, PenTool, Sun, Rocket,
 import { loadVedicSampleData } from '@/lib/vedicSampleData';
 import { loadRomComSampleData } from '@/lib/sampleData/romComSampleData';
 import { loadScifiSampleData } from '@/lib/sampleData/scifiSampleData';
+import { GENRE_MODULE_LIST } from '@/lib/genres/genreRegistry';
 
-const GENRE_OPTIONS = [
-  { value: 'Fantasy', label: 'Fantasy' },
-  { value: 'Sci-Fi', label: 'Sci-Fi' },
-  { value: 'Horror', label: 'Horror' },
-  { value: 'Mystery', label: 'Mystery' },
-  { value: 'Historical', label: 'Historical' },
-  { value: 'Literary', label: 'Literary' },
-  { value: 'Contemporary', label: 'Contemporary' },
-  { value: 'Other', label: 'Other' },
-];
+const GENRE_OPTIONS = GENRE_MODULE_LIST.map(mod => ({
+  value: mod.id,
+  label: mod.label
+}));
 
 export function ProjectCreationModal() {
   const { openModal, setOpenModal } = useUIStore();
@@ -32,7 +27,7 @@ export function ProjectCreationModal() {
   const [step, setStep] = useState(1);
   const [template, setTemplate] = useState<'blank' | 'vedic' | 'romcom' | 'scifi'>('vedic');
   const [title, setTitle] = useState('');
-  const [genre, setGenre] = useState('Fantasy');
+  const [genre, setGenre] = useState('action');
   const [premise, setPremise] = useState('');
   const [targetWordCount, setTargetWordCount] = useState(50000);
   const [isInitializing, setIsInitializing] = useState(false);
@@ -88,7 +83,7 @@ export function ProjectCreationModal() {
       setStep(1);
       setTemplate('vedic');
       setTitle('');
-      setGenre('Fantasy');
+      setGenre('action');
       setPremise('');
       setTargetWordCount(50000);
     }, 300);
@@ -143,7 +138,7 @@ export function ProjectCreationModal() {
         {step === 1 && (
           <div className={`flex flex-col gap-4 flex-1 ${contentClass}`}>
             <Label className="block mb-2 text-center text-lg font-serif">Choose a Universe Starter Template</Label>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Card 
                 hoverable 
                 className={`p-3.5 cursor-pointer text-center flex flex-col items-center gap-1.5 transition-all ${template === 'vedic' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
@@ -226,7 +221,7 @@ export function ProjectCreationModal() {
                 rows={6}
                 className="w-full resize-none"
               />
-              <div className={`text-right text-xs mt-1 ${premise.length > 500 ? 'text-clay-from' : 'text-ghost'}`}>
+              <div className={`text-right text-xs mt-1 ${premise.length > 500 ? 'text-destructive-from' : 'text-ghost'}`}>
                 {premise.length} / 500
               </div>
             </div>

@@ -175,7 +175,7 @@ export function ManuscriptEditor() {
 
       {/* Editor Container */}
       <div className={`flex-1 overflow-y-auto px-6 sm:px-12 scrollbar-hide ${isFocusMode ? 'py-32' : 'py-16'}`}>
-        <div className="max-w-[720px] mx-auto h-full relative">
+        <div className="max-w-[720px] mx-auto min-h-full relative">
           
           <div className="absolute top-0 right-0 z-20">
             <button

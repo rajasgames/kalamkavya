@@ -247,7 +247,7 @@ export function ProjectCore() {
               <label className="block text-[11px] font-bold uppercase tracking-wider text-ghost mb-2">
                 Select Main Genre Module
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
                 {GENRE_MODULE_LIST.map((g) => {
                   const isSelected = selectedGenre === g.id;
                   return (
@@ -327,7 +327,7 @@ export function ProjectCore() {
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-ghost mb-2">
                   Narrative Tone
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
                   {[
                     { value: 'Epic', label: 'Epic & Mythic' },
                     { value: 'Dark', label: 'Dark & Gritty' },

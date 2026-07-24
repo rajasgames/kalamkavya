@@ -203,7 +203,7 @@ export function RelationshipFlowchart({ onNodeDoubleClick }: FlowchartProps) {
 
     setNodes(finalNodes);
     setEdges(visibleEdges);
-  }, [activeProjectId, entities, relationships, layoutDirection, showAllEdges, handleAddSubnode]);
+  }, [activeProjectId, entities, relationships, layoutDirection, showAllEdges, handleAddSubnode, nodes, setEdges, setNodes]);
 
   const forceLayout = useCallback(() => {
     hasLayoutedRef.current = false;

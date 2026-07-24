@@ -10,7 +10,7 @@ const TINT_COLORS: { id: NoteTint; name: string; classes: string; dot: string }[
   { id: 'neutral', name: 'Neutral', classes: 'bg-[#FEFDF9] dark:bg-[#2C2820]', dot: 'bg-[#FEFDF9] border border-subtle' },
   { id: 'amber', name: 'Amber', classes: 'bg-[#FDF3E1] dark:bg-[#3D2E1A]', dot: 'bg-[#FDF3E1]' },
   { id: 'sage', name: 'Sage', classes: 'bg-[#EAF0E9] dark:bg-[#1E2E20]', dot: 'bg-[#EAF0E9]' },
-  { id: 'clay', name: 'Clay', classes: 'bg-[#F5E6E3] dark:bg-[#3B221E]', dot: 'bg-[#F5E6E3]' },
+  { id: 'destructive', name: 'Clay', classes: 'bg-[#F5E6E3] dark:bg-[#3B221E]', dot: 'bg-[#F5E6E3]' },
   { id: 'blue-grey', name: 'Blue-Grey', classes: 'bg-[#E8EDF2] dark:bg-[#1A2633]', dot: 'bg-[#E8EDF2]' },
 ];
 
@@ -252,13 +252,13 @@ Please help them expand on their ideas, suggest alternatives, or answer their qu
         )}
         
         {!isNew && (
-          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-ghost hover:text-clay hover:bg-clay/10" onClick={onDelete}>
+          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-ghost hover:text-destructive hover:bg-destructive/10" onClick={onDelete}>
             <Trash2 size={14} />
           </Button>
         )}
         
         {isNew && (
-          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-ghost hover:text-clay hover:bg-clay/10" onClick={onCancel}>
+          <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-ghost hover:text-destructive hover:bg-destructive/10" onClick={onCancel}>
             <X size={14} />
           </Button>
         )}
@@ -368,7 +368,7 @@ Please help them expand on their ideas, suggest alternatives, or answer their qu
               disabled={isGenerating}
             />
             {isGenerating ? (
-              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-clay" onClick={cancelStream}>
+              <Button variant="ghost" size="sm" className="h-8 w-8 p-0 text-destructive" onClick={cancelStream}>
                 <X size={14} />
               </Button>
             ) : (

@@ -54,7 +54,7 @@ export function TitleBar() {
           <Square size={12} />
         </button>
         <button 
-          className="h-full px-3 hover:bg-clay/20 hover:text-clay transition-colors flex items-center justify-center"
+          className="h-full px-3 hover:bg-destructive/20 hover:text-destructive transition-colors flex items-center justify-center"
           onClick={() => appWindow.close()}
           title="Close"
         >

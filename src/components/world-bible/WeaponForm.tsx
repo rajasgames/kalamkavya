@@ -163,7 +163,7 @@ export function WeaponForm({ entity, onSave }: WeaponFormProps) {
           {materials.map(mat => (
             <span key={mat} className="px-2 py-1 bg-surface border border-subtle rounded-md text-xs flex items-center gap-1">
               {mat}
-              <button onClick={() => handleRemoveTag(mat, materials, setMaterials)} className="text-ghost hover:text-clay">
+              <button onClick={() => handleRemoveTag(mat, materials, setMaterials)} className="text-ghost hover:text-destructive">
                 <Trash2 size={12} />
               </button>
             </span>
@@ -183,7 +183,7 @@ export function WeaponForm({ entity, onSave }: WeaponFormProps) {
           {properties.map(prop => (
             <span key={prop} className="px-2 py-1 bg-surface border border-subtle rounded-md text-xs flex items-center gap-1">
               {prop}
-              <button onClick={() => handleRemoveTag(prop, properties, setProperties)} className="text-ghost hover:text-clay">
+              <button onClick={() => handleRemoveTag(prop, properties, setProperties)} className="text-ghost hover:text-destructive">
                 <Trash2 size={12} />
               </button>
             </span>
@@ -264,10 +264,10 @@ export function WeaponForm({ entity, onSave }: WeaponFormProps) {
       </div>
 
       {/* AI Rule Constraints */}
-      <div className="mt-6 border border-clay/30 bg-clay/5 rounded-xl p-5 flex flex-col gap-4">
+      <div className="mt-6 border border-destructive/30 bg-destructive/5 rounded-xl p-5 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
-            <Label className="text-clay font-bold flex items-center gap-2">
+            <Label className="text-destructive font-bold flex items-center gap-2">
               #AI-Rule Constraint
             </Label>
             <p className="text-xs text-secondary mt-1">
@@ -279,7 +279,7 @@ export function WeaponForm({ entity, onSave }: WeaponFormProps) {
               type="checkbox"
               checked={aiRuleEnabled}
               onChange={(e) => setAiRuleEnabled(e.target.checked)}
-              className="rounded border-clay/50 text-clay focus:ring-clay"
+              className="rounded border-destructive/50 text-destructive focus:ring-destructive"
             />
             <span className="text-sm font-bold text-primary">Enable</span>
           </label>
@@ -290,7 +290,7 @@ export function WeaponForm({ entity, onSave }: WeaponFormProps) {
             value={aiRuleText}
             onChange={(e) => setAiRuleText(e.target.value)}
             rows={3}
-            className="w-full bg-base border border-clay/40 rounded-lg px-3 py-2 text-sm text-primary focus:outline-none focus:border-clay resize-y"
+            className="w-full bg-base border border-destructive/40 rounded-lg px-3 py-2 text-sm text-primary focus:outline-none focus:border-destructive resize-y"
             placeholder="State the absolute rules the AI must follow..."
           />
         )}

@@ -70,7 +70,7 @@ export function KanbanCard({ scene }: KanbanCardProps) {
                 <div className="flex items-center gap-1.5">
                   {/* Open Conflicts Badge */}
                   {openConflicts > 0 && (
-                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-clay/10 text-clay border border-clay/20" title={`${openConflicts} open conflicts`}>
+                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-destructive/10 text-destructive border border-destructive/20" title={`${openConflicts} open conflicts`}>
                       {openConflicts}
                     </span>
                   )}

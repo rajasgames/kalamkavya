@@ -18,11 +18,10 @@ export function EntityCreationModal({ isOpen, onClose, defaultType = 'character'
   const [entityClass, setEntityClass] = useState<'MASTER' | 'INSTANCE'>('INSTANCE');
 
   /**
-   * Derive entity type options from the active project's genre modules.
-   * Legacy projects without genreModules fall back to ['vedic'].
+   * Legacy projects without genreModules fall back to ['universal'].
    */
   const genreModules = useMemo(
-    () => activeProject?.genreModules ?? ['vedic'],
+    () => activeProject?.genreModules ?? ['universal'],
     [activeProject],
   );
 

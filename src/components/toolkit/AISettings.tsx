@@ -331,12 +331,12 @@ export function AISettings() {
                         <div className="text-secondary space-y-2">
                           <p><strong>The CORS Problem:</strong> Browsers block `fetch()` from `{window.location.origin}` to the local AI servers by default.</p>
                           {key === 'ollama' && (
-                            <p className="text-clay font-medium">
+                            <p className="text-destructive font-medium">
                               * <strong>Ollama Fix:</strong> Users must set env var: `OLLAMA_ORIGINS={window.location.origin}` before starting Ollama.
                             </p>
                           )}
                           {key === 'lmstudio' && (
-                            <p className="text-clay font-medium">
+                            <p className="text-destructive font-medium">
                               * <strong>LM Studio Fix:</strong> Users must enter `{window.location.origin}` in the LM Studio local server CORS box.
                             </p>
                           )}

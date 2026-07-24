@@ -107,7 +107,7 @@ export function KanbanColumn({ column, scenes, onRename, onDelete }: KanbanColum
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator className="h-px bg-subtle my-1" />
                 <DropdownMenu.Item 
-                  className="flex items-center gap-2 px-2 py-1.5 outline-none cursor-pointer hover:bg-clay/10 text-clay rounded"
+                  className="flex items-center gap-2 px-2 py-1.5 outline-none cursor-pointer hover:bg-destructive/10 text-destructive rounded"
                   onClick={() => onDelete(column.id)}
                 >
                   <Trash2 size={14} /> Delete Column

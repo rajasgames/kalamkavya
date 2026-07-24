@@ -193,7 +193,7 @@ export function ChapterPanel() {
                                     <Edit2 size={14} /> Rename
                                   </DropdownMenu.Item>
                                   <DropdownMenu.Item 
-                                    className="flex items-center gap-2 px-2.5 py-1.5 outline-none cursor-pointer hover:bg-clay/15 text-clay rounded-lg font-medium"
+                                    className="flex items-center gap-2 px-2.5 py-1.5 outline-none cursor-pointer hover:bg-destructive/15 text-destructive rounded-lg font-medium"
                                     onClick={() => handleDelete(chapter)}
                                   >
                                     <Trash2 size={14} /> Delete

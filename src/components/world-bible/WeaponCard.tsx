@@ -26,12 +26,12 @@ export function WeaponCard({ entity, onClick }: WeaponCardProps) {
       <div className="flex items-start justify-between mb-3 gap-2">
         <div className="flex items-center gap-2 flex-wrap">
           <div className="w-8 h-8 shrink-0 rounded-lg bg-surface flex items-center justify-center border border-subtle group-hover:bg-amber-from/10 group-hover:border-amber-from/30 transition-colors">
-            <Sword size={18} className="text-clay" />
+            <Sword size={18} className="text-destructive" />
           </div>
           {rarityTier && <RarityBadge rarityTier={rarityTier} size="sm" variant="badge" />}
         </div>
         {hasAIRule && (
-          <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-clay/10 text-clay border border-clay/20 uppercase tracking-wider">
+          <span className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-destructive/10 text-destructive border border-destructive/20 uppercase tracking-wider">
             #AI-Rule
           </span>
         )}

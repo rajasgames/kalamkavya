@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface IntroSplashProps {
@@ -9,6 +9,11 @@ interface IntroSplashProps {
 export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashProps) {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  const handleDismiss = useCallback(() => {
+    setVisible(false);
+    if (onComplete) onComplete();
+  }, [onComplete]);
 
   useEffect(() => {
     // Smooth progress animation from 0 to 100%
@@ -29,12 +34,8 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
     }, 25);
 
     return () => clearInterval(interval);
-  }, [manualTrigger]);
+  }, [manualTrigger, handleDismiss]);
 
-  const handleDismiss = () => {
-    setVisible(false);
-    if (onComplete) onComplete();
-  };
 
   return (
     <AnimatePresence>

@@ -328,7 +328,7 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
       {/* Module 4: Personality */}
       <div className="bg-surface border border-subtle rounded-2xl p-5 shadow-sm flex flex-col gap-4">
         <div className="flex items-center gap-2 text-primary border-b border-subtle pb-3">
-          <Heart size={18} className="text-clay" />
+          <Heart size={18} className="text-destructive" />
           <h3 className="font-bold text-lg">Personality</h3>
         </div>
         <div className="flex flex-col gap-3">
@@ -350,13 +350,13 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
             />
           </div>
           <div>
-            <label className="text-xs font-bold text-clay uppercase block mb-1">Flaws</label>
+            <label className="text-xs font-bold text-destructive uppercase block mb-1">Flaws</label>
             <TagInput
               tags={formData.personality.flaws}
               onChange={(tags) => handleSave({ personality: { ...formData.personality, flaws: tags } })}
               placeholder="Arrogant"
-              className="w-full border-clay/20"
-              tagClassName="bg-clay/10 text-clay border-clay/20"
+              className="w-full border-destructive/20"
+              tagClassName="bg-destructive/10 text-destructive border-destructive/20"
             />
           </div>
           <div>

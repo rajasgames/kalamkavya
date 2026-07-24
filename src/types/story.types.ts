@@ -66,7 +66,7 @@ export interface Scene {
   updatedAt: number;
 }
 
-export type NoteTint = 'neutral' | 'amber' | 'sage' | 'clay' | 'blue-grey';
+export type NoteTint = 'neutral' | 'amber' | 'sage' | 'destructive' | 'blue-grey';
 
 export interface Note {
   id: string;

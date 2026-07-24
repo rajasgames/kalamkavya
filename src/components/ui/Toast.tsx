@@ -54,13 +54,13 @@ export const useToast = () => {
 const ICONS = {
   success: <CheckCircle className="text-sage" size={20} />,
   warning: <AlertTriangle className="text-amber-from" size={20} />,
-  error: <AlertCircle className="text-clay" size={20} />,
+  error: <AlertCircle className="text-destructive" size={20} />,
 };
 
 const BORDERS = {
   success: 'border-l-4 border-l-sage',
   warning: 'border-l-4 border-l-amber-from',
-  error: 'border-l-4 border-l-clay',
+  error: 'border-l-4 border-l-destructive',
 };
 
 export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {

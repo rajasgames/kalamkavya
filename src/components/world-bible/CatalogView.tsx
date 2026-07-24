@@ -21,7 +21,7 @@ const getTypeIcon = (type: string, size = 16) => {
     case 'MAGIC_SYSTEM':
       return <Sparkles size={size} className="text-amber-from" />;
     case 'WEAPON':
-      return <Sword size={size} className="text-clay" />;
+      return <Sword size={size} className="text-destructive" />;
     case 'faction':
     case 'race':
       return <Users size={size} className="text-amber-from" />;
@@ -142,7 +142,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
           {[
             { id: 'atlas', label: 'Atlas (Geography)', icon: Map, color: 'text-sage' },
             { id: 'systems', label: 'Magic Systems', icon: Sparkles, color: 'text-amber-from' },
-            { id: 'gear', label: 'Weapons & Gear', icon: Sword, color: 'text-clay' },
+            { id: 'gear', label: 'Weapons & Gear', icon: Sword, color: 'text-destructive' },
             { id: 'societies', label: 'Factions & Races', icon: Users, color: 'text-amber-from' },
             { id: 'culture', label: 'Cultures & Myths', icon: BookOpen, color: 'text-secondary' },
             { id: 'catalog', label: 'Characters', icon: User, color: 'text-primary' },
@@ -223,11 +223,11 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
           onClick={() => setAiRulesOnly(!aiRulesOnly)}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
             aiRulesOnly
-              ? 'bg-clay/10 text-clay border-clay/30 shadow-sm'
-              : 'bg-base text-ghost border-subtle hover:text-clay hover:border-clay/30'
+              ? 'bg-destructive/10 text-destructive border-destructive/30 shadow-sm'
+              : 'bg-base text-ghost border-subtle hover:text-destructive hover:border-destructive/30'
           }`}
         >
-          <Sparkle size={14} className={aiRulesOnly ? 'text-clay' : 'text-ghost'} />
+          <Sparkle size={14} className={aiRulesOnly ? 'text-destructive' : 'text-ghost'} />
           AI Rules Only
         </button>
 
@@ -238,7 +238,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
               setAiRulesOnly(false);
               setSearchQuery('');
             }}
-            className="text-xs text-clay hover:underline ml-2"
+            className="text-xs text-destructive hover:underline ml-2"
           >
             Clear All
           </button>
@@ -287,7 +287,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
                     </span>
                   </div>
                   {(entity.hasAIRule || Boolean(entity.data?.aiRuleEnabled)) && (
-                    <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-clay/10 text-clay border border-clay/20 uppercase tracking-wider">
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-destructive/10 text-destructive border border-destructive/20 uppercase tracking-wider">
                       #AI-Rule
                     </span>
                   )}

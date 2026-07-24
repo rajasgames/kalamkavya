@@ -199,7 +199,7 @@ export function GlobalSearch() {
       case 'character': return <User size={14} className="text-primary" />;
       case 'entity': return <BookOpen size={14} className="text-sage" />;
       case 'scene': return <FileText size={14} className="text-amber-from" />;
-      case 'note': return <Lightbulb size={14} className="text-clay" />;
+      case 'note': return <Lightbulb size={14} className="text-destructive" />;
     }
   };
 

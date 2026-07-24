@@ -5,20 +5,8 @@ import { Project } from '@/types';
 import { Modal, Input, Button, Label } from '@/components/ui';
 import { GENRE_MODULE_LIST } from '@/lib/genres/genreRegistry';
 
-import { Sun, Sword, Rocket, Coffee, Skull, Scroll, Search, Globe } from 'lucide-react';
 
-const renderGenreIcon = (id: string) => {
-  switch (id) {
-    case 'vedic': return <Sun size={22} className="text-amber-from" />;
-    case 'fantasy': return <Sword size={22} className="text-emerald-500" />;
-    case 'scifi': return <Rocket size={22} className="text-blue-500" />;
-    case 'contemporary': return <Coffee size={22} className="text-amber-600" />;
-    case 'horror': return <Skull size={22} className="text-red-500" />;
-    case 'historical': return <Scroll size={22} className="text-yellow-600" />;
-    case 'mystery': return <Search size={22} className="text-purple-500" />;
-    default: return <Globe size={22} className="text-primary" />;
-  }
-};
+
 
 interface NewProjectModalProps {
   isOpen: boolean;
@@ -103,7 +91,7 @@ export function NewProjectModal({ isOpen, onClose, onCreated }: NewProjectModalP
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 max-h-[400px] overflow-y-auto pr-1 scrollbar-hide">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[400px] overflow-y-auto pr-1 scrollbar-hide">
             {GENRE_MODULE_LIST.map(mod => {
               const isSelected = selectedGenres.includes(mod.id);
               return (
@@ -117,8 +105,8 @@ export function NewProjectModal({ isOpen, onClose, onCreated }: NewProjectModalP
                   }`}
                 >
                   <div className="flex items-center justify-between w-full">
-                    <div className="p-1.5 rounded-lg bg-surface border border-subtle">
-                      {renderGenreIcon(mod.id)}
+                    <div className="p-1.5 rounded-lg bg-surface border border-subtle text-xl">
+                      {mod.icon}
                     </div>
                     <span
                       className={`w-4 h-4 rounded-full border-2 transition-all shrink-0 ${
@@ -166,7 +154,7 @@ export function NewProjectModal({ isOpen, onClose, onCreated }: NewProjectModalP
                   key={g}
                   className="inline-flex items-center gap-1.5 px-2 py-1 bg-amber-from/10 border border-amber-from/20 text-amber-from text-xs font-bold rounded-md"
                 >
-                  {renderGenreIcon(g)} {mod?.shortLabel}
+                  <span className="text-sm">{mod?.icon}</span> {mod?.shortLabel}
                 </span>
               );
             })}

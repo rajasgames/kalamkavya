@@ -18,7 +18,7 @@ const getTypeIcon = (type: string) => {
     case 'MAGIC_SYSTEM':
       return <Sparkles size={18} className="text-amber-from" />;
     case 'WEAPON':
-      return <Sword size={18} className="text-clay" />;
+      return <Sword size={18} className="text-destructive" />;
     case 'faction':
     case 'race':
     case 'character':
@@ -95,7 +95,7 @@ export function EntityGrid({ typeFilters, onEntityClick }: EntityGridProps) {
                   setSelectedSubTypes([]);
                   setSelectedMagicSystems([]);
                 }}
-                className="text-xs text-clay hover:underline"
+                className="text-xs text-destructive hover:underline"
               >
                 Clear Filters
               </button>

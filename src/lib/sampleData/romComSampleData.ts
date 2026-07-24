@@ -15,7 +15,7 @@ export async function loadRomComSampleData(): Promise<string> {
     id: projectId,
     title: 'The Accidental Flatmates',
     genre: 'contemporary',
-    genreModules: ['universal', 'contemporary'],
+    genreModules: ['universal', 'romance'],
     premise:
       "A meticulous architect and a chaotic food blogger are forced to share a flat in Mumbai after a housing mix-up \u2014 and slowly discover that opposites don't just attract, they complete each other.",
     targetWordCount: 65000,

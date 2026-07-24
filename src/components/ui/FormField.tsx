@@ -23,7 +23,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         ? React.cloneElement(children as React.ReactElement, { id, error, 'aria-invalid': !!error }) 
         : children}
       {error && (
-        <p className="text-xs text-clay font-medium">{error}</p>
+        <p className="text-xs text-destructive font-medium">{error}</p>
       )}
     </div>
   );

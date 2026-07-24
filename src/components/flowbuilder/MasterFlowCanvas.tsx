@@ -210,6 +210,9 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     selectedNodeId,
     selectedEdgeId,
     onEntitySelect,
+    positions,
+    savePositions,
+    setPositions,
   ]);
 
   // ── Node/Edge change handlers ───────────────────────────────────────────────

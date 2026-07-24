@@ -54,7 +54,7 @@ export function ConflictRegisterCard({ scene }: ConflictRegisterCardProps) {
 
   const getSeverityColor = (severity: ConflictEntry['severity']) => {
     switch (severity) {
-      case 'High': return 'text-clay bg-clay/10 border-clay/30';
+      case 'High': return 'text-destructive bg-destructive/10 border-destructive/30';
       case 'Medium': return 'text-amber-from bg-amber-from/10 border-amber-from/30';
       case 'Low': return 'text-sage bg-sage/10 border-sage/30';
     }

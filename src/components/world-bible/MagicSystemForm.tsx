@@ -254,7 +254,7 @@ export function MagicSystemForm({ entity, onSave }: MagicSystemFormProps) {
           {sideEffects.map(effect => (
             <span key={effect} className="px-2 py-1 bg-surface border border-subtle rounded-md text-xs flex items-center gap-1">
               {effect}
-              <button onClick={() => removeSideEffect(effect)} className="text-ghost hover:text-clay">
+              <button onClick={() => removeSideEffect(effect)} className="text-ghost hover:text-destructive">
                 <Trash2 size={12} />
               </button>
             </span>
@@ -322,10 +322,10 @@ export function MagicSystemForm({ entity, onSave }: MagicSystemFormProps) {
       </div>
 
       {/* AI Rule Constraints */}
-      <div className="mt-6 border border-clay/30 bg-clay/5 rounded-xl p-5 flex flex-col gap-4">
+      <div className="mt-6 border border-destructive/30 bg-destructive/5 rounded-xl p-5 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <div>
-            <Label className="text-clay font-bold flex items-center gap-2">
+            <Label className="text-destructive font-bold flex items-center gap-2">
               #AI-Rule Constraint
             </Label>
             <p className="text-xs text-secondary mt-1">
@@ -337,7 +337,7 @@ export function MagicSystemForm({ entity, onSave }: MagicSystemFormProps) {
               type="checkbox"
               checked={aiRuleEnabled}
               onChange={(e) => setAiRuleEnabled(e.target.checked)}
-              className="rounded border-clay/50 text-clay focus:ring-clay"
+              className="rounded border-destructive/50 text-destructive focus:ring-destructive"
             />
             <span className="text-sm font-bold text-primary">Enable</span>
           </label>
@@ -348,7 +348,7 @@ export function MagicSystemForm({ entity, onSave }: MagicSystemFormProps) {
             value={aiRuleText}
             onChange={(e) => setAiRuleText(e.target.value)}
             rows={3}
-            className="w-full bg-base border border-clay/40 rounded-lg px-3 py-2 text-sm text-primary focus:outline-none focus:border-clay resize-y"
+            className="w-full bg-base border border-destructive/40 rounded-lg px-3 py-2 text-sm text-primary focus:outline-none focus:border-destructive resize-y"
             placeholder="State the absolute rules the AI must follow..."
           />
         )}
@@ -397,7 +397,7 @@ function SortableRankItem({ rank, onUpdate, onRemove }: SortableRankItemProps) {
       </div>
       <button 
         onClick={() => onRemove(rank.id)}
-        className="mt-2 text-ghost hover:text-clay opacity-0 group-hover:opacity-100 transition-opacity"
+        className="mt-2 text-ghost hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
       >
         <Trash2 size={16} />
       </button>

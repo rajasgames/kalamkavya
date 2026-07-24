@@ -102,7 +102,7 @@ export function UiTesting() {
               <div className="h-16 rounded bg-sage flex items-center justify-center">
                 Sage
               </div>
-              <div className="h-16 rounded bg-clay flex items-center justify-center">
+              <div className="h-16 rounded bg-destructive flex items-center justify-center">
                 Clay
               </div>
             </div>

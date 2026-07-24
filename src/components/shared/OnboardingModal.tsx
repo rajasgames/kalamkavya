@@ -186,7 +186,7 @@ export function OnboardingModal() {
                     </div>
                     <h4 className="font-bold text-xs sm:text-sm text-primary mb-1">Genre Modules</h4>
                     <p className="text-[11px] sm:text-xs text-ghost leading-relaxed">
-                      Tailor your workspace with specialized lore fields for Vedic Myth, Sci-Fi, Rom-Com, Fantasy, & more.
+                      Tailor your workspace with specialized lore fields for Fantasy, Sci-Fi, Romance, Action, & more.
                     </p>
                   </div>
 
@@ -307,7 +307,7 @@ export function OnboardingModal() {
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 size={15} className="text-terracotta shrink-0 mt-0.5" />
-                        <span><strong className="text-primary">Genre-Specific Fields:</strong> Automatic custom fields for Vedic realms, sci-fi propulsion, or rom-com tropes.</span>
+                        <span><strong className="text-primary">Genre-Specific Fields:</strong> Automatic custom fields for fantasy realms, sci-fi propulsion, or romance tropes.</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 size={15} className="text-terracotta shrink-0 mt-0.5" />
@@ -481,7 +481,7 @@ export function OnboardingModal() {
                 <div className="p-3 sm:p-4 rounded-xl bg-base border border-subtle">
                   <h5 className="font-bold text-xs text-primary mb-1">Dynamic Genre Modules</h5>
                   <p className="text-[11px] sm:text-xs text-ghost leading-relaxed">
-                    kalam kavya supports multiple genre structures. When creating a novel project, select genre modules like <span className="text-primary font-medium">Vedic Myth</span>, <span className="text-primary font-medium">Contemporary Rom-Com</span>, or <span className="text-primary font-medium">Sci-Fi</span> to automatically enable customized worldbuilding schemas.
+                    kalam kavya supports multiple genre structures. When creating a novel project, select genre modules like <span className="text-primary font-medium">Fantasy</span>, <span className="text-primary font-medium">Romance</span>, or <span className="text-primary font-medium">Sci-Fi</span> to automatically enable customized worldbuilding schemas.
                   </p>
                 </div>
               </div>
@@ -535,7 +535,7 @@ export function OnboardingModal() {
                     <div className="p-2 w-fit rounded-lg bg-terracotta/10 text-terracotta mb-1.5 group-hover:scale-110 transition-transform">
                       <Sun size={20} />
                     </div>
-                    <div className="font-bold text-xs text-primary group-hover:text-terracotta">Vedic & Puranic Epic</div>
+                    <div className="font-bold text-xs text-primary group-hover:text-terracotta">Fantasy Epic</div>
                     <div className="text-[10px] text-ghost mt-0.5">Pre-built mythology world, characters, & lore</div>
                     {loadingSample === 'vedic' && <div className="text-[10px] text-terracotta animate-pulse mt-1 font-bold">Loading & starting tour...</div>}
                   </button>
@@ -548,7 +548,7 @@ export function OnboardingModal() {
                     <div className="p-2 w-fit rounded-lg bg-terracotta/10 text-terracotta mb-1.5 group-hover:scale-110 transition-transform">
                       <Coffee size={20} />
                     </div>
-                    <div className="font-bold text-xs text-primary group-hover:text-terracotta">Contemporary Rom-Com</div>
+                    <div className="font-bold text-xs text-primary group-hover:text-terracotta">Romance</div>
                     <div className="text-[10px] text-ghost mt-0.5">Flatmate romance novel with Mumbai setting</div>
                     {loadingSample === 'romcom' && <div className="text-[10px] text-terracotta animate-pulse mt-1 font-bold">Loading & starting tour...</div>}
                   </button>

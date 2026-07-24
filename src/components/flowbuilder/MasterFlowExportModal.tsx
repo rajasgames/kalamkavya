@@ -4,6 +4,10 @@ import useMasterFlowStore from './masterFlowStore';
 import { useStoryStore } from '@/stores/storyStore';
 import { formatSpecId } from './entityTypeConfig';
 
+// Helper for notes/description
+const getDesc = (e: { data?: Record<string, unknown> }) =>
+  (((e.data?.notes || e.data?.description || '') as string));
+
 export function MasterFlowExportModal() {
   const { isExportModalOpen, setExportModalOpen, addToast, layoutDirection } = useMasterFlowStore();
   const { activeProject, entities, relationships } = useStoryStore();
@@ -11,9 +15,6 @@ export function MasterFlowExportModal() {
   const [activeTab, setActiveTab] = useState<'json' | 'markdown' | 'mermaid'>('json');
   const [copied, setCopied] = useState(false);
 
-  // Helper for notes/description
-  const getDesc = (e: (typeof entities)[0]) =>
-    (((e.data as Record<string, unknown>)?.notes || (e.data as Record<string, unknown>)?.description || '') as string);
 
   // 1. JSON Export Content
   const jsonContent = useMemo(() => {

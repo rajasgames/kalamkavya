@@ -58,8 +58,8 @@ const DEFAULT_RARITY_TIERS: RarityTierData[] = [
   {
     name: 'Unique',
     displayOrder: 5,
-    bgColor: 'bg-clay/10',
-    textColor: 'text-clay',
+    bgColor: 'bg-destructive/10',
+    textColor: 'text-destructive',
     badgeStyle: 'solid',
     description: 'One-of-a-kind artifacts'
   },
@@ -313,7 +313,7 @@ function SortableRarityItem({ entity, onUpdate, onDelete }: SortableRarityItemPr
               onClick={() => {
                 if(confirm(`Delete rarity tier "${data.name}"?`)) onDelete(entity.id);
               }}
-              className="text-ghost hover:text-clay p-2"
+              className="text-ghost hover:text-destructive p-2"
             >
               <Trash2 size={16} />
             </button>

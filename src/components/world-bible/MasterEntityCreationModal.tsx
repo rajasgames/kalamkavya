@@ -28,7 +28,7 @@ export function MasterEntityCreationModal({
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   const genreModules = useMemo(
-    () => activeProject?.genreModules ?? ['vedic'],
+    () => activeProject?.genreModules ?? ['universal'],
     [activeProject],
   );
 

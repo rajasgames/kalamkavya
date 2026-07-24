@@ -16,7 +16,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
         <SelectPrimitive.Trigger
           ref={ref}
           className={`inline-flex items-center justify-between w-full bg-elevated border rounded-xl px-4 py-2.5 text-primary font-sans transition-all duration-200 ease-out outline-none focus:outline-none focus-visible:outline-none focus:ring-1 focus:ring-amber-from/50 focus:border-amber-from/80 ${
-            error ? 'border-clay focus:ring-clay/50 focus:border-clay' : 'border-subtle'
+            error ? 'border-destructive focus:ring-destructive/50 focus:border-destructive' : 'border-subtle'
           } ${className}`}
         >
           <SelectPrimitive.Value placeholder={placeholder} />
