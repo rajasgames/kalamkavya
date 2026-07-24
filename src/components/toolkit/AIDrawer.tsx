@@ -64,7 +64,7 @@ export function AIDrawer() {
   };
 
   return (
-    <div className="fixed inset-y-0 right-0 w-96 bg-surface/95 backdrop-blur-2xl border-l border-subtle shadow-2xl z-50 flex flex-col transform transition-transform duration-300">
+    <div className="fixed inset-y-0 right-0 w-full sm:w-96 bg-surface/95 backdrop-blur-2xl border-l border-subtle shadow-2xl z-50 flex flex-col transform transition-transform duration-300">
       <div className="flex items-center justify-between p-4 border-b border-subtle">
         <div className="flex items-center gap-2.5">
           <div className="bg-amber-from/20 p-2 rounded-xl text-amber-from border border-amber-from/30 shadow-sm">

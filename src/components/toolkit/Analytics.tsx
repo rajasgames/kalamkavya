@@ -188,8 +188,8 @@ export function Analytics() {
             <h3 className="text-xs font-semibold text-ghost uppercase tracking-wider flex items-center gap-2 mb-4">
               <Activity size={14} /> 90-Day Activity
             </h3>
-            <div className="flex-1 flex flex-col justify-center">
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(12px,1fr))] gap-1 max-w-[400px]">
+            <div className="flex-1 flex flex-col justify-center overflow-x-auto max-w-full pb-1">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(12px,1fr))] gap-1 min-w-[280px] max-w-[400px]">
                 {heatmapData.map((day, i) => {
                   let colorClass = "bg-transparent border border-subtle"; // 0 words
                   if (day.count > 0 && day.count < 500) colorClass = "bg-amber-from/40 border border-transparent";

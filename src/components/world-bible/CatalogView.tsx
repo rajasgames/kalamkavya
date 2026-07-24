@@ -247,7 +247,7 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
         {onCreateNew && (
           <button
             onClick={() => onCreateNew('character')}
-            className="ml-auto flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-terracotta text-white hover:bg-terracotta/90 transition-all shadow-sm"
+            className="w-full sm:w-auto sm:ml-auto flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg text-xs font-semibold bg-terracotta text-white hover:bg-terracotta/90 transition-all shadow-sm mt-2 sm:mt-0"
           >
             <Plus size={14} /> Master New Entry
           </button>

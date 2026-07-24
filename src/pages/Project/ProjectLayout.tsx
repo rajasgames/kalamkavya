@@ -15,10 +15,10 @@ export function ProjectLayout() {
         <div className="flex items-center gap-3 sm:gap-6 flex-wrap">
           <h1 className="text-2xl sm:text-3xl font-serif text-primary">Project Setup</h1>
 
-          <div className="flex bg-base/80 backdrop-blur-md border border-subtle p-1 rounded-xl gap-1">
+          <div className="flex bg-base/80 backdrop-blur-md border border-subtle p-1 rounded-xl gap-1 max-w-full overflow-x-auto scrollbar-hide shrink-0">
             <button
               onClick={() => navigate('/project/core')}
-              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap shrink-0 ${
                 activeSubView === 'core'
                   ? 'nav-pill-active'
                   : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'
@@ -28,7 +28,7 @@ export function ProjectLayout() {
             </button>
             <button
               onClick={() => navigate('/project/templates')}
-              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap shrink-0 ${
                 activeSubView === 'templates'
                   ? 'nav-pill-active'
                   : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border border-transparent'

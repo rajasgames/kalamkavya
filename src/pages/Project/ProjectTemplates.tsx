@@ -324,15 +324,15 @@ export function ProjectTemplates() {
   }
 
   return (
-    <div className="p-8 md:p-12 max-w-7xl mx-auto space-y-8 font-sans overflow-y-auto">
+    <div className="p-4 sm:p-8 md:p-12 max-w-7xl mx-auto space-y-6 sm:space-y-8 font-sans overflow-y-auto">
       {/* Top Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-subtle pb-6 gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-subtle pb-6 gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-amber-from/15 text-amber-from border border-amber-from/30 shadow-md">
+          <div className="p-3 rounded-2xl bg-amber-from/15 text-amber-from border border-amber-from/30 shadow-md shrink-0">
             <Layers size={24} />
           </div>
           <div>
-            <h1 className="text-2xl font-serif font-bold text-primary flex items-center gap-3">
+            <h1 className="text-xl sm:text-2xl font-serif font-bold text-primary flex items-center gap-3 flex-wrap">
               Narrative & Worldbuilding Templates
               {appliedSuccess && (
                 <span className="text-xs font-mono bg-emerald-500/15 text-emerald-500 border border-emerald-500/30 px-2.5 py-1 rounded-full flex items-center gap-1 animate-pulse">
@@ -340,13 +340,13 @@ export function ProjectTemplates() {
                 </span>
               )}
             </h1>
-            <p className="text-xs text-secondary">
+            <p className="text-xs text-secondary mt-0.5">
               Apply structural beats, chapter arcs, and worldbuilding schemas to <strong className="text-primary">{activeProject.title}</strong>.
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <Button onClick={() => navigate('/manuscript/planner')} variant="ghost" className="gap-2 text-xs">
             <PenTool size={16} /> Open Planner
           </Button>
@@ -355,7 +355,7 @@ export function ProjectTemplates() {
             disabled={isApplying}
             className="gap-2 text-xs bg-amber-from text-black font-bold shadow-md hover:brightness-110"
           >
-            <Sparkles size={16} /> {isApplying ? 'Applying...' : 'Apply Template to Project'}
+            <Sparkles size={16} /> {isApplying ? 'Applying...' : 'Apply Template'}
           </Button>
         </div>
       </div>
@@ -363,12 +363,12 @@ export function ProjectTemplates() {
       {/* Filter & Search Controls */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-surface/50 p-3 rounded-2xl border border-subtle">
         {/* Category Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto">
+        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-hide py-1 max-w-full w-full sm:w-auto shrink-0 flex-nowrap">
           {['All', 'Narrative Arc', 'Worldbuilding Schema', 'Genre Beats'].map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all whitespace-nowrap shrink-0 ${
                 selectedCategory === cat
                   ? 'bg-amber-from text-black font-bold shadow-sm'
                   : 'bg-base text-secondary hover:text-primary hover:bg-subtle'

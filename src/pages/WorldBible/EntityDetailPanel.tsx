@@ -24,7 +24,7 @@ export function EntityDetailPanel({ entityId, onClose, onEntitySelect }: EntityD
     : [];
 
   return (
-    <div className="w-1/3 min-w-[400px] border-l border-subtle bg-base h-full flex flex-col shadow-xl z-20 animate-in slide-in-from-right-full duration-300">
+    <div className="w-full md:w-1/3 md:min-w-[400px] fixed md:relative inset-y-0 right-0 border-l border-subtle bg-base h-full flex flex-col shadow-2xl z-40 md:z-20 animate-in slide-in-from-right duration-300">
       <div className="flex items-center justify-between p-4 border-b border-subtle bg-surface shrink-0">
         <h2 className="font-serif text-lg font-bold text-primary truncate pr-4">
           Edit {entity.type}

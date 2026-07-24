@@ -1,5 +1,7 @@
 # कalam काvya 🖋️✨
 
+![कalam काvya Horizontal Banner](public/banner_kalam_kavya.svg)
+
 > **The All-in-One Studio & Narrative Engine for Authors, Worldbuilders, and Story Architects.**
 
 ![कalam काvya Version](https://img.shields.io/badge/version-0.1.0-amber?style=for-the-badge)

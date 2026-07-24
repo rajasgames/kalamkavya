@@ -4,7 +4,7 @@ import { useAIStore } from '@/stores/aiStore';
 import { buildAssistantPrompt } from '@/lib/ai/promptEngine';
 import { streamAI } from '@/lib/ai/streamAI';
 import { Entity } from '@/types';
-import { Send, Loader2, Save, X, User, Sparkles, Search } from 'lucide-react';
+import { Send, Loader2, Save, X, User, Sparkles, Search, Paperclip } from 'lucide-react';
 import { Button, Textarea, Input, Label, Select } from '@/components/ui';
 import { getEntityTypesForGenre } from '@/lib/genres/genreRegistry';
 
@@ -26,6 +26,7 @@ export function AIAssistant() {
   const [entityToSave, setEntityToSave] = useState<{name: string, type: string, content: string}>({ name: '', type: 'Lore', content: '' });
   const [isBuildingContext, setIsBuildingContext] = useState(false);
   const [contextSearch, setContextSearch] = useState('');
+  const [showMobileContext, setShowMobileContext] = useState(false);
 
   const dynamicEntityTypes = useMemo(() => getEntityTypesForGenre(activeProject?.genreModules), [activeProject?.genreModules]);
 
@@ -149,14 +150,24 @@ export function AIAssistant() {
   }, {} as Record<string, Entity[]>);
 
   return (
-    <div className="flex h-full border border-subtle rounded-xl overflow-hidden bg-base shadow-sm relative">
+    <div className="flex flex-col md:flex-row h-full min-h-[550px] border border-subtle rounded-xl overflow-hidden bg-base shadow-sm relative">
       
       {/* Left Panel: Context Selector */}
-      <div className="w-[260px] bg-surface border-r border-subtle flex flex-col shrink-0 h-[600px] max-h-full">
-        <div className="p-4 border-b border-subtle">
-          <h3 className="font-serif text-lg text-primary">Context Attachments</h3>
-          <p className="text-xs text-secondary mt-1">Force AI to reference these items</p>
-          <div className="mt-3 relative">
+      <div className={`w-full md:w-[260px] bg-surface border-b md:border-b-0 md:border-r border-subtle flex flex-col shrink-0 h-[280px] md:h-full max-h-full ${showMobileContext ? 'flex' : 'hidden md:flex'}`}>
+        <div className="p-4 border-b border-subtle flex items-center justify-between">
+          <div>
+            <h3 className="font-serif text-base md:text-lg text-primary">Context Attachments</h3>
+            <p className="text-xs text-secondary mt-0.5">Force AI to reference these items</p>
+          </div>
+          <button 
+            onClick={() => setShowMobileContext(false)}
+            className="md:hidden p-1 text-ghost hover:text-primary"
+          >
+            <X size={18} />
+          </button>
+        </div>
+        <div className="p-3 border-b border-subtle">
+          <div className="relative">
             <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ghost" />
             <Input 
               placeholder="Search entities..." 
@@ -195,13 +206,21 @@ export function AIAssistant() {
       </div>
 
       {/* Right Panel: Chat Area */}
-      <div className="flex-1 flex flex-col h-[600px] max-h-full relative">
+      <div className="flex-1 flex flex-col h-full min-h-[400px] relative">
         
         {/* Header */}
         <div className="p-4 border-b border-subtle flex items-center justify-between shrink-0 bg-base">
-          <h2 className="font-serif text-xl text-primary">Lore Generator</h2>
-          <div className="px-3 py-1 bg-surface rounded-full border border-subtle font-mono text-[10px] text-secondary tracking-wider">
-            {activeProvider.toUpperCase()} / {modelName}
+          <h2 className="font-serif text-lg sm:text-xl text-primary">Lore Generator</h2>
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={() => setShowMobileContext(!showMobileContext)} 
+              className="md:hidden flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg bg-surface border border-subtle text-secondary font-medium hover:text-primary transition-colors"
+            >
+              <Paperclip size={14} /> Attachments ({selectedEntityIds.size})
+            </button>
+            <div className="px-2.5 sm:px-3 py-1 bg-surface rounded-full border border-subtle font-mono text-[9px] sm:text-[10px] text-secondary tracking-wider">
+              {activeProvider.toUpperCase()} / {modelName}
+            </div>
           </div>
         </div>
 
