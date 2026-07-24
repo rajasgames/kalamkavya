@@ -13,7 +13,6 @@ import {
   Zap, 
   ShieldCheck, 
   Sliders, 
-  Compass, 
   HelpCircle,
   BrainCircuit,
   Layers,
@@ -96,8 +95,8 @@ export function OnboardingModal() {
         {/* Top Progress Bar & Header */}
         <div className="flex items-center justify-between pb-4 border-b border-subtle mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-from/15 text-amber-from flex items-center justify-center border border-amber-from/30 shadow-[0_0_15px_rgba(212,153,90,0.2)]">
-              <Compass className="animate-spin-slow" size={22} />
+            <div className="w-10 h-10 rounded-xl bg-amber-from/15 flex items-center justify-center border border-amber-from/30 shadow-[0_0_15px_rgba(212,153,90,0.2)] p-1 overflow-hidden shrink-0">
+              <img src="/brand_logo.png" alt="Kalam Kavya Brand Logo" className="w-full h-full object-contain" />
             </div>
             <div>
               <h2 className="text-xl font-serif font-bold text-primary flex items-center gap-2">

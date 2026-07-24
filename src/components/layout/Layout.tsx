@@ -61,12 +61,12 @@ export const Layout = () => {
             className="flex items-center gap-2.5 shrink-0 whitespace-nowrap select-none cursor-pointer group hover:opacity-90 transition-opacity"
             title="Kalam Kavya Engine — Return Home"
           >
-            <div className="relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0">
+            <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center shrink-0">
               <div className="absolute inset-0 bg-terracotta/20 rounded-xl blur-sm group-hover:scale-125 transition-transform duration-300" />
               <img 
-                src="/favicon.svg" 
-                className="w-7 h-7 sm:w-8 sm:h-8 object-contain drop-shadow-md group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shrink-0 relative z-10" 
-                alt="Kalam Kavya Logo Favicon" 
+                src="/brand_logo.png" 
+                className="w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shrink-0 relative z-10" 
+                alt="Kalam Kavya Brand Logo" 
               />
             </div>
 

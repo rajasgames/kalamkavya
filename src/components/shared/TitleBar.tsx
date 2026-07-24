@@ -34,7 +34,7 @@ export function TitleBar() {
       data-tauri-drag-region
     >
       <div className="flex-1 flex items-center pl-4 gap-2 h-full whitespace-nowrap shrink-0" data-tauri-drag-region>
-        <img src="/favicon.svg" className="w-4 h-4 shrink-0 object-contain" alt="Favicon" data-tauri-drag-region />
+        <img src="/brand_logo.png" className="w-5 h-5 shrink-0 object-contain" alt="Brand Logo" data-tauri-drag-region />
         <span className="text-xs font-bold text-primary font-serif whitespace-nowrap" data-tauri-drag-region>कalam काvya Engine</span>
       </div>
       

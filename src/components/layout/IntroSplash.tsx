@@ -59,12 +59,12 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="relative mb-6"
             >
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-amber-500/20 via-amber-600/10 to-transparent p-0.5 border border-amber-500/30 shadow-2xl shadow-amber-900/40">
-                <div className="w-full h-full bg-[#141210] rounded-[22px] flex items-center justify-center p-3.5 relative overflow-hidden">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-amber-500/20 via-amber-600/10 to-transparent p-0.5 border border-amber-500/30 shadow-2xl shadow-amber-900/40">
+                <div className="w-full h-full bg-[#141210] rounded-[22px] flex items-center justify-center p-2 relative overflow-hidden">
                   <img
-                    src="/favicon.svg"
+                    src="/brand_logo.png"
                     alt="Kalam Kavya Logo"
-                    className="w-full h-full object-contain drop-shadow-[0_2px_12px_rgba(245,158,11,0.4)]"
+                    className="w-full h-full object-contain drop-shadow-[0_4px_16px_rgba(245,158,11,0.5)]"
                   />
                 </div>
               </div>
