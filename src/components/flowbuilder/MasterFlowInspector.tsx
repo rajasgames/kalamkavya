@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { X, Copy, Check, Trash2, ExternalLink, GitCommit } from 'lucide-react';
 import useMasterFlowStore from './masterFlowStore';
 import { useStoryStore } from '@/stores/storyStore';
-import { getEntityTypeConfig, formatSpecId } from './entityTypeConfig';
+import { getEntityTypeConfig, formatSpecId, renderEntityIcon } from './entityTypeConfig';
 
 const ENTITY_TYPE_OPTIONS = [
   { type: 'CHARACTER', label: 'Character' },
@@ -182,7 +182,7 @@ export function MasterFlowInspector({ onEntitySelect }: MasterFlowInspectorProps
                     className={`flowcraft-type-opt ${isActive ? 'active' : ''}`}
                     style={isActive ? ({ '--accent': cfg.color } as React.CSSProperties) : undefined}
                   >
-                    <span className="text-sm">{cfg.icon}</span>
+                    <span className="flex items-center justify-center shrink-0">{renderEntityIcon(type, 13)}</span>
                     <span className="truncate">{label}</span>
                   </button>
                 );
@@ -221,7 +221,9 @@ export function MasterFlowInspector({ onEntitySelect }: MasterFlowInspectorProps
                   return (
                     <div key={conn.relId} className="flowcraft-conn-item">
                       <span className="dir font-mono">{conn.direction === 'outgoing' ? '→' : '←'}</span>
-                      <span style={{ color: cfg.color }}>{cfg.icon}</span>
+                      <span style={{ color: cfg.color }} className="flex items-center justify-center">
+                        {renderEntityIcon(conn.otherType, 13)}
+                      </span>
                       <span
                         className="flex-1 truncate font-medium hover:text-brass cursor-pointer"
                         onClick={() => selectNode(conn.otherId)}

@@ -1,7 +1,7 @@
 import { memo, useState, useRef, useCallback, useEffect } from 'react';
 import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
 import { ExternalLink, Sliders, Trash2 } from 'lucide-react';
-import { getEntityTypeConfig, formatSpecId } from './entityTypeConfig';
+import { getEntityTypeConfig, formatSpecId, renderEntityIcon } from './entityTypeConfig';
 import { useStoryStore } from '@/stores/storyStore';
 import useMasterFlowStore from './masterFlowStore';
 
@@ -11,6 +11,8 @@ export type MasterFlowNodeData = {
   description?: string;
   entityType: string;
   entityClass: 'MASTER' | 'INSTANCE';
+  targetPosition?: Position;
+  sourcePosition?: Position;
   onEntitySelect?: (id: string) => void;
   onRequestAddRelationship?: (fromId: string) => void;
 };
@@ -106,7 +108,7 @@ const MasterFlowNodeComponent = ({ id: nodeId, data, selected }: NodeProps<Maste
       } as React.CSSProperties}
       data-type={entityType.toLowerCase()}
     >
-      {/* 4-Way Handles */}
+      {/* 4-Way Connection Handles */}
       <Handle type="target" position={Position.Top} id="top" className="flowcraft-handle handle-top" />
       <Handle type="target" position={Position.Left} id="left" className="flowcraft-handle handle-left" />
       <Handle type="source" position={Position.Bottom} id="bottom" className="flowcraft-handle handle-bottom" />
@@ -114,7 +116,9 @@ const MasterFlowNodeComponent = ({ id: nodeId, data, selected }: NodeProps<Maste
 
       {/* Top Spec Tag Header */}
       <div className="flowcraft-node__header">
-        <span className="flowcraft-node__type-icon">{config.icon}</span>
+        <span className="flowcraft-node__type-icon flex items-center justify-center" style={{ color: config.color }}>
+          {renderEntityIcon(entityType, 12)}
+        </span>
         <span className="flowcraft-node__type-label" style={{ color: config.color }}>
           {config.label.toUpperCase()}
         </span>

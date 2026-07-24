@@ -1,6 +1,6 @@
 import { useState, memo } from 'react';
 import { Plus, LayoutGrid, Maximize2, Trash2, ChevronRight } from 'lucide-react';
-import { getEntityTypeConfig } from './entityTypeConfig';
+import { getEntityTypeConfig, renderEntityIcon } from './entityTypeConfig';
 
 const ADD_ENTITY_TYPES = [
   { type: 'CHARACTER', label: 'Character / Being' },
@@ -48,7 +48,7 @@ const MasterFlowContextMenuComponent = ({
     >
       {/* Add Entity Submenu */}
       <div
-        className="menu-item"
+        className="menu-item relative"
         onMouseEnter={() => setShowSubmenu(true)}
         onMouseLeave={() => setShowSubmenu(false)}
       >
@@ -70,7 +70,9 @@ const MasterFlowContextMenuComponent = ({
                     onClose();
                   }}
                 >
-                  <span style={{ color: cfg.color, fontSize: 14 }}>{cfg.icon}</span>
+                  <span style={{ color: cfg.color }} className="flex items-center justify-center">
+                    {renderEntityIcon(type, 14)}
+                  </span>
                   <span>{label}</span>
                 </button>
               );

@@ -6,6 +6,7 @@ import {
   Controls,
   MiniMap,
   SelectionMode,
+  Position,
   useReactFlow,
   applyNodeChanges,
   applyEdgeChanges,
@@ -52,10 +53,18 @@ const autoLayout = (
 
   dagre.layout(g);
 
+  const targetPosition = direction === 'TB' ? Position.Top : Position.Left;
+  const sourcePosition = direction === 'TB' ? Position.Bottom : Position.Right;
+
   return nodes.map(n => {
     const pos = g.node(n.id);
     if (!pos) return n;
-    return { ...n, position: { x: pos.x - 124, y: pos.y - 55 } };
+    return {
+      ...n,
+      targetPosition,
+      sourcePosition,
+      position: { x: pos.x - 124, y: pos.y - 55 },
+    };
   });
 };
 
@@ -115,6 +124,9 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     const projEntities = entities.filter(e => e.projectId === activeProjectId);
     const projRelationships = relationships.filter(r => r.projectId === activeProjectId);
 
+    const targetPos = layoutDirection === 'TB' ? Position.Top : Position.Left;
+    const sourcePos = layoutDirection === 'TB' ? Position.Bottom : Position.Right;
+
     // Build RF nodes from entities
     let rfNodes: Node[] = projEntities.map(entity => {
       const savedPos = positions[entity.id];
@@ -124,6 +136,8 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
         id: entity.id,
         type: 'masterEntity',
         position: savedPos ?? { x: 100, y: 100 },
+        targetPosition: targetPos,
+        sourcePosition: sourcePos,
         selected: isSelected,
         data: {
           entityId: entity.id,
@@ -179,6 +193,8 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
       rfNodes = rfNodes.map(n => ({
         ...n,
         position: positions[n.id] ?? n.position,
+        targetPosition: targetPos,
+        sourcePosition: sourcePos,
       }));
       hasInitialLayout.current = true;
     }
@@ -190,6 +206,7 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     entities,
     relationships,
     showAllEdges,
+    layoutDirection,
     selectedNodeId,
     selectedEdgeId,
     onEntitySelect,
@@ -233,7 +250,7 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
       metadata: {},
     });
 
-    addToast('Created new process relationship link', 'success');
+    addToast('Created new relationship link', 'success');
     selectEdge(newRelId);
   }, [activeProjectId, addRelationship, addToast, selectEdge]);
 
@@ -272,7 +289,7 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     setPositions(newPositions);
     savePositions(activeProjectId, newPositions);
 
-    addToast('Created new process node', 'success');
+    addToast('Created new node', 'success');
     selectNode(newId);
   }, [activeProjectId, screenToFlowPosition, addEntity, positions, setPositions, savePositions, addToast, selectNode]);
 
@@ -366,9 +383,8 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
         fitView
         fitViewOptions={{ padding: 0.2 }}
         selectionMode={SelectionMode.Partial}
-        panOnScroll
-        selectionOnDrag
-        panOnDrag={[1, 2]}
+        panOnScroll={false}
+        panOnDrag={true}
         deleteKeyCode={['Backspace', 'Delete']}
         minZoom={0.15}
         maxZoom={2.5}
@@ -389,8 +405,8 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
         <div className="flowcraft-empty-state">
           <h2>Blueprint Canvas Empty</h2>
           <p className="mb-4">Double-click canvas or use <kbd>+ Add Node</kbd> to draft your process diagram</p>
-          <button className="btn btn-primary" onClick={() => handleAddEntityFromMenu('CHARACTER')}>
-            + Add Initial Process Node
+          <button className="btn btn-primary pointer-events-auto" onClick={() => handleAddEntityFromMenu('CHARACTER')}>
+            + Add Initial Node
           </button>
         </div>
       )}

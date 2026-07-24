@@ -18,7 +18,7 @@ import { useStore as useTemporalStore } from 'zustand';
 import { useReactFlow } from '@xyflow/react';
 import useMasterFlowStore from './masterFlowStore';
 import { useStoryStore } from '@/stores/storyStore';
-import { getEntityTypeConfig } from './entityTypeConfig';
+import { getEntityTypeConfig, renderEntityIcon } from './entityTypeConfig';
 
 interface MasterFlowToolbarProps {
   onAddNode: (type: string) => void;
@@ -68,7 +68,7 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
     <div className="flowcraft-toolbar">
       {/* Brand Header */}
       <div className="flowcraft-brand">
-        <GitBranch className="text-brass" />
+        <GitBranch className="text-brass shrink-0" />
         <span className="label">Flowcraft</span>
         <span className="sub-label hidden md:inline">— {activeProject?.title || 'Master Flowchart'}</span>
       </div>
@@ -82,7 +82,7 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
           onClick={() => setShowAddMenu(!showAddMenu)}
         >
           <Plus size={14} />
-          <span>Add Node</span>
+          <span className="hidden sm:inline">Add Node</span>
           <ChevronDown size={12} />
         </button>
 
@@ -99,7 +99,9 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
                     setShowAddMenu(false);
                   }}
                 >
-                  <span style={{ color: cfg.color }}>{cfg.icon}</span>
+                  <span style={{ color: cfg.color }} className="flex items-center justify-center">
+                    {renderEntityIcon(type, 14)}
+                  </span>
                   <span>{label}</span>
                 </button>
               );
@@ -194,7 +196,7 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
           </button>
 
           {showLegend && (
-            <div className="flowcraft-dropdown-menu right-0 min-w-[180px] p-3 space-y-2">
+            <div className="flowcraft-dropdown-menu right-0 min-w-[200px] p-3 space-y-2">
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-paper-700 block pb-1 border-b border-subtle">
                 6-Hue Functional System
               </span>
@@ -202,7 +204,9 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
                 const cfg = getEntityTypeConfig(type);
                 return (
                   <div key={type} className="flex items-center gap-2 text-xs">
-                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: cfg.color }} />
+                    <span className="shrink-0 flex items-center justify-center" style={{ color: cfg.color }}>
+                      {renderEntityIcon(type, 13)}
+                    </span>
                     <span className="text-paper-300 font-mono text-[11px]">{label}</span>
                   </div>
                 );

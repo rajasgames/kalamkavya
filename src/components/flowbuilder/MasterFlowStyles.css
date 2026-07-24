@@ -72,6 +72,7 @@
 
 .master-flow-canvas-wrapper .react-flow__background {
   background: var(--ink-950);
+  z-index: 1;
 }
 
 .master-flow-canvas-wrapper .react-flow__background-pattern circle {
@@ -94,20 +95,29 @@
   overflow: hidden;
   bottom: 24px;
   left: 24px;
+  z-index: 20;
 }
 
 .master-flow-canvas-wrapper .react-flow__controls-button {
   background: transparent;
   border-bottom: 1px solid var(--hairline);
   color: var(--paper-300);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .master-flow-canvas-wrapper .react-flow__controls-button svg {
-  fill: var(--paper-300);
+  fill: currentColor;
+  width: 14px;
+  height: 14px;
 }
 
 .master-flow-canvas-wrapper .react-flow__controls-button:hover {
   background: var(--ink-750);
+  color: var(--paper-100);
 }
 
 /* ---------- Floating Toolbar ---------- */
@@ -116,17 +126,23 @@
   top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 40;
+  z-index: 50;
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: var(--radius-lg);
   background: var(--ink-800);
   border: 1px solid var(--hairline-strong);
   box-shadow: var(--shadow-float);
   max-width: calc(100vw - 32px);
   backdrop-filter: blur(12px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.flowcraft-toolbar::-webkit-scrollbar {
+  display: none;
 }
 
 .flowcraft-brand {
@@ -159,6 +175,7 @@
   display: flex;
   align-items: center;
   gap: 3px;
+  flex: none;
 }
 
 .flowcraft-tb-div {
@@ -242,7 +259,7 @@
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  z-index: 50;
+  z-index: 60;
   min-width: 180px;
   padding: 6px;
   border-radius: var(--radius-md);
@@ -569,8 +586,8 @@
   top: 16px;
   right: 16px;
   bottom: 16px;
-  width: 320px;
-  z-index: 35;
+  width: min(340px, calc(100vw - 32px));
+  z-index: 45;
   background: var(--ink-800);
   border: 1px solid var(--hairline-strong);
   border-radius: var(--radius-lg);
@@ -578,7 +595,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transform: translateX(360px);
+  transform: translateX(380px);
   opacity: 0;
   transition: transform .25s var(--ease), opacity .25s var(--ease);
   backdrop-filter: blur(12px);
@@ -772,7 +789,7 @@
 /* ---------- Context Menu ---------- */
 .flowcraft-context-menu {
   position: fixed;
-  z-index: 60;
+  z-index: 70;
   min-width: 200px;
   padding: 6px;
   border-radius: var(--radius-md);
@@ -841,7 +858,7 @@
   top: 0;
   left: 100%;
   margin-left: 4px;
-  z-index: 61;
+  z-index: 71;
   min-width: 180px;
   padding: 6px;
   border-radius: var(--radius-md);
@@ -977,7 +994,7 @@
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 40;
+  z-index: 30;
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -1001,7 +1018,7 @@
   position: fixed;
   bottom: 72px;
   right: 24px;
-  z-index: 41;
+  z-index: 31;
   width: 280px;
   background: var(--ink-800);
   border: 1px solid var(--hairline-strong);
@@ -1036,7 +1053,7 @@
   transform: translate(-50%, -50%);
   text-align: center;
   pointer-events: none;
-  z-index: 2;
+  z-index: 15;
 }
 
 .flowcraft-empty-state h2 {

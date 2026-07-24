@@ -11,7 +11,7 @@ export function MasterFlowShortcuts() {
     { label: 'Delete Node / Edge', key: 'Del / Backspace' },
     { label: 'Undo Layout Position', key: 'Ctrl + Z' },
     { label: 'Redo Layout Position', key: 'Ctrl + Y' },
-    { label: 'Pan Canvas Viewport', key: 'Space + Drag' },
+    { label: 'Pan Canvas Viewport', key: 'Left Click + Drag' },
     { label: 'Marquee Multi-Select', key: 'Shift + Drag' },
   ];
 
