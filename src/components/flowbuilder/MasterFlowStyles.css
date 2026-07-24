@@ -585,7 +585,7 @@
   position: fixed;
   top: 16px;
   right: 16px;
-  bottom: 16px;
+  max-height: calc(100vh - 32px);
   width: min(340px, calc(100vw - 32px));
   z-index: 45;
   background: var(--ink-800);

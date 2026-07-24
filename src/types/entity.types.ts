@@ -69,6 +69,83 @@ export interface CultureData {
   aiRuleText?: string;
 }
 
+export interface LocationData {
+  locationType: 'Planet' | 'Continent' | 'Region' | 'City' | 'Building' | 'Landmark' | 'Other';
+  climate: string;
+  terrain: string;
+  resources: string[];
+  rulerId?: string;
+  population?: string;
+  description: string;
+  aiRuleEnabled: boolean;
+  aiRuleText?: string;
+}
+
+export interface SpeciesData {
+  classification: 'Mammal' | 'Reptile' | 'Avian' | 'Aquatic' | 'Amphibian' | 'Insectoid' | 'Plant' | 'Energy' | 'Other';
+  habitat: string;
+  lifespan: string;
+  diet: string;
+  intelligence: 'Sentient' | 'Semi-Sentient' | 'Non-Sentient';
+  physicalTraits: string[];
+  abilities: string[];
+  aiRuleEnabled: boolean;
+  aiRuleText?: string;
+}
+
+export interface ItemData {
+  itemType: 'Weapon' | 'Armor' | 'Artifact' | 'Relic' | 'Vehicle' | 'Consumable' | 'Other';
+  materials: string[];
+  originRegionId?: string;
+  value?: string;
+  properties: string[];
+  history: string;
+  currentOwnerId?: string;
+  aiRuleEnabled: boolean;
+  aiRuleText?: string;
+}
+
+export interface LanguageData {
+  writingSystem: 'Logographic' | 'Syllabic' | 'Alphabetic' | 'None' | 'Other';
+  nativeSpeakerIds: string[]; // Culture or Species IDs
+  grammarRules: string;
+  commonPhrases: string[];
+  history: string;
+  aiRuleEnabled: boolean;
+  aiRuleText?: string;
+}
+
+export interface ReligionData {
+  deityIds: string[];
+  founderId?: string;
+  coreBeliefs: string[];
+  rituals: string[];
+  holyTexts: string[];
+  placeOfWorship?: string;
+  taboos: string[];
+  aiRuleEnabled: boolean;
+  aiRuleText?: string;
+}
+
+export interface PhilosophyData {
+  founderId?: string;
+  corePrinciples: string[];
+  societalImpact: string;
+  associatedFactions: string[];
+  aiRuleEnabled: boolean;
+  aiRuleText?: string;
+}
+
+export interface SystemData {
+  systemType: 'Political' | 'Economic' | 'Legal' | 'Guild' | 'Other';
+  structure: string;
+  rules: string[];
+  keyFigures: string[]; // IDs
+  description: string;
+  aiRuleEnabled: boolean;
+  aiRuleText?: string;
+}
+
 export interface CharacterData {
   castType: 'Protagonist' | 'Antagonist' | 'Supporting' | 'Commoner' | 'Other' | '';
   rank: 'Supreme' | 'Divine' | 'Immortal' | 'Mortal' | '';
@@ -119,6 +196,8 @@ export interface CharacterData {
    * high-school rom-com, clearance level for a spy thriller, etc.).
    */
   customFields?: Record<string, unknown>;
+  
+  moodboardImages?: string[];
 
   // --- Vedic-specific fields (only rendered when genre module = 'vedic') ---
   /** Stage of life per Vedic ashrama system */

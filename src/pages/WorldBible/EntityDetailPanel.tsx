@@ -1,6 +1,9 @@
 import { useStoryStore } from '@/stores/storyStore';
 import { X, Globe2 } from 'lucide-react';
-import { MagicSystemForm, WeaponForm, CultureForm, CultureCard, CharacterForm } from '@/components/world-bible';
+import { 
+  MagicSystemForm, WeaponForm, CultureForm, CultureCard, CharacterForm,
+  LocationForm, SpeciesForm, ItemForm, LanguageForm, ReligionForm, PhilosophyForm, SystemForm
+} from '@/components/world-bible';
 import { IndividualTreeGraph } from '@/components/flowchart';
 import { CultureData } from '@/types';
 import { useState } from 'react';
@@ -68,6 +71,20 @@ export function EntityDetailPanel({ entityId, onClose, onEntitySelect }: EntityD
           <CultureForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'character' ? (
           <CharacterForm key={entity.id} entity={entity} onSave={updateEntity} />
+        ) : ['location', 'region', 'landmark'].includes(entity.type) ? (
+          <LocationForm key={entity.id} entity={entity} onSave={updateEntity} />
+        ) : entity.type === 'creature' ? (
+          <SpeciesForm key={entity.id} entity={entity} onSave={updateEntity} />
+        ) : entity.type === 'object' ? (
+          <ItemForm key={entity.id} entity={entity} onSave={updateEntity} />
+        ) : entity.type === 'language' ? (
+          <LanguageForm key={entity.id} entity={entity} onSave={updateEntity} />
+        ) : entity.type === 'religion' ? (
+          <ReligionForm key={entity.id} entity={entity} onSave={updateEntity} />
+        ) : entity.type === 'philosophy' ? (
+          <PhilosophyForm key={entity.id} entity={entity} onSave={updateEntity} />
+        ) : entity.type === 'system' ? (
+          <SystemForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : (
           <div className="flex flex-col gap-6">
             {isGeography && relatedCultures.length > 0 && (

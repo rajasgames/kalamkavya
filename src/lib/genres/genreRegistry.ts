@@ -31,6 +31,7 @@ export const UNIVERSAL_CATEGORIES: { group: string; categories: GenreCategory[] 
       { id: 'geography', label: 'Places', types: ['location', 'region', 'landmark'] },
       { id: 'groups', label: 'Factions & Groups', types: ['faction', 'race'] },
       { id: 'families', label: 'Families & Lineages', types: ['family'] },
+      { id: 'languages', label: 'Languages', types: ['language'] },
     ],
   },
   {
@@ -40,6 +41,7 @@ export const UNIVERSAL_CATEGORIES: { group: string; categories: GenreCategory[] 
       { id: 'things', label: 'Objects & Artifacts', types: ['object'] },
       { id: 'events', label: 'Events', types: ['event'] },
       { id: 'lore', label: 'Lore & Texts', types: ['lore_text'] },
+      { id: 'beliefs', label: 'Religions & Philosophies', types: ['religion', 'philosophy'] },
     ],
   },
 ];
@@ -59,6 +61,9 @@ export const UNIVERSAL_ENTITY_TYPES = [
   { value: 'event', label: 'Historical Event' },
   { value: 'lore_text', label: 'Lore / Text / Myth' },
   { value: 'creature', label: 'Creature / Species / Race' },
+  { value: 'language', label: 'Language / Dialect' },
+  { value: 'religion', label: 'Religion / Cult' },
+  { value: 'philosophy', label: 'Philosophy / Ideology' },
 ];
 
 // ---------------------------------------------------------------------------
@@ -504,10 +509,12 @@ export function categoryIdToEntityType(categoryId: string): string {
     geography: 'location',
     groups: 'faction',
     families: 'family',
+    languages: 'language',
     concepts: 'system',
     things: 'object',
     events: 'event',
     lore: 'lore_text',
+    beliefs: 'religion',
   };
 
   return map[categoryId] ?? 'character';

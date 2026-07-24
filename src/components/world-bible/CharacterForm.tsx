@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { Entity, CharacterData } from '@/types';
 import { Label, Input, TagInput } from '@/components/ui';
-import { Target, Heart, Brain, Activity, User, Star, Users, Shield, Crown } from 'lucide-react';
+import { Target, Heart, Brain, Activity, User, Star, Users, Shield, Crown, Image as ImageIcon, Plus, Trash2 } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
 import { hasGenreModule } from '@/lib/genres/genreRegistry';
 
@@ -34,6 +34,7 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
       voice: { sentenceStyle: '', vocabularyLevel: '', accentNotes: '', sampleQuote: '' },
       skills: [],
       loreConnections: { factionIds: [], locationIds: [], weaponIds: [], cultureIds: [] },
+      moodboardImages: [],
       attributes: {
         discipline: 50, strength: 50, intelligence: 50, perception: 50, memory: 50, charisma: 50, vitality: 50, wisdom: 50, education: 50, senseMastery: 50
       }
@@ -521,6 +522,56 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
         </div>
       </div>
       
+      {/* Module 9: Moodboard */}
+      <div className="bg-surface border border-subtle rounded-2xl p-5 shadow-sm flex flex-col gap-4">
+        <div className="flex items-center gap-2 text-primary border-b border-subtle pb-3">
+          <ImageIcon size={18} className="text-blue-500" />
+          <h3 className="font-bold text-lg">Moodboard</h3>
+        </div>
+        <div className="flex flex-col gap-4">
+          <p className="text-xs text-secondary">Paste image URLs to build a visual reference for this character.</p>
+          <div className="flex gap-2">
+            <Input 
+              placeholder="https://example.com/image.jpg" 
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  const target = e.target as HTMLInputElement;
+                  if (target.value.trim()) {
+                    const newImages = [...(formData.moodboardImages || []), target.value.trim()];
+                    handleSave({ moodboardImages: newImages });
+                    target.value = '';
+                  }
+                }
+              }}
+            />
+          </div>
+          
+          {(formData.moodboardImages && formData.moodboardImages.length > 0) && (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+              {formData.moodboardImages.map((img, idx) => (
+                <div key={idx} className="relative group rounded-lg overflow-hidden border border-subtle aspect-square">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img} alt="Moodboard reference" className="w-full h-full object-cover" onError={(e) => (e.currentTarget.style.display = 'none')} />
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <button 
+                      onClick={() => {
+                        const newImages = [...(formData.moodboardImages || [])];
+                        newImages.splice(idx, 1);
+                        handleSave({ moodboardImages: newImages });
+                      }}
+                      className="p-2 bg-destructive text-white rounded-full hover:scale-110 transition-transform"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
     </div>
   );
 }
