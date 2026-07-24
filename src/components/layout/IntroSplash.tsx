@@ -45,27 +45,22 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
           exit={{ opacity: 0, scale: 0.98 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           onClick={handleDismiss}
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-canvas/95 backdrop-blur-2xl text-primary overflow-hidden font-sans select-none cursor-pointer"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-canvas text-primary overflow-hidden font-sans select-none cursor-pointer"
         >
-          {/* Subtle Theme-Aligned Soft Radial Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] h-[360px] bg-terracotta/10 rounded-full blur-[90px] pointer-events-none" />
-
           {/* Minimalist Center Container */}
           <div className="relative z-10 flex flex-col items-center max-w-xs px-6 text-center">
-            {/* Clean Brand Logo Container */}
+            {/* Direct Clean Brand Logo */}
             <motion.div
               initial={{ scale: 0.88, opacity: 0, y: 6 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="relative mb-5"
+              className="mb-5 flex items-center justify-center"
             >
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-surface/80 border border-subtle backdrop-blur-md shadow-soft flex items-center justify-center p-3 relative overflow-hidden group">
-                <img
-                  src="/brand_logo.png"
-                  alt="Kalam Kavya Brand Logo"
-                  className="w-full h-full object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+              <img
+                src="/brand_logo.png"
+                alt="Kalam Kavya Brand Logo"
+                className="w-24 h-24 sm:w-28 sm:h-28 object-contain"
+              />
             </motion.div>
 
             {/* Clean Theme-Matching Brand Title */}
