@@ -101,6 +101,7 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
   // Track initial dagre layout
   const hasInitialLayout = useRef(false);
   const prevProjectId = useRef<string | null>(null);
+  const pendingNodePosition = useRef<{ pos: { x: number, y: number }, type: string } | null>(null);
 
   // ── Load positions when active project changes ──────────────────────────────
   useEffect(() => {
@@ -127,9 +128,18 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     const targetPos = layoutDirection === 'TB' ? Position.Top : Position.Left;
     const sourcePos = layoutDirection === 'TB' ? Position.Bottom : Position.Right;
 
+    let hasNewPending = false;
+    const newPositions = { ...positions };
+
     // Build RF nodes from entities
     let rfNodes: Node[] = projEntities.map(entity => {
-      const savedPos = positions[entity.id];
+      let savedPos = positions[entity.id];
+      if (!savedPos && pendingNodePosition.current) {
+        savedPos = pendingNodePosition.current.pos;
+        newPositions[entity.id] = savedPos;
+        hasNewPending = true;
+        pendingNodePosition.current = null;
+      }
       const isSelected = entity.id === selectedNodeId;
       const desc = ((entity.data as Record<string, unknown>)?.notes || (entity.data as Record<string, unknown>)?.description || '') as string;
       return {
@@ -197,6 +207,11 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
         sourcePosition: sourcePos,
       }));
       hasInitialLayout.current = true;
+    }
+
+    if (hasNewPending) {
+      setPositions(newPositions);
+      savePositions(activeProjectId, newPositions);
     }
 
     setNodes(rfNodes);
@@ -320,6 +335,7 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     const pos = menu?.flowPosition ?? { x: 200, y: 200 };
     
     if (onRequestAddEntity) {
+      pendingNodePosition.current = { pos, type: entityType };
       onRequestAddEntity(entityType);
     } else {
       const cfg = getEntityTypeConfig(entityType);
