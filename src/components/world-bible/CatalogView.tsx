@@ -17,18 +17,31 @@ const getTypeIcon = (type: string, size = 16) => {
     case 'location':
     case 'region':
     case 'landmark':
+    case 'LOKA':
+    case 'UNIVERSE':
       return <Map size={size} className="text-sage" />;
     case 'MAGIC_SYSTEM':
+    case 'system':
+    case 'UNIVERSAL_LAW':
+    case 'COSMIC_TIME':
       return <Sparkles size={size} className="text-amber-from" />;
     case 'WEAPON':
+    case 'ASTRA':
+    case 'SHASTRA':
+    case 'VYUHA':
       return <Sword size={size} className="text-destructive" />;
     case 'faction':
+    case 'FACTION':
     case 'race':
+    case 'VAMSHA':
+    case 'GOTRA':
       return <Users size={size} className="text-amber-from" />;
     case 'character':
       return <User size={size} className="text-amber-from" />;
     case 'myth':
     case 'CULTURE':
+    case 'TEXT':
+    case 'PHILOSOPHY':
       return <BookOpen size={size} className="text-secondary" />;
     default:
       return <FileText size={size} className="text-ghost" />;
@@ -40,14 +53,27 @@ const getCategoryLabel = (type: string) => {
     case 'location':
     case 'region':
     case 'landmark': return 'Geography';
-    case 'MAGIC_SYSTEM': return 'System';
-    case 'WEAPON': return 'Gear';
+    case 'LOKA':
+    case 'UNIVERSE': return 'Realm';
+    case 'MAGIC_SYSTEM':
+    case 'system':
+    case 'UNIVERSAL_LAW':
+    case 'COSMIC_TIME': return 'System / Law';
+    case 'WEAPON':
+    case 'ASTRA':
+    case 'SHASTRA':
+    case 'VYUHA': return 'Combat / Weapon';
     case 'faction':
-    case 'race': return 'Society';
+    case 'FACTION':
+    case 'race': return 'Society / Group';
+    case 'VAMSHA': return 'Dynasty (Vamsha)';
+    case 'GOTRA': return 'Gotra (Lineage)';
     case 'character': return 'Character';
+    case 'TEXT':
+    case 'PHILOSOPHY':
     case 'myth':
-    case 'CULTURE': return 'Culture';
-    default: return 'Lore';
+    case 'CULTURE': return 'Lore / Text';
+    default: return type || 'Lore';
   }
 };
 
@@ -96,11 +122,11 @@ export function CatalogView({ onEntityClick, onCreateNew }: CatalogViewProps) {
     if (typeFilters.length > 0) {
       result = result.filter(e => {
         let cat = '';
-        if (['location', 'region', 'landmark'].includes(e.type)) cat = 'GEOGRAPHY';
-        if (e.type === 'MAGIC_SYSTEM') cat = 'SYSTEM';
-        if (e.type === 'WEAPON') cat = 'GEAR';
-        if (['faction', 'race'].includes(e.type)) cat = 'SOCIETY';
-        if (['CULTURE', 'myth'].includes(e.type)) cat = 'CULTURE';
+        if (['location', 'region', 'landmark', 'LOKA', 'UNIVERSE'].includes(e.type)) cat = 'GEOGRAPHY';
+        if (['MAGIC_SYSTEM', 'system', 'UNIVERSAL_LAW', 'COSMIC_TIME', 'CYCLE'].includes(e.type)) cat = 'SYSTEM';
+        if (['WEAPON', 'ASTRA', 'SHASTRA', 'VYUHA', 'object', 'ARTIFACT'].includes(e.type)) cat = 'GEAR';
+        if (['faction', 'FACTION', 'race', 'VAMSHA', 'GOTRA', 'YONI_MANUSHYA', 'YONI_DEVA', 'YONI_ASURA', 'YONI_YAKSHA', 'YONI_PASHU'].includes(e.type)) cat = 'SOCIETY';
+        if (['CULTURE', 'myth', 'TEXT', 'PHILOSOPHY', 'lore_text', 'religion'].includes(e.type)) cat = 'CULTURE';
         if (e.type === 'character') cat = 'CHARACTER';
         
         return typeFilters.includes(cat);

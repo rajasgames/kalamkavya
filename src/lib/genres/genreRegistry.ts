@@ -22,25 +22,25 @@ export const UNIVERSAL_CATEGORIES: { group: string; categories: GenreCategory[] 
   {
     group: 'People',
     categories: [
-      { id: 'cast', label: 'Characters', types: ['character'] },
+      { id: 'cast', label: 'Characters & Archetypes', types: ['character'] },
+      { id: 'groups', label: 'Factions & Groups', types: ['faction', 'FACTION', 'race', 'YONI_MANUSHYA', 'YONI_DEVA', 'YONI_ASURA', 'YONI_YAKSHA', 'YONI_PASHU'] },
+      { id: 'families', label: 'Dynasties & Gotras', types: ['family', 'VAMSHA', 'GOTRA'] },
     ],
   },
   {
     group: 'World',
     categories: [
-      { id: 'geography', label: 'Places', types: ['location', 'region', 'landmark'] },
-      { id: 'groups', label: 'Factions & Groups', types: ['faction', 'race'] },
-      { id: 'families', label: 'Families & Lineages', types: ['family'] },
+      { id: 'geography', label: 'Locations & Places', types: ['location', 'region', 'landmark', 'LOKA', 'UNIVERSE'] },
       { id: 'languages', label: 'Languages', types: ['language'] },
     ],
   },
   {
     group: 'Lore',
     categories: [
-      { id: 'concepts', label: 'Power Systems', types: ['system'] },
-      { id: 'things', label: 'Objects & Artifacts', types: ['object'] },
+      { id: 'concepts', label: 'Power Systems & Laws', types: ['system', 'UNIVERSAL_LAW', 'COSMIC_TIME', 'CYCLE'] },
+      { id: 'things', label: 'Objects & Divine Weapons', types: ['object', 'WEAPON', 'ASTRA', 'SHASTRA', 'VYUHA', 'ARTIFACT'] },
       { id: 'events', label: 'Events', types: ['event'] },
-      { id: 'lore', label: 'Lore & Texts', types: ['lore_text'] },
+      { id: 'lore', label: 'Lore, Texts & Philosophies', types: ['lore_text', 'TEXT', 'PHILOSOPHY'] },
       { id: 'beliefs', label: 'Religions & Philosophies', types: ['religion', 'philosophy'] },
     ],
   },
@@ -290,6 +290,56 @@ export const GENRE_MODULES: Record<string, GenreModule> = {
     entityTypes: [],
     categoryGroups: [],
   },
+  vedic: {
+    id: 'vedic',
+    label: 'Vedic & Puranic Mythology',
+    shortLabel: 'Vedic',
+    description: 'Vedic cosmology, Purushartha arcs, realms (Lokas), dynasties (Vamsha), Gotras, and divine weapons.',
+    icon: '☀️',
+    accentColor: 'amber',
+    entityTypes: [
+      { value: 'character', label: 'Character / Rishi / Maharathi' },
+      { value: 'location', label: 'Location (Kingdom / State)' },
+      { value: 'landmark', label: 'Place / Landmark (City / Temple)' },
+      { value: 'region', label: 'Region / Biome (Forest / Tapovana)' },
+      { value: 'FACTION', label: 'Faction / Group / Sabha' },
+      { value: 'VAMSHA', label: 'Vamsha (Dynasty)' },
+      { value: 'GOTRA', label: 'Gotra (Root Lineage)' },
+      { value: 'LOKA', label: 'Loka (Realm / Cosmic Plane)' },
+      { value: 'UNIVERSAL_LAW', label: 'Universal Law (Dharma / Ashrama)' },
+      { value: 'COSMIC_TIME', label: 'Cosmic Time (Yuga / Kalpa)' },
+      { value: 'ASTRA', label: 'Astra (Ranged Divine Weapon)' },
+      { value: 'SHASTRA', label: 'Shastra (Melee Divine Weapon)' },
+      { value: 'VYUHA', label: 'Vyūha (Battle Formation)' },
+      { value: 'TEXT', label: 'Sacred Text / Itihasa' },
+      { value: 'PHILOSOPHY', label: 'Darshana / Philosophy' },
+    ],
+    categoryGroups: [
+      {
+        groupLabel: 'Vedic World',
+        categories: [
+          { id: 'geography', label: 'Locations & Places', types: ['location', 'landmark', 'region'] },
+          { id: 'realms', label: 'Realms (Lokas)', types: ['LOKA', 'UNIVERSE'] },
+        ],
+      },
+      {
+        groupLabel: 'Vedic People',
+        categories: [
+          { id: 'cast', label: 'Characters & Archetypes', types: ['character'] },
+          { id: 'factions', label: 'Factions & Groups', types: ['faction', 'FACTION', 'race', 'YONI_MANUSHYA', 'YONI_DEVA', 'YONI_ASURA', 'YONI_YAKSHA', 'YONI_PASHU'] },
+          { id: 'lineages', label: 'Dynasties & Gotras', types: ['family', 'VAMSHA', 'GOTRA'] },
+        ],
+      },
+      {
+        groupLabel: 'Vedic Lore',
+        categories: [
+          { id: 'laws', label: 'Cosmic Laws & Ashramas', types: ['UNIVERSAL_LAW', 'COSMIC_TIME', 'CYCLE', 'system'] },
+          { id: 'weapons', label: 'Divine Weapons & Vyūhas', types: ['WEAPON', 'ASTRA', 'SHASTRA', 'VYUHA', 'object', 'ARTIFACT'] },
+          { id: 'texts', label: 'Texts & Philosophies', types: ['TEXT', 'lore_text', 'PHILOSOPHY', 'religion'] },
+        ],
+      },
+    ],
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -437,15 +487,22 @@ GENRE_MODULES.supernatural = {
 export function getCategoriesForGenre(
   genreModules?: string[],
   subGenreId?: string,
+  customCategories?: { group: string; categories: GenreCategory[] }[],
 ): { group: string; categories: GenreCategory[] }[] {
-  const groups = [...UNIVERSAL_CATEGORIES];
+  const groups: { group: string; categories: GenreCategory[] }[] = [];
 
+  // 1. Universal Categories
+  UNIVERSAL_CATEGORIES.forEach(g => {
+    groups.push({ group: g.group, categories: [...g.categories] });
+  });
+
+  // 2. Genre Module Categories
   const modules = genreModules ?? [];
   for (const moduleId of modules) {
     const mod = GENRE_MODULES[moduleId];
     if (!mod) continue;
     for (const cg of mod.categoryGroups) {
-      groups.push({ group: cg.groupLabel, categories: cg.categories });
+      groups.push({ group: cg.groupLabel, categories: [...cg.categories] });
     }
 
     // Check if subGenre matches any defined sub-genre extra categories
@@ -453,8 +510,25 @@ export function getCategoriesForGenre(
       const foundSub = SUB_GENRE_MAP[moduleId].find(s => s.id === subGenreId);
       if (foundSub && foundSub.extraCategories) {
         for (const ec of foundSub.extraCategories) {
-          groups.push({ group: ec.groupLabel, categories: ec.categories });
+          groups.push({ group: ec.groupLabel, categories: [...ec.categories] });
         }
+      }
+    }
+  }
+
+  // 3. Merge User Custom Category Groups & Schema Overrides
+  if (customCategories && customCategories.length > 0) {
+    for (const cc of customCategories) {
+      const existingGroup = groups.find(g => g.group.toLowerCase() === cc.group.toLowerCase());
+      if (existingGroup) {
+        // Append categories to existing group if not duplicate
+        cc.categories.forEach(cat => {
+          if (!existingGroup.categories.some(c => c.id === cat.id)) {
+            existingGroup.categories.push(cat);
+          }
+        });
+      } else {
+        groups.push({ group: cc.group, categories: [...cc.categories] });
       }
     }
   }
@@ -504,17 +578,23 @@ export function hasGenreModule(genreModules: string[] | undefined, moduleId: str
  */
 export function categoryIdToEntityType(categoryId: string): string {
   const map: Record<string, string> = {
-    // Universal
+    // Universal & Vedic
     cast: 'character',
     geography: 'location',
     groups: 'faction',
+    factions: 'FACTION',
     families: 'family',
+    lineages: 'VAMSHA',
     languages: 'language',
     concepts: 'system',
+    laws: 'UNIVERSAL_LAW',
     things: 'object',
+    weapons: 'ASTRA',
     events: 'event',
     lore: 'lore_text',
+    texts: 'TEXT',
     beliefs: 'religion',
+    realms: 'LOKA',
   };
 
   return map[categoryId] ?? 'character';

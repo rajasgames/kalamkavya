@@ -65,15 +65,15 @@ export function EntityDetailPanel({ entityId, onClose, onEntitySelect }: EntityD
           </div>
         ) : entity.type === 'MAGIC_SYSTEM' ? (
           <MagicSystemForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : entity.type === 'WEAPON' ? (
+        ) : ['WEAPON', 'ASTRA', 'SHASTRA'].includes(entity.type) ? (
           <WeaponForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'CULTURE' ? (
           <CultureForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'character' ? (
           <CharacterForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : ['location', 'region', 'landmark'].includes(entity.type) ? (
+        ) : ['location', 'region', 'landmark', 'LOKA', 'UNIVERSE'].includes(entity.type) ? (
           <LocationForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : entity.type === 'creature' ? (
+        ) : ['creature', 'race', 'YONI_MANUSHYA', 'YONI_DEVA', 'YONI_ASURA', 'YONI_YAKSHA', 'YONI_PASHU'].includes(entity.type) ? (
           <SpeciesForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'object' ? (
           <ItemForm key={entity.id} entity={entity} onSave={updateEntity} />
@@ -81,9 +81,9 @@ export function EntityDetailPanel({ entityId, onClose, onEntitySelect }: EntityD
           <LanguageForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'religion' ? (
           <ReligionForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : entity.type === 'philosophy' ? (
+        ) : ['philosophy', 'PHILOSOPHY', 'TEXT'].includes(entity.type) ? (
           <PhilosophyForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : entity.type === 'system' ? (
+        ) : ['system', 'UNIVERSAL_LAW', 'COSMIC_TIME', 'VYUHA'].includes(entity.type) ? (
           <SystemForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : (
           <div className="flex flex-col gap-6">

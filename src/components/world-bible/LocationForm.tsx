@@ -99,12 +99,16 @@ export function LocationForm({ entity, onSave }: LocationFormProps) {
               value={locationType}
               onValueChange={setLocationType}
               options={[
-                { value: 'Planet', label: 'Planet' },
+                { value: 'Kingdom / Province', label: 'Kingdom / Province (Location)' },
+                { value: 'City / Settlement', label: 'City / Settlement (Place)' },
+                { value: 'Town / Village', label: 'Town / Village (Place)' },
+                { value: 'Temple / Sacred Site', label: 'Temple / Sacred Site (Place)' },
+                { value: 'Forest / Biome', label: 'Forest / Biome (Region)' },
+                { value: 'Ashrama / Sanctuary', label: 'Ashrama / Sanctuary (Place)' },
+                { value: 'Loka / Celestial Realm', label: 'Loka / Celestial Realm' },
+                { value: 'Building / Hall', label: 'Building / Hall (Landmark)' },
                 { value: 'Continent', label: 'Continent' },
-                { value: 'Region', label: 'Region' },
-                { value: 'City', label: 'City' },
-                { value: 'Building', label: 'Building' },
-                { value: 'Landmark', label: 'Landmark' },
+                { value: 'Planet', label: 'Planet' },
                 { value: 'Other', label: 'Other' },
               ]}
             />

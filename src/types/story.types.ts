@@ -1,3 +1,5 @@
+import { GenreCategory } from './genre.types';
+
 export interface KanbanColumn {
   id: string;
   name: string;
@@ -18,6 +20,8 @@ export interface Project {
    * Legacy projects without this field are treated as ['vedic'] for backward compat.
    */
   genreModules?: string[];
+  /** Custom user-defined category groups and schema overrides */
+  customCategories?: { group: string; categories: GenreCategory[] }[];
   premise: string;
   targetWordCount: number;
   kanbanColumns?: KanbanColumn[];
