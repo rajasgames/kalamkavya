@@ -238,9 +238,9 @@ export function AIAssistant() {
               className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-40"
             />
             <motion.div
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
+              initial={{ transform: 'translateX(-100%)' }}
+              animate={{ transform: 'translateX(0%)' }}
+              exit={{ transform: 'translateX(-100%)' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               className="md:hidden fixed inset-y-0 left-0 w-[85%] max-w-xs bg-surface z-50 shadow-2xl border-r border-subtle flex flex-col"
             >
@@ -388,9 +388,9 @@ export function AIAssistant() {
         {saveModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs">
             <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0, transform: 'scale(0.95)' }}
+              animate={{ opacity: 1, transform: 'scale(1)' }}
+              exit={{ opacity: 0, transform: 'scale(0.95)' }}
               className="bg-elevated border border-subtle rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]"
             >
               <div className="flex items-center justify-between p-3.5 sm:p-4 border-b border-subtle bg-surface">

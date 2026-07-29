@@ -84,9 +84,9 @@ export function ToolkitLayout() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, transform: 'translateY(8px)' }}
+              animate={{ opacity: 1, transform: 'translateY(0px)' }}
+              exit={{ opacity: 0, transform: 'translateY(-8px)' }}
               transition={{ duration: 0.18, ease: 'easeOut' }}
               className="flex-1 flex flex-col min-h-0"
             >

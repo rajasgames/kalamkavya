@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-29T21:46:00Z",
+  "title": "Design System: Kalam Kavya",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "primary", "displayName": "Galley Ink", "canonical": "#000000", "tonalRamp": ["#000", "#111", "#222", "#333", "#444", "#555", "#666", "#777"] },
+      "canvas": { "role": "neutral", "displayName": "Architectural White", "canonical": "#FFFFFF", "tonalRamp": ["#FFF", "#F9F9F9", "#F0F0F0", "#E5E5E5", "#CCC", "#AAA", "#888", "#666"] }
+    },
+    "typographyMeta": {
+      "editor": { "displayName": "Manuscript Serif", "purpose": "The author's prose." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "micro-shift", "value": "transform 0.15s cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Weightless tactile interactions." }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Ghost Button / Annotation",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Weightless text actions used for secondary interactions.",
+      "html": "<button class=\"ds-btn-ghost\">Delete Project</button>",
+      "css": ".ds-btn-ghost { background: transparent; color: #666666; padding: 8px 12px; font-family: Inter, sans-serif; font-size: 14px; border: none; cursor: pointer; transition: color 0.2s; } .ds-btn-ghost:hover { color: #000000; }"
+    },
+    {
+      "name": "Micro-Typographic Badge",
+      "kind": "chip",
+      "refersTo": "badge-micro",
+      "description": "Used instead of heavy colored pills for metadata.",
+      "html": "<span class=\"ds-badge-micro\">5,000 WORDS</span>",
+      "css": ".ds-badge-micro { font-family: Inter, sans-serif; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; color: #666666; border: 1px solid #E5E5E5; padding: 2px 8px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Architectural Galley Proof",
+    "overview": "The defining metaphor is a raw, unbound manuscript laid out on a minimalist architect's desk. There are no leather-bound books, no skeuomorphic paper textures, and no decorative chrome. It is the stage just before publication—where the scaffolding of the world is pinned to the walls with invisible precision. The UI acts as a structural blueprint: invisible gridlines, hairline rules, and pure typography holding the author's imagination in place.",
+    "keyCharacteristics": [
+      "Absolute flatness with zero physical depth or shadows.",
+      "Total reliance on grayscale high-contrast typography.",
+      "Invisible structural borders and 1px hairline dividers.",
+      "Tactile, weightless interactions using micro-animations and typography shifts instead of background fills."
+    ],
+    "rules": [
+      { "name": "The Sensory Deprivation Rule", "body": "No accent colors are permitted. Colors like Terracotta, Sage, and Dusty Blue are completely neutralized into black and white. Color is reserved entirely for the user's uploaded art and conceptual content.", "section": "colors" },
+      { "name": "The Micro-Typographic Badge Rule", "body": "Never use heavy, colored box backgrounds for tags or badges. Use uppercase, heavily tracked micro-typography separated by a hairline border.", "section": "typography" },
+      { "name": "The Weightless Plane Rule", "body": "Surfaces rest entirely on a flat plane. Shadows and glassmorphism are strictly forbidden. Separation between elements is achieved exclusively through 1px subtle borders or generous negative space.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use rounded-none and border-subtle for all cards and containers.",
+      "Do use progressive disclosure (opacity-0 group-hover:opacity-100) for secondary and destructive actions.",
+      "Do use uppercase micro-typography instead of bulky filled badges."
+    ],
+    "donts": [
+      "Don't use shadow-sm, shadow-md, or glass-card-hover classes.",
+      "Don't use background color fills for active states in navigation.",
+      "Don't use non-grayscale colors for success/error/warning states."
+    ]
+  }
+}

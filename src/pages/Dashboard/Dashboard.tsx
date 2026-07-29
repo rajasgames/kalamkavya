@@ -166,7 +166,7 @@ export function Dashboard() {
             Create a new project or jump in with a sample world.
           </p>
 
-          <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-12 bg-ink text-canvas hover:opacity-90 px-6 py-5 text-base rounded-xl font-semibold">
+          <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-12 bg-ink text-canvas hover:opacity-90 px-6 py-5 text-base rounded-none font-semibold">
             <PlusCircle size={20} />
             New Project
           </Button>
@@ -278,7 +278,7 @@ export function Dashboard() {
               ))}
             </div>
           ) : (
-            <div className="py-8 text-center text-secondary border border-dashed border-subtle rounded-xl">
+            <div className="py-8 text-center text-secondary border border-dashed border-subtle rounded-none">
               <p className="text-sm">No scenes written yet. Head to the Manuscript to begin.</p>
             </div>
           )}
@@ -344,7 +344,7 @@ export function Dashboard() {
             })}
           </div>
         ) : (
-          <div className="py-16 text-center text-ghost border-2 border-dashed border-subtle rounded-2xl flex flex-col items-center justify-center bg-surface/50">
+          <div className="py-16 text-center text-ghost border-2 border-dashed border-subtle rounded-none flex flex-col items-center justify-center bg-surface/50">
             <BookOpen size={48} className="mb-4 opacity-30 text-primary" strokeWidth={1} />
             <p className="text-base text-secondary font-medium">No projects yet. Create your first manuscript.</p>
           </div>

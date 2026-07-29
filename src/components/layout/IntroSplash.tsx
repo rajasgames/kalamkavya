@@ -43,7 +43,7 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
+          exit={{ opacity: 0, transform: 'scale(0.98)' }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
           onClick={handleDismiss}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-canvas text-primary overflow-hidden font-sans select-none cursor-pointer"
@@ -52,8 +52,8 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
           <div className="relative z-10 flex flex-col items-center max-w-xs px-6 text-center">
             {/* Direct Clean Brand Logo */}
             <motion.div
-              initial={{ scale: 0.88, opacity: 0, y: 6 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
+              initial={{ opacity: 0, transform: 'scale(0.88) translateY(6px)' }}
+              animate={{ opacity: 1, transform: 'scale(1) translateY(0px)' }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="mb-5 flex items-center justify-center"
             >
@@ -66,8 +66,8 @@ export function IntroSplash({ onComplete, manualTrigger = false }: IntroSplashPr
 
             {/* Clean Theme-Matching Brand Title */}
             <motion.div
-              initial={{ y: 8, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              initial={{ opacity: 0, transform: 'translateY(8px)' }}
+              animate={{ opacity: 1, transform: 'translateY(0px)' }}
               transition={{ delay: 0.12, duration: 0.45 }}
               className="space-y-1"
             >

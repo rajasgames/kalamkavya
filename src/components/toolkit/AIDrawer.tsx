@@ -76,15 +76,15 @@ export function AIDrawer() {
           />
 
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
+            initial={{ transform: 'translateX(100%)' }}
+            animate={{ transform: 'translateX(0%)' }}
+            exit={{ transform: 'translateX(100%)' }}
             transition={{ type: 'spring', stiffness: 350, damping: 32 }}
             className="fixed inset-y-0 right-0 w-full sm:w-[400px] max-w-full bg-surface/95 backdrop-blur-2xl border-l border-subtle shadow-2xl z-50 flex flex-col font-sans"
           >
             <div className="flex items-center justify-between p-4 border-b border-subtle">
               <div className="flex items-center gap-2.5">
-                <div className="bg-terracotta/15 p-2 rounded-xl text-terracotta border border-terracotta/30 shadow-xs">
+                <div className="bg-surface p-2 rounded-xl text-primary border border-subtle shadow-xs">
                   <Sparkles size={18} className="shrink-0" />
                 </div>
                 <div>
@@ -104,13 +104,13 @@ export function AIDrawer() {
               {messages.map((msg, i) => (
                 <div key={i} className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                   <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
-                    msg.role === 'user' ? 'bg-primary text-base border border-subtle' : 'bg-terracotta text-white font-bold shadow-xs'
+                    msg.role === 'user' ? 'bg-primary text-base border border-subtle' : 'bg-ink text-canvas font-bold shadow-xs'
                   }`}>
                     {msg.role === 'user' ? <MessageSquare size={14} className="shrink-0" /> : <Brain size={14} className="shrink-0" />}
                   </div>
                   <div className={`max-w-[82%] p-3.5 rounded-2xl text-xs sm:text-sm whitespace-pre-wrap leading-relaxed ${
                     msg.role === 'user' 
-                      ? 'bg-terracotta/15 border border-terracotta/25 text-primary rounded-tr-xs' 
+                      ? 'bg-deep/50 border border-subtle text-primary rounded-tr-xs' 
                       : 'bg-black/5 dark:bg-white/5 border border-subtle text-primary rounded-tl-xs shadow-xs font-serif'
                   }`}>
                     {msg.content}
@@ -119,17 +119,17 @@ export function AIDrawer() {
               ))}
               {isStreaming && (
                 <div className="flex gap-3">
-                  <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 bg-terracotta text-white font-bold shadow-xs">
+                  <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 bg-ink text-canvas font-bold shadow-xs">
                     <Brain size={14} className="shrink-0" />
                   </div>
-                  <div className="max-w-[82%] p-3.5 rounded-2xl text-xs sm:text-sm bg-terracotta/10 border border-terracotta/20 text-primary rounded-tl-xs whitespace-pre-wrap flex items-center gap-2 min-h-[44px]">
+                  <div className="max-w-[82%] p-3.5 rounded-2xl text-xs sm:text-sm bg-deep/50 border border-subtle text-primary rounded-tl-xs whitespace-pre-wrap flex items-center gap-2 min-h-[44px]">
                     {streamedText ? (
                       streamedText
                     ) : (
                       <>
-                        <span className="w-1.5 h-1.5 bg-terracotta rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                        <span className="w-1.5 h-1.5 bg-terracotta rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                        <span className="w-1.5 h-1.5 bg-terracotta rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0ms' }} />
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" style={{ animationDelay: '150ms' }} />
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
                       </>
                     )}
                   </div>
@@ -140,7 +140,7 @@ export function AIDrawer() {
 
             <div className="p-4 border-t border-subtle bg-base/60">
               <div className="flex items-center gap-2 mb-2 text-[11px] text-ghost">
-                <Cpu size={12} className="shrink-0" /> Provider: <span className="uppercase font-bold tracking-wider text-terracotta">{activeProvider}</span>
+                <Cpu size={12} className="shrink-0" /> Provider: <span className="uppercase font-bold tracking-wider text-primary">{activeProvider}</span>
               </div>
               <div className="relative">
                 <textarea
@@ -153,7 +153,7 @@ export function AIDrawer() {
                     }
                   }}
                   placeholder="Ask about your world or manuscript..."
-                  className="w-full bg-surface border border-subtle rounded-xl py-3 pl-4 pr-12 text-xs sm:text-sm text-primary placeholder:text-ghost focus:outline-none focus:border-terracotta/50 focus:ring-1 focus:ring-terracotta/50 resize-none min-h-[48px] max-h-[120px]"
+                  className="w-full bg-surface border border-subtle rounded-xl py-3 pl-4 pr-12 text-xs sm:text-sm text-primary placeholder:text-ghost focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 resize-none min-h-[48px] max-h-[120px]"
                   rows={1}
                   disabled={isStreaming}
                 />
@@ -168,7 +168,7 @@ export function AIDrawer() {
                   <button 
                     onClick={handleSend}
                     disabled={!input.trim()}
-                    className="absolute right-2 top-2 p-2 bg-terracotta text-white rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-terracotta/90 transition-all shadow-xs active:scale-95"
+                    className="absolute right-2 top-2 p-2 bg-ink text-canvas rounded-lg disabled:opacity-40 disabled:cursor-not-allowed hover:bg-ink/90 transition-all shadow-xs active:scale-95"
                   >
                     <Send size={16} className="shrink-0" />
                   </button>

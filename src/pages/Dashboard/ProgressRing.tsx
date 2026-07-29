@@ -45,13 +45,14 @@ export function ProgressRing({
         />
         {/* Animated progress stroke */}
         <circle
-          stroke={percent >= 100 ? "var(--sage)" : "var(--terracotta)"}
+          stroke="currentColor"
+          className="text-primary"
           fill="transparent"
           strokeWidth={strokeWidth}
-          strokeLinecap="round"
+          strokeLinecap="square"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
-          style={{ transition: 'stroke-dashoffset 600ms ease-out' }}
+          style={{ transition: 'stroke-dashoffset 600ms cubic-bezier(0.16, 1, 0.3, 1)' }}
           r={radius}
           cx={size / 2}
           cy={size / 2}

@@ -52,15 +52,15 @@ export const useToast = () => {
 };
 
 const ICONS = {
-  success: <CheckCircle className="text-sage" size={20} />,
-  warning: <AlertTriangle className="text-amber-from" size={20} />,
-  error: <AlertCircle className="text-destructive" size={20} />,
+  success: <CheckCircle className="text-primary" size={20} />,
+  warning: <AlertTriangle className="text-primary" size={20} />,
+  error: <AlertCircle className="text-primary" size={20} />,
 };
 
 const BORDERS = {
-  success: 'border-l-4 border-l-sage',
-  warning: 'border-l-4 border-l-amber-from',
-  error: 'border-l-4 border-l-destructive',
+  success: '',
+  warning: '',
+  error: '',
 };
 
 export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -78,9 +78,9 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           onOpenChange={(open) => {
             if (!open) removeToast(toast.id);
           }}
-          className={`bg-elevated border border-subtle ${
+          className={`bg-surface border border-subtle ${
             BORDERS[toast.variant]
-          } rounded-r-lg shadow-xl p-4 flex items-start gap-3 w-full max-w-[360px] data-[state=open]:animate-toast-slide-in data-[state=closed]:animate-toast-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-toast-swipe-out`}
+          } rounded-none p-4 flex items-start gap-3 w-full max-w-[360px] data-[state=open]:animate-toast-slide-in data-[state=closed]:animate-toast-hide data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=cancel]:transition-[transform_200ms_ease-out] data-[swipe=end]:animate-toast-swipe-out`}
         >
           <div className="flex-shrink-0 mt-0.5">{ICONS[toast.variant]}</div>
           <ToastPrimitive.Description className="text-sm font-sans text-primary flex-1 leading-snug">

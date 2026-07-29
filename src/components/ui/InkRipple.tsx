@@ -40,8 +40,8 @@ export function InkRipple() {
         {ripples.map((ripple) => (
           <motion.div
             key={ripple.id}
-            initial={{ opacity: 0.6, scale: 0.2 }}
-            animate={{ opacity: 0, scale: 2.2 }}
+            initial={{ opacity: 0.6, transform: 'scale(0.2)' }}
+            animate={{ opacity: 0, transform: 'scale(2.2)' }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
             onAnimationComplete={() => {
@@ -54,9 +54,8 @@ export function InkRipple() {
               width: ripple.size,
               height: ripple.size,
               borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, rgba(217, 119, 6, 0.15) 50%, rgba(217, 119, 6, 0) 75%)',
-              border: '1px solid rgba(245, 158, 11, 0.4)',
-              boxShadow: '0 0 12px rgba(245, 158, 11, 0.2)',
+              background: 'radial-gradient(circle, rgba(128, 128, 128, 0.15) 0%, rgba(128, 128, 128, 0.05) 50%, rgba(128, 128, 128, 0) 75%)',
+              border: '1px solid rgba(128, 128, 128, 0.15)',
             }}
           />
         ))}

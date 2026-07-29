@@ -131,89 +131,61 @@
 
 /* ─── Modal Animations ───────────────────────────────────────────────────── */
 
-@keyframes modalOverlayShow {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes modalContentShow {
-  from { opacity: 0; transform: translate(-50%, calc(-50% + 16px)); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
-}
-
 .animate-modal-overlay {
-  animation: modalOverlayShow 300ms ease-out forwards;
+  opacity: 1;
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  @starting-style { opacity: 0; }
 }
 
 .animate-modal-content {
-  animation: modalContentShow 300ms ease-out forwards;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1), transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  @starting-style { opacity: 0; transform: translate(-50%, calc(-50% + 16px)); }
 }
 
 /* ─── Toast Animations ───────────────────────────────────────────────────── */
 
-@keyframes toastSlideIn {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes toastHide {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
-@keyframes toastSwipeOut {
-  from { transform: translateX(var(--radix-toast-swipe-end-x)); }
-  to { transform: translateX(100%); }
-}
-
 .animate-toast-slide-in {
-  animation: toastSlideIn 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  @starting-style { transform: translateX(100%); opacity: 0; }
 }
 
 .animate-toast-hide {
-  animation: toastHide 100ms ease-in forwards;
+  opacity: 0;
+  transform: translateX(0);
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-toast-swipe-out {
-  animation: toastSwipeOut 100ms ease-out forwards;
+  transform: translateX(100%);
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── Drawer Animations ──────────────────────────────────────────────────── */
 
-@keyframes drawerSlideIn {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-}
-
-@keyframes drawerSlideOut {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
-}
-
-@keyframes overlayFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes overlayFadeOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
-
 .animate-drawer-in {
-  animation: drawerSlideIn 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateX(0);
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  @starting-style { transform: translateX(100%); }
 }
 
 .animate-drawer-out {
-  animation: drawerSlideOut 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateX(100%);
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-overlay-fade-in {
-  animation: overlayFadeIn 300ms ease-out forwards;
+  opacity: 1;
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  @starting-style { opacity: 0; }
 }
 
 .animate-overlay-fade-out {
-  animation: overlayFadeOut 300ms ease-out forwards;
+  opacity: 0;
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── TipTap / Prose Editor ──────────────────────────────────────────────── */
@@ -294,7 +266,7 @@
 /* ─── Glassmorphism Card Utilities ───────────────────────────────────────── */
 
 .glass-card-hover {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card-hover:hover {
@@ -326,11 +298,11 @@
 /* ─── Interactive Micro-Animations ─────────────────────────────────────── */
 
 .btn-spring {
-  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-spring:active {
-  transform: scale(0.96);
+  opacity: 0.7;
 }
 
 .shimmer-gold {
@@ -356,14 +328,14 @@
 
 /* ─── Guided Tour Animations & Highlighting ───────────────────────────────── */
 
-@keyframes tourArrowBounceHoriz {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-6px); }
+@keyframes tourArrowShiftHoriz {
+  0%, 100% { transform: translateX(0); opacity: 0.7; }
+  50% { transform: translateX(-4px); opacity: 1; }
 }
 
-@keyframes tourArrowBounceVert {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+@keyframes tourArrowShiftVert {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(-4px); opacity: 1; }
 }
 
 @keyframes tourSpotlightGlow {
@@ -372,11 +344,11 @@
 }
 
 .animate-tour-arrow-horiz {
-  animation: tourArrowBounceHoriz 1.5s ease-in-out infinite;
+  animation: tourArrowShiftHoriz 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 .animate-tour-arrow-vert {
-  animation: tourArrowBounceVert 1.5s ease-in-out infinite;
+  animation: tourArrowShiftVert 1.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 .tour-spotlight-active {

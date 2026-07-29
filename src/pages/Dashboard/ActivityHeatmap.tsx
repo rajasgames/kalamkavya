@@ -16,19 +16,19 @@ export function ActivityHeatmap() {
 
   const getIntensity = (count: number) => {
     if (count === 0) return 'bg-subtle';
-    if (count < 500) return 'bg-terracotta/20';
-    if (count < 1000) return 'bg-terracotta/40';
-    if (count < 2000) return 'bg-terracotta/60';
-    return 'bg-terracotta/80';
+    if (count < 500) return 'bg-ink/20';
+    if (count < 1000) return 'bg-ink/40';
+    if (count < 2000) return 'bg-ink/60';
+    return 'bg-ink/80';
   };
 
   return (
     <Card className="p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-bold tracking-wider text-ghost uppercase flex items-center gap-2">
-          <Flame size={16} className="text-terracotta" /> Writing Activity
+          <Flame size={16} className="text-primary" /> Writing Activity
         </h3>
-        <Badge variant="sage">12 Day Streak</Badge>
+        <Badge variant="outline">12 Day Streak</Badge>
       </div>
       
       <div className="flex flex-wrap gap-1 mb-2">
@@ -36,7 +36,7 @@ export function ActivityHeatmap() {
           <div 
             key={i}
             title={`${day.date.toDateString()}: ${day.count} words`}
-            className={`w-3 h-3 sm:w-4 sm:h-4 rounded-[4px] transition-colors cursor-pointer hover:bg-terracotta/100 ${getIntensity(day.count)}`}
+            className={`w-3 h-3 sm:w-4 sm:h-4 rounded-none transition-colors cursor-pointer hover:bg-ink ${getIntensity(day.count)}`}
           />
         ))}
       </div>

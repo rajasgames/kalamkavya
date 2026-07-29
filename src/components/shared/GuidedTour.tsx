@@ -270,8 +270,8 @@ export function GuidedTour() {
       {targetRect && (
         <motion.div
           key={`arrow-${currentStep.id}`}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, transform: 'scale(0.8)' }}
+          animate={{ opacity: 1, transform: 'scale(1)' }}
           className="absolute z-[10001] pointer-events-none"
           style={{
             top: arrowDirection === 'left' ? targetRect.top + targetRect.height / 2 - 16 :
@@ -295,9 +295,9 @@ export function GuidedTour() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentStep.id}
-          initial={{ opacity: 0, y: 10, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -10, scale: 0.96 }}
+          initial={{ opacity: 0, transform: 'translateY(10px) scale(0.96)' }}
+          animate={{ opacity: 1, transform: 'translateY(0px) scale(1)' }}
+          exit={{ opacity: 0, transform: 'translateY(-10px) scale(0.96)' }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className="absolute z-[10002] w-[calc(100vw-32px)] max-w-[340px] sm:max-w-[380px] bg-surface border border-terracotta/40 rounded-2xl shadow-2xl p-5 backdrop-blur-xl"
           style={{
