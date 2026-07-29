@@ -1,11 +1,5 @@
-   1.167520000s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: dependency on `phf` is newer than we are 13429778871.575850500s > 13429778846.810852700s "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\selectors-0.22.0"
-   1.168709100s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: dependency on `matches` is newer than we are 13429778846.366578200s > 13429778846.296542600s "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\kuchikiki-0.8.2"
-   1.191478700s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: dependency on `html5ever` is newer than we are 13429778879.755073400s > 13429778847.584957400s "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-utils-1.6.2"
-   1.198724100s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: dependency on `url` is newer than we are 13429778890.005070400s > 13429778847.478914400s "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-runtime-0.14.6"
-   1.212886900s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: dependency on `webview2_com` is newer than we are 13429778912.105451100s > 13429778847.480915300s "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-runtime-wry-0.14.11"
-   1.216222300s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: dependency on `serialize_to_javascript` is newer than we are 13429778888.833652200s > 13429778847.370778700s "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-1.8.3"
-   1.216965900s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/Check { test: false }/TargetInner { name: "inkwell", doc: true, ..: with_path("C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\src\\main.rs", Edition2021) }
-   1.217662500s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-2f48da93bd9c7ec8\bin-inkwell`
+   0.652921700s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/Check { test: false }/TargetInner { name: "inkwell", doc: true, ..: with_path("C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\src\\main.rs", Edition2021) }
+   0.654325100s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-2f48da93bd9c7ec8\bin-inkwell`
 
 Caused by:
     The system cannot find the file specified. (os error 2)
@@ -32,8 +26,8 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-   1.241261700s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\build.rs", Edition2021) }
-   1.241291000s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-0ef1227f30d1e987\run-build-script-build-script-build`
+   0.668182600s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\build.rs", Edition2021) }
+   0.668215100s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-0ef1227f30d1e987\run-build-script-build-script-build`
 
 Caused by:
     The system cannot find the file specified. (os error 2)
@@ -62,20 +56,8 @@ Stack backtrace:
   20: git_midx_writer_dump
   21: BaseThreadInitThunk
   22: RtlUserThreadStart
-   1.362199600s  INFO prepare_target{force=false package_id=tauri v1.8.3 target="tauri"}: cargo::core::compiler::fingerprint: fingerprint dirty for tauri v1.8.3/Check { test: false }/TargetInner { ..: lib_target("tauri", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-1.8.3\\src\\lib.rs", Edition2021) }
-   1.363014400s  INFO prepare_target{force=false package_id=tauri v1.8.3 target="tauri"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDependency { unit: UnitIndex(295), dep_mtime: FileTime { seconds: 13429778888, nanos: 833652200 }, max_mtime: FileTime { seconds: 13429778847, nanos: 370778700 } })
-   1.807897100s  INFO prepare_target{force=false package_id=tauri-runtime v0.14.6 target="tauri_runtime"}: cargo::core::compiler::fingerprint: fingerprint dirty for tauri-runtime v0.14.6/Check { test: false }/TargetInner { ..: lib_target("tauri_runtime", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-runtime-0.14.6\\src\\lib.rs", Edition2021) }
-   1.807949700s  INFO prepare_target{force=false package_id=tauri-runtime v0.14.6 target="tauri_runtime"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDependency { unit: UnitIndex(365), dep_mtime: FileTime { seconds: 13429778890, nanos: 5070400 }, max_mtime: FileTime { seconds: 13429778847, nanos: 478914400 } })
-   1.827412800s  INFO prepare_target{force=false package_id=tauri-utils v1.6.2 target="tauri_utils"}: cargo::core::compiler::fingerprint: fingerprint dirty for tauri-utils v1.6.2/Check { test: false }/TargetInner { ..: lib_target("tauri_utils", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-utils-1.6.2\\src\\lib.rs", Edition2021) }
-   1.827458200s  INFO prepare_target{force=false package_id=tauri-utils v1.6.2 target="tauri_utils"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDependency { unit: UnitIndex(115), dep_mtime: FileTime { seconds: 13429778879, nanos: 755073400 }, max_mtime: FileTime { seconds: 13429778847, nanos: 584957400 } })
-   2.085023700s  INFO prepare_target{force=false package_id=kuchikiki v0.8.2 target="kuchikiki"}: cargo::core::compiler::fingerprint: fingerprint dirty for kuchikiki v0.8.2/Check { test: false }/TargetInner { doctest: false, ..: lib_target("kuchikiki", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\kuchikiki-0.8.2\\src\\lib.rs", Edition2018) }
-   2.085066400s  INFO prepare_target{force=false package_id=kuchikiki v0.8.2 target="kuchikiki"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDependency { unit: UnitIndex(187), dep_mtime: FileTime { seconds: 13429778846, nanos: 366578200 }, max_mtime: FileTime { seconds: 13429778846, nanos: 296542600 } })
-   2.163744600s  INFO prepare_target{force=false package_id=selectors v0.22.0 target="selectors"}: cargo::core::compiler::fingerprint: fingerprint dirty for selectors v0.22.0/Check { test: false }/TargetInner { ..: lib_target("selectors", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\selectors-0.22.0\\lib.rs", Edition2015) }
-   2.163789400s  INFO prepare_target{force=false package_id=selectors v0.22.0 target="selectors"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDependency { unit: UnitIndex(210), dep_mtime: FileTime { seconds: 13429778871, nanos: 575850500 }, max_mtime: FileTime { seconds: 13429778846, nanos: 810852700 } })
-   2.423133900s  INFO prepare_target{force=false package_id=tauri-runtime-wry v0.14.11 target="tauri_runtime_wry"}: cargo::core::compiler::fingerprint: fingerprint dirty for tauri-runtime-wry v0.14.11/Check { test: false }/TargetInner { ..: lib_target("tauri_runtime_wry", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-runtime-wry-0.14.11\\src\\lib.rs", Edition2021) }
-   2.423175600s  INFO prepare_target{force=false package_id=tauri-runtime-wry v0.14.11 target="tauri_runtime_wry"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleDependency { unit: UnitIndex(379), dep_mtime: FileTime { seconds: 13429778912, nanos: 105451100 }, max_mtime: FileTime { seconds: 13429778847, nanos: 480915300 } })
-   2.553336700s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/Check { test: true }/TargetInner { name: "inkwell", doc: true, ..: with_path("C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\src\\main.rs", Edition2021) }
-   2.553372100s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-3f5a6ef134a733e5\test-bin-inkwell`
+   1.779772000s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/Check { test: true }/TargetInner { name: "inkwell", doc: true, ..: with_path("C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\src\\main.rs", Edition2021) }
+   1.779796200s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-3f5a6ef134a733e5\test-bin-inkwell`
 
 Caused by:
     The system cannot find the file specified. (os error 2)
@@ -102,7 +84,6 @@ Stack backtrace:
   18: git_midx_writer_dump
   19: BaseThreadInitThunk
   20: RtlUserThreadStart
-    Checking selectors v0.22.0
    Compiling inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)
 error: failed to run custom build command for `inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)`
 note: To improve backtraces for build dependencies, set the CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG=true environment variable to enable debug information generation.
@@ -118,9 +99,3 @@ Caused by:
   cargo:rustc-check-cfg=cfg(dev)
   cargo:rustc-cfg=dev
   `icons/icon.ico` not found; required for generating a Windows Resource file during tauri-build
-warning: build failed, waiting for other jobs to finish...
-    Checking kuchikiki v0.8.2
-    Checking tauri-utils v1.6.2
-    Checking tauri-runtime v0.14.6
-    Checking tauri-runtime-wry v0.14.11
-    Checking tauri v1.8.3

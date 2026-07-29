@@ -46,7 +46,7 @@ describe('romanceSampleData', () => {
     // Check specific love triangle dynamic
     const romanticTension = relationships.find(r => r.type === 'romantic_tension');
     expect(romanticTension).toBeDefined();
-    expect(romanticTension?.metadata?.tension).toBe(80);
+    expect(romanticTension?.metadata?.trustLevel).toBe(40);
 
     const chapters = await db.chapters.where({ projectId }).toArray();
     expect(chapters.length).toBe(10);

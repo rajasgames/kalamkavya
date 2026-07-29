@@ -63,16 +63,19 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Horizon Tech Headquarters',
       categorySlug: 'geography',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
         locationType: 'Building',
-        climate: 'Climate-controlled, sleek, modern',
-        terrain: 'Glass walls, open plan desks, high-tech labs',
-        resources: ['Coffee machines', 'High-end servers'],
+        climate: 'Climate-controlled, perpetually set to a crisp 68 degrees',
+        terrain: 'Glass walls, open-plan ergonomic desks, high-tech labs',
+        resources: ['Artisan Coffee Bar', 'High-end quantum servers', 'Nap pods'],
+        rulerId: charJulian,
         population: '500 employees',
-        description: 'A cutting-edge tech hub in the heart of downtown. Cold, intimidating, yet pulsing with ambition.',
+        description: 'A cutting-edge tech hub in the heart of downtown. Cold, intimidating, yet pulsing with ambition. The architecture is sharp and modern.',
+        aiRuleEnabled: true,
+        aiRuleText: 'When characters are in this location, emphasize the cold, sterile environment and the high-pressure atmosphere. Interactions should feel observed or professional.',
       },
     },
     {
@@ -82,14 +85,19 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'The Roasted Bean',
       categorySlug: 'geography',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
         locationType: 'Building',
-        climate: 'Warm, cozy, smelling of roasted coffee and pastries',
-        terrain: 'Exposed brick, fairy lights, mismatched armchairs',
-        description: 'An indie coffee shop owned by Liam. It feels like a second home to Elara.',
+        climate: 'Warm, cozy, smelling of roasted espresso and cinnamon',
+        terrain: 'Exposed brick, fairy lights, mismatched velvet armchairs',
+        resources: ['Fresh pastries', 'Acoustic guitar corner', 'Free WiFi'],
+        rulerId: charLiam,
+        population: 'Varies; mostly locals and students',
+        description: 'An indie coffee shop owned by Liam. It feels like a second home to Elara, full of warmth, nostalgia, and the scent of roasting coffee beans.',
+        aiRuleEnabled: true,
+        aiRuleText: 'In this location, tone down the tension. Characters should speak more casually, and sensory details should focus on warmth, smell, and comfort.',
       },
     },
     {
@@ -99,14 +107,19 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Elysium Penthouse',
       categorySlug: 'geography',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
         locationType: 'Building',
-        climate: 'Silent, vast, impeccably clean',
-        terrain: 'Marble floors, floor-to-ceiling windows overlooking the city skyline',
-        description: 'Julian\'s private residence. It looks like a magazine cover but feels lonely.',
+        climate: 'Silent, vast, impeccably clean with state-of-the-art air filtration',
+        terrain: 'Imported Italian marble floors, floor-to-ceiling windows overlooking the city skyline',
+        resources: ['Fully stocked vintage bar', 'Grand piano', 'Smart home AI'],
+        rulerId: charJulian,
+        population: '1 (Julian)',
+        description: 'Julian\'s private residence. It looks like a magazine cover but feels intensely lonely. High above the city noise, it isolates him from the world.',
+        aiRuleEnabled: true,
+        aiRuleText: 'Describe this location to reflect Julian\'s internal state: wealthy but isolated. Use words like "cavernous", "pristine", and "silent".',
       },
     },
 
@@ -118,31 +131,41 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Horizon Innovations',
       categorySlug: 'groups',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
-        systemType: 'Political', // Using Political to represent Corporate Power
-        structure: 'Strict corporate hierarchy with Julian at the top',
-        rules: ['Innovation above all', 'No personal relationships between management and subordinates'],
+        systemType: 'Economic', 
+        structure: 'Strict corporate hierarchy with Julian at the apex and a ruthless board of directors.',
+        rules: ['Innovation above all', 'No personal relationships between management and subordinates', 'Ship products on time or face termination'],
         keyFigures: [charJulian, charMarcus],
-        description: 'The fastest-growing AI startup in the city.',
+        description: 'The fastest-growing AI startup in the city, constantly pushing the boundaries of tech while burning out its employees.',
+        aiRuleEnabled: true,
+        aiRuleText: 'When dealing with Horizon Innovations, the stakes are always career-oriented. Emphasize the cutthroat corporate culture.',
       },
     },
     {
       id: facSterling,
       projectId,
-      type: 'family',
+      type: 'culture',
       entityClass: 'INSTANCE',
-      name: 'The Sterling Family',
+      name: 'The Sterling Family Dynasty',
       categorySlug: 'families',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
-        description: 'An old-money dynasty that expects perfection and strategic marriages. They view Julian\'s tech venture as a quaint hobby.',
-        coreValues: ['Wealth', 'Reputation', 'Legacy'],
-        taboos: ['Scandal', 'Marrying below station'],
+        associatedRegionId: locPenthouse,
+        languageNotes: 'They speak with refined vocabulary and subtle condescension. Never raise voices; anger is expressed coldly.',
+        coreValues: ['Wealth preservation', 'Impeccable public reputation', 'Legacy over individual happiness'],
+        socialStructure: 'Matriarchal influence (led by Victoria) heavily controlling the heirs.',
+        keyCustoms: 'Annual charity galas, mandatory Sunday dinners where business is discussed over fine wine.',
+        taboos: ['Public scandal', 'Marrying below their station', 'Emotional outbursts'],
+        religiousBeliefs: 'None, though they worship success and status.',
+        artAndMusic: 'Classical music only. Julian\'s piano playing is a rare exception of emotion.',
+        factionIds: [facHorizon], 
+        aiRuleEnabled: true,
+        aiRuleText: 'Any interaction involving a Sterling family member (especially Victoria) must feel oppressive and laden with classism. Emphasize their wealth and disdain for the working class.',
       },
     },
 
@@ -156,12 +179,14 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Elara Vance',
       categorySlug: 'character',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
-        role: 'Protagonist / Junior Developer',
+        castType: 'Protagonist',
+        rank: 'Mortal',
         species: 'Human',
+        role: 'Junior Developer',
         status: 'Alive',
         goals: {
           primaryGoal: 'Successfully launch her AI accessibility project.',
@@ -175,7 +200,7 @@ export async function loadRomanceSampleData(): Promise<string> {
           flaws: ['Avoids conflict', 'Self-doubting'],
           virtues: ['Loyal', 'Brilliant coder'],
         },
-        motivations: ['To prove her worth', 'To make a difference with tech'],
+        motivations: ['To prove her worth', 'To make a difference with tech', 'To find a place where she belongs'],
         arc: {
           type: 'Positive',
           beginningState: 'Meek and hiding behind her code.',
@@ -201,6 +226,10 @@ export async function loadRomanceSampleData(): Promise<string> {
           weaponIds: [],
           cultureIds: [],
         },
+        customFields: {
+          aiRuleText: 'Elara should sound hesitant when discussing her feelings but completely self-assured when discussing her work.',
+          clearanceLevel: 'Level 2 Developer'
+        }
       },
     },
     {
@@ -210,12 +239,14 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Julian Sterling',
       categorySlug: 'character',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
-        role: 'Love Interest 1 / Grumpy Billionaire Boss',
+        castType: 'Supporting',
+        rank: 'Mortal',
         species: 'Human',
+        role: 'Grumpy Billionaire Boss / Love Interest 1',
         status: 'Alive',
         goals: {
           primaryGoal: 'Prove his family wrong by making Horizon a global leader.',
@@ -229,7 +260,7 @@ export async function loadRomanceSampleData(): Promise<string> {
           flaws: ['Arrogant', 'Bad at expressing emotions'],
           virtues: ['Fiercely protective', 'Secretly generous'],
         },
-        motivations: ['Independence from his family', 'A hidden longing for genuine connection'],
+        motivations: ['Independence from his family', 'A hidden longing for genuine connection', 'Success at all costs'],
         arc: {
           type: 'Positive',
           beginningState: 'Ice king of the boardroom.',
@@ -255,6 +286,10 @@ export async function loadRomanceSampleData(): Promise<string> {
           weaponIds: [],
           cultureIds: [],
         },
+        customFields: {
+          aiRuleText: 'Julian\'s dialogue should be brief, sharp, and emotionally guarded unless he is alone with Elara.',
+          netWorth: '$2.5 Billion'
+        }
       },
     },
     {
@@ -264,12 +299,14 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Liam Carter',
       categorySlug: 'character',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
-        role: 'Love Interest 2 / Golden Retriever Best Friend',
+        castType: 'Supporting',
+        rank: 'Mortal',
         species: 'Human',
+        role: 'Golden Retriever Best Friend / Love Interest 2',
         status: 'Alive',
         goals: {
           primaryGoal: 'Expand his coffee shop business.',
@@ -283,7 +320,7 @@ export async function loadRomanceSampleData(): Promise<string> {
           flaws: ['Can be overly passive', 'Jealous but hides it'],
           virtues: ['Unwavering support', 'Excellent listener'],
         },
-        motivations: ['Building a community', 'Creating a safe haven for Elara'],
+        motivations: ['Building a community', 'Creating a safe haven for Elara', 'Fear of change'],
         arc: {
           type: 'Positive',
           beginningState: 'Waiting in the wings, afraid to risk the friendship.',
@@ -309,6 +346,10 @@ export async function loadRomanceSampleData(): Promise<string> {
           weaponIds: [],
           cultureIds: [],
         },
+        customFields: {
+          aiRuleText: 'Liam should always sound welcoming and casual, but hint at deeper underlying emotions when Elara mentions Julian.',
+          specialtyDrink: 'Caramel Macchiato with extra foam'
+        }
       },
     },
     {
@@ -318,21 +359,51 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Chloe Brooks',
       categorySlug: 'character',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
-        role: 'Supporting / Best Friend',
+        castType: 'Supporting',
+        rank: 'Mortal',
         species: 'Human',
+        role: 'Best Friend / Confidante',
         status: 'Alive',
-        goals: { primaryGoal: 'Be the ultimate wingwoman', secondaryGoal: 'Survive nursing school' },
-        personality: { mbti: 'ESFP', traits: ['Chaotic good', 'Loud', 'Fierce'], flaws: ['Nosy'], virtues: ['Loyal'] },
-        motivations: ['Wants Elara to be happy'],
-        arc: { type: 'Flat', beginningState: 'Supportive', midpointShift: 'Supportive', endState: 'Supportive' },
-        physical: { height: '5 ft 6 in', build: 'Curvy', distinguishingFeatures: 'Bright pink dyed hair', voiceDescription: 'Loud and bubbly' },
-        voice: { sentenceStyle: 'Rapid-fire', vocabularyLevel: 'Slang-heavy', accentNotes: 'None', sampleQuote: '"Girl, if you don\'t kiss one of them soon, I will."' },
-        skills: ['Medical knowledge', 'Gossip gathering'],
+        goals: { 
+          primaryGoal: 'Be the ultimate wingwoman', 
+          secondaryGoal: 'Survive nursing school',
+          internalFear: 'Failing her exams',
+          externalThreat: 'Exhaustion' 
+        },
+        personality: { 
+          mbti: 'ESFP', 
+          traits: ['Chaotic good', 'Loud', 'Fierce', 'Honest'], 
+          flaws: ['Nosy', 'Impulsive'], 
+          virtues: ['Fiercely loyal', 'Optimistic'] 
+        },
+        motivations: ['Wants Elara to be happy', 'Looking for a good time', 'Passing finals'],
+        arc: { 
+          type: 'Flat', 
+          beginningState: 'Supportive chaos', 
+          midpointShift: 'Gives Elara a reality check', 
+          endState: 'Still supportive chaos' 
+        },
+        physical: { 
+          height: '5 ft 6 in', 
+          build: 'Curvy', 
+          distinguishingFeatures: 'Bright pink dyed hair and scrubs', 
+          voiceDescription: 'Loud and bubbly' 
+        },
+        voice: { 
+          sentenceStyle: 'Rapid-fire, exclamation points', 
+          vocabularyLevel: 'Slang-heavy with medical jargon mixed in', 
+          accentNotes: 'Slight valley girl', 
+          sampleQuote: '"Girl, if you don\'t kiss one of them soon, I will."' 
+        },
+        skills: ['Medical knowledge', 'Gossip gathering', 'Unsolicited advice'],
         loreConnections: { factionIds: [], locationIds: [], weaponIds: [], cultureIds: [] },
+        customFields: {
+          aiRuleText: 'Chloe speaks quickly and often interrupts. She serves as comedic relief and the voice of reason.'
+        }
       },
     },
     {
@@ -342,21 +413,51 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Victoria Sterling',
       categorySlug: 'character',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
-        role: 'Antagonist / Julian\'s Mother',
+        castType: 'Antagonist',
+        rank: 'Mortal',
         species: 'Human',
+        role: 'Julian\'s Controlling Mother',
         status: 'Alive',
-        goals: { primaryGoal: 'Maintain the Sterling legacy', secondaryGoal: 'Oust Elara', internalFear: 'Losing control', externalThreat: 'Public scandal' },
-        personality: { mbti: 'ESTJ', traits: ['Ruthless', 'Elegant', 'Cold'], flaws: ['Elitist', 'Controlling'], virtues: ['Determined'] },
-        motivations: ['Family honor'],
-        arc: { type: 'Negative', beginningState: 'In control', midpointShift: 'Losing grip on Julian', endState: 'Alienated from her son' },
-        physical: { height: '5 ft 8 in', build: 'Slender, sharp angles', distinguishingFeatures: 'Impeccable posture, designer clothing', voiceDescription: 'Icy and sharp' },
-        voice: { sentenceStyle: 'Condescending', vocabularyLevel: 'High society', accentNotes: 'Posh', sampleQuote: '"You are a temporary distraction, Ms. Vance. Do not forget your place."' },
-        skills: ['Manipulation', 'Social destruction'],
-        loreConnections: { factionIds: [facSterling], locationIds: [], weaponIds: [], cultureIds: [] },
+        goals: { 
+          primaryGoal: 'Maintain the Sterling legacy', 
+          secondaryGoal: 'Oust Elara from Julian\'s life', 
+          internalFear: 'Losing control of her family', 
+          externalThreat: 'Public scandal involving Horizon Tech' 
+        },
+        personality: { 
+          mbti: 'ESTJ', 
+          traits: ['Ruthless', 'Elegant', 'Cold', 'Calculating'], 
+          flaws: ['Elitist', 'Controlling'], 
+          virtues: ['Determined', 'Poised'] 
+        },
+        motivations: ['Family honor', 'Perfectionism', 'Fear of societal drop'],
+        arc: { 
+          type: 'Negative', 
+          beginningState: 'In complete control', 
+          midpointShift: 'Losing grip on Julian\'s decisions', 
+          endState: 'Alienated from her son entirely' 
+        },
+        physical: { 
+          height: '5 ft 8 in', 
+          build: 'Slender, sharp angles', 
+          distinguishingFeatures: 'Impeccable posture, designer clothing, pearls', 
+          voiceDescription: 'Icy, sharp, never raised' 
+        },
+        voice: { 
+          sentenceStyle: 'Condescending and perfectly structured', 
+          vocabularyLevel: 'High society, archaic at times', 
+          accentNotes: 'Posh Mid-Atlantic', 
+          sampleQuote: '"You are a temporary distraction, Ms. Vance. Do not forget your place."' 
+        },
+        skills: ['Manipulation', 'Social destruction', 'Event planning'],
+        loreConnections: { factionIds: [facSterling], locationIds: [locPenthouse], weaponIds: [], cultureIds: [] },
+        customFields: {
+          aiRuleText: 'Victoria never yells. Her insults should be wrapped in polite, devastating observations about class.'
+        }
       },
     },
     {
@@ -366,21 +467,51 @@ export async function loadRomanceSampleData(): Promise<string> {
       entityClass: 'INSTANCE',
       name: 'Marcus Thorne',
       categorySlug: 'character',
-      hasAIRule: false,
+      hasAIRule: true,
       createdAt: now,
       updatedAt: now,
       data: {
-        role: 'Supporting / Mentor',
+        castType: 'Supporting',
+        rank: 'Mortal',
         species: 'Human',
+        role: 'Mentor / Senior Developer',
         status: 'Alive',
-        goals: { primaryGoal: 'See the AI project succeed', secondaryGoal: 'Keep his job', internalFear: 'Becoming obsolete', externalThreat: 'None' },
-        personality: { mbti: 'ISTP', traits: ['Pragmatic', 'Tired', 'Wise'], flaws: ['Cynical'], virtues: ['Fair'] },
-        motivations: ['Technological advancement'],
-        arc: { type: 'Flat', beginningState: 'Tired mentor', midpointShift: 'Defends Elara', endState: 'Proud mentor' },
-        physical: { height: '5 ft 10 in', build: 'Dad bod', distinguishingFeatures: 'Glasses pushed up on his head', voiceDescription: 'Exhausted but kind' },
-        voice: { sentenceStyle: 'To the point', vocabularyLevel: 'Technical', accentNotes: 'None', sampleQuote: '"Code doesn\'t care about your feelings, Elara. But your boss clearly does."' },
-        skills: ['System Architecture', 'Navigating office politics'],
+        goals: { 
+          primaryGoal: 'See the AI project succeed', 
+          secondaryGoal: 'Keep his job and retire early', 
+          internalFear: 'Becoming obsolete in the tech world', 
+          externalThreat: 'Upper management changes' 
+        },
+        personality: { 
+          mbti: 'ISTP', 
+          traits: ['Pragmatic', 'Tired', 'Wise', 'Direct'], 
+          flaws: ['Cynical', 'Apathetic to office drama'], 
+          virtues: ['Fair', 'Protective of his team'] 
+        },
+        motivations: ['Technological advancement', 'Peace and quiet', 'A stable paycheck'],
+        arc: { 
+          type: 'Flat', 
+          beginningState: 'Tired mentor', 
+          midpointShift: 'Defends Elara to the board', 
+          endState: 'Proud mentor' 
+        },
+        physical: { 
+          height: '5 ft 10 in', 
+          build: 'Dad bod', 
+          distinguishingFeatures: 'Glasses pushed up on his head, usually holding coffee', 
+          voiceDescription: 'Exhausted but kind, gravelly' 
+        },
+        voice: { 
+          sentenceStyle: 'To the point, short sentences', 
+          vocabularyLevel: 'Technical, uses analogies', 
+          accentNotes: 'None', 
+          sampleQuote: '"Code doesn\'t care about your feelings, Elara. But your boss clearly does."' 
+        },
+        skills: ['System Architecture', 'Navigating office politics', 'Debugging'],
         loreConnections: { factionIds: [facHorizon], locationIds: [locHorizon], weaponIds: [], cultureIds: [] },
+        customFields: {
+          aiRuleText: 'Marcus should sound perpetually tired but act as a stabilizing, father-figure presence for Elara.'
+        }
       },
     }
   ];
@@ -389,16 +520,16 @@ export async function loadRomanceSampleData(): Promise<string> {
   // PHASE 2: RELATIONSHIPS
   // ---------------------------------------------------------
   const relationships: Relationship[] = [
-    { id: uuidv4(), projectId, fromEntityId: charElara, toEntityId: charJulian, type: 'romantic_tension', directed: true, metadata: { dynamic: 'Employee to Boss', tension: 80, history: 'Met 1 year ago' } },
-    { id: uuidv4(), projectId, fromEntityId: charJulian, toEntityId: charElara, type: 'hidden_affection', directed: true, metadata: { dynamic: 'Protector', tension: 90, history: 'Fell first' } },
-    { id: uuidv4(), projectId, fromEntityId: charElara, toEntityId: charLiam, type: 'deep_trust', directed: true, metadata: { dynamic: 'Childhood Friends', tension: 40, history: '15 years' } },
-    { id: uuidv4(), projectId, fromEntityId: charLiam, toEntityId: charElara, type: 'unrequited_love', directed: true, metadata: { dynamic: 'Pining', tension: 70, history: 'In love for 10 years' } },
-    { id: uuidv4(), projectId, fromEntityId: charJulian, toEntityId: charLiam, type: 'rivalry', directed: true, metadata: { dynamic: 'Jealousy', reason: 'Views Liam as a threat to Elara\'s affection' } },
-    { id: uuidv4(), projectId, fromEntityId: charLiam, toEntityId: charJulian, type: 'distrust', directed: true, metadata: { dynamic: 'Protective of Elara', reason: 'Thinks Julian will hurt her' } },
-    { id: uuidv4(), projectId, fromEntityId: charElara, toEntityId: charChloe, type: 'best_friends', directed: false, metadata: { dynamic: 'Roommates' } },
-    { id: uuidv4(), projectId, fromEntityId: charVictoria, toEntityId: charElara, type: 'disdain', directed: true, metadata: { reason: 'Classism' } },
-    { id: uuidv4(), projectId, fromEntityId: charJulian, toEntityId: charVictoria, type: 'strained_family', directed: true, metadata: { reason: 'Controlling mother' } },
-    { id: uuidv4(), projectId, fromEntityId: charElara, toEntityId: charMarcus, type: 'mentorship', directed: true, metadata: { dynamic: 'Student / Teacher' } },
+    { id: uuidv4(), projectId, fromEntityId: charElara, toEntityId: charJulian, type: 'romantic_tension', directed: true, metadata: { dynamic: 'Employee to Boss', trustLevel: 40, history: 'Met 1 year ago', intimacyLevel: 'High Tension' } },
+    { id: uuidv4(), projectId, fromEntityId: charJulian, toEntityId: charElara, type: 'hidden_affection', directed: true, metadata: { dynamic: 'Protector / Grumpy x Sunshine', trustLevel: 85, history: 'Fell first', secretDesire: 'To run away with her' } },
+    { id: uuidv4(), projectId, fromEntityId: charElara, toEntityId: charLiam, type: 'deep_trust', directed: true, metadata: { dynamic: 'Childhood Friends', trustLevel: 100, history: '15 years', intimacyLevel: 'Platonic (for now)' } },
+    { id: uuidv4(), projectId, fromEntityId: charLiam, toEntityId: charElara, type: 'unrequited_love', directed: true, metadata: { dynamic: 'Pining / Friends to Lovers', trustLevel: 95, history: 'In love for 10 years', obstacle: 'Fear of ruining friendship' } },
+    { id: uuidv4(), projectId, fromEntityId: charJulian, toEntityId: charLiam, type: 'rivalry', directed: true, metadata: { dynamic: 'Billionaire vs Barista', trustLevel: 0, reason: 'Views Liam as a threat to Elara\'s affection', interactions: 'Hostile' } },
+    { id: uuidv4(), projectId, fromEntityId: charLiam, toEntityId: charJulian, type: 'distrust', directed: true, metadata: { dynamic: 'Protective of Elara', trustLevel: 5, reason: 'Thinks Julian will hurt her', interactions: 'Defensive' } },
+    { id: uuidv4(), projectId, fromEntityId: charElara, toEntityId: charChloe, type: 'best_friends', directed: false, metadata: { dynamic: 'Roommates / Support System', trustLevel: 90, history: 'College roommates' } },
+    { id: uuidv4(), projectId, fromEntityId: charVictoria, toEntityId: charElara, type: 'disdain', directed: true, metadata: { reason: 'Classism', trustLevel: 0, threatLevel: 'High' } },
+    { id: uuidv4(), projectId, fromEntityId: charJulian, toEntityId: charVictoria, type: 'strained_family', directed: true, metadata: { reason: 'Controlling mother', trustLevel: 20, dynamic: 'Resentful Son' } },
+    { id: uuidv4(), projectId, fromEntityId: charElara, toEntityId: charMarcus, type: 'mentorship', directed: true, metadata: { dynamic: 'Student / Teacher', trustLevel: 75, history: 'Mentored her since day 1' } },
   ];
 
   // ---------------------------------------------------------

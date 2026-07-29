@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PenTool, Sparkles, PlusCircle, Trash2, Timer, BookOpen, HelpCircle, Sword, Coffee, Rocket, ArrowRight } from 'lucide-react';
+import { PenTool, Sparkles, PlusCircle, Trash2, Timer, BookOpen, Sword, Coffee, Rocket, ArrowRight } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
 import { db } from '@/lib/db/database';
 import { loadFantasySampleData } from '@/lib/sampleData/fantasySampleData';
@@ -150,35 +150,23 @@ export function Dashboard() {
   return (
     <div className="p-4 sm:p-8 md:p-12 h-full flex flex-col overflow-y-auto max-w-7xl mx-auto w-full">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4">
-        {/* We moved the greeting into the main hero block when there's no project */}
-        {activeProject ? (
-          <h1 className="text-xl sm:text-2xl font-serif italic text-primary">{getGreeting()}</h1>
-        ) : (
-          <div></div>
-        )}
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            onClick={() => useUIStore.getState().setOnboardingOpen(true)}
-            className="gap-2 text-xs font-semibold text-secondary hover:text-primary bg-surface hover:bg-deep border border-subtle transition-colors shadow-soft"
-          >
-            <HelpCircle size={15} />
-            User Guide & Tour
-          </Button>
+      {activeProject && (
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 sm:mb-12 gap-4">
+          <h1 className="text-xl sm:text-2xl font-sans italic text-primary">{getGreeting()}</h1>
         </div>
-      </div>
+      )}
+
 
       {/* Hero Section */}
       {!activeProject ? (
         <div className="text-center flex flex-col items-center mb-16 pt-8">
-          <h2 className="text-4xl sm:text-5xl font-serif text-primary mb-4">{getGreeting()}</h2>
+          <h2 className="text-4xl sm:text-5xl font-sans text-primary mb-4">{getGreeting()}</h2>
           <p className="text-secondary mb-8 max-w-lg text-lg">
             कalam काvya works for any genre — from fantasy epics to romance to sci-fi mysteries.
             Create a new project or jump in with a sample world.
           </p>
 
-          <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-12 bg-terracotta text-white hover:bg-terracotta/90 px-6 py-5 text-base rounded-xl font-semibold shadow-soft">
+          <Button onClick={() => setIsNewProjectOpen(true)} className="gap-2 mb-12 bg-ink text-canvas hover:opacity-90 px-6 py-5 text-base rounded-xl font-semibold">
             <PlusCircle size={20} />
             New Project
           </Button>
@@ -193,15 +181,15 @@ export function Dashboard() {
                   key={opt.key}
                   onClick={() => handleLoadSample(opt.key)}
                   disabled={loadingSample !== null}
-                  className="flex flex-col items-start gap-2 p-5 bg-surface border border-subtle rounded-xl glass-card-hover text-left disabled:opacity-50 group hover:border-terracotta transition-colors"
+                  className="flex flex-col items-start gap-2 p-5 bg-surface border border-subtle rounded-xl glass-card-hover text-left disabled:opacity-50 group hover:border-primary transition-colors"
                 >
-                  <div className="p-2.5 rounded-xl bg-terracotta/10 text-terracotta mb-1 group-hover:scale-110 transition-transform">
+                  <div className="p-2.5 rounded-xl bg-deep text-primary mb-1 group-hover:scale-110 transition-transform">
                     <opt.Icon size={24} />
                   </div>
                   <span className="font-bold text-base text-primary">{opt.label}</span>
                   <span className="text-sm text-[#A1A1AA] leading-relaxed">{opt.desc}</span>
                   {loadingSample === opt.key && (
-                    <span className="text-xs text-terracotta font-bold uppercase tracking-wider animate-pulse mt-1">Loading…</span>
+                    <span className="text-xs text-primary font-bold uppercase tracking-wider animate-pulse mt-1">Loading…</span>
                   )}
                 </button>
               ))}
@@ -215,7 +203,7 @@ export function Dashboard() {
             <div className="flex items-center gap-2 mb-2">
               <Badge variant="sage" caps>{getGenreLabel(activeProject)}</Badge>
             </div>
-            <h2 className="text-2xl font-serif font-bold text-primary mb-2">{activeProject.title}</h2>
+            <h2 className="text-2xl font-sans font-bold text-primary mb-2">{activeProject.title}</h2>
             <p className="text-secondary mb-5 line-clamp-2">{activeProject.premise}</p>
             
             <div className="flex flex-wrap gap-3">
@@ -254,11 +242,11 @@ export function Dashboard() {
       {activeProject && (
         <div className="mb-8">
           <div className="mb-4 flex items-center justify-between">
-            <h3 className="text-lg font-serif font-bold text-primary">Quick Resume</h3>
+            <h3 className="text-lg font-sans font-bold text-primary">Quick Resume</h3>
             {recentScenes.length > 0 && (
               <button 
                 onClick={() => navigate('/manuscript/editor')}
-                className="text-xs font-semibold text-terracotta hover:underline flex items-center gap-1"
+                className="text-xs font-semibold text-primary hover:underline flex items-center gap-1"
               >
                 Go to Editor <ArrowRight size={13} />
               </button>
@@ -300,7 +288,7 @@ export function Dashboard() {
       {/* Your Projects — above heatmap: switching projects is more actionable than reviewing history */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-xl font-serif font-bold text-primary">Your Projects</h3>
+          <h3 className="text-xl font-sans font-bold text-primary">Your Projects</h3>
           <Button variant="ghost" className="gap-2" onClick={() => setIsNewProjectOpen(true)}>
             <PlusCircle size={16} />
             New
@@ -314,7 +302,7 @@ export function Dashboard() {
               return (
                 <Card 
                   key={project.id} 
-                  className={`p-6 flex flex-col shadow-soft glass-card-hover bg-canvas rounded-xl border ${isActive ? 'border-terracotta bg-surface' : 'border-subtle hover:border-terracotta/30'}`}
+                  className={`p-6 flex flex-col glass-card-hover bg-canvas rounded-xl border ${isActive ? 'border-primary bg-surface' : 'border-subtle hover:border-primary'}`}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex flex-col gap-1">

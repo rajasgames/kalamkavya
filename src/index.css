@@ -4,60 +4,76 @@
 
 @layer base {
   :root {
-    /* Backgrounds — Warm Paper (Light Mode) */
-    --bg-canvas: #FDFBF7;        /* Main page background */
-    --bg-surface: #F4F1EA;       /* Cards, sidebar */
-    --bg-deep: #EBE6DF;          /* Input fields, nested surfaces */
-    --bg-ink: #111111;           /* Deep ink for dark mode text or accents */
+    /* Backgrounds — Strict Monochrome */
+    --bg-canvas: #FAFAFA;        /* Main page background */
+    --bg-surface: #FFFFFF;       /* Cards, sidebar */
+    --bg-deep: #F0F0F0;          /* Input fields, nested surfaces */
+    --bg-ink: #0A0A0A;           /* High contrast */
     
     /* Text */
-    --text-primary: #2C2C2C;     /* Soft Ink */
-    --text-secondary: #71717A;   /* Medium Grey */
-    --text-ghost: #A1A1AA;       /* Lighter grey */
+    --text-primary: #0A0A0A;     
+    --text-secondary: #6B6B6B;   
+    --text-ghost: #A1A1A1;       
 
-    /* Accents & Semantics */
-    --terracotta: #D97706;       /* Burnt Orange / Amber */
-    --sage: #10B981;             /* Success */
-    --dusty-blue: #6366F1;       /* Info */
-    --destructive: #DC2626;      /* Error/Destructive */
-    --cream-border: rgba(44, 44, 44, 0.08);
+    /* Accents & Semantics (Strictly Monochrome) */
+    --terracotta: #0A0A0A;       
+    --sage: #0A0A0A;             
+    --dusty-blue: #0A0A0A;       
+    --destructive: #0A0A0A;      
+    --cream-border: rgba(10, 10, 10, 0.08);
 
     /* Borders */
-    --border-subtle: #E5E0D8;    /* Warm Grey */
+    --border-subtle: #E0E0E0;    
 
     /* Scrollbar */
-    --scrollbar-thumb: #D4D4D8;
+    --scrollbar-thumb: #C0C0C0;
 
-    /* Focus Ring — keyboard-only, never shown on mouse click */
-    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
+    /* Focus Ring */
+    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px #0A0A0A;
 
-    /* Shadows — Soft & Diffuse */
-    --shadow-soft: 0 1px 3px rgba(24, 24, 27, 0.06), 0 8px 24px rgba(24, 24, 27, 0.04);
-    --shadow-hover: 0 4px 12px rgba(24, 24, 27, 0.08);
+    /* Shadows - Flattened */
+    --shadow-soft: none;
+    --shadow-hover: 0 2px 8px rgba(10, 10, 10, 0.05);
 
-    /* Glass — "Frosted Paper" (very subtle) */
-    --surface-glass: rgba(251, 248, 241, 0.85);
-    --backdrop-blur: blur(12px) saturate(110%);
+    /* Glass - Removed */
+    --surface-glass: #FFFFFF;
+    --backdrop-blur: none;
   }
 
   [data-theme="dark"] {
-    --bg-canvas: #09090B;        /* Deep Canvas */
-    --bg-surface: #1C1C24;       /* Elevated Grey */
-    --bg-deep: #27272A;          /* Dark Steel */
+    /* Backgrounds — Strict Monochrome Inverted */
+    --bg-canvas: #0A0A0A;        
+    --bg-surface: #141414;       
+    --bg-deep: #1F1F1F;          
     --bg-ink: #FAFAFA;           
-    --text-primary: #F4F4F5;     /* Off-White */
-    --text-secondary: #A1A1AA;   /* Muted Grey */
-    --text-ghost: #52525B;       /* Zinc-600 */
-    --terracotta: #F59E0B;       /* Bright Amber */
-    --sage: #10B981;             /* Success */
-    --dusty-blue: #6366F1;       /* Info */
-    --destructive: #EF4444;      /* Error/Destructive */
-    --cream-border: rgba(250, 250, 250, 0.06);
-    --border-subtle: #272730;    /* Subtle Grey */
-    --scrollbar-thumb: #3F3F46;
-    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--terracotta);
-    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.35);
-    --surface-glass: rgba(28, 28, 36, 0.88);
+    
+    /* Text */
+    --text-primary: #FAFAFA;     
+    --text-secondary: #A1A1A1;   
+    --text-ghost: #6B6B6B;       
+    
+    /* Accents (Strictly Monochrome) */
+    --terracotta: #FAFAFA;       
+    --sage: #FAFAFA;             
+    --dusty-blue: #FAFAFA;       
+    --destructive: #FAFAFA;      
+    --cream-border: rgba(250, 250, 250, 0.08);
+    
+    /* Borders */
+    --border-subtle: #333333;    
+    
+    /* Scrollbar */
+    --scrollbar-thumb: #404040;
+    
+    /* Focus Ring */
+    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px #FAFAFA;
+    
+    /* Shadows */
+    --shadow-soft: none;
+    --shadow-hover: none;
+    
+    /* Glass */
+    --surface-glass: #141414;
   }
 
   body {
@@ -283,8 +299,7 @@
 
 .glass-card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.25);
-  border-color: rgba(212, 153, 90, 0.35);
+  border-color: var(--text-primary);
 }
 
 /* ─── Rarity Tier Animations (World Bible — Artifact Cards) ──────────────
@@ -299,23 +314,19 @@
 }
 
 .rarity-aura-mythic {
-  background: linear-gradient(135deg, #f59e0b, #d97706, #fbbf24, #b45309);
-  background-size: 200% 200%;
-  animation: metallicShimmer 4s ease infinite;
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+  border: 1px solid var(--text-primary);
+  background: var(--bg-canvas);
 }
 
 .rarity-aura-epic {
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed, #a78bfa);
-  background-size: 200% 200%;
-  animation: metallicShimmer 5s ease infinite;
-  box-shadow: 0 0 12px rgba(139, 92, 246, 0.35);
+  border: 1px dashed var(--text-primary);
+  background: var(--bg-canvas);
 }
 
 /* ─── Interactive Micro-Animations ─────────────────────────────────────── */
 
 .btn-spring {
-  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .btn-spring:active {
@@ -328,21 +339,7 @@
 }
 
 .shimmer-gold::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.12) 50%,
-    transparent 70%
-  );
-  transform: rotate(30deg);
-  animation: shimmerSweep 4s infinite;
-  pointer-events: none;
+  display: none;
 }
 
 @keyframes shimmerSweep {

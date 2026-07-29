@@ -4,6 +4,7 @@ import { Home, PenTool, BookOpen, Users, Wrench, PanelLeftClose, PanelLeftOpen, 
 import { Tooltip } from '@heroui/react';
 import { useUIStore } from '@/stores/uiStore';
 import { useSearchStore } from '@/stores/searchStore';
+import { useStoryStore } from '@/stores/storyStore';
 import { Pillar } from '@/types';
 
 type SubView = { label: string; href: string; id: string };
@@ -290,7 +291,10 @@ export const Sidebar = () => {
                       <span className="group-hover:translate-x-0.5 transition-transform">New Project</span>
                     </button>
                     <button
-                      onClick={() => setOnboardingOpen(true)}
+                      onClick={async () => {
+                        await useStoryStore.getState().setActiveProject(null);
+                        navigate('/');
+                      }}
                       className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
                     >
                       <ArrowRight size={14} className="shrink-0 text-terracotta" />
