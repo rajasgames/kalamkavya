@@ -14,7 +14,7 @@ export function SystemForm({ entity, onSave }: SystemFormProps) {
   const initialData = (entity.data as unknown as Partial<SystemData>) || {};
 
   const [name, setName] = useState(entity.name);
-  const [systemType, setSystemType] = useState(initialData.systemType || 'Political');
+  const [systemType, setSystemType] = useState<string>(initialData.systemType || 'Political');
   const [structure, setStructure] = useState(initialData.structure || '');
   const [description, setDescription] = useState(initialData.description || '');
   

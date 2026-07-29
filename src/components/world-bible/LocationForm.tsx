@@ -14,7 +14,7 @@ export function LocationForm({ entity, onSave }: LocationFormProps) {
   const initialData = (entity.data as unknown as Partial<LocationData>) || {};
 
   const [name, setName] = useState(entity.name);
-  const [locationType, setLocationType] = useState(initialData.locationType || 'Region');
+  const [locationType, setLocationType] = useState<string>(initialData.locationType || 'Region');
   const [climate, setClimate] = useState(initialData.climate || '');
   const [terrain, setTerrain] = useState(initialData.terrain || '');
   const [rulerId, setRulerId] = useState(initialData.rulerId || '');

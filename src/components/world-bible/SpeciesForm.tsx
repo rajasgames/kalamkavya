@@ -12,11 +12,11 @@ export function SpeciesForm({ entity, onSave }: SpeciesFormProps) {
   const initialData = (entity.data as unknown as Partial<SpeciesData>) || {};
 
   const [name, setName] = useState(entity.name);
-  const [classification, setClassification] = useState(initialData.classification || 'Mammal');
+  const [classification, setClassification] = useState<string>(initialData.classification || 'Mammal');
   const [habitat, setHabitat] = useState(initialData.habitat || '');
   const [lifespan, setLifespan] = useState(initialData.lifespan || '');
   const [diet, setDiet] = useState(initialData.diet || '');
-  const [intelligence, setIntelligence] = useState(initialData.intelligence || 'Sentient');
+  const [intelligence, setIntelligence] = useState<string>(initialData.intelligence || 'Sentient');
   const [physicalTraits, setPhysicalTraits] = useState<string[]>(initialData.physicalTraits || []);
   const [abilities, setAbilities] = useState<string[]>(initialData.abilities || []);
   const [aiRuleEnabled, setAiRuleEnabled] = useState(entity.hasAIRule || initialData.aiRuleEnabled || false);
