@@ -4,20 +4,18 @@ import {
   Redo2, 
   ArrowUpDown, 
   ArrowLeftRight, 
-  GitBranch, 
   Activity, 
   Download,
   Palette,
   Plus,
   ZoomIn,
   ZoomOut,
-  Maximize2,
-  ChevronDown
+  Maximize2
 } from 'lucide-react';
 import { useStore as useTemporalStore } from 'zustand';
 import { useReactFlow } from '@xyflow/react';
 import useMasterFlowStore from './masterFlowStore';
-import { useStoryStore } from '@/stores/storyStore';
+
 import { getEntityTypeConfig, renderEntityIcon } from './entityTypeConfig';
 
 interface MasterFlowToolbarProps {
@@ -54,7 +52,6 @@ const MasterFlowToolbarComponent = ({ onAddNode }: MasterFlowToolbarProps) => {
 
   const temporalStore = useMasterFlowStore.temporal;
   const { undo, redo, pastStates, futureStates } = useTemporalStore(temporalStore);
-  const { activeProject } = useStoryStore();
   const { zoomIn, zoomOut, fitView, getZoom } = useReactFlow();
 
   const [showAddMenu, setShowAddMenu] = useState(false);

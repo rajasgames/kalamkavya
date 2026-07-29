@@ -1,7 +1,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import { Entity, CharacterData } from '@/types';
 import { Label, Input, TagInput } from '@/components/ui';
-import { Target, Heart, Brain, Activity, User, Star, Users, Shield, Crown, Image as ImageIcon, Plus, Trash2 } from 'lucide-react';
+import { Target, Heart, Brain, Activity, User, Star, Users, Shield, Crown, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
 import { hasGenreModule } from '@/lib/genres/genreRegistry';
 

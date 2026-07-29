@@ -1,0 +1,9 @@
+C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\deps\windows_version-c542ec36ab1152c4.d: C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\lib.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\bindings.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\../readme.md
+
+C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\deps\libwindows_version-c542ec36ab1152c4.rlib: C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\lib.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\bindings.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\../readme.md
+
+C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\deps\libwindows_version-c542ec36ab1152c4.rmeta: C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\lib.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\bindings.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\../readme.md
+
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\lib.rs:
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\bindings.rs:
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\windows-version-0.1.7\src\../readme.md:

@@ -1,0 +1,1 @@
+cargo:rustc-link-search=native=C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\build\webview2-com-sys-04f50f19da8dca24\out\x64

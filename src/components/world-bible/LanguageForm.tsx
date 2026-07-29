@@ -14,9 +14,9 @@ export function LanguageForm({ entity, onSave }: LanguageFormProps) {
   const initialData = (entity.data as unknown as Partial<LanguageData>) || {};
 
   const [name, setName] = useState(entity.name);
-  const [writingSystem, setWritingSystem] = useState(initialData.writingSystem || 'Alphabetic');
+  const [writingSystem, setWritingSystem] = useState<string>(initialData.writingSystem || 'Alphabetic');
   const [grammarRules, setGrammarRules] = useState(initialData.grammarRules || '');
-  const [history, setHistory] = useState(initialData.history || '');
+  const [history] = useState(initialData.history || '');
   
   const [nativeSpeakerIds, setNativeSpeakerIds] = useState<string[]>(initialData.nativeSpeakerIds || []);
   const [commonPhrases, setCommonPhrases] = useState<string[]>(initialData.commonPhrases || []);

@@ -1,0 +1,10 @@
+C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\deps\wry-d0369543385cf50a.d: C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\lib.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\application.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\mod.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\web_context.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\webview2\mod.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\webview2\file_drop.rs
+
+C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\deps\libwry-d0369543385cf50a.rmeta: C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\lib.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\application.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\mod.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\web_context.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\webview2\mod.rs C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\webview2\file_drop.rs
+
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\lib.rs:
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\application.rs:
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\mod.rs:
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\web_context.rs:
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\webview2\mod.rs:
+C:\Users\rajag.RAJA\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\wry-0.24.12\src\webview\webview2\file_drop.rs:

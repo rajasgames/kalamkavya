@@ -1,0 +1,703 @@
+   0.467389000s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/Check { test: false }/TargetInner { name: "inkwell", doc: true, ..: with_path("C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\src\\main.rs", Edition2021) }
+   0.467440600s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-2f48da93bd9c7ec8\bin-inkwell`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+   0.474658800s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/RunCustomBuild/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\build.rs", Edition2021) }
+   0.474677900s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-0ef1227f30d1e987\run-build-script-build-script-build`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.474827100s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/Build/TargetInner { ..: custom_build_target("build-script-build", "C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\build.rs", Edition2021) }
+   0.474836300s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="build-script-build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-fc9c3c9725a04e57\build-script-build-script-build`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.475215000s  INFO prepare_target{force=false package_id=tauri-build v1.5.6 target="tauri_build"}: cargo::core::compiler::fingerprint: fingerprint error for tauri-build v1.5.6/Build/TargetInner { ..: lib_target("tauri_build", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-build-1.5.6\\src\\lib.rs", Edition2021) }
+   0.475232500s  INFO prepare_target{force=false package_id=tauri-build v1.5.6 target="tauri_build"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tauri-build-4974b0ebe64e8f1f\lib-tauri_build`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.488941200s  INFO prepare_target{force=false package_id=tauri-utils v1.6.2 target="tauri_utils"}: cargo::core::compiler::fingerprint: fingerprint error for tauri-utils v1.6.2/Build/TargetInner { ..: lib_target("tauri_utils", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-utils-1.6.2\\src\\lib.rs", Edition2021) }
+   0.488965400s  INFO prepare_target{force=false package_id=tauri-utils v1.6.2 target="tauri_utils"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tauri-utils-942d39cf99491b9f\lib-tauri_utils`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.526408900s  INFO prepare_target{force=false package_id=tauri v1.8.3 target="tauri"}: cargo::core::compiler::fingerprint: fingerprint error for tauri v1.8.3/Check { test: false }/TargetInner { ..: lib_target("tauri", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-1.8.3\\src\\lib.rs", Edition2021) }
+   0.526432300s  INFO prepare_target{force=false package_id=tauri v1.8.3 target="tauri"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tauri-15c6d35e4828f809\lib-tauri`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_libgit2_prerelease
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: git_midx_writer_dump
+  18: git_filter_source_repo
+  19: git_midx_writer_dump
+  20: BaseThreadInitThunk
+  21: RtlUserThreadStart
+   0.530936600s  INFO prepare_target{force=false package_id=futures-util v0.3.33 target="futures_util"}: cargo::core::compiler::fingerprint: fingerprint error for futures-util v0.3.33/Check { test: false }/TargetInner { ..: lib_target("futures_util", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\futures-util-0.3.33\\src\\lib.rs", Edition2018) }
+   0.530972200s  INFO prepare_target{force=false package_id=futures-util v0.3.33 target="futures_util"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\futures-util-948bc4e4e2b2c427\lib-futures_util`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.533722000s  INFO prepare_target{force=false package_id=ignore v0.4.31 target="ignore"}: cargo::core::compiler::fingerprint: fingerprint error for ignore v0.4.31/Check { test: false }/TargetInner { benched: false, ..: lib_target("ignore", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\ignore-0.4.31\\src\\lib.rs", Edition2024) }
+   0.533755200s  INFO prepare_target{force=false package_id=ignore v0.4.31 target="ignore"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\ignore-148a784b3e6db4a2\lib-ignore`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.542201200s  INFO prepare_target{force=false package_id=rfd v0.10.0 target="rfd"}: cargo::core::compiler::fingerprint: fingerprint error for rfd v0.10.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("rfd", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\rfd-0.10.0\\src\\lib.rs", Edition2021) }
+   0.542236800s  INFO prepare_target{force=false package_id=rfd v0.10.0 target="rfd"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\rfd-d36cee0bfb0d65e7\lib-rfd`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.543717900s  INFO prepare_target{force=false package_id=windows v0.37.0 target="windows"}: cargo::core::compiler::fingerprint: fingerprint error for windows v0.37.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("windows", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-0.37.0\\src\\lib.rs", Edition2018) }
+   0.543738200s  INFO prepare_target{force=false package_id=windows v0.37.0 target="windows"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\windows-18708e4425354978\lib-windows`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.547745900s  INFO prepare_target{force=false package_id=tauri-macros v1.4.7 target="tauri_macros"}: cargo::core::compiler::fingerprint: fingerprint error for tauri-macros v1.4.7/Build/TargetInner { for_host: true, proc_macro: true, ..: lib_target("tauri_macros", ["proc-macro"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-macros-1.4.7\\src\\lib.rs", Edition2021) }
+   0.547767900s  INFO prepare_target{force=false package_id=tauri-macros v1.4.7 target="tauri_macros"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tauri-macros-deb312422ab0143a\lib-tauri_macros`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.548469700s  INFO prepare_target{force=false package_id=tauri-codegen v1.4.6 target="tauri_codegen"}: cargo::core::compiler::fingerprint: fingerprint error for tauri-codegen v1.4.6/Build/TargetInner { ..: lib_target("tauri_codegen", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-codegen-1.4.6\\src\\lib.rs", Edition2021) }
+   0.548481700s  INFO prepare_target{force=false package_id=tauri-codegen v1.4.6 target="tauri_codegen"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tauri-codegen-b4537186c6b0d7de\lib-tauri_codegen`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.553655600s  INFO prepare_target{force=false package_id=tauri-runtime v0.14.6 target="tauri_runtime"}: cargo::core::compiler::fingerprint: fingerprint error for tauri-runtime v0.14.6/Check { test: false }/TargetInner { ..: lib_target("tauri_runtime", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-runtime-0.14.6\\src\\lib.rs", Edition2021) }
+   0.553687500s  INFO prepare_target{force=false package_id=tauri-runtime v0.14.6 target="tauri_runtime"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tauri-runtime-a6805cbfad3b32dc\lib-tauri_runtime`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.555899700s  INFO prepare_target{force=false package_id=tauri-utils v1.6.2 target="tauri_utils"}: cargo::core::compiler::fingerprint: fingerprint error for tauri-utils v1.6.2/Check { test: false }/TargetInner { ..: lib_target("tauri_utils", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-utils-1.6.2\\src\\lib.rs", Edition2021) }
+   0.555956100s  INFO prepare_target{force=false package_id=tauri-utils v1.6.2 target="tauri_utils"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tauri-utils-9eb43660a41d3a70\lib-tauri_utils`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.568428700s  INFO prepare_target{force=false package_id=webview2-com v0.19.1 target="webview2_com"}: cargo::core::compiler::fingerprint: fingerprint error for webview2-com v0.19.1/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("webview2_com", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\webview2-com-0.19.1\\src\\lib.rs", Edition2021) }
+   0.568454500s  INFO prepare_target{force=false package_id=webview2-com v0.19.1 target="webview2_com"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\webview2-com-7d0c53bb5193fe0c\lib-webview2_com`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.568944500s  INFO prepare_target{force=false package_id=webview2-com-sys v0.19.0 target="webview2_com_sys"}: cargo::core::compiler::fingerprint: fingerprint error for webview2-com-sys v0.19.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("webview2_com_sys", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\webview2-com-sys-0.19.0\\src\\lib.rs", Edition2021) }
+   0.568965000s  INFO prepare_target{force=false package_id=webview2-com-sys v0.19.0 target="webview2_com_sys"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\webview2-com-sys-00ba7ffc4dd8fa1f\lib-webview2_com_sys`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.572477000s  INFO prepare_target{force=false package_id=windows v0.39.0 target="windows"}: cargo::core::compiler::fingerprint: fingerprint error for windows v0.39.0/Check { test: false }/TargetInner { name_inferred: true, ..: lib_target("windows", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\windows-0.39.0\\src\\lib.rs", Edition2018) }
+   0.572509900s  INFO prepare_target{force=false package_id=windows v0.39.0 target="windows"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\windows-be670b02e21d00f8\lib-windows`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_filter_source_repo
+  16: git_libgit2_prerelease
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: <unknown>
+  21: git_midx_writer_dump
+  22: git_filter_source_repo
+  23: git_midx_writer_dump
+  24: BaseThreadInitThunk
+  25: RtlUserThreadStart
+   0.574546200s  INFO prepare_target{force=false package_id=tauri-runtime-wry v0.14.11 target="tauri_runtime_wry"}: cargo::core::compiler::fingerprint: fingerprint error for tauri-runtime-wry v0.14.11/Check { test: false }/TargetInner { ..: lib_target("tauri_runtime_wry", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tauri-runtime-wry-0.14.11\\src\\lib.rs", Edition2021) }
+   0.574572000s  INFO prepare_target{force=false package_id=tauri-runtime-wry v0.14.11 target="tauri_runtime_wry"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tauri-runtime-wry-6aa885de74a8727c\lib-tauri_runtime_wry`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.576722600s  INFO prepare_target{force=false package_id=wry v0.24.12 target="wry"}: cargo::core::compiler::fingerprint: fingerprint error for wry v0.24.12/Check { test: false }/TargetInner { ..: lib_target("wry", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\wry-0.24.12\\src\\lib.rs", Edition2021) }
+   0.576746800s  INFO prepare_target{force=false package_id=wry v0.24.12 target="wry"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\wry-d0369543385cf50a\lib-wry`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_libgit2_prerelease
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: git_midx_writer_dump
+  20: git_filter_source_repo
+  21: git_midx_writer_dump
+  22: BaseThreadInitThunk
+  23: RtlUserThreadStart
+   0.577500100s  INFO prepare_target{force=false package_id=tao v0.16.11 target="tao"}: cargo::core::compiler::fingerprint: fingerprint error for tao v0.16.11/Check { test: false }/TargetInner { ..: lib_target("tao", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tao-0.16.11\\src\\lib.rs", Edition2021) }
+   0.577516700s  INFO prepare_target{force=false package_id=tao v0.16.11 target="tao"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tao-f41874d4e66d19f3\lib-tao`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_filter_source_repo
+  14: git_filter_source_repo
+  15: git_libgit2_prerelease
+  16: <unknown>
+  17: <unknown>
+  18: <unknown>
+  19: <unknown>
+  20: git_midx_writer_dump
+  21: git_filter_source_repo
+  22: git_midx_writer_dump
+  23: BaseThreadInitThunk
+  24: RtlUserThreadStart
+   0.582607000s  INFO prepare_target{force=false package_id=tokio v1.53.1 target="tokio"}: cargo::core::compiler::fingerprint: fingerprint error for tokio v1.53.1/Check { test: false }/TargetInner { ..: lib_target("tokio", ["lib"], "C:\\Users\\rajag.RAJA\\.cargo\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\tokio-1.53.1\\src\\lib.rs", Edition2021) }
+   0.582635300s  INFO prepare_target{force=false package_id=tokio v1.53.1 target="tokio"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\tokio-c073df2606ecf507\lib-tokio`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_filter_source_repo
+  12: git_filter_source_repo
+  13: git_libgit2_prerelease
+  14: <unknown>
+  15: <unknown>
+  16: <unknown>
+  17: <unknown>
+  18: git_midx_writer_dump
+  19: git_filter_source_repo
+  20: git_midx_writer_dump
+  21: BaseThreadInitThunk
+  22: RtlUserThreadStart
+   0.583117500s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint: fingerprint error for inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)/Check { test: true }/TargetInner { name: "inkwell", doc: true, ..: with_path("C:\\Users\\rajag.RAJA\\Documents\\inkwell_pro\\src-tauri\\src\\main.rs", Edition2021) }
+   0.583132000s  INFO prepare_target{force=false package_id=inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri) target="inkwell"}: cargo::core::compiler::fingerprint:     err: failed to read `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\.fingerprint\inkwell-3f5a6ef134a733e5\test-bin-inkwell`
+
+Caused by:
+    The system cannot find the file specified. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+    Checking windows v0.39.0
+   Compiling tauri-utils v1.6.2
+    Checking windows v0.37.0
+    Checking futures-util v0.3.33
+    Checking ignore v0.4.31
+    Checking tokio v1.53.1
+   Compiling tauri-codegen v1.4.6
+   Compiling tauri-build v1.5.6
+   Compiling tauri-macros v1.4.7
+   Compiling inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)
+    Checking rfd v0.10.0
+error: failed to run custom build command for `inkwell v0.0.0 (C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri)`
+note: To improve backtraces for build dependencies, set the CARGO_PROFILE_DEV_BUILD_OVERRIDE_DEBUG=true environment variable to enable debug information generation.
+
+Caused by:
+  process didn't exit successfully: `C:\Users\rajag.RAJA\Documents\inkwell_pro\src-tauri\target\debug\build\inkwell-fc9c3c9725a04e57\build-script-build` (exit code: 1)
+  --- stdout
+  cargo:rerun-if-env-changed=TAURI_CONFIG
+  cargo:rerun-if-changed=tauri.conf.json
+  cargo:rustc-check-cfg=cfg(desktop)
+  cargo:rustc-cfg=desktop
+  cargo:rustc-check-cfg=cfg(mobile)
+  cargo:rustc-check-cfg=cfg(dev)
+  cargo:rustc-cfg=dev
+  `icons/icon.ico` not found; required for generating a Windows Resource file during tauri-build
+warning: build failed, waiting for other jobs to finish...
+    Checking webview2-com-sys v0.19.0
+    Checking tao v0.16.11
+    Checking webview2-com v0.19.1
+    Checking wry v0.24.12
+    Checking tauri-runtime v0.14.6
+    Checking tauri-runtime-wry v0.14.11
+    Checking tauri v1.8.3

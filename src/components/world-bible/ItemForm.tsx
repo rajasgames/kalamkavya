@@ -14,10 +14,10 @@ export function ItemForm({ entity, onSave }: ItemFormProps) {
   const initialData = (entity.data as unknown as Partial<ItemData>) || {};
 
   const [name, setName] = useState(entity.name);
-  const [itemType, setItemType] = useState(initialData.itemType || 'Artifact');
+  const [itemType, setItemType] = useState<string>(initialData.itemType || 'Artifact');
   const [originRegionId, setOriginRegionId] = useState(initialData.originRegionId || '');
   const [currentOwnerId, setCurrentOwnerId] = useState(initialData.currentOwnerId || '');
-  const [value, setValue] = useState(initialData.value || '');
+  const [value] = useState(initialData.value || '');
   const [history, setHistory] = useState(initialData.history || '');
   
   const [materials, setMaterials] = useState<string[]>(initialData.materials || []);
