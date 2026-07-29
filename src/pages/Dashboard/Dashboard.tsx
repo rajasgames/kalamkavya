@@ -181,9 +181,9 @@ export function Dashboard() {
                   key={opt.key}
                   onClick={() => handleLoadSample(opt.key)}
                   disabled={loadingSample !== null}
-                  className="flex flex-col items-start gap-2 p-5 bg-surface border border-subtle rounded-xl glass-card-hover text-left disabled:opacity-50 group hover:border-primary transition-colors"
+                  className="flex flex-col items-start gap-2 p-5 bg-surface border border-subtle text-left disabled:opacity-50 group hover:border-primary transition-colors"
                 >
-                  <div className="p-2.5 rounded-xl bg-deep text-primary mb-1 group-hover:scale-110 transition-transform">
+                  <div className="mb-1 text-primary group-hover:scale-105 transition-transform">
                     <opt.Icon size={24} />
                   </div>
                   <span className="font-bold text-base text-primary">{opt.label}</span>
@@ -199,9 +199,9 @@ export function Dashboard() {
       ) : (
         // ── Active project hero — condensed: text-2xl, p-6, tighter premise margin ──
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <Card className="col-span-1 lg:col-span-2 p-6 flex flex-col justify-center bg-surface border border-subtle glass-card-hover">
+          <Card className="col-span-1 lg:col-span-2 p-6 flex flex-col justify-center bg-surface border border-subtle rounded-none">
             <div className="flex items-center gap-2 mb-2">
-              <Badge variant="sage" caps>{getGenreLabel(activeProject)}</Badge>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-secondary border border-subtle px-2 py-0.5">{getGenreLabel(activeProject)}</span>
             </div>
             <h2 className="text-2xl font-sans font-bold text-primary mb-2">{activeProject.title}</h2>
             <p className="text-secondary mb-5 line-clamp-2">{activeProject.premise}</p>
@@ -223,7 +223,7 @@ export function Dashboard() {
           </Card>
 
           {/* Progress Ring — condensed to match hero density */}
-          <Card className="col-span-1 p-6 flex flex-col items-center justify-center text-center bg-surface border border-subtle glass-card-hover">
+          <Card className="col-span-1 p-6 flex flex-col items-center justify-center text-center bg-surface border border-subtle rounded-none">
             <h3 className="text-xs font-bold tracking-wider text-ghost uppercase mb-4">Manuscript Progress</h3>
             <ProgressRing currentWordCount={totalWordCount} targetWordCount={activeProject.targetWordCount || 50000} size={130} strokeWidth={9} />
             <div className="mt-4 text-sm text-secondary">
@@ -259,11 +259,11 @@ export function Dashboard() {
                 <Card 
                   key={scene.id} 
                   hoverable 
-                  className="p-5 flex flex-col cursor-pointer bg-canvas border border-subtle rounded-xl glass-card-hover"
+                  className="p-5 flex flex-col cursor-pointer bg-canvas border border-subtle rounded-none group hover:border-primary transition-colors"
                   onClick={() => navigate('/manuscript/editor')}
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <Badge variant="sage">{scene.wordCount} words</Badge>
+                    <span className="text-xs font-medium text-secondary">{scene.wordCount} words</span>
                     <span className="text-xs text-ghost">{getRelativeTime(scene.updatedAt || Date.now())}</span>
                   </div>
                   <h4 className="text-primary font-bold mb-1">{scene.title}</h4>
@@ -302,15 +302,15 @@ export function Dashboard() {
               return (
                 <Card 
                   key={project.id} 
-                  className={`p-6 flex flex-col glass-card-hover bg-canvas rounded-xl border ${isActive ? 'border-primary bg-surface' : 'border-subtle hover:border-primary'}`}
+                  className={`p-6 flex flex-col rounded-none border group transition-colors ${isActive ? 'border-primary bg-surface' : 'border-subtle bg-canvas hover:border-primary'}`}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex flex-col gap-1">
                       <h4 className="text-base font-bold text-primary">{project.title}</h4>
-                      <Badge variant="sage" caps>{getGenreLabel(project)}</Badge>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-secondary border border-subtle px-2 py-0.5 inline-block w-max">{getGenreLabel(project)}</span>
                     </div>
                     {isActive && (
-                      <Badge variant="terracotta" caps className="shrink-0 ml-2">Active</Badge>
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-primary border border-primary px-2 py-0.5 shrink-0 ml-2">Active</span>
                     )}
                   </div>
                   <p className="text-sm text-secondary mb-5 line-clamp-2 flex-1 mt-2">{project.premise}</p>
@@ -329,8 +329,11 @@ export function Dashboard() {
                     </Button>
                     <Button 
                       variant="ghost" 
-                      className="text-red-500 hover:bg-red-500/10 hover:text-red-500 px-3" 
-                      onClick={() => setProjectToDelete(project)}
+                      className="text-secondary hover:bg-black/5 hover:text-primary px-3 opacity-0 group-hover:opacity-100 transition-opacity" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setProjectToDelete(project);
+                      }}
                       title="Delete project"
                     >
                       <Trash2 size={18} />

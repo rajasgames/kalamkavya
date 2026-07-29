@@ -125,14 +125,14 @@ export const Sidebar = () => {
                     <button
                       data-tour-id={`pillar-${pillar.id}`}
                       onClick={() => handlePillarClick(pillar)}
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 relative group active:scale-[0.98] ${
+                      className={`w-10 h-10 flex items-center justify-center transition-all duration-200 relative group active:scale-[0.98] ${
                         isActive 
-                          ? 'text-terracotta font-semibold bg-terracotta/10' 
-                          : 'text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
+                          ? 'text-primary font-bold bg-transparent' 
+                          : 'text-ghost hover:text-primary'
                       }`}
                     >
                       {isActive && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 rounded-r-md bg-terracotta pointer-events-none" />
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-6 bg-primary pointer-events-none" />
                       )}
                       <pillar.icon size={20} className="relative z-10 shrink-0" />
                     </button>
@@ -155,7 +155,7 @@ export const Sidebar = () => {
                 <button
                   data-tour-id="ai-assistant"
                   onClick={() => setAIDrawerOpen(true)}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-terracotta hover:bg-terracotta/15 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                  className="w-10 h-10 flex items-center justify-center text-primary hover:bg-deep active:scale-95 transition-all duration-200 relative group"
                 >
                   <Sparkles size={20} className="shrink-0" />
                 </button>
@@ -174,7 +174,7 @@ export const Sidebar = () => {
                 <button
                   data-tour-id="ai-settings"
                   onClick={() => setAISettingsOpen(true)}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                  className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary hover:bg-deep active:scale-95 transition-all duration-200 relative group"
                 >
                   <Settings size={20} className="shrink-0" />
                 </button>
@@ -193,7 +193,7 @@ export const Sidebar = () => {
                 <button
                   data-tour-id="user-guide"
                   onClick={() => setOnboardingOpen(true)}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-ghost hover:text-terracotta hover:bg-black/5 dark:hover:bg-white/5 hover:scale-105 active:scale-95 transition-all duration-200 relative group"
+                  className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary hover:bg-deep active:scale-95 transition-all duration-200 relative group"
                 >
                   <HelpCircle size={20} className="shrink-0" />
                 </button>
@@ -215,7 +215,7 @@ export const Sidebar = () => {
                 <button 
                   data-tour-id="global-search"
                   onClick={openSearch}
-                  className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
+                  className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 hover:bg-deep active:scale-95 relative group"
                 >
                   <Search size={18} className="shrink-0" />
                 </button>
@@ -233,7 +233,7 @@ export const Sidebar = () => {
               >
                 <button 
                   onClick={() => setSidebarExpanded(!isSidebarExpanded)}
-                  className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 rounded-xl hover:bg-black/5 dark:hover:bg-white/5 active:scale-95 relative group"
+                  className="w-10 h-10 flex items-center justify-center text-ghost hover:text-primary transition-all duration-200 hover:bg-deep active:scale-95 relative group"
                 >
                   {isSidebarExpanded ? <PanelLeftClose size={18} className="shrink-0" /> : <PanelLeftOpen size={18} className="shrink-0" />}
                 </button>
@@ -262,14 +262,13 @@ export const Sidebar = () => {
                       <Link
                         key={sub.id}
                         to={sub.href}
-                        className={`px-3 py-2 text-sm rounded-xl transition-all duration-200 border border-transparent flex items-center gap-2 group ${
+                        className={`px-3 py-2 text-sm transition-all duration-200 border-l-2 flex items-center gap-2 group ${
                           isSubActive
-                            ? 'bg-terracotta/10 text-terracotta border-terracotta/20 shadow-soft font-semibold'
-                            : 'text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5'
+                            ? 'text-primary font-bold border-primary'
+                            : 'text-secondary hover:text-primary border-transparent hover:border-subtle'
                         }`}
                       >
-                        {isSubActive && <div className="w-1.5 h-1.5 rounded-full bg-terracotta shrink-0" />}
-                        <span className={isSubActive ? 'translate-x-0 transition-transform' : 'group-hover:translate-x-1 transition-transform'}>{sub.label}</span>
+                        <span className={isSubActive ? 'translate-x-1 transition-transform' : 'group-hover:translate-x-1 transition-transform'}>{sub.label}</span>
                       </Link>
                     );
                   })}
@@ -285,20 +284,20 @@ export const Sidebar = () => {
                   <>
                     <button
                       onClick={() => navigate('/') }
-                      className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
+                      className="px-3 py-2 text-sm text-secondary hover:text-primary transition-all duration-200 flex items-center gap-2 group border-l-2 border-transparent hover:border-subtle"
                     >
-                      <PlusCircle size={14} className="shrink-0 text-terracotta" />
-                      <span className="group-hover:translate-x-0.5 transition-transform">New Project</span>
+                      <PlusCircle size={14} className="shrink-0 text-primary" />
+                      <span className="group-hover:translate-x-1 transition-transform">New Project</span>
                     </button>
                     <button
                       onClick={async () => {
                         await useStoryStore.getState().setActiveProject(null);
                         navigate('/');
                       }}
-                      className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
+                      className="px-3 py-2 text-sm text-secondary hover:text-primary transition-all duration-200 flex items-center gap-2 group border-l-2 border-transparent hover:border-subtle"
                     >
-                      <ArrowRight size={14} className="shrink-0 text-terracotta" />
-                      <span className="group-hover:translate-x-0.5 transition-transform">Explore Sample Worlds</span>
+                      <ArrowRight size={14} className="shrink-0 text-primary" />
+                      <span className="group-hover:translate-x-1 transition-transform">Explore Sample Worlds</span>
                     </button>
                   </>
                 )}
@@ -306,17 +305,17 @@ export const Sidebar = () => {
                   <>
                     <button
                       onClick={() => navigate('/world-bible')}
-                      className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
+                      className="px-3 py-2 text-sm text-secondary hover:text-primary transition-all duration-200 flex items-center gap-2 group border-l-2 border-transparent hover:border-subtle"
                     >
-                      <BookOpen size={14} className="shrink-0 text-terracotta" />
-                      <span className="group-hover:translate-x-0.5 transition-transform">Browse Entries</span>
+                      <BookOpen size={14} className="shrink-0 text-primary" />
+                      <span className="group-hover:translate-x-1 transition-transform">Browse Entries</span>
                     </button>
                     <button
                       onClick={() => navigate('/world-bible')}
-                      className="px-3 py-2 text-sm rounded-xl text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-200 flex items-center gap-2 group"
+                      className="px-3 py-2 text-sm text-secondary hover:text-primary transition-all duration-200 flex items-center gap-2 group border-l-2 border-transparent hover:border-subtle"
                     >
-                      <PlusCircle size={14} className="shrink-0 text-terracotta" />
-                      <span className="group-hover:translate-x-0.5 transition-transform">Add Lore Entry</span>
+                      <PlusCircle size={14} className="shrink-0 text-primary" />
+                      <span className="group-hover:translate-x-1 transition-transform">Add Lore Entry</span>
                     </button>
                   </>
                 )}
@@ -339,14 +338,14 @@ export const Sidebar = () => {
                 setActivePillar(pillar.id);
                 navigate(pillar.defaultHref);
               }}
-              className={`flex-1 flex flex-col items-center justify-center py-1.5 px-1 transition-all duration-300 relative z-10 rounded-2xl ${
+              className={`flex-1 flex flex-col items-center justify-center py-1.5 px-1 transition-all duration-300 relative z-10 ${
                 isActive 
-                  ? 'text-terracotta font-bold' 
+                  ? 'text-primary font-bold' 
                   : 'text-ghost hover:text-primary active:scale-95'
               }`}
             >
               {isActive && (
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-terracotta" />
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-[2px] bg-primary" />
               )}
               <pillar.icon size={18} className={`shrink-0`} />
               <span className="text-[10px] font-medium tracking-tight mt-0.5 truncate max-w-full">{pillar.label}</span>

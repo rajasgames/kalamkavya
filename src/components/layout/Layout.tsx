@@ -52,7 +52,7 @@ export const Layout = () => {
       <InkRipple />
 
       {/* Header Bar */}
-      <header className={`h-[56px] shrink-0 border-b border-subtle flex items-center px-4 sm:px-6 justify-between bg-surface/80 backdrop-blur-md z-30 transition-all duration-300 ${isFocusMode ? '-mt-[56px] opacity-0 pointer-events-none' : 'mt-0 opacity-100'}`}>
+      <header className={`h-[56px] shrink-0 border-b border-subtle flex items-center px-4 sm:px-6 justify-between bg-surface z-30 transition-all duration-300 ${isFocusMode ? '-mt-[56px] opacity-0 pointer-events-none' : 'mt-0 opacity-100'}`}>
         <div className="flex items-center gap-4 sm:gap-6 shrink-0 whitespace-nowrap overflow-hidden">
           {/* Main Brand & Title - Strictly in ONE LINE */}
           <div 
@@ -62,10 +62,9 @@ export const Layout = () => {
             title="Kalam Kavya — Return Home"
           >
             <div className="relative w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center shrink-0">
-              <div className="absolute inset-0 bg-terracotta/20 rounded-xl blur-sm group-hover:scale-125 transition-transform duration-300" />
               <img 
                 src="/brand_logo.png" 
-                className="w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shrink-0 relative z-10" 
+                className="w-8 h-8 sm:w-9 sm:h-9 object-contain group-hover:scale-105 transition-transform duration-300 shrink-0 relative z-10" 
                 alt="Kalam Kavya Brand Logo" 
               />
             </div>
@@ -108,13 +107,13 @@ export const Layout = () => {
         </div>
         
         {/* Mobile Floating Bottom Bar */}
-        <div className={`md:hidden fixed bottom-4 left-3 right-3 z-40 h-[64px] rounded-2xl shadow-soft overflow-hidden bg-surface/90 backdrop-blur-xl border border-subtle transition-all duration-300 ${isFocusMode ? 'translate-y-[150%] opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
+        <div className={`md:hidden fixed bottom-0 left-0 right-0 z-40 h-[64px] bg-surface border-t border-subtle transition-transform duration-300 ${isFocusMode ? 'translate-y-[100%] opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
           <Sidebar />
         </div>
 
         {/* Main Content Area */}
         <main className="flex-1 h-full overflow-hidden relative transition-all duration-300 ease-out bg-canvas p-0 md:p-6 pb-24 md:pb-6 flex flex-col">
-          <div className="flex-1 overflow-y-auto w-full h-full rounded-none md:rounded-2xl md:border md:border-subtle md:bg-surface md:shadow-soft">
+          <div className="flex-1 overflow-y-auto w-full h-full md:border md:border-subtle md:bg-surface">
             <Outlet />
           </div>
         </main>

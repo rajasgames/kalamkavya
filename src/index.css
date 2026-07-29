@@ -5,35 +5,35 @@
 @layer base {
   :root {
     /* Backgrounds — Strict Monochrome */
-    --bg-canvas: #FAFAFA;        /* Main page background */
-    --bg-surface: #FFFFFF;       /* Cards, sidebar */
-    --bg-deep: #F0F0F0;          /* Input fields, nested surfaces */
-    --bg-ink: #0A0A0A;           /* High contrast */
+    --bg-canvas: #FFFFFF;        
+    --bg-surface: #F9F9F9;       
+    --bg-deep: #F0F0F0;          
+    --bg-ink: #000000;           
     
     /* Text */
-    --text-primary: #0A0A0A;     
-    --text-secondary: #6B6B6B;   
+    --text-primary: #000000;     
+    --text-secondary: #666666;   
     --text-ghost: #A1A1A1;       
 
     /* Accents & Semantics (Strictly Monochrome) */
-    --terracotta: #0A0A0A;       
-    --sage: #0A0A0A;             
-    --dusty-blue: #0A0A0A;       
-    --destructive: #0A0A0A;      
-    --cream-border: rgba(10, 10, 10, 0.08);
+    --terracotta: #000000;       
+    --sage: #000000;             
+    --dusty-blue: #000000;       
+    --destructive: #000000;      
+    --cream-border: rgba(0, 0, 0, 0.1);
 
     /* Borders */
-    --border-subtle: #E0E0E0;    
+    --border-subtle: #E5E5E5;    
 
     /* Scrollbar */
-    --scrollbar-thumb: #C0C0C0;
+    --scrollbar-thumb: #D4D4D4;
 
     /* Focus Ring */
-    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px #0A0A0A;
+    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px #000000;
 
     /* Shadows - Flattened */
     --shadow-soft: none;
-    --shadow-hover: 0 2px 8px rgba(10, 10, 10, 0.05);
+    --shadow-hover: none;
 
     /* Glass - Removed */
     --surface-glass: #FFFFFF;
@@ -42,22 +42,22 @@
 
   [data-theme="dark"] {
     /* Backgrounds — Strict Monochrome Inverted */
-    --bg-canvas: #0A0A0A;        
-    --bg-surface: #141414;       
-    --bg-deep: #1F1F1F;          
-    --bg-ink: #FAFAFA;           
+    --bg-canvas: #000000;        
+    --bg-surface: #111111;       
+    --bg-deep: #1A1A1A;          
+    --bg-ink: #FFFFFF;           
     
     /* Text */
-    --text-primary: #FAFAFA;     
-    --text-secondary: #A1A1A1;   
-    --text-ghost: #6B6B6B;       
+    --text-primary: #FFFFFF;     
+    --text-secondary: #999999;   
+    --text-ghost: #666666;       
     
     /* Accents (Strictly Monochrome) */
-    --terracotta: #FAFAFA;       
-    --sage: #FAFAFA;             
-    --dusty-blue: #FAFAFA;       
-    --destructive: #FAFAFA;      
-    --cream-border: rgba(250, 250, 250, 0.08);
+    --terracotta: #FFFFFF;       
+    --sage: #FFFFFF;             
+    --dusty-blue: #FFFFFF;       
+    --destructive: #FFFFFF;      
+    --cream-border: rgba(255, 255, 255, 0.1);
     
     /* Borders */
     --border-subtle: #333333;    
@@ -66,14 +66,14 @@
     --scrollbar-thumb: #404040;
     
     /* Focus Ring */
-    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px #FAFAFA;
+    --focus-ring: 0 0 0 2px var(--bg-canvas), 0 0 0 4px #FFFFFF;
     
     /* Shadows */
     --shadow-soft: none;
     --shadow-hover: none;
     
     /* Glass */
-    --surface-glass: #141414;
+    --surface-glass: #111111;
   }
 
   body {
@@ -236,7 +236,7 @@
 
 /* Active paragraph highlight — Typewriter mode feel */
 .tiptap-editor p.is-active {
-  background: rgba(196, 122, 90, 0.04);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 /* Placeholder text */
@@ -349,8 +349,8 @@
 }
 
 .nav-pill-active {
-  background: rgba(217, 119, 6, 0.15);
-  border: 1px solid rgba(217, 119, 6, 0.3);
+  background: var(--bg-deep);
+  border: 1px solid var(--border-subtle);
   color: var(--text-primary);
 }
 
@@ -367,8 +367,8 @@
 }
 
 @keyframes tourSpotlightGlow {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.6), 0 0 25px rgba(217, 119, 6, 0.4); }
-  50% { box-shadow: 0 0 0 6px rgba(217, 119, 6, 0.9), 0 0 40px rgba(217, 119, 6, 0.7); }
+  0%, 100% { box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.2), 0 0 25px rgba(0, 0, 0, 0.1); }
+  50% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 0, 0, 0.2); }
 }
 
 .animate-tour-arrow-horiz {
