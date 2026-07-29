@@ -7,7 +7,7 @@ import { loadFantasySampleData } from '@/lib/sampleData/fantasySampleData';
 import { loadRomComSampleData } from '@/lib/sampleData/romComSampleData';
 import { loadScifiSampleData } from '@/lib/sampleData/scifiSampleData';
 import { Scene, Project } from '@/types';
-import { Card, Button, Badge } from '@/components/ui';
+import { Card, Button } from '@/components/ui';
 import { useUIStore } from '@/stores/uiStore';
 import { ProgressRing } from './ProgressRing';
 import { ActivityHeatmap } from './ActivityHeatmap';

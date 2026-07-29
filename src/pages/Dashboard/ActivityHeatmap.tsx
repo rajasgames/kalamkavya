@@ -28,7 +28,7 @@ export function ActivityHeatmap() {
         <h3 className="text-sm font-bold tracking-wider text-ghost uppercase flex items-center gap-2">
           <Flame size={16} className="text-primary" /> Writing Activity
         </h3>
-        <Badge variant="outline">12 Day Streak</Badge>
+        <Badge variant="ghost">12 Day Streak</Badge>
       </div>
       
       <div className="flex flex-wrap gap-1 mb-2">
