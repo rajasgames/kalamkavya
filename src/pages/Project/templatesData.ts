@@ -85,21 +85,21 @@ export const TEMPLATE_LIBRARY: StructureTemplate[] = [
     ]
   },
   {
-    id: 'vedic_epical',
-    title: 'Vedic Dharmic 4-Purushartha Arc',
+    id: 'grand_mythic_epic',
+    title: 'Grand Mythic Epic Saga (5-Act Arc)',
     category: 'Narrative Arc',
-    genre: 'Vedic & Puranic / Mythic',
+    genre: 'Epic Fantasy / Mythology / Space Opera',
     Icon: Sun,
-    description: 'Cosmic mythic structure balancing Dharma (Duty), Artha (Prosperity), Kama (Desire), & Moksha (Liberation).',
+    description: 'Universal 5-Act mythic structure balancing cosmic order, heroic trials, factional alliance, and legendary resolution.',
     targetWordCount: 90000,
     difficulty: 'Master',
-    tags: ['Vedic', 'Purushartha', 'Epical', 'Cosmic Law'],
+    tags: ['Mythic', 'Epic', 'Cosmic Saga', 'High Fantasy'],
     beats: [
-      { title: 'Khanda I: Cosmic Order & Disruption (Rita)', desc: 'Establish cosmic harmony (Rita) broken by unrighteous Tapas or Adharma.', writingTip: 'Invoke planetary and celestial alignments.', suggestedWordCount: 10000 },
-      { title: 'Khanda II: Royal Assembly & Divine Quest (Artha)', desc: 'Gathering of heroes, Astra sadhana (weapons discipline), and kingdom politics.', writingTip: 'Focus on vow-taking and lineage honor.', suggestedWordCount: 15000 },
-      { title: 'Khanda III: Trial in the Wilderness (Kama)', desc: 'Exile, celestial temptations, forest hermitage encounters, and devotion.', writingTip: 'Explore internal attachments vs duty.', suggestedWordCount: 20000 },
-      { title: 'Khanda IV: Mahayuddha & Cosmic War (Yajna)', desc: 'Epic battle deploying sacred Vyuhas (military arrays) and Astras.', writingTip: 'Treat combat as a sacral ritual.', suggestedWordCount: 25000 },
-      { title: 'Khanda V: Transcendence & Cosmic Order Restored (Moksha)', desc: 'Restoration of universal order, ascension, and liberation from cycle.', writingTip: 'End on philosophical peace and renewal.', suggestedWordCount: 20000 },
+      { title: 'Act I: Primordial Order & The Disruption', desc: 'Establish cosmic harmony and ancient peace broken by an ominous catalyst or dark emergence.', writingTip: 'Highlight the scale of the world and ancestral legacy.', suggestedWordCount: 10000 },
+      { title: 'Act II: The Gathering of Heroes & Artifact Quest', desc: 'Assembling champions, mastering magical/technological artifacts, and kingdom politics.', writingTip: 'Focus on oath-taking and factional dynamics.', suggestedWordCount: 15000 },
+      { title: 'Act III: Trials in the Unknown Wilds', desc: 'Exile into dangerous uncharted frontiers, temptations, internal conflict, and sacrifice.', writingTip: 'Test character convictions and core flaws.', suggestedWordCount: 20000 },
+      { title: 'Act IV: The Climax & Great Realm War', desc: 'The decisive battle deploying legendary arrays, strategy, and ultimate power.', writingTip: 'Maintain high momentum and visceral stakes.', suggestedWordCount: 25000 },
+      { title: 'Act V: Renewal & Legacy Restored', desc: 'Restoration of universal balance, ascension, and establishing a new era.', writingTip: 'Conclude with emotional resonance and world renewal.', suggestedWordCount: 20000 },
     ]
   },
   {

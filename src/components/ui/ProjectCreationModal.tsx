@@ -5,10 +5,11 @@ import { ProgressRing } from '@/pages/Dashboard/ProgressRing';
 import { db } from '@/lib/db/database';
 import { useStoryStore } from '@/stores/storyStore';
 import { useUIStore } from '@/stores/uiStore';
-import { Minus, Plus, ChevronRight, ChevronLeft, Sparkles, PenTool, Sun, Rocket, Heart } from 'lucide-react';
-import { loadVedicSampleData } from '@/lib/vedicSampleData';
+import { Minus, Plus, ChevronRight, ChevronLeft, Sparkles, PenTool, Sword, Rocket, Heart } from 'lucide-react';
+import { loadFantasySampleData } from '@/lib/sampleData/fantasySampleData';
 import { loadRomComSampleData } from '@/lib/sampleData/romComSampleData';
 import { loadScifiSampleData } from '@/lib/sampleData/scifiSampleData';
+import { loadRomanceSampleData } from '@/lib/sampleData/romanceSampleData';
 import { GENRE_MODULE_LIST } from '@/lib/genres/genreRegistry';
 
 const GENRE_OPTIONS = GENRE_MODULE_LIST.map(mod => ({
@@ -25,7 +26,7 @@ export function ProjectCreationModal() {
   const onClose = () => setOpenModal(null);
 
   const [step, setStep] = useState(1);
-  const [template, setTemplate] = useState<'blank' | 'vedic' | 'romcom' | 'scifi'>('vedic');
+  const [template, setTemplate] = useState<'blank' | 'fantasy' | 'romcom' | 'scifi' | 'romance_triangle'>('fantasy');
   const [title, setTitle] = useState('');
   const [genre, setGenre] = useState('action');
   const [premise, setPremise] = useState('');
@@ -39,13 +40,17 @@ export function ProjectCreationModal() {
     if (step === 1 && template !== 'blank') {
       setIsInitializing(true);
       try {
-        if (template === 'vedic') {
-          await loadVedicSampleData(true);
+        if (template === 'fantasy') {
+          const newProjectId = await loadFantasySampleData();
+          await useStoryStore.getState().setActiveProject(newProjectId);
         } else if (template === 'romcom') {
           const newProjectId = await loadRomComSampleData();
           await useStoryStore.getState().setActiveProject(newProjectId);
         } else if (template === 'scifi') {
           const newProjectId = await loadScifiSampleData();
+          await useStoryStore.getState().setActiveProject(newProjectId);
+        } else if (template === 'romance_triangle') {
+          const newProjectId = await loadRomanceSampleData();
           await useStoryStore.getState().setActiveProject(newProjectId);
         }
         onClose();
@@ -81,7 +86,7 @@ export function ProjectCreationModal() {
   const resetState = () => {
     setTimeout(() => {
       setStep(1);
-      setTemplate('vedic');
+      setTemplate('fantasy');
       setTitle('');
       setGenre('action');
       setPremise('');
@@ -141,12 +146,12 @@ export function ProjectCreationModal() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Card 
                 hoverable 
-                className={`p-3.5 cursor-pointer text-center flex flex-col items-center gap-1.5 transition-all ${template === 'vedic' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
-                onClick={() => setTemplate('vedic')}
+                className={`p-3.5 cursor-pointer text-center flex flex-col items-center gap-1.5 transition-all ${template === 'fantasy' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
+                onClick={() => setTemplate('fantasy')}
               >
-                <Sun size={26} className={template === 'vedic' ? 'text-amber-from' : 'text-ghost'} />
-                <span className="font-bold text-xs text-primary">Vedic Cosmology</span>
-                <span className="text-[10px] text-secondary">Complete epic Puranic realms & astras.</span>
+                <Sword size={26} className={template === 'fantasy' ? 'text-amber-from' : 'text-ghost'} />
+                <span className="font-bold text-xs text-primary">High Fantasy Realm</span>
+                <span className="text-[10px] text-secondary">Pre-built realms, mages, & artifacts.</span>
               </Card>
 
               <Card 
@@ -167,6 +172,16 @@ export function ProjectCreationModal() {
                 <Rocket size={26} className={template === 'scifi' ? 'text-amber-from' : 'text-ghost'} />
                 <span className="font-bold text-xs text-primary">Sci-Fi Colony Ship</span>
                 <span className="text-[10px] text-secondary">Colony ship factions, AI logs & mysteries.</span>
+              </Card>
+
+              <Card 
+                hoverable 
+                className={`p-3.5 cursor-pointer text-center flex flex-col items-center gap-1.5 transition-all ${template === 'romance_triangle' ? 'border-amber-from bg-amber-from/5 shadow-[0_0_15px_rgba(212,153,90,0.15)]' : 'border-subtle'}`}
+                onClick={() => setTemplate('romance_triangle')}
+              >
+                <Heart size={26} className={template === 'romance_triangle' ? 'text-amber-from' : 'text-ghost'} />
+                <span className="font-bold text-xs text-primary">Love Triangle Romance</span>
+                <span className="text-[10px] text-secondary">Contemporary romance, deep relationships & 10 chapters.</span>
               </Card>
 
               <Card 

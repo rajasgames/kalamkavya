@@ -16,16 +16,16 @@ import {
   BrainCircuit,
   Layers,
   Award,
-  Sun,
+  Sword,
   Coffee,
   Rocket
 } from 'lucide-react';
 import { useUIStore } from '@/stores/uiStore';
 import { useStoryStore } from '@/stores/storyStore';
-import { db } from '@/lib/db/database';
-import { loadVedicSampleData } from '@/lib/vedicSampleData';
+import { loadFantasySampleData } from '@/lib/sampleData/fantasySampleData';
 import { loadRomComSampleData } from '@/lib/sampleData/romComSampleData';
 import { loadScifiSampleData } from '@/lib/sampleData/scifiSampleData';
+import { loadRomanceSampleData } from '@/lib/sampleData/romanceSampleData';
 import { Modal, Button } from '@/components/ui';
 
 export function OnboardingModal() {
@@ -45,22 +45,22 @@ export function OnboardingModal() {
     setOnboardingOpen(false);
   };
 
-  const handleStartTour = async (sampleKey?: 'vedic' | 'romcom' | 'scifi') => {
+  const handleStartTour = async (sampleKey?: 'fantasy' | 'romcom' | 'scifi' | 'romance_triangle') => {
     localStorage.setItem('kalam-kavya_onboarding_completed', 'true');
     setOnboardingOpen(false);
 
     // If a sample key was chosen or if there is no active project, load sample data first
     if (sampleKey || !activeProject) {
-      const keyToLoad = sampleKey || 'vedic';
+      const keyToLoad = sampleKey || 'fantasy';
       setLoadingSample(keyToLoad);
       try {
         let projectId = '';
-        if (keyToLoad === 'vedic') {
-          await loadVedicSampleData();
-          const projects = await db.projects.toArray();
-          projectId = projects[projects.length - 1]?.id ?? '';
+        if (keyToLoad === 'fantasy') {
+          projectId = await loadFantasySampleData();
         } else if (keyToLoad === 'romcom') {
           projectId = await loadRomComSampleData();
+        } else if (keyToLoad === 'romance_triangle') {
+          projectId = await loadRomanceSampleData();
         } else {
           projectId = await loadScifiSampleData();
         }
@@ -93,7 +93,7 @@ export function OnboardingModal() {
     }
   };
 
-  const handleLoadSample = async (key: 'vedic' | 'romcom' | 'scifi') => {
+  const handleLoadSample = async (key: 'fantasy' | 'romcom' | 'scifi' | 'romance_triangle') => {
     await handleStartTour(key);
   };
 
@@ -505,7 +505,7 @@ export function OnboardingModal() {
                 {/* Primary CTA: Launch Guided Tour */}
                 <div className="pt-2">
                   <button
-                    onClick={() => handleStartTour('vedic')}
+                    onClick={() => handleStartTour('fantasy')}
                     disabled={loadingSample !== null}
                     className="w-full max-w-md mx-auto p-4 rounded-2xl bg-terracotta text-white hover:bg-terracotta/90 transition-all font-bold text-sm sm:text-base flex items-center justify-center gap-3 shadow-lg shadow-terracotta/20 group border border-amber-300/30"
                   >
@@ -528,16 +528,16 @@ export function OnboardingModal() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
                   <button
-                    onClick={() => handleLoadSample('vedic')}
+                    onClick={() => handleLoadSample('fantasy')}
                     disabled={loadingSample !== null}
                     className="p-3.5 rounded-xl bg-base border border-subtle hover:border-terracotta/50 hover:bg-terracotta/5 transition-all group disabled:opacity-50"
                   >
                     <div className="p-2 w-fit rounded-lg bg-terracotta/10 text-terracotta mb-1.5 group-hover:scale-110 transition-transform">
-                      <Sun size={20} />
+                      <Sword size={20} />
                     </div>
-                    <div className="font-bold text-xs text-primary group-hover:text-terracotta">Fantasy Epic</div>
-                    <div className="text-[10px] text-ghost mt-0.5">Pre-built mythology world, characters, & lore</div>
-                    {loadingSample === 'vedic' && <div className="text-[10px] text-terracotta animate-pulse mt-1 font-bold">Loading & starting tour...</div>}
+                    <div className="font-bold text-xs text-primary group-hover:text-terracotta">High Fantasy</div>
+                    <div className="text-[10px] text-ghost mt-0.5">Pre-built fantasy realm, mages, & lore</div>
+                    {loadingSample === 'fantasy' && <div className="text-[10px] text-terracotta animate-pulse mt-1 font-bold">Loading & starting tour...</div>}
                   </button>
 
                   <button
@@ -564,6 +564,19 @@ export function OnboardingModal() {
                     <div className="font-bold text-xs text-primary group-hover:text-terracotta">Sci-Fi Mystery</div>
                     <div className="text-[10px] text-ghost mt-0.5">Generation ship investigation & tech codex</div>
                     {loadingSample === 'scifi' && <div className="text-[10px] text-terracotta animate-pulse mt-1 font-bold">Loading & starting tour...</div>}
+                  </button>
+
+                  <button
+                    onClick={() => handleLoadSample('romance_triangle')}
+                    disabled={loadingSample !== null}
+                    className="p-3.5 rounded-xl bg-base border border-subtle hover:border-terracotta/50 hover:bg-terracotta/5 transition-all group disabled:opacity-50"
+                  >
+                    <div className="p-2 w-fit rounded-lg bg-terracotta/10 text-terracotta mb-1.5 group-hover:scale-110 transition-transform">
+                      <Users size={20} />
+                    </div>
+                    <div className="font-bold text-xs text-primary group-hover:text-terracotta">Love Triangle</div>
+                    <div className="text-[10px] text-ghost mt-0.5">Contemporary romance with complex relationships</div>
+                    {loadingSample === 'romance_triangle' && <div className="text-[10px] text-terracotta animate-pulse mt-1 font-bold">Loading & starting tour...</div>}
                   </button>
                 </div>
               </div>

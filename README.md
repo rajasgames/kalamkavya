@@ -11,7 +11,7 @@
 ![Lint Compliance](https://img.shields.io/badge/lint-ESLint_0_Warnings-blueviolet?style=for-the-badge)
 ![AI Privacy](https://img.shields.io/badge/AI-Local_(Ollama/LM_Studio)_%2B_Cloud-purple?style=for-the-badge)
 
-कalam काvya bridges the gap between distraction-free manuscript drafting, encyclopedic worldbuilding, character cast management, interactive flowcharts, and context-aware artificial intelligence. Whether you are crafting Vedic mythological epics, hard sci-fi sagas, or contemporary romances, कalam काvya gives you complete control over your narrative universe.
+कalam काvya bridges the gap between distraction-free manuscript drafting, encyclopedic worldbuilding, character cast management, interactive flowcharts, and context-aware artificial intelligence. Whether you are crafting high fantasy sagas, hard sci-fi epics, or contemporary romances, कalam काvya gives you complete control over your narrative universe.
 
 ---
 
@@ -27,7 +27,7 @@
 #### 2. 📚 World Bible & Codex
 - **Encyclopedic Lore Categories**: Dedicated management for **Locations, Factions, Magic & Technology Systems, Artifacts, Cultures, Timelines,** and **Codex Entries**.
 - **Master Flowcraft Canvas**: Visual node graph network representing entity relationships, entity classes, and process flows powered by `@xyflow/react`.
-- **Dynamic Genre Modules**: Specialized worldbuilding schemas for **Vedic & Puranic Myth**, **Sci-Fi**, **Contemporary Rom-Com**, **Epic Fantasy**, and **Gothic Mystery**.
+- **Dynamic Genre & Subgenre Modules**: Universal worldbuilding schemas with customizable category reframing for **High Fantasy**, **Sci-Fi**, **Contemporary Rom-Com**, **Cyberpunk**, and **Gothic Mystery**.
 - **Entity Grid & Filter**: Fast visual lookup, custom tags, search, and cross-linked encyclopedic entries.
 
 #### 3. 👥 Cast Studio
@@ -36,7 +36,7 @@
 - **Art Direction & Avatars**: Color palette generators and prompt tools to visualize character concept art.
 
 #### 4. 🛠️ Author's Toolkit
-- **Narrative Templates Library**: Pre-loaded with classic beat sheets including Campbell's *Hero's Journey*, Snyder's *Save the Cat!*, *Vedic Dharmic 4-Purushartha Arc*, *Kishōtenketsu*, and *Cyberpunk Heist*.
+- **Narrative Templates Library**: Pre-loaded with classic beat sheets including Campbell's *Hero's Journey*, Snyder's *Save the Cat!*, *Grand Mythic Epic Saga*, *Kishōtenketsu*, and *Cyberpunk Heist*.
 - **Gamified Word Sprints**: Custom countdown timer widget with live word velocity tracking and session stats.
 - **AI Co-Pilot Drawer**: Brainstorm plot twists, expand prose descriptions, polish dialogue, or generate lore on demand.
 - **Multi-Format Specification & Diagram Exporters**: Export JSON specifications, Markdown narrative outlines, and Mermaid diagram syntax.
@@ -138,7 +138,7 @@ npm run build
 2. Interactive walkthrough of the 4 Core Pillars.
 3. Local & Cloud AI setup instructions.
 4. Shortcut cheat sheets.
-5. Instant load buttons for pre-built sample worlds (**Vedic Myth**, **Mumbai Rom-Com**, and **Generation Ship Sci-Fi**).
+5. Instant load buttons for pre-built sample worlds (**Aethelgard High Fantasy**, **Mumbai Rom-Com**, and **Generation Ship Sci-Fi**).
 
 ---
 

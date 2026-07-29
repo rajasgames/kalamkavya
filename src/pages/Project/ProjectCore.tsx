@@ -11,7 +11,6 @@ import {
   Target, 
   ShieldAlert, 
   Globe,
-  Sun,
   Sword,
   Rocket,
   Coffee,
@@ -36,7 +35,7 @@ export function ProjectCore() {
   const [targetWordCountInput, setTargetWordCountInput] = useState(
     activeProject?.targetWordCount?.toLocaleString() || '50,000'
   );
-  const [selectedGenre, setSelectedGenre] = useState(activeProject?.genreModules?.[0] || 'vedic');
+  const [selectedGenre, setSelectedGenre] = useState(activeProject?.genreModules?.[0] || 'fantasy');
   const [selectedSubGenre, setSelectedSubGenre] = useState(activeProject?.subGenre || '');
   const [tone, setTone] = useState(activeProject?.tone || 'Epic');
   const [pov, setPov] = useState(activeProject?.pov || 'Third Person Limited');
@@ -56,7 +55,7 @@ export function ProjectCore() {
       setTitle(activeProject.title);
       setPremise(activeProject.premise);
       setTargetWordCountInput(activeProject.targetWordCount?.toLocaleString() || '50,000');
-      setSelectedGenre(activeProject.genreModules?.[0] || 'vedic');
+      setSelectedGenre(activeProject.genreModules?.[0] || 'fantasy');
       setSelectedSubGenre(activeProject.subGenre || '');
       setTone(activeProject.tone || 'Epic');
       setPov(activeProject.pov || 'Third Person Limited');
@@ -69,7 +68,7 @@ export function ProjectCore() {
     title !== (activeProject?.title || '') ||
     premise !== (activeProject?.premise || '') ||
     targetWordCountInput.replace(/,/g, '') !== (activeProject?.targetWordCount?.toString() || '50000') ||
-    selectedGenre !== (activeProject?.genreModules?.[0] || 'vedic') ||
+    selectedGenre !== (activeProject?.genreModules?.[0] || 'fantasy') ||
     selectedSubGenre !== (activeProject?.subGenre || '') ||
     tone !== (activeProject?.tone || 'Epic') ||
     pov !== (activeProject?.pov || 'Third Person Limited') ||
@@ -155,7 +154,6 @@ export function ProjectCore() {
 
   const getGenreIcon = (genreId: string) => {
     switch (genreId) {
-      case 'vedic': return <Sun className="text-amber-from" size={18} />;
       case 'fantasy': return <Sword className="text-emerald-500" size={18} />;
       case 'scifi': return <Rocket className="text-blue-500" size={18} />;
       case 'contemporary': return <Coffee className="text-amber-600" size={18} />;
@@ -521,7 +519,7 @@ export function ProjectCore() {
                   <Input
                     value={newCatGroup}
                     onChange={(e) => setNewCatGroup(e.target.value)}
-                    placeholder="e.g. Vedic Lore, Cosmic Planes, Factions"
+                    placeholder="e.g. Cosmic Planes, Magic Systems, Guilds"
                     className="text-xs py-1.5"
                   />
                 </div>
@@ -531,7 +529,7 @@ export function ProjectCore() {
                   <Input
                     value={newCatLabel}
                     onChange={(e) => setNewCatLabel(e.target.value)}
-                    placeholder="e.g. Sacred Rituals, Flying Vimanas"
+                    placeholder="e.g. Secret Societies, Arcane Artifacts"
                     className="text-xs py-1.5"
                   />
                 </div>
@@ -543,14 +541,14 @@ export function ProjectCore() {
                     onChange={(e) => setNewCatType(e.target.value)}
                     className="w-full bg-surface border border-subtle rounded-lg py-1.5 px-2 text-xs font-semibold text-primary outline-none"
                   >
-                    <option value="system">System / Law (system / UNIVERSAL_LAW)</option>
-                    <option value="location">Location / Realm (location / LOKA)</option>
+                    <option value="system">Power System / Laws (system)</option>
+                    <option value="location">Location / Realm (location)</option>
                     <option value="landmark">Landmark / Place (landmark)</option>
                     <option value="character">Character / Archetype (character)</option>
-                    <option value="faction">Faction / Order (faction / FACTION)</option>
-                    <option value="family">Dynasty / Lineage (family / VAMSHA)</option>
-                    <option value="object">Object / Artifact / Weapon (object / ASTRA)</option>
-                    <option value="lore_text">Lore / Text (lore_text / TEXT)</option>
+                    <option value="faction">Faction / Order (faction)</option>
+                    <option value="family">Dynasty / Lineage (family)</option>
+                    <option value="object">Object / Artifact / Weapon (object)</option>
+                    <option value="lore_text">Lore / Document / Myth (lore_text)</option>
                   </select>
                 </div>
 

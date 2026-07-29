@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PenTool, Sparkles, PlusCircle, Trash2, Timer, BookOpen, HelpCircle, Sun, Coffee, Rocket, ArrowRight } from 'lucide-react';
+import { PenTool, Sparkles, PlusCircle, Trash2, Timer, BookOpen, HelpCircle, Sword, Coffee, Rocket, ArrowRight } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
 import { db } from '@/lib/db/database';
-import { loadVedicSampleData } from '@/lib/vedicSampleData';
+import { loadFantasySampleData } from '@/lib/sampleData/fantasySampleData';
 import { loadRomComSampleData } from '@/lib/sampleData/romComSampleData';
 import { loadScifiSampleData } from '@/lib/sampleData/scifiSampleData';
 import { Scene, Project } from '@/types';
@@ -35,7 +35,7 @@ const getRelativeTime = (timestamp: number) => {
   return rtf.format(daysDifference, 'day');
 };
 
-type SampleKey = 'vedic' | 'romcom' | 'scifi';
+type SampleKey = 'fantasy' | 'romcom' | 'scifi';
 
 export function Dashboard() {
   const { activeProject, setActiveProject } = useStoryStore();
@@ -60,10 +60,8 @@ export function Dashboard() {
     setLoadingSample(key);
     try {
       let projectId: string;
-      if (key === 'vedic') {
-        await loadVedicSampleData();
-        const projects = await db.projects.toArray();
-        projectId = projects[projects.length - 1]?.id ?? '';
+      if (key === 'fantasy') {
+        projectId = await loadFantasySampleData();
       } else if (key === 'romcom') {
         projectId = await loadRomComSampleData();
       } else {
@@ -144,7 +142,7 @@ export function Dashboard() {
   };
 
   const sampleOptions = [
-    { key: 'vedic' as SampleKey, Icon: Sun, label: 'Fantasy Epic', desc: 'Epic mythology — gods, realms, and cosmic war' },
+    { key: 'fantasy' as SampleKey, Icon: Sword, label: 'High Fantasy', desc: '"Aethelgard" — realms, mages, and artifacts' },
     { key: 'romcom' as SampleKey, Icon: Coffee, label: 'Romance', desc: '"The Accidental Flatmates" — Mumbai romance' },
     { key: 'scifi' as SampleKey, Icon: Rocket, label: 'Sci-Fi', desc: '"The Silence Between Stars" — generation ship mystery' },
   ];

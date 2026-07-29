@@ -1,9 +1,8 @@
-import { useState, useMemo, useRef, useEffect } from 'react';
-import { Entity, CharacterData } from '@/types';
+import { useState, useRef, useEffect } from 'react';
+import { Entity, CharacterData, Relationship } from '@/types';
 import { Label, Input, TagInput } from '@/components/ui';
 import { Target, Heart, Brain, Activity, User, Star, Users, Shield, Crown, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { useStoryStore } from '@/stores/storyStore';
-import { hasGenreModule } from '@/lib/genres/genreRegistry';
 
 interface CharacterFormProps {
   entity: Entity;
@@ -11,13 +10,8 @@ interface CharacterFormProps {
 }
 
 export function CharacterForm({ entity, onSave }: CharacterFormProps) {
-  const { entities, relationships, addRelationship, deleteRelationship, activeProject } = useStoryStore();
+  const { entities, relationships, addRelationship, deleteRelationship } = useStoryStore();
 
-  const isVedicProject = useMemo(
-    () => hasGenreModule(activeProject?.genreModules, 'vedic'),
-    [activeProject],
-  );
-  
   // Ensure default data shape
   const [formData, setFormData] = useState<CharacterData>(() => {
     const defaultData: CharacterData = {
@@ -73,12 +67,12 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
 
   // Relationship Helpers
   const getRelationshipTarget = (type: string, label: string) => {
-    const rel = relationships.find(r => r.fromEntityId === entity.id && r.type === type && r.metadata?.label === label);
+    const rel = relationships.find((r: Relationship) => r.fromEntityId === entity.id && r.type === type && r.metadata?.label === label);
     return rel ? rel.toEntityId : '';
   };
 
   const handleRelationshipChange = (type: string, label: string, targetId: string) => {
-    const existing = relationships.find(r => r.fromEntityId === entity.id && r.type === type && r.metadata?.label === label);
+    const existing = relationships.find((r: Relationship) => r.fromEntityId === entity.id && r.type === type && r.metadata?.label === label);
     
     if (existing) {
       if (!targetId) {
@@ -93,9 +87,6 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
           type: type,
           directed: true,
           metadata: { label },
-          // @ts-expect-error - temp bypass
-          createdAt: Date.now(),
-          updatedAt: Date.now()
         });
       }
     } else if (targetId) {
@@ -107,16 +98,11 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
         type: type,
         directed: true,
         metadata: { label },
-        // @ts-expect-error - temp bypass
-        createdAt: Date.now(),
-        updatedAt: Date.now()
       });
     }
   };
 
-  const gotras = entities.filter(e => e.type === 'GOTRA');
-  const vamshas = entities.filter(e => e.type === 'VAMSHA');
-  const characters = entities.filter(e => e.type === 'character' && e.id !== entity.id);
+  const characters = entities.filter((e: Entity) => e.type === 'character' && e.id !== entity.id);
 
   return (
     <div className="flex flex-col gap-6">
@@ -210,7 +196,7 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
               className="w-full text-sm bg-base border border-subtle rounded-md px-3 py-2 text-primary outline-none focus:border-sage/50 cursor-pointer"
             >
               <option value="">Unknown / None</option>
-              {characters.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+              {characters.map((c: Entity) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
@@ -221,12 +207,12 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
               className="w-full text-sm bg-base border border-subtle rounded-md px-3 py-2 text-primary outline-none focus:border-sage/50 cursor-pointer"
             >
               <option value="">Unknown / None</option>
-              {characters.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+              {characters.map((c: Entity) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
           <div>
             <label className="text-xs font-bold text-ghost uppercase mb-1 block">
-              {isVedicProject ? 'Vamsha (Dynasty)' : 'Dynasty / Clan'}
+              Dynasty / House / Lineage
             </label>
             <select 
               value={getRelationshipTarget('BELONGS_TO_LINEAGE', 'Vamsha')}
@@ -234,23 +220,10 @@ export function CharacterForm({ entity, onSave }: CharacterFormProps) {
               className="w-full text-sm bg-base border border-subtle rounded-md px-3 py-2 text-primary outline-none focus:border-sage/50 cursor-pointer"
             >
               <option value="">None</option>
-              {(isVedicProject ? vamshas : entities.filter(e => e.type === 'family' || e.type === 'VAMSHA'))
-                .map(v => <option key={v.id} value={v.id}>{v.name}</option>)}
+              {entities.filter((e: Entity) => e.type === 'family' || e.type === 'dynasty' || e.type === 'VAMSHA')
+                .map((v: Entity) => <option key={v.id} value={v.id}>{v.name}</option>)}
             </select>
           </div>
-          {isVedicProject && (
-            <div>
-              <label className="text-xs font-bold text-ghost uppercase mb-1 block">Gotra (Root Lineage)</label>
-              <select 
-                value={getRelationshipTarget('BELONGS_TO_LINEAGE', 'Gotra')}
-                onChange={(e) => handleRelationshipChange('BELONGS_TO_LINEAGE', 'Gotra', e.target.value)}
-                className="w-full text-sm bg-base border border-subtle rounded-md px-3 py-2 text-primary outline-none focus:border-sage/50 cursor-pointer"
-              >
-                <option value="">None</option>
-                {gotras.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
-              </select>
-            </div>
-          )}
         </div>
       </div>
 

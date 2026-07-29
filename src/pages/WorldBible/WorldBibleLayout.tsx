@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Plus, Map, Grid } from 'lucide-react';
+import { Plus, Map, Grid, Sliders } from 'lucide-react';
 import { Entity } from '@/types';
 import { EntityGrid } from '@/components/shared';
 import { Button } from '@/components/ui';
@@ -10,7 +10,8 @@ import {
   AzgaarImporter, 
   RarityTierManager, 
   CatalogView, 
-  MasterEntityCreationModal 
+  MasterEntityCreationModal,
+  SchemaEditorModal,
 } from '@/components/world-bible';
 import { WorldMap } from './WorldMap';
 import { useStoryStore } from '@/stores/storyStore';
@@ -22,6 +23,7 @@ export function WorldBibleLayout() {
   const { activeProject } = useStoryStore();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSchemaEditorOpen, setIsSchemaEditorOpen] = useState(false);
   const [modalDefaultType, setModalDefaultType] = useState('character');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [displayView, setDisplayView] = useState(currentView);
@@ -30,10 +32,10 @@ export function WorldBibleLayout() {
 
   /**
    * Resolve genre modules for the active project.
-   * Legacy projects without genreModules default to ['vedic'] for full backward compat.
+   * Defaults to ['universal'] for genre-agnostic worldbuilding.
    */
   const genreModules = useMemo(
-    () => activeProject?.genreModules ?? ['vedic'],
+    () => activeProject?.genreModules ?? ['universal'],
     [activeProject],
   );
 
@@ -200,6 +202,14 @@ export function WorldBibleLayout() {
                   )}
 
                   <Button
+                    variant="ghost"
+                    onClick={() => setIsSchemaEditorOpen(true)}
+                    className="gap-2 shadow-sm text-xs sm:text-sm border border-subtle hover:border-amber-from/50"
+                  >
+                    <Sliders size={16} className="text-amber-from shrink-0" /> Reframe Schema
+                  </Button>
+
+                  <Button
                     onClick={() => openCreationForTab()}
                     className="gap-2 shadow-sm text-xs sm:text-sm"
                   >
@@ -221,7 +231,7 @@ export function WorldBibleLayout() {
               <div className="flex-1">
                 <CatalogView
                   onEntityClick={handleCatalogEntityClick}
-                  onCreateNew={(type) => openCreationForTab(type)}
+                  onCreateNew={(defaultType: string) => openCreationForTab(defaultType)}
                 />
               </div>
             ) : displayView === 'relationships' ? (
@@ -258,6 +268,11 @@ export function WorldBibleLayout() {
         onClose={() => setIsModalOpen(false)}
         defaultType={modalDefaultType}
         onCreated={(newId) => setActiveEntityId(newId)}
+      />
+
+      <SchemaEditorModal
+        isOpen={isSchemaEditorOpen}
+        onClose={() => setIsSchemaEditorOpen(false)}
       />
     </div>
   );

@@ -18,4 +18,5 @@ export * from './ItemForm';
 export * from './LanguageForm';
 export * from './ReligionForm';
 export * from './PhilosophyForm';
+export * from './SchemaEditorModal';
 export const WorldBiblePlaceholder = () => null;

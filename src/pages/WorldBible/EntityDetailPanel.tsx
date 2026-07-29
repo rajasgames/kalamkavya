@@ -65,25 +65,25 @@ export function EntityDetailPanel({ entityId, onClose, onEntitySelect }: EntityD
           </div>
         ) : entity.type === 'MAGIC_SYSTEM' ? (
           <MagicSystemForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : ['WEAPON', 'ASTRA', 'SHASTRA'].includes(entity.type) ? (
+        ) : ['WEAPON', 'weapon', 'ASTRA', 'SHASTRA'].includes(entity.type) ? (
           <WeaponForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'CULTURE' ? (
           <CultureForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'character' ? (
           <CharacterForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : ['location', 'region', 'landmark', 'LOKA', 'UNIVERSE'].includes(entity.type) ? (
+        ) : ['location', 'region', 'landmark', 'realm', 'world', 'LOKA', 'UNIVERSE'].includes(entity.type) ? (
           <LocationForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : ['creature', 'race', 'YONI_MANUSHYA', 'YONI_DEVA', 'YONI_ASURA', 'YONI_YAKSHA', 'YONI_PASHU'].includes(entity.type) ? (
+        ) : ['creature', 'race', 'species', 'YONI_MANUSHYA', 'YONI_DEVA', 'YONI_ASURA', 'YONI_YAKSHA', 'YONI_PASHU'].includes(entity.type) ? (
           <SpeciesForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : entity.type === 'object' ? (
+        ) : ['object', 'item', 'artifact'].includes(entity.type) ? (
           <ItemForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'language' ? (
           <LanguageForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : entity.type === 'religion' ? (
           <ReligionForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : ['philosophy', 'PHILOSOPHY', 'TEXT'].includes(entity.type) ? (
+        ) : ['philosophy', 'PHILOSOPHY', 'lore_text', 'text', 'TEXT', 'document'].includes(entity.type) ? (
           <PhilosophyForm key={entity.id} entity={entity} onSave={updateEntity} />
-        ) : ['system', 'UNIVERSAL_LAW', 'COSMIC_TIME', 'VYUHA'].includes(entity.type) ? (
+        ) : ['system', 'law', 'magic_system', 'tech_system', 'UNIVERSAL_LAW', 'COSMIC_TIME', 'VYUHA'].includes(entity.type) ? (
           <SystemForm key={entity.id} entity={entity} onSave={updateEntity} />
         ) : (
           <div className="flex flex-col gap-6">

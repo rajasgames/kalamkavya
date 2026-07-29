@@ -199,29 +199,18 @@ export interface CharacterData {
   
   moodboardImages?: string[];
 
-  // --- Vedic-specific fields (only rendered when genre module = 'vedic') ---
-  /** Stage of life per Vedic ashrama system */
-  ashrama?: 'Brahmacharya' | 'Grihastha' | 'Vanaprastha' | 'Sannyasa' | '';
-  practitionerPath?: string;
   attributes?: {
-    discipline: number;
-    strength: number;
-    intelligence: number;
-    perception: number;
-    memory: number;
-    charisma: number;
-    vitality: number;
-    wisdom: number;
-    education: number;
-    senseMastery: number;
-  };
-  spiritualGrowth?: {
-    karmaAccumulation: number;
-    dharmaAlignment: number;
-    tapasGeneration: number;
-    boonAcquisition: string[];
-    curseCleansing: string[];
-    liberationStatus: string;
+    discipline?: number;
+    strength?: number;
+    intelligence?: number;
+    perception?: number;
+    memory?: number;
+    charisma?: number;
+    vitality?: number;
+    wisdom?: number;
+    education?: number;
+    senseMastery?: number;
+    [key: string]: number | undefined;
   };
 }
 
@@ -252,97 +241,3 @@ export interface AiSettings {
   };
 }
 
-// --- Vedic & Puranic Specific Types ---
-
-export interface TapasData {
-  currentTapas: number;
-  maxTapas: number;
-  generationRate: number;
-  siddhis: string[];
-  boons: string[];
-  curses: string[];
-  aiRuleEnabled: boolean;
-  aiRuleText?: string;
-}
-
-export interface AstraData {
-  conduitId: string; // ID of the physical weapon (e.g. bow)
-  mantra: string;
-  tapasCost: number;
-  effects: string[];
-  restrictedToVarna?: string[];
-  aiRuleEnabled: boolean;
-  aiRuleText?: string;
-}
-
-export interface SocialStructureData {
-  varna: 'Brahmin' | 'Kshatriya' | 'Vaishya' | 'Shudra' | 'Outside';
-  jati: string;
-  gotra: string;
-  ashrama: 'Brahmacharya' | 'Grihastha' | 'Vanaprastha' | 'Sannyasa' | '';
-  guruId?: string;
-  shishyaIds: string[];
-}
-
-export interface CosmicHierarchyData {
-  loka: 'Svarga' | 'Martya' | 'Patala';
-  faction: 'Deva' | 'Asura' | 'Neutral';
-  dikpalaZone?: string;
-  isAvatar: boolean;
-  avatarOfId?: string;
-}
-
-export interface KingdomData {
-  rajadharmaLevel: number;
-  chakravartinStatus: boolean;
-  saptanga: {
-    swamiId: string;
-    amatyaIds: string[];
-    janapadaMorale: number;
-    durgaLevel: number;
-    koshaAmount: number;
-    dandaPower: number;
-    mitraIds: string[];
-  };
-  aiRuleEnabled: boolean;
-  aiRuleText?: string;
-}
-
-export interface UniversalLawData {
-  lawType: 'Cosmic Order' | 'Karma' | 'Time' | 'Cycles';
-  dharmaAlignment: number;
-  yugaPhase?: 'Satya' | 'Treta' | 'Dvapara' | 'Kali';
-  description: string;
-}
-
-export interface GodData {
-  godType: 'Tridev' | 'Aditya' | 'Rudra' | 'Vasu' | 'Dikpala' | 'Other';
-  lokaId?: string;
-  corePrinciple: string;
-}
-
-export interface YoniData {
-  yoniType: 'Deva' | 'Asura' | 'Preta' | 'Pashu' | 'Manushya' | 'Yaksha' | 'Other';
-  characteristics: string[];
-}
-
-export interface VamshaData {
-  vamshaType: 'Suryavansha' | 'Chandravansha' | 'Agni' | 'Naga' | 'Other';
-  founderId?: string;
-}
-
-export interface GotraData {
-  rootSage: 'Angiras' | 'Atri' | 'Bhrigu' | 'Kashyapa' | 'Vasistha' | 'Vishvamitra' | 'Gautama' | 'Agastya' | 'Other';
-  pravara: string[];
-}
-
-export interface CombatData {
-  vyuhaFormations: string[];
-  militaryStructure?: 'Chaturanga' | 'Akshauhini';
-  debateModes?: string[];
-}
-
-export interface KnowledgeSystemData {
-  school: 'Nyaya' | 'Samkhya' | 'Vedanta' | 'Other';
-  isGuhyaVidya: boolean;
-}

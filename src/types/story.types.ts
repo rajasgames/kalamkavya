@@ -17,7 +17,7 @@ export interface Project {
   /**
    * List of genre module IDs active for this project.
    * Defaults to ['universal'] for new projects.
-   * Legacy projects without this field are treated as ['vedic'] for backward compat.
+   * Legacy projects without this field are treated as ['universal'] for backward compat.
    */
   genreModules?: string[];
   /** Custom user-defined category groups and schema overrides */
