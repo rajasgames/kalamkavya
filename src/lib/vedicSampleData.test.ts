@@ -27,7 +27,18 @@ describe('vedicSampleData', () => {
     const dbEntities = await db.entities.where('projectId').equals(state.activeProject!.id).toArray();
     expect(dbEntities.length).toBeGreaterThan(10);
 
+    const worldNode = dbEntities.find(e => e.name.includes('World'));
+    const peopleNode = dbEntities.find(e => e.name.includes('People'));
+    const loreNode = dbEntities.find(e => e.name.includes('Lore'));
+
+    expect(worldNode).toBeDefined();
+    expect(peopleNode).toBeDefined();
+    expect(loreNode).toBeDefined();
+
     const dbRels = await db.relationships.where('projectId').equals(state.activeProject!.id).toArray();
     expect(dbRels.length).toBeGreaterThan(5);
+
+    const preceptorRel = dbRels.find(r => r.type === 'LINEAGE_PRECEPTOR');
+    expect(preceptorRel).toBeDefined();
   });
 });
