@@ -521,7 +521,7 @@
 /* ---------- Marching Ants Connection Edges ---------- */
 .flowcraft-edge-path {
   fill: none;
-  stroke-width: 2.2;
+  stroke-width: 4;
   transition: stroke .15s var(--ease), stroke-width .15s;
   cursor: pointer;
 }
@@ -548,16 +548,17 @@
 }
 
 .flowcraft-edge-label-wrapper {
+  position: absolute;
   pointer-events: all;
   cursor: pointer;
 }
 
 .flowcraft-edge-badge {
-  background: var(--ink-800);
+  background: var(--ink-950);
   border: 1px solid var(--hairline-strong);
-  border-radius: var(--radius-pill);
-  padding: 3px 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .4);
+  border-radius: var(--radius-sm);
+  padding: 4px 12px;
+  box-shadow: var(--shadow-float);
   width: max-content;
   white-space: nowrap;
 }

@@ -165,6 +165,23 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
     const rfEdges: Edge[] = projRelationships
       .filter(r => nodeIds.has(r.fromEntityId) && nodeIds.has(r.toEntityId))
       .map(r => {
+        const sourceNodePos = positions[r.fromEntityId] ?? { x: 0, y: 0 };
+        const targetNodePos = positions[r.toEntityId] ?? { x: 0, y: 0 };
+        
+        const dx = targetNodePos.x - sourceNodePos.x;
+        const dy = targetNodePos.y - sourceNodePos.y;
+
+        let sourceHandle = layoutDirection === 'TB' ? 'bottom-source' : 'right-source';
+        let targetHandle = layoutDirection === 'TB' ? 'top-target' : 'left-target';
+
+        if (Math.abs(dx) > Math.abs(dy) * 1.5) {
+           sourceHandle = dx > 0 ? 'right-source' : 'left-source';
+           targetHandle = dx > 0 ? 'left-target' : 'right-target';
+        } else if (Math.abs(dy) > Math.abs(dx) * 1.5) {
+           sourceHandle = dy > 0 ? 'bottom-source' : 'top-source';
+           targetHandle = dy > 0 ? 'top-target' : 'bottom-target';
+        }
+
         const isSelected = r.id === selectedEdgeId;
         const color = getRelationshipColor(r.type);
         const isHierarchy = r.type.toUpperCase().includes('HIERARCHY') ||
@@ -174,6 +191,8 @@ const MasterFlowCanvasInner = ({ onEntitySelect, onRequestAddEntity }: MasterFlo
           id: r.id,
           source: r.fromEntityId,
           target: r.toEntityId,
+          sourceHandle,
+          targetHandle,
           type: 'masterRelation',
           selected: isSelected,
           style: { stroke: color },

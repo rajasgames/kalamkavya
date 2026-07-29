@@ -109,10 +109,14 @@ const MasterFlowNodeComponent = ({ id: nodeId, data, selected }: NodeProps<Maste
       data-type={entityType.toLowerCase()}
     >
       {/* 4-Way Connection Handles */}
-      <Handle type="target" position={Position.Top} id="top" className="flowcraft-handle handle-top" />
-      <Handle type="target" position={Position.Left} id="left" className="flowcraft-handle handle-left" />
-      <Handle type="source" position={Position.Bottom} id="bottom" className="flowcraft-handle handle-bottom" />
-      <Handle type="source" position={Position.Right} id="right" className="flowcraft-handle handle-right" />
+      <Handle type="target" position={Position.Top} id="top-target" className="flowcraft-handle handle-top" />
+      <Handle type="source" position={Position.Top} id="top-source" className="flowcraft-handle handle-top" />
+      <Handle type="target" position={Position.Left} id="left-target" className="flowcraft-handle handle-left" />
+      <Handle type="source" position={Position.Left} id="left-source" className="flowcraft-handle handle-left" />
+      <Handle type="target" position={Position.Bottom} id="bottom-target" className="flowcraft-handle handle-bottom" />
+      <Handle type="source" position={Position.Bottom} id="bottom-source" className="flowcraft-handle handle-bottom" />
+      <Handle type="target" position={Position.Right} id="right-target" className="flowcraft-handle handle-right" />
+      <Handle type="source" position={Position.Right} id="right-source" className="flowcraft-handle handle-right" />
 
       {/* Top Spec Tag Header */}
       <div className="flowcraft-node__header">

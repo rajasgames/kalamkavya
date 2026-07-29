@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, memo } from 'react';
 import {
   EdgeLabelRenderer,
-  getBezierPath,
+  getSmoothStepPath,
   type EdgeProps,
   type Edge,
 } from '@xyflow/react';
@@ -35,9 +35,10 @@ const MasterFlowEdgeComponent = ({
   const relType = data?.relationshipType ?? '';
   const strokeColor = selected ? '#E3A542' : getRelationshipColor(relType);
 
-  const [edgePath, labelX, labelY] = getBezierPath({
+  const [edgePath, labelX, labelY] = getSmoothStepPath({
     sourceX, sourceY, sourcePosition,
     targetX, targetY, targetPosition,
+    borderRadius: 24,
   });
 
   const startEditing = useCallback((e: React.MouseEvent) => {
